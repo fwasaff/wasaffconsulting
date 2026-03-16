@@ -1,0 +1,95 @@
+\chapter{La Danza Final: Interacción Fluido-Estructura}
+\label{chap:fsi}
+
+%==================================================================================
+\section{Cuando el Fluido y el Sólido Bailan Juntos}
+%==================================================================================
+
+Hasta este punto, hemos acoplado la física \textit{dentro} de un mismo dominio: el calor afectaba a la mecánica en un sólido, y la velocidad afectaba al calor en un fluido. Ahora damos el paso final y más complejo: acoplar dos físicas a través de la \textbf{frontera móvil} que las separa. Bienvenidos al mundo de la \textbf{Interacción Fluido-Estructura (FSI)}.
+
+En un problema FSI, el flujo de un fluido ejerce fuerzas sobre una estructura, causando que esta se deforme. Esta deformación, a su vez, altera la forma del dominio del fluido, lo que cambia el patrón de flujo y las fuerzas que ejerce. Este ciclo de retroalimentación es el corazón de algunos de los fenómenos de ingeniería más complejos y fascinantes.
+
+Resolver problemas FSI es uno de los pináculos de la simulación multifísica, ya que requiere un solver robusto tanto para la dinámica de fluidos como para la mecánica de sólidos, y una estrategia inteligente para manejar el acoplamiento y el movimiento de la malla en la interfaz.
+
+\begin{center}
+\begin{tabular}{|p{0.9\textwidth}|}
+\hline
+\textbf{CONTEXTO INGENIERIL} \\
+La FSI es fundamental en el diseño de sistemas donde las estructuras flexibles interactúan con flujos:
+\begin{itemize}
+    \item \textbf{Ingeniería Aeroespacial:} El fenómeno del \textit{flutter} en las alas de los aviones, una vibración autoexcitada que puede llevar a fallos catastróficos.
+    \item \textbf{Ingeniería Biomédica:} El flujo de sangre a través de las válvulas del corazón o en arterias flexibles; el flujo de aire en los pulmones.
+    \item \textbf{Ingeniería Civil:} El efecto del viento sobre puentes colgantes (como el infame caso del puente de Tacoma Narrows), edificios altos y torres.
+    \item \textbf{Energía:} El flujo de agua a través de las palas de una turbina hidroeléctrica.
+\end{itemize}
+\\
+\hline
+\end{tabular}
+\end{center}
+
+%==================================================================================
+\section{La Física del Acoplamiento en una Interfaz Móvil}
+\label{sec:fsi-theory}
+%==================================================================================
+Un problema FSI consta de tres componentes: el dominio del fluido, el dominio del sólido y la interfaz que los une.
+
+%----------------------------------------------------------------------------------
+\subsection{Las Ecuaciones en Cada Dominio}
+%----------------------------------------------------------------------------------
+\begin{itemize}
+    \item \textbf{En el Dominio del Fluido (\(\Omega_f\)):} El flujo se rige por las ecuaciones de \textbf{Navier-Stokes} (Ecuaciones~\eqref{eq:ns-momentum} y \eqref{eq:ns-continuity}).
+    \item \textbf{En el Dominio del Sólido (\(\Omega_s\)):} La deformación se rige por la \textbf{ecuación de la elasticidad} (o elastodinámica si se consideran los efectos inerciales de la estructura), Ecuación~\eqref{eq:equilibrium}.
+\end{itemize}
+
+%----------------------------------------------------------------------------------
+\subsection{Las Condiciones de Acoplamiento en la Interfaz}
+%----------------------------------------------------------------------------------
+La magia de la FSI ocurre en la interfaz \(\Gamma_{FSI}\) que separa el fluido y el sólido. En esta frontera, dos condiciones deben cumplirse simultáneamente:
+\begin{enumerate}
+    \item \textbf{Acoplamiento Cinemático (Condición de No Deslizamiento):} La velocidad del fluido en la interfaz debe ser igual a la velocidad de la estructura en esa misma interfaz. El fluido "se pega" a la estructura.
+    \begin{equation}
+        \bm{u}_f = \frac{\partial \bm{d}_s}{\partial t} \quad \text{en } \Gamma_{FSI}
+        \label{eq:fsi-kinematic}
+    \end{equation}
+    donde \(\bm{u}_f\) es la velocidad del fluido y \(\bm{d}_s\) es el desplazamiento del sólido.
+    \item \textbf{Acoplamiento Dinámico (Equilibrio de Tracciones):} Las fuerzas que el fluido ejerce sobre la estructura deben ser iguales y opuestas a las fuerzas que la estructura ejerce sobre el fluido (tercera ley de Newton).
+    \begin{equation}
+        \bm{\sigma}_f \cdot \bm{n}_f = \bm{\sigma}_s \cdot \bm{n}_s \quad \text{en } \Gamma_{FSI}
+        \label{eq:fsi-dynamic}
+    \end{equation}
+    donde \(\bm{\sigma}_f\) y \(\bm{\sigma}_s\) son los tensores de esfuerzo del fluido y del sólido, respectivamente.
+\end{enumerate}
+
+%----------------------------------------------------------------------------------
+\subsection{El Desafío del Dominio Móvil: La Formulación ALE}
+%----------------------------------------------------------------------------------
+El mayor desafío numérico de la FSI es que el dominio del fluido \(\Omega_f\) cambia de forma a medida que la estructura se deforma. Resolver las ecuaciones de Navier-Stokes en un dominio que se mueve y deforma constantemente es complejo.
+
+La técnica más común para abordar esto es la formulación \textbf{Arbitraria Lagrangeana-Euleriana (ALE)}. La idea es la siguiente:
+\begin{itemize}
+    \item En una descripción \textbf{Lagrangeana} (típica de los sólidos), los nodos de la malla se mueven junto con el material.
+    \item En una descripción \textbf{Euleriana} (típica de los fluidos), la malla está fija y el fluido se mueve a través de ella.
+    \item La descripción \textbf{ALE} es un híbrido. Los nodos de la malla del fluido pueden moverse, pero no necesariamente con la misma velocidad que el fluido.
+\end{itemize}
+En la práctica, hacemos que los nodos de la malla en la interfaz \(\Gamma_{FSI}\) se muevan con la estructura (para satisfacer la condición cinemática), y este movimiento se propaga suavemente hacia el interior de la malla del fluido, a menudo resolviendo una ecuación de elasticidad artificial para la propia malla. Esto requiere modificar las ecuaciones de Navier-Stokes para incluir la velocidad de la malla, \(\bm{w}\), un tema avanzado que se trata en detalle en textos como \cite{Zienkiewicz2014}.
+
+%==================================================================================
+\section{Estrategias de Solución para Problemas FSI}
+\label{sec:fsi-strategy}
+%==================================================================================
+Existen dos grandes familias de estrategias para resolver el sistema FSI acoplado:
+
+\begin{itemize}
+    \item \textbf{Enfoques Monolíticos:} Se construye una única y gigantesca matriz de sistema que incluye todas las incógnitas (velocidad y presión del fluido, y desplazamiento del sólido) y se resuelve todo de una vez en cada paso de tiempo. Son muy precisos y estables, pero extremadamente exigentes computacionalmente y difíciles de implementar.
+    \item \textbf{Enfoques Particionados (o Segregados):} Se utiliza una estrategia de "divide y vencerás", muy similar a la que usamos para la convección forzada. En cada paso de tiempo:
+    \begin{enumerate}
+        \item Se resuelven las ecuaciones del fluido, asumiendo una posición de la estructura.
+        \item Se calculan las fuerzas del fluido sobre la estructura.
+        \item Se pasan estas fuerzas al solver de la estructura.
+        \item Se resuelven las ecuaciones del sólido para encontrar su nueva deformación.
+        \item Se actualiza la posición de la malla del fluido según la deformación de la estructura.
+        \item Se repite el proceso hasta la convergencia.
+    \end{enumerate}
+    Estos métodos son mucho más flexibles y fáciles de implementar, ya que permiten reutilizar solvers de fluidos y sólidos existentes, y son el enfoque más común en el software comercial.
+\end{itemize}
+Con estas herramientas conceptuales, estamos preparados para abordar la simulación de sistemas donde la danza entre el fluido y la estructura define la física del problema.

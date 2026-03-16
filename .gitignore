@@ -1,0 +1,24 @@
+# Secretos y credenciales
+*.p12
+*.pem
+*.key
+config.json
+.env
+**/apis_sii/config.json
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.swp
+__pycache__/
+*.pyc
+
+# Datos sensibles de clientes
+**/comunicaciones/*.eml
+**/datos_personales/
+
+# Archivos grandes de simulación
+*.lammps
+*.dump
+*.xyz
+log.lammps

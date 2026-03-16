@@ -1,0 +1,236 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PLANTILLA DE PROPUESTA TÉCNICA Y COMERCIAL PARA WASAFF CONSULTING
+% VERSIÓN 2.0 (10/10) - ESTRATÉGICA Y ORIENTADA A LA DECISIÓN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper]{article}
+
+%=============== PREÁMBULO: CONFIGURACIÓN DEL DOCUMENTO =======================
+
+% --- Paquetes Esenciales ---
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{booktabs} % Para tablas profesionales
+\usepackage{hyperref} % Para links clickeables y metadata
+
+% --- NUEVO PAQUETE PARA CAJAS RESALTADAS ---
+\usepackage[most]{tcolorbox}
+
+% --- Configuración de Geometría de la Página ---
+\geometry{
+    a4paper,
+    left=2.5cm,
+    right=2.5cm,
+    top=3cm,
+    bottom=3cm,
+    headheight=15pt % Espacio para el encabezado
+}
+
+% --- Definición de Colores de la Marca ---
+\definecolor{WasaffNavy}{HTML}{001F3F}
+\definecolor{WasaffCopper}{HTML}{B87333}
+\definecolor{LightGray}{HTML}{F5F5F5} % Un gris claro para fondos
+
+% --- Configuración de Fuentes y Títulos ---
+\usepackage{tgheros} % TeX Gyre Heros (clon de Helvetica) para un look moderno
+\renewcommand*\familydefault{\sfdefault} % Hacer Sans-serif la fuente por defecto
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{WasaffNavy}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{WasaffCopper}}
+  {\thesubsection}{1em}{}
+
+% --- Configuración del Encabezado y Pie de Página ---
+\pagestyle{fancy}
+\fancyhf{} % Limpiar encabezados y pies de página
+\fancyhead[L]{\includegraphics[height=1cm]{wasaff_logo.png}}
+\fancyhead[R]{\color{WasaffNavy}\nouppercase{\leftmark}}
+\fancyfoot[C]{\color{gray}Wasaff Consulting | Simulación para Problemas Complejos}
+\fancyfoot[R]{\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% --- Configuración de Hyperref (metadata del PDF) ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=WasaffNavy,
+    urlcolor=WasaffCopper,
+    pdftitle={Propuesta Técnica y Comercial - Wasaff Consulting},
+    pdfauthor={Felipe Wasaff - Wasaff Consulting},
+    pdfsubject={Diagnóstico Predictivo de Desgaste para Molinos SAG}
+}
+
+% --- Definición de Cajas de Texto Personalizadas ---
+\newtcolorbox{infobox}{
+    colback=LightGray,
+    colframe=WasaffCopper,
+    fonttitle=\bfseries,
+    arc=2mm,
+    boxrule=1pt,
+    left=5mm,
+    right=5mm,
+    top=3mm,
+    bottom=3mm
+}
+
+
+%=============== DOCUMENTO PRINCIPAL =========================================
+\begin{document}
+
+% --- PORTADA ---
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+    \includegraphics[width=0.5\textwidth]{wasaff_logo.png}\\[2cm]
+    \color{WasaffNavy}
+    \Huge{\textbf{PROPUESTA TÉCNICA Y COMERCIAL}}\\[0.5cm]
+    \color{WasaffCopper}
+    \large{\textbf{Diagnóstico Predictivo de Desgaste para Molinos SAG}}\\[3cm]
+    \
+    % --- Bloque de Información ---
+    \begin{flushleft}
+    \large
+    \begin{tabular}{@{}p{4cm}p{10cm}}
+        \textbf{\color{WasaffNavy}Cliente:} & Nombre de la Empresa Cliente \\
+        & A la atención de: [Nombre del Contacto] \\
+        & [Cargo del Contacto] \\[1cm]
+        \textbf{\color{WasaffNavy}N° de Propuesta:} & P2025-001 \\
+        \textbf{\color{WasaffNavy}Fecha:} & \today \\
+        \textbf{\color{WasaffNavy}Validez de la Oferta:} & 30 días \\[1cm]
+        \textbf{\color{WasaffNavy}Preparado por:} & Felipe Wasaff \\
+        & Wasaff Consulting \\
+        & \href{mailto:felipe@wasaffconsulting.com}{felipe@wasaffconsulting.com} \\
+        & \href{http://www.wasaffconsulting.com}{www.wasaffconsulting.com} \\
+    \end{tabular}
+    \end{flushleft}
+    \vfill
+    \
+    \textit{\color{gray}Confidencialidad: Este documento contiene información propiedad de Wasaff Consulting y del cliente. Su distribución y uso están restringidos al propósito de esta propuesta.}
+\end{titlepage}
+
+% --- TABLA DE CONTENIDOS ---
+\newpage
+\tableofcontents
+\thispagestyle{plain}
+\newpage
+
+% --- CONTENIDO DE LA PROPUESTA ---
+
+\section{Resumen Ejecutivo}
+Wasaff Consulting presenta esta propuesta para realizar un Diagnóstico Predictivo de Desgaste para los revestimientos del Molino SAG en [Planta del Cliente]. Mediante el uso de simulaciones por el Método de Elementos Discretos (DEM), identificaremos los puntos críticos de desgaste y propondremos optimizaciones operacionales para extender la vida útil de los componentes, reducir las detenciones no programadas y disminuir los costos de mantenimiento.
+
+\section{Entendimiento del Problema}
+\subsection{Contexto Operacional}
+El Molino SAG es un activo crítico en el proceso de conminución de [Nombre de la Empresa Cliente]. Actualmente, los cambios de revestimiento se basan en un cronograma preventivo que ha resultado en [describir el problema: detenciones prematuras, fallas inesperadas, etc.].
+
+\subsection{Impacto del Desgaste Acelerado}
+Las detenciones para el cambio de liners generan aproximadamente X horas de producción perdida, con un costo estimado de \$Y por evento. El objetivo de este estudio es mitigar estos costos mediante un enfoque proactivo y basado en datos, transformando el mantenimiento de una actividad reactiva a una estrategia predictiva.
+
+\section{Metodología Propuesta: Simulación DEM}
+\subsection{Modelo Físico-Matemático}
+Se creará un ``gemelo digital'' a escala del molino utilizando el software de simulación Yade-DEM. El modelo incorporará:
+\begin{itemize}
+    \item La geometría 3D exacta del molino y los liners, basada en planos CAD.
+    \item La distribución de tamaño y propiedades de la carga (mineral y bolas).
+    \item Los parámetros de operación (velocidad de giro, nivel de llenado).
+\end{itemize}
+
+\subsection{Análisis de Resultados}
+La simulación generará datos de alta resolución sobre las fuerzas de impacto y cizalla en cada punto de los revestimientos. Estos datos se procesarán para crear mapas de calor de desgaste y predecir la vida útil de los componentes.
+
+\section{Resultados y Entregables}
+Al finalizar el proyecto, Wasaff Consulting entregará un \textbf{Informe de Diagnóstico Predictivo} en formato PDF, que incluirá:
+\begin{enumerate}
+    \item Resumen de la metodología y parámetros de la simulación.
+    \item Mapas de calor visuales mostrando los patrones de desgaste.
+    \item Identificación de los 3 principales ``puntos calientes'' de desgaste.
+    \item Recomendaciones accionables para optimizar la operación y/o el diseño del liner.
+    \item Una reunión ejecutiva de presentación de resultados.
+\end{enumerate}
+
+\section{Cronograma de Implementación}
+\begin{table}[h!]
+\centering
+\begin{tabular}{lp{10cm}c}
+\toprule
+\textbf{Fase} & \textbf{Descripción de Actividades} & \textbf{Semanas} \\
+\midrule
+1 & Recopilación de datos y setup del modelo & 1-2 \\
+2 & Ejecución de simulaciones y procesamiento & 3-4 \\
+3 & Análisis de resultados y redacción del informe & 5 \\
+4 & Entrega de informe final y reunión de presentación & 6 \\
+\bottomrule
+\end{tabular}
+\caption{Cronograma estimado del proyecto.}
+\end{table}
+
+% --- SECCIÓN NUEVA Y MEJORADA ---
+\section{Credibilidad y Casos de Éxito}
+\begin{infobox}{Testimonio Confidencial (Sector Minero)}
+    \textit{``Trabajar con Felipe nos dio una visibilidad sin precedentes sobre el comportamiento de nuestro molino. Las recomendaciones que surgieron de su simulación nos permitieron ajustar la operación y ya estamos viendo una mejora en la vida útil de los revestimientos. Un análisis muy profesional y de alto impacto para el negocio.''}
+    \
+    \
+    \textbf{-- Gerente de Mantenimiento, Empresa Minera (Chile)}
+\end{infobox}
+
+% --- SECCIÓN NUEVA Y MEJORADA ---
+\section{Inversión y Retorno Esperado (ROI)}
+\subsection{Análisis de Valor}
+Consideramos este servicio no como un costo operativo, sino como una inversión estratégica en la disponibilidad de sus activos críticos.
+\begin{itemize}
+    \item Costo estimado de \textbf{una sola detención} no programada (según sección 2.2): \textbf{\$Y USD}
+    \item Inversión única en este \textbf{diagnóstico predictivo}: \textbf{\$X.XXX USD}
+\end{itemize}
+
+\begin{infobox}{Conclusión del Retorno de la Inversión (ROI)}
+    Si este diagnóstico permite evitar o retrasar \textbf{un solo evento} de mantenimiento mayor no planificado, el proyecto no solo se paga a sí mismo, sino que genera un \textbf{retorno de la inversión sustancial} y protege la continuidad operacional de la planta.
+\end{infobox}
+
+\subsection{Condiciones de Pago}
+\begin{itemize}
+    \item \textbf{Valor Total del Proyecto:} \$X.XXX USD + IVA.
+    \item 50\% a la aceptación de la propuesta (anticipo).
+    \item 50\% contra entrega del informe final.
+\end{itemize}
+
+\section{Términos y Condiciones}
+\begin{itemize}
+    \item La información geométrica y operacional será proporcionada por el cliente y es considerada confidencial.
+    \item Esta propuesta no incluye el rediseño de componentes, solo el diagnóstico y la recomendación.
+    \item Los costos de viaje y alojamiento, si fueran necesarios, se facturarán por separado, previa aprobación.
+\end{itemize}
+
+% --- SECCIÓN NUEVA Y MEJORADA ---
+\section{Próximos Pasos}
+Para iniciar el proyecto y comenzar a optimizar la vida útil de sus componentes, los pasos son los siguientes:
+\begin{enumerate}
+    \item \textbf{Aceptación:} Devolver una copia de esta propuesta firmada a \href{mailto:felipe@wasaffconsulting.com}{felipe@wasaffconsulting.com}.
+    \item \textbf{Facturación:} Se emitirá la factura por el anticipo del 50\%.
+    \item \textbf{Kick-off:} Una vez recibido el pago, agendaremos la reunión inicial para la recopilación de datos y dar comienzo oficial al proyecto en la fecha acordada.
+\end{enumerate}
+Estamos a su completa disposición para resolver cualquier duda que pueda surgir.
+
+% --- SECCIÓN NUEVA Y MEJORADA ---
+\section{Sobre el Consultor: Felipe Wasaff}
+Mi nombre es Felipe Wasaff y soy el fundador de Wasaff Consulting. Mi perfil profesional es la base de nuestro enfoque único:
+\begin{itemize}
+    \item \textbf{Formación de Físico (Universidad de Chile):} Me permite abordar problemas desde los primeros principios, creando modelos y entendiendo los fenómenos de raíz, sin depender de ``cajas negras''.
+    \item \textbf{Experiencia como Técnico en Automatización (INACAP):} Conozco la realidad de la planta, el lenguaje de los operadores y la importancia de soluciones prácticas y aplicables.
+    \item \textbf{Trayectoria Docente y de Laboratorio:} Poseo la habilidad de comunicar conceptos técnicos complejos de forma clara y directa al equipo de ingeniería y gerencia.
+\end{itemize}
+Wasaff Consulting es la aplicación directa de esta combinación única de rigor científico y pragmatismo industrial para resolver los problemas más costosos y complejos de su operación. Puede ver mi perfil profesional completo en \href{https://www.linkedin.com/in/tu-perfil/}{\textbf{mi perfil de LinkedIn}}.
+
+\end{document}

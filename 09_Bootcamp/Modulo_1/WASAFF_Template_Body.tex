@@ -1,0 +1,66 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WASAFF CONSULTING - CUERPO DEL TEMPLATE
+% Define la estructura del documento.
+% Versión: 1.3 - Bloque de título rediseñado profesionalmente
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% --- BLOQUE DE TÍTULO AUTOMÁTICO (REDISEÑADO) ---
+\begin{flushleft}
+\sffamily
+
+% Línea superior del portafolio (sin cambios, pero con espaciado)
+{\color{WasaffCopper}\large\bfseries PORTAFOLIO TÉCNICO: MÓDULO \moduleNumber}
+
+\vspace{1.5em} % Espacio vertical generoso para separar del título
+
+% Título Principal del Módulo
+{\color{WasaffNavy} \huge \bfseries \moduleTitle}
+
+\vspace{0.5em} % Espacio menor entre título y subtítulo para agruparlos visualmente
+
+% Subtítulo del Módulo (ahora en itálicas para mayor distinción)
+{\Large\itshape \moduleSubtitle}
+
+\vspace{3em} % Espacio mucho mayor antes de los datos del autor para crear una separación clara
+
+% Datos del Autor (ahora con un poco más de espaciado interlínea)
+\setstretch{1.2} % Mejora la legibilidad del bloque del autor
+\rmfamily 
+\begin{tabular}{@{}p{14cm}}
+    \textbf{Autor:} \consultingAuthor \\
+    \textit{Fundador, \consultingCompany} \\
+\end{tabular}
+\setstretch{1.0} % Restauramos el interlineado normal para el resto del documento
+
+\vspace{2em} % Espacio antes de la línea horizontal
+
+% Línea horizontal decorativa (más elegante que un hrulefill)
+\noindent\color{black!25}\rule{\linewidth}{0.5pt}
+
+\end{flushleft}
+
+\vspace{1em} % Espacio después del bloque de título y antes de la tabla de contenidos
+
+\tableofcontents
+\
+\hrulefill
+\
+\newpage
+
+% --- INSERCIÓN DEL CONTENIDO DE LAS PARTES ---
+\input{\partAfile}
+
+% Inserta la Parte B solo si la variable \partBfile ha sido definida
+\ifdefined\partBfile
+    \clearpage 
+    \input{\partBfile}
+\fi
+
+% --- INSERCIÓN DE LA BIBLIOGRAFÍA ---
+\newpage
+\bibliographystyle{plain}
+\bibliography{\bibfile}
+
+\end{document}

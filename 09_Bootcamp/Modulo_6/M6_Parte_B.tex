@@ -1,0 +1,69 @@
+\part*{Parte B: Plan de Implementación y Análisis}
+\addcontentsline{toc}{section}{Parte B: Plan de Implementación y Análisis}
+
+\section{Implementación de un Problema de Convección Forzada}
+Vamos a aplicar nuestra estrategia particionada al problema clásico de la refrigeración forzada de un componente caliente.
+
+\subsection{Caso de Estudio: Refrigeración de un Cilindro Caliente}
+\begin{examplebox}{Caso Práctico: Enfriamiento de una Resistencia Cilíndrica}
+    \textbf{Planteamiento del Problema:} Aire a 20$^{\circ}$C fluye a través de un canal. En su interior se encuentra un cilindro (una resistencia eléctrica, por ejemplo) que se mantiene a una temperatura constante de 100$^{\circ}$C. Queremos simular cómo el flujo de aire se lleva el calor del cilindro y forma una "pluma térmica" o estela aguas abajo.
+    
+    \textbf{Parámetros del Modelo:}
+    \begin{itemize}
+        \item \textbf{Geometría:} La misma del Módulo 5 (canal de 2.2m x 0.41m con cilindro centrado).
+        \item \textbf{Propiedades del Fluido (Aire a $\sim$60$^{\circ}$C):}
+            \begin{itemize}
+                \item Densidad, $\rho = 1.06 \text{ kg/m}^3$.
+                \item Viscosidad dinámica, $\mu = 2.0 \times 10^{-5} \text{ Pa·s}$.
+                \item Conductividad térmica, $k = 0.028 \text{ W/(m·K)}$.
+                \item Capacidad calorífica, $c_p = 1007 \text{ J/(kg·K)}$.
+            \end{itemize}
+        \item \textbf{Condiciones de Contorno Fluidodinámicas (para obtener $\mathbf{u}$):}
+             \begin{itemize}
+                \item \textbf{Inlet:} Velocidad uniforme $\mathbf{u} = (0.5, 0)$ m/s.
+                \item \textbf{Outlet:} Presión nula, $p=0$.
+                \item \textbf{Paredes y Cilindro:} No deslizamiento, $\mathbf{u} = (0,0)$.
+            \end{itemize}
+        \item \textbf{Condiciones de Contorno Térmicas (para resolver $T$):}
+             \begin{itemize}
+                \item \textbf{Inlet:} El aire entra a $T_{inlet} = 293.15 \text{ K}$ (20 $^{\circ}$C).
+                \item \textbf{Cilindro:} Temperatura fija, $T_{cilindro} = 373.15 \text{ K}$ (100 $^{\circ}$C).
+                \item \textbf{Paredes:} Se asumen adiabáticas (flujo de calor nulo).
+                \item \textbf{Outlet:} Condición de "no-retroceso" de calor (condición de Neumann nula).
+            \end{itemize}
+    \end{itemize}
+\end{examplebox}
+
+\subsection{Plan de Implementación en FEniCS}
+El código se estructurará en dos fases claras, reflejando el solver particionado.
+
+\begin{tcolorbox}[colback=CodeBackground, title=Estructura del Script de Simulación de Convección Forzada]
+\begin{lstlisting}[style=pythonstyle]
+# --- FASE 1: RESOLVER LA FLUIDODINÁMICA ESTACIONARIA ---
+# 1. Montar el problema de Navier-Stokes (malla, espacios P2-P1, BCs de flujo).
+# 2. Definir la forma débil no lineal de Navier-Stokes.
+# 3. Resolver para obtener los campos estacionarios u_ss y p_ss.
+# 4. Guardar los resultados del flujo.
+
+# --- FASE 2: RESOLVER LA TRANSFERENCIA DE CALOR TRANSITORIA ---
+# 1. Definir un nuevo Espacio de Funciones para la Temperatura (P1).
+# 2. Definir las BCs térmicas (temperatura en inlet y cilindro).
+# 3. Definir la forma débil de la ecuación de energía transitoria, utilizando
+#    el campo u_ss como un parámetro conocido en el término de advección.
+# 4. Iniciar el bucle temporal:
+#    - En cada paso, resolver el problema variacional lineal para T_n.
+#    - Guardar el resultado y actualizar la solución del paso anterior.
+\end{lstlisting}
+\end{tcolorbox}
+
+\subsection{Análisis de Resultados Esperado}
+Esta simulación revelará la interacción directa entre los dos campos físicos.
+\begin{itemize}
+    \item \textbf{Pluma Térmica (Thermal Plume/Wake):} La visualización del campo de temperaturas mostrará una "estela" de aire caliente que se desprende del cilindro y es transportada aguas abajo por el flujo. La forma y longitud de esta pluma son críticas para el diseño térmico, ya que indican qué componentes cercanos podrían verse afectados por el calor.
+    \item \textbf{Capa Límite Térmica:} Observaremos una fina capa alrededor del cilindro donde el gradiente de temperatura es muy pronunciado. El espesor de esta capa, controlado por la velocidad del fluido, determina la eficiencia de la transferencia de calor por convección.
+\end{itemize}
+
+\section{Conclusión General del Módulo}
+Este módulo representa un hito en nuestro bootcamp. Hemos ensamblado con éxito las piezas de los módulos anteriores para construir un solver multifísico capaz de manejar problemas de convección forzada, un pilar de la simulación industrial.
+
+Hemos aprendido la estrategia crucial de los solvers particionados para desacoplar problemas complejos y hemos formulado las ecuaciones débiles para el sistema acoplado de Navier-Stokes y la Ecuación de Energía. El caso de estudio planteado no solo es un ejercicio académico, sino la base para el diseño y optimización de prácticamente cualquier sistema de refrigeración por fluido. Con este conocimiento, estamos equipados para abordar una nueva y vasta gama de desafíos de ingeniería.

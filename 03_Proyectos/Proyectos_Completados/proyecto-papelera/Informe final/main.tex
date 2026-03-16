@@ -1,0 +1,332 @@
+%-------------------------------------------------
+% PREÁMBULO
+%-------------------------------------------------
+
+% Documento propiedad de LEYCERO SpA.
+% Trabajo realizado por Nilton Martinez y Felipe González.
+% Creado para Análisis termodinámico en Papelera Cordillera.
+
+\documentclass[11pt,a4paper]{article}  % Define la clase del documento como "article" con tamaño de fuente 11pt y papel A4.
+
+% Paquetes
+\usepackage[utf8]{inputenc}  % Codificación de entrada para caracteres especiales (UTF-8).
+\usepackage[spanish]{babel}  % Configuración para el idioma español.
+\usepackage{amsmath, amssymb, amsthm}  % Paquetes matemáticos y teoremas.
+\usepackage{graphicx}  % Para incluir imágenes en el documento.
+\usepackage{listings}  % Para incluir código fuente.
+\usepackage{booktabs}  % Para crear tablas profesionales.
+\usepackage{tabularx}  % Mejoras para tablas.
+\usepackage{makecell}  % Permite celdas en tablas con formato especial.
+\usepackage{multirow}  % Permite combinar filas en tablas.
+\usepackage{hyperref}  % Habilita hipervínculos y referencias cruzadas.
+\usepackage[left=1.5in, right=1in, top=1in, bottom=1in]{geometry}  % Configuración de márgenes de la página.
+\usepackage{xcolor}  % Permite el uso de colores en el documento.
+\usepackage{siunitx}  % Formateo de unidades y números.
+\usepackage{caption}  % Configuración personalizada para los títulos de las tablas y figuras.
+\captionsetup{font=it}  % Configura el formato de los títulos de tablas y figuras.
+\usepackage[nottoc]{tocbibind}  % Configura la inclusión de la bibliografía en el índice.
+\usepackage{fancyhdr}  % Personaliza los encabezados y pies de página.
+\usepackage{enumitem}  % Permite personalizar las listas.
+\usepackage{tocloft}  % Personaliza el formato del índice.
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta, positioning, patterns}
+\tikzset{
+    % Definición de estilos para P&ID
+    compresor/.style = {draw, rectangle, minimum size=1cm, label=below:Compresor},
+    intercambiador/.style = {draw, trapezium, trapezium stretches=true, minimum size=1.5cm, label=below:Intercambiador},
+    bomba/.style = {draw, circle, minimum size=1cm, label=below:Bomba},
+    acumulador/.style = {draw, cylinder, shape aspect=2, minimum size=2cm, label=below:Acumulador},
+    tuberia/.style = {thick},
+}
+
+% Redefinir el símbolo estándar para itemize
+\setlist[itemize,1]{label=$\bullet$}  % Cambia el símbolo de la lista itemize a un bullet personalizado.
+
+% Encabezados y pies de página
+\pagestyle{fancy}  % Establece un estilo de página personalizado.
+\fancyhf{}  % Limpia los encabezados y pies de página existentes.
+\fancyhead[L]{Recuperación de Calor en Compresores}  % Encabezado izquierdo.
+\fancyhead[R]{Leycero SpA}  % Encabezado derecho.
+\fancyfoot[C]{\thepage}  % Número de página en el centro del pie de página.
+\renewcommand{\headrulewidth}{0.4pt}  % Grosor de la línea de encabezado.
+\renewcommand{\footrulewidth}{0.4pt}  % Grosor de la línea de pie de página.
+
+% Información del documento
+\title{Sistema de recuperación de calor}  % Título del documento.
+\author{Ingeniero a cargo: Nilton Martínez}  % Autor del documento.
+\date{Fecha de entrega: \today}  % Fecha del documento.
+
+\renewcommand{\cfttabpresnum}{Tabla\ }  % Configura la etiqueta "Tabla" en el índice de tablas.
+\renewcommand{\cfttabaftersnum}{.}  % Agrega un punto después del número de tabla en el índice.
+\newlength{\mylen}  % Define una longitud personalizada.
+\settowidth{\mylen}{\cfttabpresnum\cfttabaftersnum}  % Establece la longitud de la etiqueta de tabla.
+\addtolength{\cfttabnumwidth}{\mylen}  % Añade la longitud personalizada a la anchura del número de tabla en el índice.
+
+\addto\captionsspanish{  % Configuración personalizada para el idioma español.
+  \renewcommand{\tablename}{Tabla}  % Cambia el nombre de las tablas a "Tabla".
+  \renewcommand{\listtablename}{Índice de Tablas}  % Cambia el nombre del índice de tablas a "Índice de Tablas".
+}
+
+%-------------------------------------------------
+% DOCUMENTO
+%-------------------------------------------------
+
+
+\begin{document}
+
+% 1. Portada
+\begin{titlepage}
+\centering
+\includegraphics[scale=0.2]{img/logo}\\ % Si tienes un logo de la empresa Leycero SpA, puedes agregarlo aquí.
+\vspace*{2cm}
+{\LARGE \bfseries Aprovechamiento de Recursos Térmicos: Diseño de un Sistema de Recuperación de Calor en Compresores}\\[1cm]
+
+Proyecto realizado por:\\[0.4cm]
+{\large Leycero SpA}\\[0.6cm]
+Para la implementación en:\\[0.4cm]
+{\large Papeles Cordillera S.A.}\\[0.6cm]
+En colaboración con:\\[0.4cm]
+{\large Kaeser Compresores de Chile SpA}\\[1cm]
+
+Autores:\\[0.4cm]
+{\large Felipe González}\\
+{\small Licenciado en Ciencias con mención en Física, Universidad de Chile}\\[0.4cm]
+
+{\large Nilton Martínez}\\
+{\small Ingeniero en Refrigeración y Climatización, INACAP}\\
+{\small Ingeniero en Automatización y Control Industrial, INACAP}\\[1cm]
+
+
+Contacto:\\[0.4cm]
+{\small niltonmartinez@gmail.com}\\ % Ajusta este correo al correo real que deseas usar.
+
+
+\vfill
+Fecha de entrega: \today
+\end{titlepage}
+
+% 2. Índice
+\tableofcontents
+\newpage
+
+% 1) Ingeniería del Proyecto de Recuperación de Calor
+\section{Ingeniería del Proyecto de Recuperación de Calor}
+
+\subsection{Descripción General del Proyecto}
+El proyecto consiste en la implementación de un sistema avanzado de recuperación de calor en la planta de Papeles Cordillera S.A. Su objetivo principal es aprovechar el calor residual generado por los compresores de aire utilizados en el proceso de producción de papel, convirtiéndolo en una fuente de energía secundaria para otros procesos industriales.
+
+\subsection{Justificación Técnica y Económica del Sistema de Recuperación de Calor}
+Técnicamente, el sistema promete mejorar la eficiencia energética de la planta reduciendo el consumo de energía primaria. Económicamente, se espera que la reducción en el consumo de energía resulte en un ahorro significativo en los costos operativos, con un período de retorno de inversión atractivo. La recuperación de calor también contribuirá a reducir las emisiones de gases de efecto invernadero, alineándose con las políticas de sostenibilidad de la empresa.
+
+\subsection{Descripción del Proceso Industrial}
+El proceso industrial en la planta de Papeles Cordillera S.A. involucra el uso intensivo de compresores de aire para diversas operaciones en la producción de papel. Estos compresores generan una gran cantidad de calor residual, que hasta ahora no se ha aprovechado eficientemente. El sistema propuesto capturará este calor residual para su uso en otros procesos de la planta, como el calentamiento de agua o el tratamiento de materiales.
+
+\subsection{Análisis de Viabilidad Técnica y Ambiental}
+El análisis de viabilidad técnica indica que el sistema de recuperación de calor se puede integrar con éxito en la infraestructura existente sin interrumpir las operaciones actuales. Desde una perspectiva ambiental, el proyecto está en consonancia con las tendencias globales de reducción de la huella de carbono y la eficiencia energética. Se espera que el sistema no solo cumpla con las normativas ambientales vigentes, sino que también establezca un precedente para prácticas industriales más sostenibles.
+
+
+% 2) Cálculos de Diseño
+\section{Cálculos de Diseño}
+
+\subsection{Intercambiador de Calor}
+\subsubsection{Selección del Tipo de Intercambiador de Calor}
+% Texto sobre la selección del tipo de intercambiador...
+
+\subsubsection{Cálculos Térmicos}
+% Texto sobre los cálculos térmicos...
+
+\subsubsection{Selección de Materiales y Dimensionamiento}
+% Texto sobre la selección de materiales y dimensionamiento...
+
+\subsection{Bomba de Agua}
+\subsubsection{Cálculo del Caudal y la Presión Necesaria}
+% Texto sobre el cálculo del caudal y la presión...
+
+\subsubsection{Selección de la Bomba}
+% Texto sobre la selección de la bomba...
+
+\subsection{Tuberías}
+\subsubsection{Cálculo del Diámetro}
+% Texto sobre el cálculo del diámetro...
+
+\subsubsection{Selección del Material y Espesor}
+% Texto sobre la selección del material y espesor...
+
+\subsection{Caídas de Presión}
+\subsubsection{Cálculo de Pérdidas por Fricción y Accesorios}
+% Texto sobre el cálculo de pérdidas por fricción y accesorios...
+
+\subsubsection{Análisis de Puntos Críticos en la Red de Tuberías}
+% Texto sobre el análisis de puntos críticos...
+
+% 3) Lógica de Funcionamiento y Operación del Sistema
+\section{Lógica de Funcionamiento y Operación del Sistema}
+
+La planta de Papeles Cordillera S.A. cuenta con un sistema integral de compresores que incluye tres compresores FSD 575 (cada uno con una potencia nominal de 315 kW y un rendimiento térmico máximo de 246 kW), dos compresores DSDX 305 (160 kW y 130 kW de rendimiento térmico cada uno), y un compresor ESD 445 (250 kW de potencia y 196 kW de rendimiento térmico). Estos compresores están equipados con sistemas de recuperación de calor, optimizados para operar bajo diversas demandas de aire comprimido.\\
+
+En condiciones normales (marcadas como punto 3 en los datos técnicos), los compresores 1, 2 y 4 operan para satisfacer una demanda de 131 m³/min, generando un total de 622 kW de rendimiento térmico. El sistema de recuperación de calor utiliza un enfoque de contracorriente para maximizar la eficiencia de la transferencia térmica. El fluido térmico, circulando a un caudal total aproximado de 3293 m³/h, es calentado por el calor residual de los compresores, con una caída de presión de aproximadamente 0.25 a 0.4 bar, dependiendo del compresor específico.\\
+
+El control automatizado del sistema se centra en mantener la temperatura óptima del fluido y la presión adecuada en el circuito. Los sensores monitorean continuamente estas variables, ajustando el flujo y la temperatura según sea necesario. En caso de desviaciones, como una caída de presión por debajo de 3.7 bar o un aumento de temperatura por encima de los parámetros establecidos, el sistema activa protocolos de seguridad, incluyendo la reducción del flujo o la parada total de los compresores.\\
+
+El mantenimiento preventivo del sistema se lleva a cabo semestralmente, enfocándose en la limpieza de intercambiadores de calor para evitar la acumulación de residuos, la inspección de tuberías y válvulas, y la verificación de la funcionalidad de los sensores y actuadores. Este mantenimiento garantiza la eficiencia a largo plazo y la seguridad operativa del sistema de recuperación de calor.
+
+
+% 4) Esquemas y Planos
+\section{Esquemas y Planos}
+
+\subsection{Planos Detallados del Sistema de Recuperación de Calor}
+% Texto y posibles imágenes de los planos...
+
+\subsection{Diagramas de Flujo del Proceso}
+% Texto y diagramas de flujo...
+
+\subsection{Esquemas de Instalación de Equipos y Tuberías}
+% Texto y esquemas de instalación...
+
+% 5) Recomendaciones de Proveedores
+\section{Recomendaciones de Proveedores}
+
+\subsection{Lista de Proveedores Potenciales}
+% Lista de proveedores potenciales...
+
+\subsection{Evaluación de Proveedores}
+% Texto sobre la evaluación de proveedores...
+
+% 6) Bases Técnicas para Poder Licitar el Proyecto
+\section{Bases Técnicas para Poder Licitar el Proyecto}
+
+\subsection{Especificaciones Técnicas Detalladas de Todos los Componentes}
+Las especificaciones técnicas detalladas para cada componente del sistema de recuperación de calor se presentan a continuación. Estas especificaciones son cruciales para garantizar el cumplimiento de los estándares de rendimiento y eficiencia:
+
+\begin{itemize}
+    \item \textbf{Compresores:}
+    \begin{itemize}
+        \item Capacidad mínima: [X kW].
+        \item Eficiencia de recuperación de calor: [Y \%].
+        \item Temperatura de operación: [T°C] a [U°C].
+        \item Rendimiento térmico: [V kW].
+    \end{itemize}
+    
+    \item \textbf{Intercambiadores de Calor:}
+    \begin{itemize}
+        \item Tipo: (Por ejemplo, de placas, tubulares).
+        \item Capacidad de transferencia de calor: [W kW].
+        \item Rango de $\Delta T$: [B°C].
+        \item Material: (Por ejemplo, acero inoxidable, cobre).
+    \end{itemize}
+    
+    \item \textbf{Bombas de Agua:}
+    \begin{itemize}
+        \item Caudal: [Z m³/h].
+        \item Presión máxima: [A bar].
+        \item Eficiencia: [C \%].
+        \item Tipo de bomba: (Por ejemplo, centrífuga, de desplazamiento positivo).
+    \end{itemize}
+    
+    \item \textbf{Tuberías:}
+    \begin{itemize}
+        \item Diámetro: [D mm].
+        \item Material: (Por ejemplo, PVC, acero).
+        \item Presión de trabajo: [E bar].
+        \item Longitud total: [F metros].
+    \end{itemize}
+    
+    \item \textbf{Sistemas de Control:}
+    \begin{itemize}
+        \item Tipo de controlador: (Por ejemplo, PLC, DCS).
+        \item Sensores: (Temperatura, presión, flujo).
+        \item Interfaces de usuario: (Por ejemplo, HMI, sistemas remotos).
+        \item Protocolos de comunicación: (Por ejemplo, Modbus, Ethernet).
+    \end{itemize}
+\end{itemize}
+
+Estas especificaciones deben ser utilizadas como base para la evaluación de ofertas, asegurando que todos los componentes cumplan con los requisitos técnicos del proyecto.
+
+
+\subsection{Criterios de Selección y Evaluación de Ofertas}
+Los criterios para la selección y evaluación de ofertas para el sistema de recuperación de calor se basan en un análisis integral que incluye varios factores clave:
+
+\begin{itemize}
+    \item \textbf{Capacidad Técnica:}
+    \begin{itemize}
+        \item Cumplimiento de las especificaciones técnicas detalladas.
+        \item Experiencia previa y referencias de proyectos similares.
+        \item Calidad y fiabilidad de los componentes ofertados.
+    \end{itemize}
+
+    \item \textbf{Costo Total de Propiedad:}
+    \begin{itemize}
+        \item Análisis del precio de compra inicial.
+        \item Estimación de costos operativos a lo largo del ciclo de vida.
+        \item Costos de mantenimiento y posibles repuestos.
+    \end{itemize}
+
+    \item \textbf{Eficiencia Energética:}
+    \begin{itemize}
+        \item Rendimiento energético de los componentes.
+        \item Contribución a la reducción del consumo de energía de la planta.
+        \item Impacto en la huella de carbono de las operaciones.
+    \end{itemize}
+
+    \item \textbf{Cumplimiento de Estándares Ambientales:}
+    \begin{itemize}
+        \item Adherencia a normativas ambientales locales e internacionales.
+        \item Soluciones sostenibles y ecoeficientes.
+        \item Estrategias para la minimización de impactos negativos en el entorno.
+    \end{itemize}
+
+    \item \textbf{Requisitos Legales y de Seguridad:}
+    \begin{itemize}
+        \item Cumplimiento de todas las regulaciones y leyes aplicables.
+        \item Garantías de seguridad en la operación y mantenimiento del sistema.
+        \item Planes de contingencia y protocolos de seguridad.
+    \end{itemize}
+\end{itemize}
+
+Estos criterios asegurarán que las ofertas seleccionadas no solo cumplan con las necesidades técnicas del proyecto, sino que también ofrezcan la mejor relación costo-beneficio, manteniendo el compromiso con la sostenibilidad y
+
+
+\subsection{Plan de Ejecución y Cronograma del Proyecto}
+El plan de ejecución del proyecto de recuperación de calor está diseñado para completarse en un período de [C meses], con las siguientes fases y hitos clave:
+
+\begin{enumerate}
+    \item \textbf{Fase de Planificación:}
+    \begin{itemize}
+        \item Duración: [1 mes].
+        \item Actividades: Definición de alcance, selección de proveedores, y preparación de contratos.
+        \item Fecha de finalización: [Fecha].
+    \end{itemize}
+
+    \item \textbf{Adquisición de Componentes:}
+    \begin{itemize}
+        \item Duración: [2 meses].
+        \item Actividades: Pedido y recepción de compresores, intercambiadores de calor, bombas y tuberías.
+        \item Fecha de finalización: [Fecha].
+    \end{itemize}
+
+    \item \textbf{Fase de Instalación:}
+    \begin{itemize}
+        \item Duración: [3 meses].
+        \item Actividades: Montaje de equipos, instalación de tuberías y conexión de sistemas de control.
+        \item Fecha de finalización: [Fecha].
+    \end{itemize}
+
+    \item \textbf{Pruebas y Ajustes:}
+    \begin{itemize}
+        \item Duración: [1 mes].
+        \item Actividades: Pruebas de funcionamiento, ajustes de sistemas y capacitación del personal.
+        \item Fecha de finalización: [Fecha].
+    \end{itemize}
+
+    \item \textbf{Puesta en Marcha:}
+    \begin{itemize}
+        \item Duración: [1 mes].
+        \item Actividades: Inicio de operaciones, monitoreo inicial y optimización del sistema.
+        \item Fecha de finalización: [Fecha].
+    \end{itemize}
+\end{enumerate}
+
+Cada fase del proyecto será supervisada regularmente, con informes de progreso para garantizar que se cumplan los hitos y plazos establecidos. La coordinación efectiva entre los equipos y la gestión proactiva serán esenciales para el éxito del proyecto.
+
+
+\end{document}

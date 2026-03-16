@@ -1,0 +1,452 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+% Configuración de colores
+\definecolor{wasaffblue}{RGB}{0,102,204}
+\definecolor{sectiongray}{RGB}{100,100,100}
+
+% Headers y footers
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{wasaffblue}{WASAFF CONSULTING SpA}}
+\fancyhead[R]{\small\textcolor{wasaffblue}{LEY CERO SpA}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+% Formato de secciones
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{wasaffblue}}
+  {\thesection.}{1em}{}[\titlerule]
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{sectiongray}}
+  {\thesubsection}{1em}{}
+
+% Configuración de hyperlinks
+\hypersetup{
+    colorlinks=true,
+    linkcolor=wasaffblue,
+    urlcolor=wasaffblue,
+    pdftitle={Contrato Wasaff-Ley Cero},
+    pdfauthor={Felipe Guzmán - Nilton}
+}
+
+\begin{document}
+
+% ====================================================================
+% PORTADA
+% ====================================================================
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+
+{\Huge\bfseries\color{wasaffblue} CONTRATO DE COLABORACIÓN\\[0.5cm] TÉCNICA Y COMERCIAL\par}
+
+\vspace{1.5cm}
+
+{\Large\textbf{SISTEMAS DE REFRIGERACIÓN INDUSTRIAL}\par}
+
+\vspace{3cm}
+
+\begin{minipage}{0.45\textwidth}
+\centering
+\textbf{\Large WASAFF CONSULTING SpA}\\[0.3cm]
+\textit{Simulación y Análisis Térmico}\\[0.2cm]
+\small RUT: [COMPLETAR]\\
+Rep. Legal: Felipe Andrés Guzmán Montero\\
+RUT: [COMPLETAR]
+\end{minipage}%
+\hfill
+\begin{minipage}{0.45\textwidth}
+\centering
+\textbf{\Large LEY CERO SpA}\\[0.3cm]
+\textit{Instrumentación y Automatización}\\[0.2cm]
+\small RUT: [COMPLETAR]\\
+Rep. Legal: [Nilton Nombre Completo]\\
+RUT: [COMPLETAR]
+\end{minipage}
+
+\vfill
+
+{\large Santiago de Chile\\[0.2cm] \today\par}
+
+\end{titlepage}
+
+% ====================================================================
+% CONTENIDO DEL CONTRATO
+% ====================================================================
+
+\section*{COMPARECIENTES}
+
+En Santiago de Chile, a \rule{2cm}{0.15mm} de \rule{3cm}{0.15mm} de 2026, entre:
+
+\vspace{0.5cm}
+
+\textbf{DE UNA PARTE:} \textbf{FELIPE ANDRÉS GUZMÁN MONTERO}, cédula nacional de identidad número \rule{3cm}{0.15mm}, en representación de \textbf{WASAFF CONSULTING SpA}, RUT \rule{3cm}{0.15mm}, con domicilio en \rule{6cm}{0.15mm}, comuna de \rule{4cm}{0.15mm}, Santiago, en adelante denominada \textbf{"WASAFF"}.
+
+\vspace{0.3cm}
+
+\textbf{DE OTRA PARTE:} \textbf{[NOMBRE COMPLETO NILTON]}, cédula nacional de identidad número \rule{3cm}{0.15mm}, en representación de \textbf{LEY CERO SpA}, RUT \rule{3cm}{0.15mm}, con domicilio en \rule{6cm}{0.15mm}, comuna de \rule{4cm}{0.15mm}, Santiago, en adelante denominada \textbf{"LEY CERO"}.
+
+\vspace{0.3cm}
+
+Ambas partes, en adelante denominadas conjuntamente \textbf{"LAS PARTES"}, individual e indistintamente \textbf{"LA PARTE"}, han acordado celebrar el presente \textbf{CONTRATO DE COLABORACIÓN TÉCNICA Y COMERCIAL}, que se regirá por las siguientes cláusulas y condiciones:
+
+% ====================================================================
+
+\section{OBJETO DEL CONTRATO}
+
+\subsection{Servicios Conjuntos}
+
+LAS PARTES acuerdan colaborar de manera sinérgica en la prestación de los siguientes servicios en el sector de refrigeración industrial:
+
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Diagnóstico Energético:} Análisis termodinámico de sistemas de refrigeración mediante simulación computacional y validación en terreno.
+    
+    \item \textbf{Monitoreo Predictivo:} Implementación de sistemas de adquisición de datos (DAQ) e instrumentación IoT para monitoreo continuo de variables operacionales.
+    
+    \item \textbf{Gemelos Digitales:} Desarrollo de modelos digitales que replican el comportamiento térmico de instalaciones frigoríficas para optimización operacional.
+    
+    \item \textbf{Auditorías Térmicas:} Identificación de fugas energéticas, cálculo de eficiencias isoentrópicas y estimación de retornos de inversión (ROI) en proyectos de eficiencia energética.
+\end{enumerate}
+
+\subsection{Alcance Territorial}
+
+Los servicios se prestarán inicialmente en la Región Metropolitana, con posibilidad de expansión a nivel nacional según demanda del mercado.
+
+% ====================================================================
+
+\section{ROLES Y RESPONSABILIDADES}
+
+\subsection{Responsabilidades de WASAFF}
+
+WASAFF se compromete a aportar las siguientes capacidades técnicas:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Modelamiento Termodinámico:} Desarrollo de simulaciones computacionales utilizando propiedades termodinámicas reales de refrigerantes mediante software especializado (CoolProp, Python).
+    
+    \item \textbf{Análisis de Datos:} Procesamiento de series temporales de variables operacionales (presión, temperatura, consumo eléctrico) mediante algoritmos de análisis numérico.
+    
+    \item \textbf{Reportería Técnica:} Generación de informes ejecutivos con diagnósticos, recomendaciones técnicas y estimaciones de impacto económico.
+    
+    \item \textbf{Propiedad Intelectual:} Desarrollo y mantención de algoritmos, modelos matemáticos y metodologías de análisis como activos propios de WASAFF.
+    
+    \item \textbf{Soporte Remoto:} Interpretación de datos, ajuste de modelos y resolución de consultas técnicas durante la ejecución de proyectos.
+\end{enumerate}
+
+\subsection{Responsabilidades de LEY CERO}
+
+LEY CERO se compromete a aportar las siguientes capacidades operacionales:
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Gestión Comercial:} Prospección de clientes, presentación de propuestas técnico-comerciales y cierre de contratos con clientes finales.
+    
+    \item \textbf{Instrumentación en Terreno:} Instalación, configuración y calibración de sensores de presión, temperatura y consumo eléctrico según especificaciones técnicas definidas por WASAFF.
+    
+    \item \textbf{Validación de Resultados:} Verificación en sitio de las predicciones del modelo, incluyendo mediciones comparativas y ajustes de instrumentación.
+    
+    \item \textbf{Soporte Post-Venta:} Atención de requerimientos de clientes en terreno, incluyendo mantención de equipos de medición y resolución de incidencias operacionales.
+    
+    \item \textbf{Logística:} Coordinación de visitas a terreno, gestión de permisos de acceso a instalaciones industriales y transporte de equipamiento.
+\end{enumerate}
+
+\subsection{Responsabilidades Compartidas}
+
+Ambas PARTES se comprometen a:
+
+\begin{enumerate}[label=\arabic*.]
+    \item Mantener comunicación fluida y transparente durante la ejecución de proyectos.
+    \item Participar conjuntamente en reuniones con clientes cuando la complejidad técnica lo requiera.
+    \item Respetar los compromisos de calidad y plazos de entrega acordados con clientes.
+    \item Proteger la confidencialidad de información sensible de clientes y de la contraparte.
+\end{enumerate}
+
+% ====================================================================
+
+\section{MODELO ECONÓMICO}
+
+\subsection{Distribución de Ingresos}
+
+LAS PARTES acuerdan la siguiente distribución de ingresos para \textbf{TODOS} los proyectos desarrollados bajo este contrato:
+
+\begin{center}
+\fbox{\parbox{0.8\textwidth}{\centering
+\textbf{\Large 50\% WASAFF \hspace{1cm} 50\% LEY CERO}\\[0.3cm]
+\textit{División equitativa para todos los tipos de servicio}
+}}
+\end{center}
+
+\vspace{0.3cm}
+
+Este porcentaje se aplica sobre la \textbf{facturación neta} (monto total facturado al cliente, descontado el IVA).
+
+\subsection{Base de Cálculo}
+
+Los porcentajes se calcularán sobre el \textbf{ingreso neto} de cada proyecto, definido como:
+
+\begin{equation}
+\text{Ingreso Neto} = \text{Facturación Total} - \text{IVA} - \text{Costos Directos Compartidos}
+\end{equation}
+
+Donde \textbf{Costos Directos Compartidos} incluyen:
+\begin{itemize}
+    \item Viáticos y gastos de traslado a terreno
+    \item Arriendo de equipamiento especializado no disponible por LAS PARTES
+    \item Materiales consumibles requeridos para el proyecto específico
+    \item Subcontratación de servicios especializados (termografía, análisis de aceite, etc.)
+\end{itemize}
+
+Los costos operacionales propios de cada PARTE (oficinas, equipos propios, seguros, etc.) \textbf{NO} se descuentan de la base de cálculo.
+
+\subsection{Facturación}
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Modalidad Preferida:} Cada PARTE factura directamente al cliente su porcentaje correspondiente (50\% cada una).
+    
+    \item \textbf{Modalidad Alternativa:} Si el cliente requiere factura única, una PARTE factura el 100\% y liquida a la otra dentro de \textbf{5 días corridos} desde la recepción del pago del cliente.
+    
+    \item La PARTE que facture el 100\% deberá enviar a la otra:
+    \begin{itemize}
+        \item Copia de factura emitida al cliente
+        \item Comprobante de pago recibido del cliente
+        \item Detalle de costos directos compartidos (si aplica)
+        \item Transferencia bancaria del 50\% correspondiente
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Transparencia Financiera}
+
+Cada proyecto tendrá una hoja de cálculo compartida (Google Sheets o Excel) donde se registrarán:
+\begin{itemize}
+    \item Monto cotizado al cliente
+    \item Costos directos compartidos (con respaldos)
+    \item Base de cálculo resultante
+    \item Monto correspondiente a cada PARTE
+\end{itemize}
+
+% ====================================================================
+
+\section{PROPIEDAD INTELECTUAL}
+
+\subsection{Activos de WASAFF}
+
+Son propiedad exclusiva de WASAFF y no se transfieren ni licencian a LEY CERO:
+
+\begin{enumerate}[label=\alph*)]
+    \item Código fuente de algoritmos y scripts de simulación
+    \item Modelos matemáticos y físicos desarrollados
+    \item Metodologías de análisis termodinámico
+    \item Bibliotecas de propiedades de refrigerantes
+    \item Plantillas de reportes técnicos (estructura y contenido)
+\end{enumerate}
+
+\subsection{Activos de LEY CERO}
+
+Son propiedad exclusiva de LEY CERO y no se transfieren a WASAFF:
+
+\begin{enumerate}[label=\alph*)]
+    \item Base de datos de clientes y contactos comerciales
+    \item Protocolos de instalación y calibración de instrumentación
+    \item Diseños de hardware y sistemas SCADA propietarios
+    \item Procedimientos operacionales estándar (SOP) de LEY CERO
+\end{enumerate}
+
+\subsection{Propiedad Compartida}
+
+Los siguientes elementos son propiedad compartida de ambas PARTES:
+
+\begin{enumerate}[label=\alph*)]
+    \item Reportes técnicos entregados a clientes (cada PARTE puede incluirlos en su portafolio con autorización de la otra)
+    \item Presentaciones comerciales conjuntas
+    \item Material de difusión (casos de éxito, testimoniales)
+\end{enumerate}
+
+\subsection{Uso Post-Término}
+
+En caso de término del contrato, cada PARTE conserva:
+\begin{itemize}
+    \item Derecho a mostrar proyectos realizados en conjunto como referencia comercial
+    \item Prohibición de replicar metodologías o código fuente de la otra PARTE
+    \item Derecho a contactar clientes comunes respetando cláusula de no competencia
+\end{itemize}
+
+% ====================================================================
+
+\section{CONFIDENCIALIDAD}
+
+\subsection{Información Confidencial}
+
+Cada PARTE se compromete a mantener en estricta confidencialidad:
+
+\begin{enumerate}[label=\arabic*.]
+    \item Datos operacionales de clientes (temperaturas, presiones, consumos, productos almacenados)
+    \item Información financiera de proyectos y propuestas comerciales
+    \item Metodologías técnicas y algoritmos de la contraparte
+    \item Estrategias comerciales y pricing
+\end{enumerate}
+
+\subsection{Excepciones}
+
+No se considera confidencial la información que:
+\begin{itemize}
+    \item Sea de dominio público
+    \item Deba revelarse por mandato legal o judicial
+    \item Sea autorizada por escrito por la PARTE afectada
+\end{itemize}
+
+\subsection{Vigencia}
+
+Esta obligación de confidencialidad se mantiene \textbf{indefinidamente}, incluso después del término del presente contrato.
+
+% ====================================================================
+
+\section{EXCLUSIVIDAD Y NO COMPETENCIA}
+
+\subsection{Sin Exclusividad General}
+
+Este contrato \textbf{NO es exclusivo}. Ambas PARTES pueden:
+\begin{itemize}
+    \item Trabajar con otros partners en proyectos no relacionados con refrigeración industrial
+    \item Ofrecer servicios independientes en otros sectores industriales
+    \item Participar en licitaciones públicas de manera individual
+\end{itemize}
+
+\subsection{Protección de Clientes Conjuntos}
+
+Durante la vigencia del contrato y \textbf{12 meses posteriores a su término}, ninguna PARTE podrá:
+
+\begin{enumerate}[label=\arabic*.]
+    \item Ofrecer servicios de diagnóstico energético + instrumentación a clientes prospectados por la otra PARTE sin autorización escrita.
+    
+    \item Utilizar información técnica obtenida durante la colaboración para competir directamente con proyectos similares.
+    
+    \item Contratar personal clave de la otra PARTE con el objetivo de replicar las capacidades técnicas del presente contrato.
+\end{enumerate}
+
+\textbf{Clientes conjuntos:} Se definen como aquellos donde ambas PARTES participaron en la prospección, cotización o ejecución del proyecto.
+
+% ====================================================================
+
+\section{VIGENCIA Y TÉRMINO}
+
+\subsection{Vigencia Inicial}
+
+El presente contrato tendrá una vigencia de \textbf{24 meses} contados desde la fecha de firma, con renovación automática por períodos de 12 meses salvo aviso contrario.
+
+\subsection{Término Anticipado}
+
+Cualquiera de LAS PARTES puede poner término al contrato en las siguientes circunstancias:
+
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Término Unilateral:} Con 60 días de aviso previo por escrito, sin expresión de causa.
+    
+    \item \textbf{Término por Incumplimiento Grave:} Inmediato, ante situaciones como:
+    \begin{itemize}
+        \item Incumplimiento reiterado de obligaciones contractuales
+        \item Violación de confidencialidad
+        \item Fraude o representación falsa de capacidades técnicas
+        \item Conflictos de interés no declarados
+    \end{itemize}
+    
+    \item \textbf{Término por Fuerza Mayor:} Ante eventos que imposibiliten la continuidad (desastres naturales, cambios regulatorios, quiebra de alguna PARTE).
+\end{enumerate}
+
+\subsection{Efectos del Término}
+
+Al término del contrato:
+
+\begin{enumerate}[label=\arabic*.]
+    \item Proyectos en curso se completarán bajo las condiciones originales del contrato.
+    \item Se realizará liquidación final de pagos pendientes dentro de 30 días.
+    \item Cada PARTE conserva su propiedad intelectual según lo establecido en la Cláusula Cuarta.
+    \item Se mantiene la obligación de confidencialidad indefinidamente.
+    \item Inicia el período de no competencia de 12 meses para clientes conjuntos.
+\end{enumerate}
+
+% ====================================================================
+
+\section{RESOLUCIÓN DE CONFLICTOS}
+
+\subsection{Procedimiento Escalonado}
+
+Ante cualquier controversia relacionada con la interpretación o cumplimiento del presente contrato, LAS PARTES se comprometen a:
+
+\begin{enumerate}[label=\textbf{Etapa \arabic*:}]
+    \item \textbf{Negociación Directa} (15 días hábiles): Los representantes legales de ambas PARTES se reunirán para buscar una solución de común acuerdo.
+    
+    \item \textbf{Mediación} (30 días hábiles): Si no hay acuerdo, se someterán a mediación ante un mediador inscrito en el Registro de Mediadores del Ministerio de Justicia, cuyos honorarios se dividirán 50\%-50\%.
+    
+    \item \textbf{Arbitraje} (último recurso): Si la mediación fracasa, se someterán a arbitraje de la Cámara de Comercio de Santiago (CAM), con árbitro mixto en cuanto al procedimiento y arbitrador en cuanto al fallo.
+\end{enumerate}
+
+\subsection{Jurisdicción}
+
+Para todos los efectos legales derivados del presente contrato, LAS PARTES fijan domicilio en la ciudad y comuna de Santiago, sometiéndose a la competencia de sus Tribunales Ordinarios de Justicia, renunciando expresamente a cualquier otro fuero.
+
+% ====================================================================
+
+\section{DISPOSICIONES GENERALES}
+
+\subsection{Integridad del Contrato}
+
+Este documento constituye el acuerdo completo entre LAS PARTES, dejando sin efecto cualquier negociación, acuerdo verbal o correspondencia previa.
+
+\subsection{Modificaciones}
+
+Cualquier modificación al presente contrato deberá constar por escrito y ser firmada por los representantes legales de ambas PARTES.
+
+\subsection{Cesión}
+
+Ninguna PARTE podrá ceder o transferir sus derechos y obligaciones bajo este contrato sin el consentimiento previo y por escrito de la otra PARTE.
+
+\subsection{Notificaciones}
+
+Todas las comunicaciones formales se realizarán por correo electrónico a:
+
+\begin{itemize}
+    \item WASAFF: contacto@wasaff.cl
+    \item LEY CERO: [correo de Nilton]
+\end{itemize}
+
+Con copia física certificada al domicilio indicado en el encabezado del presente contrato.
+
+\subsection{Independencia de las PARTES}
+
+Este contrato no constituye una sociedad, asociación o joint venture. Cada PARTE mantiene su independencia legal, financiera y operacional.
+
+% ====================================================================
+
+\vspace{1cm}
+
+En comprobante y aceptación de todo lo anterior, las PARTES firman el presente contrato en duplicado, quedando un ejemplar en poder de cada una de ellas, en Santiago de Chile, a \rule{2cm}{0.15mm} de \rule{3cm}{0.15mm} de 2026.
+
+\vspace{2cm}
+
+\begin{minipage}{0.45\textwidth}
+\centering
+\rule{6cm}{0.4pt}\\
+\textbf{FELIPE ANDRÉS GUZMÁN MONTERO}\\
+WASAFF CONSULTING SpA\\
+RUT: [COMPLETAR]\\
+Rep. Legal
+\end{minipage}%
+\hfill
+\begin{minipage}{0.45\textwidth}
+\centering
+\rule{6cm}{0.4pt}\\
+\textbf{[NOMBRE COMPLETO NILTON]}\\
+LEY CERO SpA\\
+RUT: [COMPLETAR]\\
+Rep. Legal
+\end{minipage}
+
+\end{document}

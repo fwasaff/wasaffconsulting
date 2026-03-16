@@ -1,0 +1,25 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Resumen Ejecutivo}{2}{section.1}%
+\contentsline {section}{\numberline {2}Introducción}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Contexto del Proyecto}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Justificación y Relevancia del Proyecto}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Condiciones de Diseño y Parámetros Técnicos}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Temperatura}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Caudal de Agua}{2}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Densidad y Calor Específico del Agua}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Justificación de los Parámetros}{3}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Cálculos y Selección Preliminar de Componentes}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Cálculos de Transferencia de Calor}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Cálculos de Caída de Presión}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Consideraciones para la Selección de Componentes}{4}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Dimensiones de las Tuberías y Especificaciones del Acumulador de Calor}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Dimensiones de las Tuberías}{4}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Especificaciones del Acumulador de Calor}{5}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Selección de la Bomba}{5}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Criterios para la Selección}{5}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Estado Actual del Proceso de Selección}{6}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Recomendaciones Provisionales}{6}{section.7}%
+\contentsline {section}{\numberline {8}Anexos}{7}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Anexo A: Parámetros hidrodinámicos y pérdidas de presión en el sistema de tuberías}{7}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Anexo B: Especificaciones técnicas de los compresores}{7}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Anexo C: Esquema de layout de ubicación de equipos}{8}{subsection.8.3}%

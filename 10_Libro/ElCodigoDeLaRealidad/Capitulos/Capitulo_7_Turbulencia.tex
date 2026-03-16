@@ -1,0 +1,84 @@
+\chapter{El Caos Organizado: Introducción al Flujo Turbulento}
+\label{chap:turbulence}
+
+%==================================================================================
+\section{Más Allá de los Flujos Ordenados}
+%==================================================================================
+
+En los capítulos anteriores, hemos modelado fluidos en regímenes de flujo ordenados y predecibles, conocidos como \textbf{flujo laminar}. El humo que asciende en una línea recta desde una vela en una habitación sin corrientes es laminar. Sin embargo, a una cierta altura, esta columna ordenada se rompe en un movimiento caótico, arremolinado y tridimensional. Esto es la \textbf{turbulencia}.
+
+La gran mayoría de los flujos de interés en ingeniería son turbulentos: el aire sobre el ala de un avión, el agua en una tubería industrial, el humo de una chimenea. La turbulencia aumenta drásticamente la mezcla, la transferencia de calor y la resistencia al avance. Simularla es uno de los mayores desafíos de la física computacional.
+
+Resolver directamente cada remolino de un flujo turbulento (una técnica llamada Simulación Numérica Directa o DNS) requiere un costo computacional tan astronómico que es inviable para casi cualquier problema industrial. El enfoque de la ingeniería es, por tanto, diferente: en lugar de resolver el caos, buscamos \textbf{modelar su efecto promedio} en el flujo principal. Este capítulo introduce la herramienta más común para este fin: las \textbf{Ecuaciones de Navier-Stokes Promediadas por Reynolds (RANS)}.
+
+\begin{center}
+\begin{tabular}{|p{0.9\textwidth}|}
+\hline
+\textbf{CONTEXTO INGENIERIL} \\
+El modelado de la turbulencia es esencial para el diseño en innumerables campos:
+\begin{itemize}
+    \item \textbf{Aeronáutica y Automoción:} Calcular la resistencia aerodinámica (drag) y la sustentación (lift) de vehículos.
+    \item \textbf{Energías Renovables:} Simular el flujo de aire sobre las palas de una turbina eólica para predecir su rendimiento y cargas estructurales.
+    \item \textbf{Ingeniería Ambiental:} Modelar la dispersión de contaminantes en la atmósfera o en cuerpos de agua.
+    \item \textbf{Procesos Químicos:} Diseñar reactores y mezcladores donde la eficiencia de la reacción depende de la intensidad de la mezcla turbulenta.
+\end{itemize}
+\\
+\hline
+\end{tabular}
+\end{center}
+
+%==================================================================================
+\section{La Naturaleza del Flujo Turbulento y su Modelado}
+\label{sec:turbulence-theory}
+%==================================================================================
+
+%----------------------------------------------------------------------------------
+\subsection{El Promedio de Reynolds y la Descomposición del Flujo}
+%----------------------------------------------------------------------------------
+El insight fundamental de Osborne Reynolds fue descomponer cualquier cantidad instantánea del flujo (como la velocidad \(\bm{u}\)) en una parte \textbf{promedio en el tiempo} (\(\overline{\bm{u}}\)) y una parte \textbf{fluctuante} (\(\bm{u}'\)).
+\begin{equation}
+    \bm{u}(\bm{x}, t) = \overline{\bm{u}}(\bm{x}) + \bm{u}'(\bm{x}, t)
+    \label{eq:reynolds-decomposition}
+\end{equation}
+Por definición, el promedio de la parte fluctuante es cero (\(\overline{\bm{u}'} = \bm{0}\)). Nuestro objetivo en el modelado RANS es resolver únicamente para el campo promedio \(\overline{\bm{u}}\), que es el que nos interesa para el diseño de ingeniería.
+
+%----------------------------------------------------------------------------------
+\subsection{Las Ecuaciones RANS y el Problema del Cierre}
+%----------------------------------------------------------------------------------
+El siguiente paso es sustituir esta descomposición para \(\bm{u}\) y \(p\) en las ecuaciones de Navier-Stokes (Ecuaciones~\eqref{eq:ns-momentum} y \eqref{eq:ns-continuity}) y promediar toda la ecuación en el tiempo. Después de un considerable trabajo algebraico (ver \cite{Pope2000} para un tratamiento completo), se llega a las ecuaciones RANS para un flujo estacionario:
+\begin{align}
+    \rho(\overline{\bm{u}} \cdot \nabla)\overline{\bm{u}} &= -\nabla \overline{p} + \nabla \cdot (\mu \nabla\overline{\bm{u}}) + \nabla \cdot (-\rho \overline{\bm{u}' \otimes \bm{u}'}) \label{eq:rans-momentum} \\
+    \nabla \cdot \overline{\bm{u}} &= 0 \label{eq:rans-continuity}
+\end{align}
+Estas ecuaciones se parecen mucho a las originales, pero con una diferencia crucial: la aparición de un nuevo término, \(-\rho \overline{\bm{u}' \otimes \bm{u}'}\). Este tensor se conoce como el \textbf{Tensor de Esfuerzos de Reynolds}. Representa el efecto de las fluctuaciones turbulentas en el flujo promedio. Físicamente, describe el transporte de momento debido a los remolinos.
+
+Este término es un nuevo desconocido. Ahora tenemos más incógnitas que ecuaciones. Este es el \textbf{problema del cierre} de la turbulencia. Para poder resolver el sistema, necesitamos un \textit{modelo} que nos permita expresar los Esfuerzos de Reynolds en función del flujo promedio \(\overline{\bm{u}}\).
+
+%----------------------------------------------------------------------------------
+\subsection{Modelando el Caos: La Hipótesis de Boussinesq}
+%----------------------------------------------------------------------------------
+La aproximación más común y fundamental para el cierre es la \textbf{hipótesis de Boussinesq}. Esta hipótesis postula una analogía entre los esfuerzos viscosos moleculares y los esfuerzos de Reynolds. Así como los esfuerzos viscosos son proporcionales al gradiente de velocidad a través de la viscosidad molecular \(\mu\), los esfuerzos de Reynolds se asumen proporcionales al gradiente de la velocidad \textit{promedio} a través de una nueva cantidad: la \textbf{viscosidad turbulenta} o \textbf{viscosidad de remolino} (\(\mu_T\)).
+
+Esto nos permite modelar el tensor de esfuerzos de Reynolds y reescribir la Ecuación~\eqref{eq:rans-momentum} de una forma mucho más familiar:
+\begin{equation}
+    \rho(\overline{\bm{u}} \cdot \nabla)\overline{\bm{u}} = -\nabla \overline{p} + \nabla \cdot ((\mu + \mu_T) \nabla\overline{\bm{u}})
+    \label{eq:rans-boussinesq}
+\end{equation}
+La viscosidad turbulenta, \(\mu_T\), no es una propiedad del fluido, sino una propiedad del \textit{flujo}. Es grande donde la turbulencia es intensa y cero donde el flujo es laminar. El siguiente paso en el modelado (que no detallaremos aquí) es usar modelos de transporte adicionales (como los famosos modelos \(k-\epsilon\) o \(k-\omega\)) para calcular el valor de \(\mu_T\) en cada punto del dominio.
+
+%==================================================================================
+\section{La Forma Débil del Sistema RANS}
+\label{sec:rans-weak}
+%==================================================================================
+Con la hipótesis de Boussinesq, la Ecuación~\eqref{eq:rans-boussinesq} tiene exactamente la misma estructura que la ecuación de momento de Navier-Stokes original, pero con una \textbf{viscosidad efectiva} \(\mu_{\text{eff}} = \mu + \mu_T\). Por lo tanto, su forma débil es análoga a la que ya conocemos, y puede ser resuelta con las mismas técnicas numéricas, incluyendo la necesidad de estabilización y el uso de elementos de Taylor-Hood (P2-P1).
+
+\begin{center}
+\fbox{\begin{minipage}{0.9\textwidth}
+\textbf{Sistema Variacional RANS (con modelo de viscosidad turbulenta)} \\
+Encontrar el par \((\overline{\bm{u}}, \overline{p})\) tal que para todo \((\bm{v}, q)\):
+\begin{equation}
+    \int_{\Omega} \left( \rho(\overline{\bm{u}} \cdot \nabla)\overline{\bm{u}} \cdot \bm{v} + (\mu+\mu_T) \nabla\overline{\bm{u}} : \nabla\bm{v} - \overline{p}(\nabla \cdot \bm{v}) - q(\nabla \cdot \overline{\bm{u}}) \right) dV = \int_{\Omega} \bm{f} \cdot \bm{v} \, dV
+\end{equation}
+\end{minipage}}
+\end{center}
+Hemos transformado un problema físicamente intratable en un problema no lineal que, aunque computacionalmente exigente, es resoluble. La clave fue aceptar que no podemos resolver el caos, pero sí podemos modelar sus consecuencias.

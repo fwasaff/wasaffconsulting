@@ -1,0 +1,74 @@
+\part*{Parte A: Formulación Teórica del Problema}
+\addcontentsline{toc}{section}{Parte A: Formulación Teórica del Problema}
+
+\section{Introducción: El Lenguaje de la Física en Estado Estacionario}
+Toda simulación numérica rigurosa comienza con una base sólida en los principios físicos que gobiernan el fenómeno de interés. En una vasta gama de campos de la ingeniería —desde la disipación de calor en microchips hasta el análisis de esfuerzos en estructuras civiles—, la \textbf{Ecuación de Poisson} emerge como la descripción matemática fundamental de los sistemas en estado estacionario.
+
+Este módulo tiene como objetivo desmitificar esta poderosa ecuación. Actuará como nuestra ``Piedra Rosetta'', permitiéndonos traducir la física intuitiva al lenguaje preciso de las ecuaciones diferenciales, para finalmente convertirla en la forma que los paquetes de software de elementos finitos, como FEniCS, pueden entender y resolver.
+
+\begin{infobox}
+    La Ecuación de Poisson es el ``Hola, Mundo'' de las ecuaciones diferenciales parciales (EDP) elípticas. Sus aplicaciones son inmensas:
+    \begin{itemize}
+        \item \textbf{Transferencia de Calor:} Calcular la distribución de temperatura en un cuerpo con fuentes de calor internas (ej. un procesador).
+        \item \textbf{Electroestática:} Determinar el potencial eléctrico en una región con una densidad de carga conocida.
+        \item \textbf{Mecánica de Sólidos:} Analizar la torsión en vigas o el flujo de fluidos a través de medios porosos.
+    \end{itemize}
+    Dominar su formulación es el primer paso para convertirse en un experto en simulación multifísica.
+\end{infobox}
+
+\section{Planteamiento Físico del Problema}
+Nuestra primera tarea es construir la ecuación gobernante a partir de leyes físicas fundamentales. Nos enfocaremos en la conducción de calor en un medio sólido en estado estacionario, lo que significa que las temperaturas no cambian con el tiempo.
+
+\subsection{Principio 1: Ley de Fourier (El Flujo de Calor)}
+La Ley de Fourier, una observación empírica elevada a ley, postula que el calor fluye desde regiones de alta temperatura hacia regiones de baja temperatura. Cuantifica esta idea estableciendo que el vector de flujo de calor ($\vec{q}$) es proporcional y de sentido opuesto al gradiente de temperatura ($\nabla T$).
+
+\begin{equation}
+    \vec{q} = -k \nabla T
+    \label{eq:fourier}
+\end{equation}
+El gradiente, $\nabla T$, es un vector que siempre apunta en la dirección del máximo incremento de temperatura (hacia la zona caliente). El signo negativo es crucial, pues asegura que el flujo de calor $\vec{q}$ apunte en la dirección opuesta, hacia la zona fría.
+
+\subsection{Principio 2: Conservación de la Energía}
+La primera ley de la termodinámica, enunciada en textos clásicos como \cite{incropera2007}, dicta que para cualquier volumen de control $\Omega$ en estado estacionario, la energía no puede acumularse. Por lo tanto, el flujo neto de calor que \textit{sale} a través de la frontera del volumen debe ser exactamente igual a la energía que se \textit{genera} en su interior por unidad de tiempo. En su forma diferencial, la divergencia del flujo de calor es igual a la fuente volumétrica, $f$.
+\begin{equation}
+    \nabla \cdot \vec{q} = f
+    \label{eq:divergencia}
+\end{equation}
+
+\subsection{Derivación de la Ecuación Gobernante (Forma Fuerte)}
+Sustituyendo la Ley de Fourier (Ecuación \ref{eq:fourier}) en la conservación de energía (Ecuación \ref{eq:divergencia}), obtenemos la célebre \textbf{Ecuación de Poisson}:
+\begin{equation}
+    \nabla \cdot (-k \nabla T) = f
+    \label{eq:poisson}
+\end{equation}
+Esta es la \textbf{forma fuerte} de la ecuación porque exige que la igualdad se cumpla perfectamente en cada punto infinitesimal del dominio.
+
+\section{El Puente a la Simulación: ¿Por qué la Forma Fuerte no es Suficiente?}
+La forma fuerte es elegante, pero presenta un desafío para un ordenador: es una declaración sobre un número infinito de puntos. El **Método de Elementos Finitos (FEM)**, detallado en \cite{zienkiewicz2013}, discretiza el dominio en elementos finitos y aproxima la solución en ellos. Esta solución aproximada, sin embargo, no es lo suficientemente ``suave'' para satisfacer la segunda derivada de la forma fuerte en todos los puntos. Necesitamos una formulación alternativa, una igualdad en un sentido \textit{promediado}: la \textbf{forma débil}.
+
+\section{Derivación de la Forma Débil (Variacional)}
+Para pasar de la forma fuerte a la débil, empleamos un procedimiento que es el corazón del FEM.
+\subsection{Paso 1: El Principio del Residuo Ponderado}
+Reescribimos la ecuación como un residuo que debe ser cero: $R = \nabla \cdot (k \nabla T) + f = 0$. Exigimos que este residuo sea cero ``en promedio'' al multiplicarlo por una función de prueba arbitraria $v$ e integrando sobre el dominio:
+\begin{equation}
+    \int_{\Omega} \left( \nabla \cdot (-k \nabla T) - f \right) v \, dV = 0
+    \implies \int_{\Omega} \left( \nabla \cdot (-k \nabla T) \right) v \, dV = \int_{\Omega} f v \, dV
+\end{equation}
+
+\subsection{Paso 2: Integración por Partes (El Truco Mágico de FEM)}
+Para reducir la exigencia de suavidad de la solución, aplicamos integración por partes al término con la segunda derivada. Esto ``balancea la carga'' de la derivada, moviendo una derivada de $T$ a la función de prueba $v$.
+\begin{equation}
+    \int_{\Omega} k \nabla T \cdot \nabla v \, dV = \int_{\Omega} f v \, dV + \int_{\partial \Omega} v (-k \nabla T \cdot \vec{n}) \, dS
+\end{equation}
+
+\subsection{La Formulación Final y su Significado}
+Definiendo el flujo de calor en la frontera como $g = \vec{q} \cdot \vec{n} = -k \nabla T \cdot \vec{n}$, llegamos a la formulación final, el lenguaje que FEniCS entiende \cite{logg2012}:
+\begin{keybox}{WasaffCopper}
+    \textbf{Formulación Débil (Variacional) de la Ecuación de Poisson:}
+    
+    Encontrar $T \in V$ tal que para todo $v \in \hat{V}$:
+    \begin{equation}
+        \underbrace{\int_{\Omega} k \nabla T \cdot \nabla v \, dV}_{\text{a(T,v) - Forma Bilineal}} = \underbrace{\int_{\Omega} f v \, dV + \int_{\partial \Omega} g v \, dS}_{\text{L(v) - Funcional Lineal}}
+    \end{equation}
+\end{keybox}
+Esta forma $a(T,v) = L(v)$ es el lenguaje universal que traduce la física a una forma resoluble por el software de elementos finitos.

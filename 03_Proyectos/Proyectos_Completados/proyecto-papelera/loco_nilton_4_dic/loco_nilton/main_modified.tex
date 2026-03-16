@@ -1,0 +1,388 @@
+%-------------------------------------------------
+% PREÁMBULO
+%-------------------------------------------------
+
+% Documento propiedad de LEYCERO SpA.
+% Trabajo realizado por Nilton Martinez y Felipe González.
+% Creado para Análisis termodinámico en Papelera Cordillera.
+
+\documentclass[11pt,a4paper]{article}  % Define la clase del documento como "article" con tamaño de fuente 11pt y papel A4.
+
+% Paquetes
+\usepackage[utf8]{inputenc}  % Codificación de entrada para caracteres especiales (UTF-8).
+\usepackage[spanish]{babel}  % Configuración para el idioma español.
+\usepackage{amsmath, amssymb, amsthm}  % Paquetes matemáticos y teoremas.
+\usepackage{pdflscape} % Para el entorno landscape
+\usepackage{siunitx} % Para alinear números y unidades
+
+\usepackage{graphicx}  % Para incluir imágenes en el documento.
+\usepackage{listings}  % Para incluir código fuente.
+\usepackage{booktabs}  % Para crear tablas profesionales.
+\usepackage{tabularx}  % Mejoras para tablas.
+\usepackage{makecell}  % Permite celdas en tablas con formato especial.
+\usepackage{multirow}  % Permite combinar filas en tablas.
+\usepackage{hyperref}  % Habilita hipervínculos y referencias cruzadas.
+\usepackage[left=1.5in, right=1in, top=1in, bottom=1in]{geometry}  % Configuración de márgenes de la página.
+\usepackage{xcolor}  % Permite el uso de colores en el documento.
+\usepackage{siunitx}  % Formateo de unidades y números.
+\usepackage{caption}  % Configuración personalizada para los títulos de las tablas y figuras.
+\captionsetup{font=it}  % Configura el formato de los títulos de tablas y figuras.
+\usepackage[nottoc]{tocbibind}  % Configura la inclusión de la bibliografía en el índice.
+\usepackage{fancyhdr}  % Personaliza los encabezados y pies de página.
+\usepackage{enumitem}  % Permite personalizar las listas.
+\usepackage{tocloft}  % Personaliza el formato del índice.
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows.meta, positioning, patterns}
+\tikzset{
+    % Definición de estilos para P&ID
+    compresor/.style = {draw, rectangle, minimum size=1cm, label=below:Compresor},
+    intercambiador/.style = {draw, trapezium, trapezium stretches=true, minimum size=1.5cm, label=below:Intercambiador},
+    bomba/.style = {draw, circle, minimum size=1cm, label=below:Bomba},
+    acumulador/.style = {draw, cylinder, shape aspect=2, minimum size=2cm, label=below:Acumulador},
+    tuberia/.style = {thick},
+}
+
+% Redefinir el símbolo estándar para itemize
+\setlist[itemize,1]{label=$\bullet$}  % Cambia el símbolo de la lista itemize a un bullet personalizado.
+
+% Encabezados y pies de página
+\pagestyle{fancy}  % Establece un estilo de página personalizado.
+\fancyhf{}  % Limpia los encabezados y pies de página existentes.
+\fancyhead[L]{Recuperación de Calor en Compresores}  % Encabezado izquierdo.
+\fancyhead[R]{Leycero SpA}  % Encabezado derecho.
+\fancyfoot[C]{\thepage}  % Número de página en el centro del pie de página.
+\renewcommand{\headrulewidth}{0.4pt}  % Grosor de la línea de encabezado.
+\renewcommand{\footrulewidth}{0.4pt}  % Grosor de la línea de pie de página.
+
+% Información del documento
+\title{Sistema de recuperación de calor}  % Título del documento.
+\author{Ingeniero a cargo: Nilton Martínez}  % Autor del documento.
+\date{Fecha de entrega: \today}  % Fecha del documento.
+
+\renewcommand{\cfttabpresnum}{Tabla\ }  % Configura la etiqueta "Tabla" en el índice de tablas.
+\renewcommand{\cfttabaftersnum}{.}  % Agrega un punto después del número de tabla en el índice.
+\newlength{\mylen}  % Define una longitud personalizada.
+\settowidth{\mylen}{\cfttabpresnum\cfttabaftersnum}  % Establece la longitud de la etiqueta de tabla.
+\addtolength{\cfttabnumwidth}{\mylen}  % Añade la longitud personalizada a la anchura del número de tabla en el índice.
+
+\addto\captionsspanish{  % Configuración personalizada para el idioma español.
+  \renewcommand{\tablename}{Tabla}  % Cambia el nombre de las tablas a "Tabla".
+  \renewcommand{\listtablename}{Índice de Tablas}  % Cambia el nombre del índice de tablas a "Índice de Tablas".
+}
+
+%-------------------------------------------------
+% DOCUMENTO
+%-------------------------------------------------
+
+
+\begin{document}
+
+% 1. Portada
+\begin{titlepage}
+\centering
+\includegraphics[scale=0.2]{img/logo}\\ % Si tienes un logo de la empresa Leycero SpA, puedes agregarlo aquí.
+\vspace*{2cm}
+{\LARGE \bfseries Informe de Diseño del Sistema de Recuperación de Calor para Compresores en Papeles Cordillera S.A (CMPC Puente Alto)}\\[1cm]
+
+Proyecto realizado por:\\[0.4cm]
+{\large Leycero SpA}\\[0.6cm]
+Para la implementación en:\\[0.4cm]
+{\large Papeles Cordillera S.A.}\\[0.6cm]
+En colaboración con:\\[0.4cm]
+{\large Kaeser Compresores de Chile SpA}\\[1cm]
+
+Autores:\\[0.4cm]
+{\large Felipe González}\\
+{\small Licenciado en Ciencias con mención en Física, Universidad de Chile}\\[0.4cm]
+
+{\large Nilton Martínez}\\
+{\small Ingeniero en Refrigeración y Climatización, INACAP}\\
+{\small Ingeniero en Automatización y Control Industrial, INACAP}\\[1cm]
+
+
+Contacto:\\[0.4cm]
+{\small niltonmartinez@gmail.com}\\ % Ajusta este correo al correo real que deseas usar.
+
+
+\vfill
+Fecha de entrega: \today
+\end{titlepage}
+
+ 2. Índice
+\tableofcontents
+\newpage
+
+% 3. Indice de tablas
+%\listoftables
+%\newpage
+
+% 3. Resumen Ejecutivo
+\section{Resumen Ejecutivo}
+
+
+% 4. Introducción
+
+\section{Introducción}
+
+\subsection{Contexto del Proyecto}
+Este proyecto aborda la implementación de un avanzado sistema de recuperación de calor en la planta Papeles Cordillera S.A., una respuesta innovadora a la necesidad imperante de optimizar la eficiencia energética en la industria papelera. Caracterizada por su intensivo consumo energético, la planta se centra en la utilización de compresores de aire, cuya operación es esencial pero genera una considerable cantidad de calor residual. Este calor, hasta ahora subutilizado, representa una oportunidad significativa para mejorar la eficiencia energética general de la planta.
+
+\subsection{Justificación y Relevancia del Proyecto}
+La implementación de este sistema de recuperación de calor no solo está alineada con las políticas de sostenibilidad ambiental y eficiencia energética de la empresa, sino que también representa una oportunidad estratégica para reducir costos operativos. La recuperación y reutilización del calor residual de los compresores permitirá disminuir el consumo de energía\section{Condiciones de Diseño y Parámetros Técnicos}
+
+El diseño del sistema de recuperación de calor en la planta de Papeles Cordillera S.A. se fundamenta en un conjunto de parámetros técnicos clave. Estos parámetros son esenciales para garantizar la eficiencia y seguridad del sistema. A continuación, se detallan dichos parámetros junto con la justificación de su elección.
+
+\subsection{Temperatura}
+\begin{itemize}
+    \item \textbf{Temperatura de entrada del agua}: Se ha establecido en \(11^\circ C\), basándose en las condiciones promedio de la planta y la temperatura óptima para la eficiencia de los intercambiadores de calor.
+    \item \textbf{Temperatura de retorno del agua}: Fijada en \(36^\circ C\), esta temperatura maximiza la transferencia de calor del sistema sin comprometer la integridad de los componentes.
+\end{itemize}
+
+\subsection{Caudal de Agua}
+Los caudales de agua para los intercambiadores de calor han sido determinados considerando las capacidades de enfriamiento específicas de los compresores:
+\begin{itemize}
+    \item Compresores FSD 575: \(8.5 \text{ m}^3\text{/h}\).
+    \item Compresor DSDX 305: \(4.5 \text{ m}^3\text{/h}\).
+    \item Compresor ESD 445: \(6.4 \text{ m}^3\text{/h}\).
+\end{itemize}
+Estos valores aseguran un equilibrio entre la eficiencia de la transferencia de calor y la prevención de problemas como la cavitación.
+
+\subsection{Densidad y Calor Específico del Agua}
+\begin{itemize}
+    \item \textbf{Densidad del Agua}: Se ha considerado \(1000~\text{kg/m}^3\), valor estándar a la temperatura de operación, crucial para los cálculos de masa y volumen.
+    \item \textbf{Calor Específico del Agua}: Establecido en \(1~\text{kcal/kg}\cdot\text{K}\), este parámetro determina la cantidad de calor que el agua puede absorber o ceder.
+\end{itemize}
+
+\subsection{Justificación de los Parámetros}
+La selección de estos parámetros se ha realizado con el objetivo de optimizar el rendimiento del sistema de recuperación de calor. Se han tenido en cuenta factores como las condiciones operativas de la planta, la eficiencia energética deseada y la viabilidad técnica. Cada parámetro ha sido cuidadosamente elegido para garantizar una integración efectiva con los procesos existentes y maximizar la recuperación de calor residual.
+
+\section{Cálculos y Selección Preliminar de Componentes}
+
+En esta sección, se presentan los cálculos fundamentales realizados para el diseño preliminar del sistema de recuperación de calor en la planta de Papeles Cordillera S.A., así como las consideraciones que respaldan la selección de componentes clave.
+
+\subsection{Cálculos de Transferencia de Calor}
+Los cálculos de transferencia de calor son esenciales para determinar la cantidad de calor que se puede recuperar del sistema de compresión de aire y transferir al agua industrial. Estos cálculos se basan en las siguientes ecuaciones:
+
+\begin{itemize}
+    \item \textbf{Cálculo de la Capacidad Térmica del Agua}: Se utilizó la ecuación 
+
+\begin{align*}
+Q = m \cdot c \cdot \Delta T, 
+\end{align*}    
+    
+donde \(Q\) es la cantidad de calor, \(m\) es la masa de agua, \(c\) es el calor específico del agua y \(\Delta T\) es la diferencia de temperatura.
+    
+    \item \textbf{Cálculo de la Transferencia de Calor en los Intercambiadores}: Se aplicaron ecuaciones de transferencia de calor convectivo para determinar la eficiencia de los intercambiadores de calor en la transferencia de calor desde el aire comprimido al agua.
+\end{itemize}
+
+\subsection{Cálculos de Caída de Presión}
+Para los cálculos de caída de presión, se ha considerado la resistencia al flujo en las tuberías y los accesorios. Estos cálculos son fundamentales para determinar los requisitos de presión para las bombas y para asegurar un flujo eficiente a través del sistema. La fórmula general utilizada es la de Darcy-Weisbach:
+\[ \Delta P = f \cdot \frac{L}{D} \cdot \frac{\rho \cdot v^2}{2} \]
+donde:
+\begin{itemize}
+    \item \( \Delta P \) es la caída de presión,
+    \item \( f \) es el factor de fricción,
+    \item \( L \) es la longitud de la tubería,
+    \item \( D \) es el diámetro de la tubería,
+    \item \( \rho \) es la densidad del agua,
+    \item \( v \) es la velocidad del agua.
+\end{itemize}
+
+\subsection{Consideraciones para la Selección de Componentes}
+La selección preliminar de componentes se basó en una evaluación de los requisitos técnicos y operativos del sistema. Se tuvieron en cuenta los siguientes aspectos:
+\begin{itemize}
+    \item \textbf{Selección de Bomba}: La elección de la bomba se basará en criterios técnicos y operativos, incluyendo eficiencia, capacidad y fiabilidad. La compatibilidad con los intercambiadores de calor y la caída de presión en el sistema son consideraciones clave.
+    
+    \item \textbf{Dimensionamiento del Acumulador de Calor}: El acumulador de calor se dimensionará en función de la capacidad térmica requerida y los rangos de temperatura del sistema. La eficiencia en la retención de calor será un factor determinante en la selección.
+    
+    \item \textbf{Optimización de Cálculos de Diseño}: Una vez que se tengan la bomba y el acumulador de calor seleccionados, se ajustarán y optimizarán los cálculos de diseño para garantizar la eficiencia operativa del sistema.
+\end{itemize}
+
+Estos cálculos y consideraciones son fundamentales para el diseño efectivo del sistema de recuperación de calor y aseguran su capacidad para cumplir con los objetivos de eficiencia energética y sostenibilidad de Papeles Cordillera S.A.
+
+\section{Dimensiones de las Tuberías y Especificaciones del Acumulador de Calor}
+
+Esta sección aborda las especificaciones técnicas y de diseño para las tuberías y el acumulador de calor en el sistema de recuperación de calor de la planta de Papeles Cordillera S.A.
+
+\subsection{Dimensiones de las Tuberías}
+Las dimensiones de las tuberías han sido calculadas para optimizar la eficiencia del flujo de agua y la transferencia de calor, asegurando al mismo tiempo una mínima caída de presión y evitando problemas como la cavitación. Los criterios utilizados para definir estas dimensiones son:
+
+\begin{itemize}
+    \item \textbf{Caudal de Agua}: Se determinaron los diámetros de las tuberías en función del caudal requerido para cada compresor, asegurando un flujo adecuado y eficiente.
+    \item \textbf{Velocidad Máxima del Agua}: Se ha considerado una velocidad máxima de \(3.6 \text{ m/s}\) para prevenir la erosión y el ruido excesivo en las tuberías.
+\end{itemize}
+
+Los diámetros específicos para cada compresor se establecieron como sigue:
+\begin{itemize}
+    \item Compresores FSD 575: Diámetro adecuado para un caudal de \(8.5 \text{ m}^3/h\).
+    \item Compresor DSDX 305: Diámetro ajustado para un caudal de \(4.5 \text{ m}^3/h\).
+    \item Compresor ESD 445: Diámetro diseñado para un caudal de \(6.4 \text{ m}^3/h\).
+\end{itemize}
+
+\subsection{Especificaciones del Acumulador de Calor}
+El acumulador de calor es un componente esencial en el sistema de recuperación de calor, y sus especificaciones se han definido preliminarmente considerando la capacidad máxima de recuperación de calor y los patrones de demanda del sistema. Las especificaciones preliminares incluyen:
+
+\begin{itemize}
+    \item \textbf{Volumen del Acumulador}: Calculado en función de la cantidad total de calor recuperable y las necesidades de almacenamiento a lo largo del tiempo, permitiendo una carga y descarga eficiente de calor.
+    \item \textbf{Material del Acumulador}: Se seleccionará teniendo en cuenta factores de durabilidad y eficiencia térmica.
+    \item \textbf{Aislamiento Térmico}: Se implementará un aislamiento adecuado para minimizar las pérdidas de calor.
+\end{itemize}
+
+Estas especificaciones son fundamentales para garantizar la eficacia del sistema de recuperación de calor y serán ajustadas y refinadas a medida que avance el proyecto y se obtengan más datos de los componentes seleccionados.
+
+\section{Selección de la Bomba}
+
+La selección de la bomba adecuada es un aspecto crítico en el diseño del sistema de recuperación de calor en la planta de Papeles Cordillera S.A. Esta sección detalla los criterios usados para la selección y el estado actual del proceso.
+
+\subsection{Criterios para la Selección}
+Los criterios utilizados para la selección de la bomba incluyen una serie de factores técnicos y operativos, que aseguran la compatibilidad y eficiencia del sistema. Estos criterios son:
+
+\begin{itemize}
+    \item \textbf{Capacidad de Caudal y Presión}: La bomba debe ser capaz de manejar el caudal de agua requerido por el sistema a la presión necesaria para superar las pérdidas de carga en las tuberías y los intercambiadores de calor.
+    
+    \item \textbf{Eficiencia Energética}: Se busca una bomba que ofrezca una alta eficiencia energética para reducir el consumo de energía y los costos operativos.
+    
+    \item \textbf{Fiabilidad y Mantenimiento}: La bomba seleccionada debe tener un historial comprobado de fiabilidad y facilidad de mantenimiento, para garantizar la continuidad operativa del sistema.
+    
+    \item \textbf{Compatibilidad con el Sistema}: La bomba debe ser compatible con las características físicas y químicas del agua industrial y con las condiciones ambientales de la planta.
+\end{itemize}
+
+\subsection{Estado Actual del Proceso de Selección}
+Actualmente, el proceso de selección de la bomba se encuentra en una fase de evaluación. Se están considerando varias opciones de proveedores, cada una de las cuales está siendo revisada en función de los criterios mencionados anteriormente. La decisión final se tomará basándose en una comparación detallada de rendimiento, costos, y compatibilidad con el sistema de recuperación de calor diseñado. La selección está pendiente de recibir información técnica adicional de los proveedores y de completar las evaluaciones de rendimiento.
+
+Esta selección es fundamental para el éxito del sistema y se está abordando con un enfoque meticuloso para garantizar que la bomba elegida cumpla con todos los requisitos operativos y de eficiencia del proyecto.
+
+\section{Recomendaciones Provisionales}
+
+Basándonos en el diseño actual y los análisis preliminares realizados para el sistema de recuperación de calor en la planta de Papeles Cordillera S.A., se proponen las siguientes recomendaciones provisionales. Estas recomendaciones están sujetas a revisión y ajuste a medida que el proyecto avance y se obtenga más información detallada.
+
+\begin{enumerate}
+    \item \textbf{Instalación de una Bomba Única de Alta Eficiencia}: Se recomienda considerar la instalación de una única bomba de alta eficiencia para el sistema. Esta opción podría simplificar la infraestructura de bombeo y ofrecer beneficios en términos de reducción de costos de mantenimiento y operación. La consolidación de las funciones de bombeo en una sola unidad podría aumentar la eficiencia operativa y facilitar la gestión del sistema.
+
+    \item \textbf{Incorporación de Válvulas de Cierre Automático}: Se sugiere la instalación de válvulas de cierre automático en puntos estratégicos del sistema. Estas válvulas permitirían un control más eficiente y seguro del flujo de agua, facilitando operaciones de mantenimiento y emergencia sin comprometer la funcionalidad del sistema completo.
+
+    \item \textbf{Evaluación de Sistemas de Control Automatizado}: Se recomienda evaluar la implementación de un sistema de control automatizado para el monitoreo y ajuste de los parámetros operativos del sistema de recuperación de calor. Esto podría mejorar la eficiencia del sistema, permitiendo ajustes en tiempo real basados en las condiciones de funcionamiento.
+
+    \item \textbf{Análisis de Impacto Ambiental}: Dada la importancia de la sostenibilidad y la eficiencia energética, se recomienda realizar un análisis de impacto ambiental completo. Este análisis ayudaría a identificar y mitigar cualquier efecto negativo potencial del sistema sobre el medio ambiente.
+
+    \item \textbf{Estudios de Factibilidad Técnica y Económica}: Se sugiere llevar a cabo estudios detallados de factibilidad técnica y económica para todas las recomendaciones y componentes del sistema. Esto aseguraría que las decisiones tomadas sean viables tanto desde el punto de vista técnico como financiero.
+\end{enumerate}
+
+Estas recomendaciones provisionales buscan optimizar el diseño y funcionamiento del sistema de recuperación de calor, alineándose con los objetivos de eficiencia y sostenibilidad de la planta. Sin embargo, es importante destacar que estas sugerencias se basan en el análisis y la información disponibles en la etapa actual del proyecto y podrían requerir ajustes a medida que se avance en el desarrollo del proyecto.
+
+\section{Anexos}
+En esta sección, se presentan los anexos que complementan la información contenida en el informe de diseño del sistema de recuperación de calor para la planta de Papeles Cordillera S.A. Los anexos proporcionan detalles técnicos adicionales y documentación relevante que respaldan el proyecto.
+
+\subsection{Anexo A: Parámetros hidrodinámicos y pérdidas de presión en el sistema de tuberías}
+En la Tabla \ref{tabla_latex_seleccionada}, se detallan los parámetros hidrodinámicos y las pérdidas de presión en los diferentes tramos del sistema de tuberías. Estos datos son esenciales para comprender el flujo de agua caliente a través del sistema y garantizar un funcionamiento eficiente.
+
+\begin{table}[h!]
+\centering
+\caption{Parámetros hidrodinámicos y pérdidas de presión en el sistema de tuberías}
+\label{tabla_latex_seleccionada}
+\begin{tabular}{ccccccc}
+\toprule
+Tramo & Caudal & Velocidad & Largo & Diámetro & Caída de presión \\
+ & (m\textsuperscript{3}/h) & (m/s) & (m) & (pulg) & (bar) \\
+\midrule
+AB & 40,8 & 3,6 & 2,80 & 2,5 & 0,91 \\
+BC & 36,3 & 3,5 & 0,80 & 2,5 & 0,04 \\
+CD & 27,83 & 3,3 & 0,20 & 2 & 0,04 \\
+DE & 21,43 & 3,1 & 0,90 & 2 & 0,05 \\
+EF & 12,96 & 2,6 & 1,20 & 1,5 & 0,05 \\
+FG & 4,5 & 2 & 8,65 & 1 & 0,39 \\
+FH & 8,47 & 2,5 & 7,50 & 1,25 & 0,42 \\
+EI & 8,47 & 2,5 & 7,50 & 1,25 & 0,42 \\
+CK & 8,47 & 2,5 & 7,50 & 1,25 & 0,42 \\
+DJ & 6,4 & 2,4 & 7,00 & 1,25 & 0,41 \\
+BL & 4,5 & 2 & 7,00 & 1 & 0,34 \\
+\midrule
+MN & 4,5 & 2 & 15,8 & 1 & 0,30 \\
+NO & 12,9 & 2,6 & 0,8 & 1,5 & 0,02 \\
+OP & 19,4 & 3 & 0,9 & 2 & 0,02 \\
+PQ & 27,8 & 3,3 & 1,2 & 2 & 0,02 \\
+QR & 36,3 & 3,5 & 1,15 & 2,5 & 0,02 \\
+RS & 4,5 & 2 & 0,8 & 1 & 0,02 \\
+TQ & 8,5 & 2,5 & 0,8 & 1,25 & 0,02 \\
+UP & 8,5 & 2,5 & 0,8 & 1,25 & 0,02 \\
+VN & 8,5 & 2,5 & 0,8 & 1,25 & 0,02 \\
+WO & 6,4 & 2,4 & 14 & 1,25 & 0,27 \\
+RX & 40,8 & 3,6 & 14 & 2,5 & 0,27 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Estos datos son fundamentales para el diseño y la operación eficiente del sistema de tuberías, ya que proporcionan información detallada sobre el flujo de agua, las velocidades y las pérdidas de presión en cada tramo.
+
+\subsection{Anexo B: Especificaciones técnicas de los compresores}
+Este anexo contiene las especificaciones técnicas detalladas de los compresores utilizados en el sistema de recuperación de calor. Incluye información sobre modelos, capacidades, rendimiento térmico y otros datos relevantes.
+
+\begin{table}[h]
+\footnotesize
+\centering
+\begin{tabular}{lccc}
+\toprule
+Característica & FSD 575 & DSDX 305 & ESD 445 \\
+\midrule
+Tipo de compresor & Tornillo de dos etapas & Tornillo de una etapa & Tornillo de dos etapas \\
+Numeración & 1, 2, 3 & 4, 5 & 6 \\
+Potencia nominal (kW) & 315 & 160 & 250 \\
+\bottomrule
+\end{tabular}
+\caption{Especificaciones técnicas de los compresores utilizados en el sistema.}
+\label{tab:especificaciones_compresores_ampliadas}
+\footnotesize
+\textit{Nota:} El compresor FSD 575 (N°3) opera únicamente como respaldo en caso de falla de los compresores N°1 o N°2.
+\end{table}
+
+\begin{table}[h]
+\footnotesize
+\centering
+\begin{tabular}{cccccc} \toprule
+Grupo & \multicolumn{2}{c}{\begin{tabular}[c]{@{}c@{}}Demanda de aire\\ comprimido\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Equipo en \\ operación\end{tabular} & \begin{tabular}[c]{@{}c@{}}Rendimiento\\ térmico\end{tabular} & \begin{tabular}[c]{@{}c@{}}Agua caliente\\ $\Delta T=25~\text{K}$\end{tabular} \\ 
+ & ($\text{m}^3\text{/h}$) & ($\%$) &  & (kW) & ($\text{m}^3\text{/h}$) \\ \midrule
+1 & 90 & 2 & 1 - 6 & 442 & 15,32 \\ \midrule
+2 & 130 & 1 & 1 - 2 - 4 & 622 & 21,72 \\ \midrule
+3 & 131 & 80 & 1 - 2 - 4 & 622 & 21,72 \\ \midrule
+4 & 140 & 1 & 1 - 2 - 4 & 622 & 21,72 \\ \midrule
+5 & 150 & 1 & 1 - 2 - 6 & 688 & 23,93 \\ \midrule
+6 & 174 & 14 & 1 - 2 - 4 - 5 & 752 & 26,22 \\ \midrule
+7 & 218 & 2 & 1 - 2 - 4  - 5 - 6 & 948 & 32,93 \\ \bottomrule
+\end{tabular}
+\caption{Demanda de aire comprimido, rendimiento térmico y producción de agua caliente en grupos de compresores.}
+\label{tab:compresores_demanda}
+\end{table}
+
+\begin{table}[h!]
+\footnotesize
+\centering
+\begin{tabular}{lccc}
+\toprule
+Característica & FSD 575 & DSDX 305 & ESD 445 \\
+\midrule
+Tipo & Contracorriente & Contracorriente & Contracorriente \\
+Eficiencia de recuperación de calor & Hasta el 90\% & Hasta el 85\% & Hasta el 80\% \\
+Rendimiento térmico máximo disponible (kW) & 246 & 130 & 187 \\
+Agua caliente ($\Delta T=25~\text{K}$) ($\text{m}^3\text{/h}$) & 8,5 & 4,5 & 6,4 \\
+Caída de presión (bar) & 0,4 & 0,25 & 0,4 \\
+\bottomrule
+\end{tabular}
+\caption{Información técnica de los recuperadores de calor de los compresores Kaeser.}
+\label{tab:recuperador_calor}
+\end{table}
+
+\subsection{Anexo C: Esquema de layout de ubicación de equipos}
+En este anexo, se presenta un esquema de layout que muestra la ubicación de los equipos en la planta. Proporciona una representación visual de cómo se distribuyen los compresores y otros componentes clave en el entorno de la planta.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/plano_compresores.png}
+    \caption{Plano de distribución de los compresores en la sala de máquinas.}
+    \label{fig:layout_compresores}
+\end{figure}
+
+Estos anexos proporcionan una visión más completa y detallada de la información técnica y respaldan el informe de diseño del sistema de recuperación de calor para la planta de Papeles Cordillera S.A.
+\newpage
+
+
+\end{document}

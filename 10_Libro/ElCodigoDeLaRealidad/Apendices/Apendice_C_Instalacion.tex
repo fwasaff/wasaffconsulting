@@ -1,0 +1,94 @@
+\chapter{Instalación y Configuración del Entorno de Simulación}
+\label{app:install}
+
+Para ejecutar los ejemplos de código de este libro y comenzar a realizar sus propias simulaciones, es necesario instalar el software FEniCS. La instalación de un entorno de computación científica puede ser compleja debido a las numerosas dependencias. Por ello, en este apéndice se describe el método de instalación más robusto y recomendado: el uso de \textbf{Docker}.
+
+%==================================================================================
+\section{El Enfoque Recomendado: FEniCS con Docker}
+%==================================================================================
+\textbf{Docker} es una plataforma de software que permite empaquetar una aplicación y todas sus dependencias en una unidad aislada llamada \textit{contenedor}. Este enfoque tiene enormes ventajas:
+\begin{itemize}
+    \item \textbf{Reproducibilidad:} El entorno dentro del contenedor es idéntico para todos los usuarios, independientemente de su sistema operativo (Linux, macOS, Windows). Esto garantiza que el código del libro funcione sin problemas.
+    \item \textbf{Aislamiento:} No interfiere con las librerías de Python o los paquetes de su sistema. Es un entorno limpio y autocontenido.
+    \item \textbf{Facilidad de Instalación:} Evita el complejo proceso de compilar FEniCS y sus dependencias (PETSc, MPI, etc.) desde cero.
+\end{itemize}
+
+%----------------------------------------------------------------------------------
+\subsection{Paso 1: Instalación de Docker}
+%----------------------------------------------------------------------------------
+Primero, debe instalar Docker en su sistema.
+\paragraph{En Ubuntu/Debian Linux}
+Abra una terminal y ejecute los siguientes comandos:
+\begin{minted}[frame=lines, fontsize=\small]{bash}
+# Actualizar la lista de paquetes
+sudo apt-get update
+# Instalar los paquetes necesarios para permitir a apt usar un repositorio sobre HTTPS
+sudo apt-get install ca-certificates curl gnupg
+# Añadir la clave GPG oficial de Docker
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+# Configurar el repositorio de Docker
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# Instalar Docker Engine
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+\end{minted}
+Para evitar tener que usar `sudo` con cada comando de Docker, añada su usuario al grupo `docker`:
+\begin{minted}[frame=lines, fontsize=\small]{bash}
+sudo usermod -aG docker ${USER}
+\end{minted}
+\textbf{Importante:} Deberá cerrar sesión y volver a iniciarla para que este cambio surta efecto.
+
+\paragraph{En macOS y Windows}
+La forma más sencilla es descargar e instalar \textbf{Docker Desktop} desde el sitio web oficial: \url{https://www.docker.com/products/docker-desktop/}. El instalador gráfico le guiará a través de todo el proceso.
+
+%----------------------------------------------------------------------------------
+\subsection{Paso 2: Descargar y Ejecutar el Contenedor de FEniCS}
+%----------------------------------------------------------------------------------
+Una vez instalado Docker, el resto del proceso se realiza en la terminal.
+\begin{enumerate}
+    \item \textbf{Descargar la imagen de FEniCS:} La imagen oficial contiene una instalación completa de FEniCS y sus dependencias.
+    \begin{minted}[frame=lines, fontsize=\small]{bash}
+docker pull dolfinadjoint/fenics
+    \end{minted}
+    \item \textbf{Ejecutar un script:} Para ejecutar un script de Python (ej. `mi-script.py`) ubicado en su directorio actual, use el siguiente comando:
+    \begin{minted}[frame=lines, fontsize=\small]{bash}
+# El flag -v monta el directorio actual en /home/fenics/shared dentro del contenedor
+# --rm elimina el contenedor automáticamente al terminar
+docker run -ti --rm -v $(pwd):/home/fenics/shared dolfinadjoint/fenics \
+       "python3 shared/mi_script.py"
+    \end{minted}
+    \item \textbf{Iniciar una sesión interactiva:} Si desea trabajar de forma interactiva dentro del entorno FEniCS, puede iniciar una terminal dentro del contenedor:
+    \begin{minted}[frame=lines, fontsize=\small]{bash}
+docker run -ti --name fenics_session -v $(pwd):/home/fenics/shared dolfinadjoint/fenics
+    \end{minted}
+    Esto le dará un prompt de `bash` dentro del contenedor, donde podrá instalar paquetes adicionales (con `pip install ...`) y ejecutar sus scripts directamente.
+\end{enumerate}
+
+%==================================================================================
+\section{Otras Alternativas de Instalación}
+%==================================================================================
+Aunque Docker es el método recomendado, existen otras alternativas que pueden ser adecuadas para ciertos usuarios.
+
+%----------------------------------------------------------------------------------
+\subsection{Instalación con Conda}
+%----------------------------------------------------------------------------------
+\textbf{Conda} es un sistema de gestión de paquetes y entornos muy popular en la comunidad de ciencia de datos. Permite crear entornos de Python aislados e instalar FEniCS desde el canal `conda-forge`.
+\begin{minted}[frame=lines, fontsize=\small]{bash}
+# Crear un nuevo entorno llamado 'fenics-env'
+conda create -n fenics_env
+# Activar el entorno
+conda activate fenics_env
+# Instalar FEniCS desde el canal conda-forge
+conda install -c conda-forge fenics
+\end{minted}
+Este método es una excelente alternativa a Docker, especialmente para usuarios que ya están familiarizados con el ecosistema de Conda.
+
+%----------------------------------------------------------------------------------
+\subsection{Instalación Nativa (Usuarios Avanzados)}
+%----------------------------------------------------------------------------------
+Es posible compilar e instalar FEniCS y todas sus dependencias directamente en el sistema operativo. Este método ofrece el mejor rendimiento, pero es considerablemente más complejo y propenso a errores. Se recomienda únicamente para usuarios avanzados de Linux con experiencia en la compilación de software. Las instrucciones detalladas se pueden encontrar en la documentación oficial de FEniCS, pero pueden variar significativamente entre diferentes versiones de sistemas operativos.

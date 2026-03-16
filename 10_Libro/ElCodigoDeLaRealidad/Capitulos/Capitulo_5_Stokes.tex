@@ -1,0 +1,86 @@
+\chapter{El Movimiento Lento pero Poderoso: Flujo de Stokes}
+\label{chap:stokes}
+
+%==================================================================================
+\section{El Mundo de los Fluidos en Movimiento}
+%==================================================================================
+Habiendo dominado problemas de difusión y mecánica de sólidos, nos adentramos en una de las disciplinas más desafiantes y valiosas de la simulación: la \textbf{Dinámica de Fluidos Computacional (CFD)}. Nuestro objetivo es modelar y predecir el movimiento de fluidos, un campo con aplicaciones en casi todas las ramas de la ingeniería y la ciencia.
+
+Comenzaremos nuestro viaje con el caso más simple y fundamental: el \textbf{Flujo de Stokes}. Esta es la descripción del movimiento de fluidos donde las fuerzas viscosas (la ``fricción interna'' del fluido) dominan completamente sobre las fuerzas inerciales (la ``tendencia del fluido a seguir en movimiento''). Esto ocurre en flujos muy lentos o con fluidos extremadamente viscosos. El Flujo de Stokes es el ``Hola, Mundo'' de la CFD, ya que nos introduce al acoplamiento de los campos de velocidad y presión sin la complejidad añadida de la no linealidad.
+
+\begin{center}
+\begin{tabular}{|p{0.9\textwidth}|}
+\hline
+\textbf{CONTEXTO INGENIERIL} \\
+Aunque es una simplificación, el Flujo de Stokes describe con gran precisión una enorme variedad de fenómenos reales:
+\begin{itemize}
+    \item \textbf{Geofísica:} El movimiento del manto terrestre, que se comporta como un fluido extremadamente viscoso durante escalas de tiempo geológicas.
+    \item \textbf{Microfluídica:} El flujo en dispositivos de ``laboratorio en un chip'' (\textit{lab-on-a-chip}), donde las pequeñas dimensiones hacen que las fuerzas viscosas sean dominantes.
+    \item \textbf{Ingeniería de Procesos:} El flujo de polímeros fundidos, vidrios o metales líquidos durante su procesamiento.
+    \item \textbf{Bioingeniería:} El movimiento de microorganismos como bacterias o el flujo de sangre en capilares muy pequeños.
+\end{itemize}
+\\
+\hline
+\end{tabular}
+\end{center}
+
+%==================================================================================
+\section{La Física de un Fluido Viscoso e Incompresible}
+\label{sec:stokes-theory}
+%==================================================================================
+El movimiento de cualquier fluido newtoniano se describe por las célebres \textbf{ecuaciones de Navier-Stokes}. Para un fluido de densidad \(\rho\) y viscosidad dinámica \(\mu\) constantes, estas ecuaciones son la conservación del momento y la conservación de la masa.
+
+%----------------------------------------------------------------------------------
+\subsection{La Ecuación de Navier-Stokes y la Incompresibilidad}
+%----------------------------------------------------------------------------------
+La conservación del momento (la segunda ley de Newton para fluidos) establece que la aceleración de una partícula de fluido es igual a la suma de las fuerzas que actúan sobre ella (presión, viscosidad y fuerzas externas). La conservación de la masa, para un fluido incompresible, simplemente dicta que el flujo que entra a un volumen debe ser igual al que sale, lo que se expresa como una divergencia nula del campo de velocidades.
+\begin{align}
+    \rho \left( \frac{\partial\bm{u}}{\partial t} + \bm{u} \cdot \nabla\bm{u} \right) &= -\nabla p + \mu \nabla^2\bm{u} + \bm{f} && \text{(Conservación de Momento)} \label{eq:navier-stokes} \\
+    \nabla \cdot \bm{u} &= 0 && \text{(Conservación de Masa / Incompresibilidad)} \label{eq:incompressibility}
+\end{align}
+Aquí, \(\bm{u}\) es el campo de velocidad, \(p\) es el campo de presión, y \(\bm{f}\) son las fuerzas externas. El término \(\rho(\bm{u} \cdot \nabla\bm{u})\) es el término de convección (o inercial) y es no lineal, lo que hace que estas ecuaciones sean notoriamente difíciles de resolver.
+
+%----------------------------------------------------------------------------------
+\subsection{La Simplificación de Stokes: El Régimen de Bajo Reynolds}
+%----------------------------------------------------------------------------------
+En muchos sistemas, el término no lineal es despreciable. El criterio para esta simplificación es el \textbf{número de Reynolds (Re)}, un número adimensional que compara la magnitud de las fuerzas inerciales con las fuerzas viscosas. Cuando \(\text{Re} \ll 1\), el flujo es laminar y dominado por la viscosidad.
+
+Bajo esta condición, y asumiendo un estado estacionario (\(\partial\bm{u}/\partial t = \bm{0}\)) y sin fuerzas externas (\(\bm{f}=\bm{0}\)), las ecuaciones de Navier-Stokes se reducen a las \textbf{Ecuaciones de Stokes}:
+\begin{align}
+    -\mu \nabla^2\bm{u} + \nabla p &= \bm{0} && \text{(Equilibrio de Momento)} \label{eq:stokes-momentum} \\
+    \nabla \cdot \bm{u} &= 0 && \text{(Incompresibilidad)} \label{eq:stokes-continuity}
+\end{align}
+Este es un sistema de EDPs \textit{lineal} para las incógnitas \(\bm{u}\) y \(p\).
+
+%==================================================================================
+\section{La Forma Débil: Un Problema de Punto de Silla}
+\label{sec:stokes-weak}
+%==================================================================================
+A diferencia de los capítulos anteriores donde teníamos una única incógnita, aquí tenemos un sistema acoplado para la velocidad y la presión. Para derivar la forma débil, multiplicamos cada ecuación por su correspondiente función de prueba e integramos:
+\begin{enumerate}
+    \item Multiplicamos la Ecuación de Momento~\eqref{eq:stokes-momentum} por una función de prueba vectorial \(\bm{v}\).
+    \item Multiplicamos la Ecuación de Continuidad~\eqref{eq:stokes-continuity} por una función de prueba escalar \(q\).
+\end{enumerate}
+Aplicando integración por partes a los términos de viscosidad y presión en la primera ecuación, obtenemos la forma débil final:
+
+\begin{center}
+\fbox{\begin{minipage}{0.9\textwidth}
+\textbf{Sistema Variacional de Stokes} \\
+Encontrar el par \((\bm{u}, p)\) tal que para todo par de funciones de prueba \((\bm{v}, q)\):
+\begin{align}
+    \int_{\Omega} \mu \nabla\bm{u} : \nabla\bm{v} \, dV - \int_{\Omega} p (\nabla \cdot \bm{v}) \, dV &= \int_{\partial\Omega} (\mu \nabla\bm{u} - p\mathbf{I}) \cdot \bm{n} \cdot \bm{v} \, dS \label{eq:stokes-weak-1} \\
+    \int_{\Omega} q (\nabla \cdot \bm{u}) \, dV &= 0 \label{eq:stokes-weak-2}
+\end{align}
+\end{minipage}}
+\end{center}
+Este tipo de sistema se conoce como un \textbf{problema de punto de silla}.
+
+\begin{center}
+\begin{tabular}{|p{0.9\textwidth}|}
+\hline
+\textbf{NOTA TÉCNICA: La Condición de Estabilidad LBB (inf-sup)} \\
+Un aspecto crucial en los problemas de Stokes es que no cualquier combinación de espacios de funciones para \(\bm{u}\) y \(p\) funciona. Si se eligen espacios ``incompatibles'' (por ejemplo, elementos lineales P1 para ambos), la solución de la presión puede presentar oscilaciones espurias y sin sentido físico.
+Para garantizar una solución estable y única, los espacios de funciones deben satisfacer la \textbf{condición de estabilidad de Ladyzhenskaya-Babuška-Brezzi (LBB)}. En la práctica, esto significa que el espacio para la velocidad debe ser ``más rico'' que el espacio para la presión. La elección más común y robusta, conocida como el elemento \textbf{Taylor-Hood}, utiliza elementos cuadráticos (P2) para la velocidad y elementos lineales (P1) para la presión. Esta será nuestra elección en la implementación. Para más detalles, ver \cite{Donea2003}. \\
+\hline
+\end{tabular}
+\end{center}

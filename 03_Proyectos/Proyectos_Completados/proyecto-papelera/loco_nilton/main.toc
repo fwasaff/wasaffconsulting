@@ -1,0 +1,17 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Resumen Ejecutivo}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Resultados Financieros Clave}{3}{}%
+\contentsline {subsection}{\numberline {1.2}Justificación de la Capacidad de Diseño}{3}{}%
+\contentsline {section}{\numberline {2}Diseño de Componentes Críticos}{4}{}%
+\contentsline {subsection}{\numberline {2.1}Selección del Intercambiador de Calor (HX)}{4}{}%
+\contentsline {subsection}{\numberline {2.2}Sistema Hidráulico y Almacenamiento Térmico}{5}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}Bombas de Circulación}{5}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}Tanque de Acumulación}{6}{}%
+\contentsline {subsection}{\numberline {2.3}Ingeniería Básica: Fundamento Hidráulico y Componentes Auxiliares}{7}{}%
+\contentsline {subsubsection}{\numberline {2.3.1}Análisis de Caída de Presión y Tuberías}{7}{}%
+\contentsline {subsubsection}{\numberline {2.3.2}Componentes Auxiliares y Seguridad}{8}{}%
+\contentsline {section}{\numberline {3}Análisis de Riesgos y Rentabilidad}{8}{}%
+\contentsline {subsection}{\numberline {3.1}Validación del Balance Energético}{8}{}%
+\contentsline {subsection}{\numberline {3.2}Costo de Capital (CAPEX)}{8}{}%
+\contentsline {section}{\numberline {4}Conclusiones y Recomendaciones}{8}{}%
+\contentsline {subsection}{\numberline {4.1}Diagrama de Instrumentación y Flujo (P\&ID)}{9}{}%

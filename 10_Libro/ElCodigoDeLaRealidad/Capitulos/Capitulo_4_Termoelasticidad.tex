@@ -1,0 +1,229 @@
+\chapter{Cuando el Calor Deforma: Termoelasticidad}
+\label{chap:thermo}
+
+%==================================================================================
+\section{Cuando las Físicas Colaboran}
+%==================================================================================
+
+Hasta ahora, hemos operado en silos físicos: resolvimos problemas de calor sin considerar sus efectos mecánicos. Sin embargo, la verdadera ingeniería a menudo reside en la intersección de múltiples dominios. La \textbf{termoelasticidad} es nuestro primer paso en este fascinante mundo de la simulación multifísica.
+
+Este capítulo acopla dos campos de estudio que a primera vista son independientes: el campo de \textbf{temperatura} (gobernado por la Ecuación del Calor) y el campo de \textbf{desplazamientos} (gobernado por las ecuaciones de la elasticidad). Analizaremos el fenómeno fundamental de la \textbf{dilatación térmica}: cómo un cambio de temperatura en un cuerpo induce un deseo de expandirse o contraerse y, si este movimiento es restringido, cómo se generan esfuerzos internos que pueden llevar al fallo del componente.
+
+\begin{center}
+\begin{tabular}{|p{0.9\textwidth}|}
+\hline
+\textbf{CONTEXTO INGENIERIL} \\
+El acoplamiento termo-mecánico es crítico en innumerables aplicaciones de alta tecnología:
+\begin{itemize}
+    \item \textbf{Motores y Turbinas:} Los componentes operan a temperaturas extremas. Los gradientes térmicos generan esfuerzos que son el principal factor limitante de la vida útil del componente.
+    \item \textbf{Microelectrónica (MEMS):} Actuadores y sensores diminutos, como los termostatos bimetálicos, se diseñan para deformarse de manera predecible con pequeños cambios de temperatura.
+    \item \textbf{Ingeniería Civil y Aeroespacial:} Los esfuerzos térmicos en puentes, edificios o alas de avión debidos a la variación de la temperatura día-noche deben ser considerados en el diseño estructural para evitar fallos catastróficos.
+\end{itemize}
+\\
+\hline
+\end{tabular}
+\end{center}
+
+%==================================================================================
+\section{Los Dos Pilares Físicos y el Puente que los Une}
+\label{sec:thermo-theory}
+%==================================================================================
+Para construir nuestro modelo multifísico, debemos primero entender las ecuaciones gobernantes de cada física por separado, para luego identificar el término que actúa como puente entre ellas.
+
+%----------------------------------------------------------------------------------
+\subsection{Pilar 1: El Mundo de la Mecánica Lineal}
+%----------------------------------------------------------------------------------
+La mecánica de sólidos se encarga de describir cómo un cuerpo se deforma y genera esfuerzos internos cuando se le aplican fuerzas. Se basa en tres conceptos clave, detallados en textos clásicos como \cite{Belytschko2014}:
+\begin{itemize}
+    \item \textbf{Desplazamiento (\(\bm{u}\)):} Un campo vectorial que describe cuánto se ha movido cada punto del cuerpo desde su posición original.
+    \item \textbf{Deformación (\(\bm{\varepsilon}\)):} Un tensor que mide el cambio de forma \textit{relativo} de un material. Se calcula como la parte simétrica del gradiente del desplazamiento: \(\bm{\varepsilon}(\bm{u}) = \frac{1}{2}(\nabla\bm{u} + (\nabla\bm{u})^T)\).
+    \item \textbf{Esfuerzo (\(\bm{\sigma}\)):} Un tensor que representa las fuerzas internas que las partículas de un material se ejercen entre sí como reacción a una deformación.
+\end{itemize}
+Estos conceptos se relacionan mediante dos leyes fundamentales. La \textbf{Ley Constitutiva} (Ley de Hooke) relaciona la deformación con el esfuerzo a través de las propiedades del material. Para un material elástico lineal, el esfuerzo es proporcional a la deformación mecánica. La \textbf{Ecuación de Equilibrio}, en ausencia de fuerzas externas, dicta que la suma de fuerzas internas debe ser cero en cada punto, lo que se expresa como:
+\begin{equation}
+    \nabla \cdot \bm{\sigma} = \bm{0}
+    \label{eq:equilibrium}
+\end{equation}
+
+%----------------------------------------------------------------------------------
+\subsection{Pilar 2: El Mundo Térmico Transitorio}
+%----------------------------------------------------------------------------------
+Este es el campo que ya conocemos del Capítulo~\ref{chap:heat}. La evolución de la temperatura \(T\) se rige por la Ecuación del Calor, que aquí reescribimos:
+\begin{equation}
+    \rho c_p \frac{\partial T}{\partial t} - \nabla \cdot (k \nabla T) = f
+    \label{eq:thermo-heat-strong}
+\end{equation}
+
+%----------------------------------------------------------------------------------
+\subsection{El Puente Multifísico: La Deformación Térmica}
+%----------------------------------------------------------------------------------
+Hasta ahora, las dos físicas parecen completamente separadas. El eslabón que las une es un principio fundamental: \textbf{los materiales cambian su volumen con la temperatura}.
+
+La deformación \textit{total} (\(\bm{\varepsilon}_{\text{total}}\)) en un cuerpo que sufre un cambio de temperatura se puede descomponer en dos partes:
+\[
+\bm{\varepsilon}_{\text{total}} = \bm{\varepsilon}_{\text{mec}} + \bm{\varepsilon}_{\text{th}}
+\]
+El término clave es la \textbf{deformación térmica} (\(\bm{\varepsilon}_{\text{th}}\)). Para un cambio de temperatura \(\Delta T = T - T_{\text{ref}}\), un material isótropo intentará expandirse o contraerse por igual en todas las direcciones. Esta deformación ``deseada'' se modela como:
+\begin{equation}
+    \bm{\varepsilon}_{\text{th}} = \alpha \Delta T \mathbf{I}
+    \label{eq:thermal-strain}
+\end{equation}
+donde \(\alpha\) es el \textbf{coeficiente de dilatación térmica} (una propiedad del material) y \(\mathbf{I}\) es el tensor identidad.
+
+Aquí reside la clave del acoplamiento: \textbf{el esfuerzo solo es generado por la deformación mecánica}. Si una pieza se calienta y es libre de expandirse, lo hará sin generar esfuerzos. Los esfuerzos aparecen cuando esta expansión es \textit{restringida}. La ley constitutiva debe ser modificada para reflejar esto. El esfuerzo ahora se calcula a partir de la deformación mecánica, que es la deformación total (medible a partir de los desplazamientos, \(\bm{\varepsilon}(\bm{u})\)) menos la parte térmica:
+\begin{equation}
+    \bm{\sigma} = \bm{\sigma}(\bm{\varepsilon}_{\text{mec}}) = \bm{\sigma}(\bm{\varepsilon}(\bm{u}) - \alpha \Delta T \mathbf{I})
+    \label{eq:coupled-stress}
+\end{equation}
+Al sustituir la temperatura \(T\) en esta ecuación, hemos inyectado la física térmica directamente en el corazón de la ecuación de equilibrio mecánico.
+
+%==================================================================================
+\section{La Forma Débil Acoplada}
+\label{sec:thermo-weak}
+%==================================================================================
+Para resolver este sistema con el FEM, necesitamos derivar la forma débil de ambas ecuaciones gobernantes.
+\begin{itemize}
+    \item \textbf{Forma Débil Térmica:} Ya la conocemos del Capítulo~\ref{chap:heat}. La multiplicamos por una función de prueba escalar \(v\) y aplicamos integración por partes.
+    \item \textbf{Forma Débil Mecánica:} Seguimos la misma lógica. Partimos de la forma fuerte \(\nabla \cdot \bm{\sigma} = \bm{0}\), la multiplicamos por una función de prueba \textit{vectorial} \(\bm{v}\), integramos sobre el dominio y aplicamos integración por partes (usando la identidad de Green para tensores).
+\end{itemize}
+Esto nos lleva al sistema variacional acoplado final:
+
+\begin{center}
+\fbox{\begin{minipage}{0.9\textwidth}
+\textbf{Sistema Variacional de Termoelasticidad} \\
+Encontrar el par \((T, \bm{u})\) tal que para todo par de funciones de prueba \((v, \bm{v})\):
+\begin{align}
+    \int_{\Omega} \left( \rho c_p \frac{\partial T}{\partial t} v + k \nabla T \cdot \nabla v \right) dV &= \int_{\Omega} f v \, dV + \int_{\partial\Omega} g v \, dS \label{eq:thermo-weak-T} \\
+    \int_{\Omega} \bm{\sigma}(T, \bm{u}) : \bm{\varepsilon}(\bm{v}) \, dV &= \int_{\partial\Omega} \bm{t} \cdot \bm{v} \, dS \label{eq:thermo-weak-u}
+\end{align}
+donde \(\bm{t}\) son las fuerzas de tracción aplicadas en la frontera.
+\end{minipage}}
+\end{center}
+
+Este sistema se resuelve de forma ``monolítica''. Esto significa que el software ensamblará una única y gran matriz de sistema que contiene las incógnitas tanto de temperatura como de desplazamiento en todos los nodos de la malla, y resolverá todo simultáneamente.
+
+%==================================================================================
+\section{De la Teoría a la Práctica: Implementación en \fenics}
+\label{sec:thermo-fenics}
+%==================================================================================
+Hemos construido el andamiaje teórico completo para resolver problemas de termoelasticidad. Ahora, es el momento de traducir este conocimiento en una herramienta de simulación funcional.
+
+%----------------------------------------------------------------------------------
+\subsection{Caso de Estudio: Flexión de una Tira Bimetálica (Termostato)}
+%----------------------------------------------------------------------------------
+Una tira compuesta por dos metales con diferentes coeficientes de dilatación térmica (acero y cobre) está anclada en un extremo (en voladizo). Inicialmente a temperatura ambiente, se calienta de forma uniforme. Debido a que un material se expande más que el otro, la tira se curvará. Queremos simular este desplazamiento.
+
+La multifísica clave reside en la diferencia de propiedades: el acero tiene un coeficiente de dilatación térmica (\(\alpha_{\text{acero}} \approx 12 \times 10^{-6} \, \text{K}^{-1}\)) mucho menor que el del cobre (\(\alpha_{\text{cobre}} \approx 17 \times 10^{-6} \, \text{K}^{-1}\)). Al calentarse, la capa de cobre intentará alargarse más que la de acero, forzando a la estructura a flexionarse para acomodar esta diferencia de deformación térmica.
+
+%----------------------------------------------------------------------------------
+\subsection{Planteamiento del Problema Numérico}
+%----------------------------------------------------------------------------------
+Definimos los componentes de nuestra simulación multifísica. Para este problema, consideraremos el estado estacionario final tanto para la temperatura como para la mecánica.
+\begin{itemize}
+    \item \textbf{Dominio y Geometría (\(\Omega\)):} Dos rectángulos de \(10 \times 1\) cm unidos, formando una viga de \(10 \times 2\) cm. El rectángulo inferior será de acero y el superior de cobre.
+    \item \textbf{Espacio de Funciones:} Como tenemos dos campos de solución (temperatura \(T\) y desplazamiento vectorial \(\bm{u}\)), necesitamos un \textbf{espacio de funciones mixto}.
+    \item \textbf{Propiedades de los Materiales (Acero y Cobre):}
+    \begin{itemize}
+        \item \textbf{Mecánicas:} Módulo de Young (\(E\)) y Coeficiente de Poisson (\(\nu\)) para cada material.
+        \item \textbf{Térmicas:} Coeficiente de dilatación térmica (\(\alpha\)) para cada material.
+    \end{itemize}
+    \item \textbf{Condiciones de Contorno (\(\partial\Omega\)):}
+    \begin{itemize}
+        \item \textbf{Mecánicas:} El extremo izquierdo de la viga está empotrado (\(\bm{u} = (0,0)\), condición de Dirichlet). El resto de los bordes están libres de tracción (\(\bm{t}=\bm{0}\)).
+        \item \textbf{Térmicas:} La temperatura inicial es de \(T_{\text{ref}} = 20 \, ^\circ\text{C}\) y la temperatura final impuesta en todo el dominio es de \(T_{\text{final}} = 120 \, ^\circ\text{C}\).
+    \end{itemize}
+\end{itemize}
+
+%----------------------------------------------------------------------------------
+\subsection{Implementación y Análisis de Resultados}
+%----------------------------------------------------------------------------------
+El Listado de Código~\ref{lst:thermo-code} presenta la implementación. Los puntos clave a observar son la definición de un espacio de funciones mixto y cómo el campo de temperatura \(T\) (que en este caso es una constante conocida) entra directamente en la definición de la forma débil mecánica.
+
+\begin{codelisting}[h!]
+\begin{minted}[frame=lines,
+               framesep=2mm,
+               linenos,
+               fontsize=\small]{python}
+from fenics import *
+
+# 1. Definir la malla y subdominios
+mesh = RectangleMesh(Point(0, 0), Point(0.1, 0.02), 50, 10)
+# Definimos los subdominios para acero (abajo) y cobre (arriba)
+materials = MeshFunction("size_t", mesh, mesh.topology().dim())
+steel = AutoSubDomain(lambda x: x[1] <= 0.01)
+copper = AutoSubDomain(lambda x: x[1] > 0.01)
+steel.mark(materials, 1)
+copper.mark(materials, 2)
+
+# 2. Definir el espacio de funciones mixto (Vector para u, Escalar para T)
+# (Aunque T es constante, este es el enfoque general)
+U_elem = VectorElement("CG", mesh.ufl_cell(), 2) # Desplazamiento
+T_elem = FiniteElement("CG", mesh.ufl_cell(), 1) # Temperatura
+W = FunctionSpace(mesh, U_elem * T_elem)
+
+# 3. Propiedades de los materiales
+E_steel, nu_steel, alpha_steel = 200e9, 0.3, 12e-6
+E_copper, nu_copper, alpha_copper = 120e9, 0.35, 17e-6
+T_ref, T_final = 20.0, 120.0
+
+# 4. Definir el problema variacional
+(u, T) = TrialFunctions(W)
+(v, q) = TestFunctions(W)
+
+# ... (Aquí iría la forma débil térmica si T no fuera constante) ...
+# Como T es constante, la asignamos directamente
+temp = Constant(T_final)
+
+# Forma débil mecánica
+# Definimos funciones que dependen del subdominio
+def epsilon(u):
+    return sym(grad(u))
+
+def sigma(u, T, E, nu, alpha):
+    lmbda = E*nu/((1+nu)*(1-2*nu))
+    mu = E/(2*(1+nu))
+    strain_thermal = alpha * (T - T_ref) * Identity(len(u))
+    return lmbda*tr(epsilon(u) - strain_thermal)*Identity(len(u)) + \
+           2*mu*(epsilon(u) - strain_thermal)
+
+# Ensamblamos la forma débil integrando sobre cada subdominio
+dx = Measure('dx', domain=mesh, subdomain_data=materials)
+F_mech = inner(sigma(u, temp, E_steel, nu_steel, alpha_steel), epsilon(v))*dx(1) + \
+         inner(sigma(u, temp, E_copper, nu_copper, alpha_copper), epsilon(v))*dx(2)
+a, L = lhs(F_mech), rhs(F_mech) # FEniCS separa automáticamente
+
+# 5. Condiciones de contorno y solución
+def clamped_boundary(x, on_boundary):
+    return on_boundary and near(x[0], 0)
+bc_mech = DirichletBC(W.sub(0), Constant((0,0)), clamped_boundary)
+sol = Function(W)
+solve(a == L, sol, bc_mech)
+u_sol, T_sol = sol.split()
+
+\end{minted}
+\caption{Script de FEniCS para resolver el problema de termoelasticidad de una viga bimetálica.}
+\label{lst:thermo-code}
+\end{codelisting}
+
+La Figura~\ref{fig:thermo-result} muestra la deformación de la viga y la distribución de esfuerzos.
+
+\begin{figure}[h!]
+    \centering
+    %\includegraphics[width=\textwidth]{Figuras/thermo_result.png}
+    \caption{Resultados de la simulación termoelástica. A la izquierda, se muestra la malla deformada (con un factor de escala para visualizar la flexión), coloreada por la magnitud del desplazamiento. A la derecha, el campo de esfuerzos en la dirección x, mostrando la compresión en el acero (azul) y la tracción en el cobre (rojo).}
+    \label{fig:thermo-result}
+\end{figure}
+
+\textbf{Análisis e Impacto Ingenieril:} El resultado visualiza directamente la física del acoplamiento. La viga se flexiona hacia arriba porque la capa superior (cobre) intenta expandirse más que la inferior (acero). El campo de esfuerzos revela la consecuencia de esta restricción mutua: la capa de cobre, al ser impedida de expandirse libremente por el acero, queda en un estado de tracción (esfuerzo positivo). Inversamente, la capa de acero, forzada a estirarse más de lo que "desea" por el cobre, queda en compresión (esfuerzo negativo).
+
+Este simple principio es la base de los termostatos, interruptores térmicos y otros sensores. Más importante aún, en aplicaciones de alta potencia como los motores, estos esfuerzos térmicos internos son una de las principales causas de fatiga y fallo del material. La capacidad de predecir con precisión estos esfuerzos es, por lo tanto, una de las aplicaciones más críticas y valiosas de la simulación multifísica.
+
+%==================================================================================
+\section*{Conclusión del Capítulo}
+\addcontentsline{toc}{section}{Conclusión del Capítulo}
+%==================================================================================
+En este capítulo, hemos cruzado la frontera hacia la simulación multifísica, uniendo la mecánica de sólidos con la transferencia de calor. Al implementar y analizar un problema de ingeniería clásico como la tira bimetálica, hemos completado el ciclo desde la teoría física del acoplamiento hasta el análisis de resultados de ingeniería.
+
+Hemos visto cómo la dilatación térmica actúa como el puente entre los dos dominios físicos y cómo la restricción de esta deformación es la fuente de los esfuerzos térmicos. El concepto de un espacio de funciones mixto y la resolución de un sistema acoplado son las herramientas computacionales que nos permiten abordar esta nueva clase de problemas.
+
+Con esta base, estamos listos para explorar un acoplamiento aún más profundo y dinámico: la interacción entre un fluido en movimiento y la transferencia de calor, el dominio de la convección.

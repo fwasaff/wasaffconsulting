@@ -1,0 +1,249 @@
+\chapter{La Evolución en el Tiempo: La Ecuación del Calor}
+\label{chap:heat}
+
+%==================================================================================
+\section{De la Fotografía al Vídeo de la Física}
+%==================================================================================
+
+En el Capítulo~\ref{chap:poisson}, nuestra simulación proporcionó una instantánea, una ``fotografía'', del sistema: el perfil de temperatura de la tubería de concentrado en un estado de equilibrio a largo plazo. La conclusión fue alarmante: una parte significativa del concentrado se solidifica. Sin embargo, esta imagen estática no narra la historia completa. El mundo físico es dinámico; los sistemas evolucionan, y la ingeniería de procesos a menudo exige comprender la \textit{tasa} a la que ocurren estos cambios.
+
+Este capítulo introduce la dimensión del \textbf{tiempo}. Transitaremos del análisis estacionario al transitorio, modelando la evolución dinámica del sistema para crear un ``vídeo'' de la física. Responderemos a la pregunta crítica planteada al final del capítulo anterior: tras una parada no planificada del flujo, \textit{¿cuál es la ventana de tiempo operativa antes de que la solidificación cause una falla catastrófica?} Para abordar esta cuestión, derivaremos la \textbf{Ecuación del Calor}, la contraparte parabólica de la Ecuación elíptica de Poisson.
+
+\begin{center}
+\begin{tabular}{|p{0.9\textwidth}|}
+\hline
+\textbf{CONTEXTO INGENIERIL} \\
+El análisis transitorio es el corazón de la ingeniería de operaciones y la gestión de riesgos. En el contexto de nuestra tubería de concentrado, nos permite cuantificar:
+\begin{itemize}
+    \item \textbf{Tiempos de Respuesta Críticos:} Determinar la ventana de tiempo segura para que los operadores reinicien un sistema o para que el personal de mantenimiento realice una reparación antes de que ocurra una falla catastrófica (el tapón).
+    \item \textbf{Protocolos de Operación:} Diseñar procedimientos para arranques y paradas seguras, conociendo cómo evoluciona la temperatura del sistema.
+    \item \textbf{Evaluación de Contingencias:} Simular escenarios de falla (``¿qué pasa si la bomba se detiene por 3 horas?'') para desarrollar planes de mitigación robustos.
+\end{itemize}
+Modelar la dinámica temporal es esencial para pasar de un diseño estático a un sistema operable y seguro. \\
+\hline
+\end{tabular}
+\end{center}
+
+Para incorporar la dependencia temporal, debemos volver al primer principio de conservación de la energía. Sin embargo, esta vez consideraremos el término que define toda la dinámica de los procesos difusivos: la \textbf{acumulación (o disipación) de energía} en el tiempo.
+
+\subsection{La Ecuación Fuerte Dependiente del Tiempo}
+Sea un intervalo de tiempo de interés \(I = (0, t_f]\). Buscamos ahora una función de temperatura \(T(\bm{x}, t)\) definida sobre el dominio espacio-temporal \(\Omega \times I\).
+
+\subsubsection{Principio de Conservación de la Energía (Transitorio)}
+La ley de conservación de la energía en su forma integral y transitoria postula que, para cualquier subvolumen arbitrario \(V \subseteq \Omega\), la tasa de cambio de la energía interna contenida en \(V\) es igual a la suma de la tasa neta de calor que fluye hacia adentro a través de la frontera \(\partial V\) y la tasa de energía generada en su interior.
+
+La energía interna total en el volumen \(V\) es \(E = \int_V \rho c_p T \, d\bm{x}\), donde \(\rho\) es la densidad y \(c_p\) es la capacidad calorífica específica. Su tasa de cambio es:
+\[
+\frac{dE}{dt} = \frac{d}{dt} \int_V \rho c_p T \, d\bm{x} = \int_V \rho c_p \frac{\partial T}{\partial t} \, d\bm{x}
+\]
+donde hemos intercambiado la integral y la derivada, ya que el volumen \(V\) es fijo\footnote{Este paso se justifica por el Teorema de Transporte de Reynolds o la regla de Leibniz para la diferenciación bajo el signo de integral, dado un dominio de integración que no depende del tiempo.}.
+
+El calor que ingresa a través de \(\partial V\) es \(-\int_{\partial V} \bm{q} \cdot \bm{n} \, dS\) y la generación interna es \(\int_V f \, d\bm{x}\). El balance energético completo es, por lo tanto:
+\[
+\int_V \rho c_p \frac{\partial T}{\partial t} \, d\bm{x} = -\int_{\partial V} \bm{q} \cdot \bm{n} \, dS + \int_V f \, d\bm{x}
+\]
+Aplicando el Teorema de la Divergencia de Gauss al término de frontera y agrupando todos los términos bajo una única integral de volumen, obtenemos:
+\[
+\int_V \left( \rho c_p \frac{\partial T}{\partial t} + \nabla \cdot \bm{q} - f \right) d\bm{x} = 0
+\]
+Dado que esta igualdad debe ser válida para \textit{todo} subvolumen \(V \subseteq \Omega\) y asumiendo continuidad del integrando, el integrando debe ser idénticamente cero. Al sustituir la Ley de Fourier \(\bm{q} = -k \nabla T\), llegamos a la forma fuerte de la \textbf{Ecuación del Calor}:
+\begin{equation}
+    \rho c_p \frac{\partial T}{\partial t} - \nabla \cdot (k \nabla T) = f \quad \text{en } \Omega \times I
+    \label{eq:heat-strong}
+\end{equation}
+Este es un ejemplo canónico de una Ecuación Diferencial Parcial de tipo \textbf{parabólico}. Para que el problema esté bien definido, requiere no solo condiciones de contorno espaciales (en \(\partial\Omega\)), sino también una \textbf{condición inicial} que describa el estado del sistema en \(t=0\).
+\[ T(\bm{x}, 0) = T_0(\bm{x}) \quad \text{para todo } \bm{x} \in \Omega \]
+
+\subsection{La Forma Débil Transitoria: Discretización Temporal Primero}
+
+Para resolver numéricamente la Ecuación \eqref{eq:heat-strong}, debemos discretizarla tanto en el espacio como en el tiempo. Existen dos enfoques principales: el Método de Líneas y el enfoque de Rothe (discretizar en tiempo primero). Adoptaremos este último, que es más natural para la formulación de elementos finitos.
+
+\subsubsection{Discretización Temporal: El Método de Euler Implícito}
+Dividimos el intervalo de tiempo \(I\) en \(N\) subintervalos de tamaño \(\Delta t = t_f / N\), de modo que \(t^n = n \Delta t\) para \(n=0, 1, \dots, N\). Aproximamos la derivada temporal en el instante \(t^n\) usando una diferencia finita hacia atrás (el método de Euler implícito):
+\begin{equation}
+    \frac{\partial T}{\partial t} \bigg|_{\bm{x}, t^n} \approx \frac{T(\bm{x}, t^n) - T(\bm{x}, t^{n-1})}{\Delta t}
+    \label{eq:euler-backward}
+\end{equation}
+Denotando \(T^n(\bm{x}) \equiv T(\bm{x}, t^n)\), la Ecuación del Calor evaluada en el tiempo \(t^n\) se convierte en un sistema de EDPs elípticas estacionarias, una para cada paso de tiempo:
+\[
+\rho c_p \frac{T^n - T^{n-1}}{\Delta t} - \nabla \cdot (k \nabla T^n) = f^n
+\]
+Esta estrategia se conoce como \textbf{semi-discretización en el tiempo}. Hemos transformado un problema de evolución parabólico en una secuencia de problemas estacionarios acoplados, donde la solución en el tiempo \(t^{n-1}\) actúa como una fuente para el problema en \(t^n\)\footnote{Elegimos el método de Euler \textit{implícito} (evaluando los términos espaciales en el tiempo \(n\)) porque es incondicionalmente estable para la Ecuación del Calor, permitiendo pasos de tiempo \(\Delta t\) más grandes sin que la solución numérica diverja. Un método explícito tendría restricciones severas sobre \(\Delta t\).}.
+
+\subsubsection{La Formulación Variacional Semi-Discretizada}
+Ahora, para cada paso de tiempo \(n\), tenemos un problema estacionario análogo al del Capítulo~\ref{chap:poisson}. Reordenando los términos:
+\[
+\rho c_p T^n - \Delta t \nabla \cdot (k \nabla T^n) = \rho c_p T^{n-1} + \Delta t f^n
+\]
+Siguiendo exactamente el mismo procedimiento que en la Sección~\ref{sec:poisson-derivation} ---multiplicar por una función de prueba \(v \in \hat{V}\), integrar sobre \(\Omega\) y aplicar integración por partes--- llegamos a la forma débil transitoria.
+
+\begin{center}
+\fbox{\begin{minipage}{0.9\textwidth}
+\textbf{Formulación Variacional Semi-Discretizada de la Ecuación del Calor} \\[1ex]
+Dada la solución \(T^{n-1} \in V\) del paso anterior. Encontrar la solución para el paso de tiempo actual, \(T^n \in V\), tal que para todo \(v \in \hat{V}\):
+\begin{equation}
+    \underbrace{\int_{\Omega} \left( \rho c_p T^n v + \Delta t \, k \nabla T^n \cdot \nabla v \right) d\bm{x}}_{a(T^n,v)} = \underbrace{\int_{\Omega} \left( \rho c_p T^{n-1} v + \Delta t \, f^n v \right) d\bm{x} + \int_{\partial\Omega_N} \Delta t \, g^n v \, dS}_{L^{n}(v)}
+    \label{eq:heat-weak}
+\end{equation}
+donde \(V = \{ T \in H^1(\Omega) \mid T|_{\partial\Omega_D} = T_D^n \}\) y \( \hat{V} = \{ v \in H^1(\Omega) \mid v|_{\partial\Omega_D} = 0 \} \).
+\end{minipage}}
+\end{center}
+\bigskip
+
+El lado izquierdo de la ecuación define la forma bilineal para el problema en cada paso de tiempo, mientras que el lado derecho define el funcional lineal, que ahora depende de la solución del paso de tiempo anterior, \(T^{n-1}\). A partir de la condición inicial \(T^0 = T_0(\bm{x})\), podemos resolver secuencialmente para \(T^1, T^2, \dots, T^N\), construyendo así la "película" de la evolución de la temperatura.
+
+%==================================================================================
+\section{De la Teoría a la Práctica: Implementación Transitoria en \fenics}
+\label{sec:heat-fenics}
+%==================================================================================
+Armados con la formulación variacional semi-discretizada~\eqref{eq:heat-weak}, nuestra guía computacional, ahora podemos simular la evolución temporal del enfriamiento en la tubería. El objetivo es responder a nuestra pregunta crítica sobre el tiempo de reacción disponible ante una falla operativa.
+
+%----------------------------------------------------------------------------------
+\subsection{Caso de Estudio: La Carrera Contra el Tiempo}
+%----------------------------------------------------------------------------------
+El escenario a modelar es una falla crítica: una bomba en la línea de transporte se detiene, cesando el flujo de la pulpa de concentrado. Como consecuencia, la advección de calor por el flujo se anula. La tubería, que se encontraba en su estado de equilibrio operativo, comienza un proceso de enfriamiento inexorable, disipando calor hacia el ambiente andino a \(-5^\circ\text{C}\). La pregunta ingenieril es: ¿cuál es la ventana de tiempo real que tiene el equipo de mantenimiento para intervenir antes de que la temperatura en cualquier punto del concentrado descienda por debajo de \(0^\circ\text{C}\), iniciando la formación de un tapón sólido?
+
+%----------------------------------------------------------------------------------
+\subsection{Planteamiento del Problema Numérico de Evolución}
+%----------------------------------------------------------------------------------
+El problema de valor inicial y de frontera se define como una continuación directa del análisis del Capítulo~\ref{chap:poisson}.
+
+\begin{itemize}
+    \item \textbf{Dominio y Geometría (\(\Omega\)):} El dominio \(\Omega = \Omega_{\text{conc}} \cup \Omega_{\text{acero}}\) y su geometría son idénticos a los definidos en la sección anterior. La malla utilizada es la misma generada por GMSH.
+    
+    \item \textbf{Ecuación Gobernante:} Buscamos \(T(\bm{x}, t)\) que satisfaga la Ecuación del Calor en \(\Omega \times (0, t_f]\) sin fuentes internas (\(f=0\)):
+    \[ \rho(\bm{x}) c_p(\bm{x}) \frac{\partial T}{\partial t} - \nabla \cdot (k(\bm{x}) \nabla T) = 0 \]
+    donde las propiedades de inercia térmica también son funciones definidas a trozos:
+    \[
+    \rho(\bm{x})c_p(\bm{x}) = 
+    \begin{cases} 
+    \rho_{\text{conc}} c_{p, \text{conc}} = (1800)(3500) & \text{si } \bm{x} \in \Omega_{\text{conc}} \\
+    \rho_{\text{acero}} c_{p, \text{acero}} = (7850)(460)  & \text{si } \bm{x} \in \Omega_{\text{acero}} 
+    \end{cases}
+    \]
+    
+    \item \textbf{Condición Inicial (\(t=0\)):} La distribución de temperatura inicial, \(T_0(\bm{x})\), corresponde al estado de equilibrio operativo justo antes de la detención de la bomba. Por lo tanto, \(T_0(\bm{x})\) es precisamente la solución \(T_{ss}(\bm{x})\) del problema de Poisson estacionario resuelto en el Capítulo~\ref{chap:poisson}.
+    
+    \item \textbf{Condiciones de Contorno (para \(t > 0\)):} Al detenerse el flujo, el calor ya no es suministrado por la pulpa caliente en el centro. Por tanto, la condición de Dirichlet en el centro se desactiva. La única condición de contorno activa durante el proceso de enfriamiento es la temperatura ambiente en la pared exterior:
+    \[ T(\bm{x}, t) = T_{\text{ext}} = -5 \, ^\circ\text{C} \quad \text{sobre } \partial\Omega_{\text{ext}} \times (0, t_f] \]
+    
+    \item \textbf{Parámetros Temporales:} Se simulará un período de \(t_{\text{final}} = 120\) minutos (\(7200\) s) utilizando pasos de tiempo de \(\Delta t = 60\) s.
+\end{itemize}
+
+%----------------------------------------------------------------------------------
+\subsection{Implementación y Resultados}
+%----------------------------------------------------------------------------------
+El Listado de Código~\ref{lst:heat-pipe-code} presenta una implementación completa y autocontenida. Una práctica común y robusta en simulaciones complejas es que el propio script resuelva las condiciones de estado estacionario necesarias para establecer su propia condición inicial. El código, por lo tanto, se estructura en dos fases:
+\begin{enumerate}
+    \item \textbf{Fase 1 - Solución Estacionaria:} Resuelve el problema de Poisson (Capítulo 1) para obtener \(T_{ss}(\bm{x})\).
+    \item \textbf{Fase 2 - Solución Transitoria:} Utiliza \(T_{ss}\) como condición inicial y entra en un bucle temporal para resolver la Ecuación del Calor.
+\end{enumerate}
+
+\begin{codelisting}[h!]
+\begin{minted}[frame=lines, framesep=2mm, linenos, fontsize=\small]{python}
+import numpy as np
+from mpi4py import MPI
+from petsc4py.PETSc import ScalarType
+import ufl
+from dolfinx import fem, mesh
+from dolfinx.io import gmshio, VTKFile
+
+# --- Parámetros y Etiquetas (consistente con el mallado) ---
+CONC_TAG, STEEL_TAG, OUTER_BC_TAG = 1, 2, 3
+T_INT_SS, T_EXT = 30.0, -5.0  # T_INT_SS es para el estado estacionario inicial
+DT, T_FINAL = 60.0, 7200.0   # Delta t y tiempo final en segundos
+num_steps = int(T_FINAL / DT)
+
+# --- 1. Lectura de Malla y Definición de Espacios ---
+#domain, cell_tags, _ = gmshio.read_from_msh("pipe_mesh.msh", MPI.COMM_WORLD, gdim=2)
+V = fem.FunctionSpace(domain, ("CG", 2))
+Q = fem.FunctionSpace(domain, ("DG", 0))
+
+# --- 2. Definición de Propiedades del Material ---
+k = fem.Function(Q); k.x.array[cell_tags.find(CONC_TAG)] = 2.0; k.x.array[cell_tags.find(STEEL_TAG)] = 45.0
+rho_cp = fem.Function(Q)
+rho_cp.x.array[cell_tags.find(CONC_TAG)] = 1800.0 * 3500.0
+rho_cp.x.array[cell_tags.find(STEEL_TAG)] = 7850.0 * 460.0
+
+# --- FASE 1: Calcular la Condición Inicial (Solución Estacionaria) ---
+T_ss = fem.Function(V, name="Temperatura_Estacionaria")
+# Definir y resolver BVP de Poisson para T_ss
+u_ss, v_ss = ufl.TrialFunction(V), ufl.TestFunction(V)
+# ... (definición de BCs para el problema estacionario)
+dofs_outer_ss = fem.locate_dofs_topological(V, 1, facet_tags.find(OUTER_BC_TAG))
+bc_ext_ss = fem.dirichletbc(ScalarType(T_EXT), dofs_outer_ss, V)
+dofs_center_ss = fem.locate_dofs_geometrical(V, lambda x: np.isclose(x[0], 0) & np.isclose(x[1], 0))
+bc_int_ss = fem.dirichletbc(ScalarType(T_INT_SS), dofs_center_ss, V)
+# ... (resolución del problema variacional)
+a_ss = ufl.inner(k * ufl.grad(u_ss), ufl.grad(v_ss)) * ufl.dx
+L_ss = fem.Constant(domain, ScalarType(0.0)) * v_ss * ufl.dx
+problem_ss = fem.petsc.LinearProblem(a_ss, L_ss, bcs=[bc_ext_ss, bc_int_ss], u=T_ss)
+problem_ss.solve()
+
+# --- FASE 2: Simulación Transitoria ---
+# Preparar funciones para la solución en T^n y T^{n-1}
+T_sol = fem.Function(V, name="Temperatura_Transitoria")
+T_n = fem.Function(V)
+T_n.x.array[:] = T_ss.x.array  # Asignar la condición inicial
+
+# Definir BVP transitorio. Solo la BC externa se mantiene
+dofs_outer_tr = fem.locate_dofs_topological(V, 1, facet_tags.find(OUTER_BC_TAG))
+bc_ext_tr = fem.dirichletbc(ScalarType(T_EXT), dofs_outer_tr, V)
+bcs_tr = [bc_ext_tr]
+
+# Definir el problema variacional semi-discretizado
+u, v = ufl.TrialFunction(V), ufl.TestFunction(V)
+f = fem.Constant(domain, ScalarType(0.0))
+# a(u,v) = L(v) de la Ecuación (2.6) reordenado
+a_tr = rho_cp * u * v * ufl.dx + DT * ufl.inner(k * ufl.grad(u), ufl.grad(v)) * ufl.dx
+L_tr = (rho_cp * T_n + DT * f) * v * ufl.dx
+problem_tr = fem.petsc.LinearProblem(a_tr, L_tr, bcs=bcs_tr, u=T_sol)
+
+# Preparar archivos de salida
+vtk = VTKFile(domain.comm, "Figuras/heat_pipe_transient.pvd", "w")
+vtk.write_function(T_ss, 0.0)
+min_temp_data = []
+
+# --- Bucle Temporal ---
+t = 0.0
+for i in range(num_steps):
+    t += DT
+    # Resolver para el paso de tiempo actual
+    problem_tr.solve()
+    # Actualizar la solución del paso anterior
+    T_n.x.array[:] = T_sol.x.array
+    # Guardar resultados
+    vtk.write_function(T_sol, t)
+    min_temp = min(T_sol.x.array)
+    min_temp_data.append([t / 60.0, min_temp]) # Guardar en minutos
+
+vtk.close()
+np.savetxt("Figuras/min_temp_vs_time.txt", min_temp_data)
+\end{minted}
+\caption{Script de FEniCSx para resolver el problema de enfriamiento transitorio.}
+\label{lst:heat-pipe-code}
+\end{codelisting}
+
+La Figura~\ref{fig:heat-pipe-result} presenta los resultados clave de la simulación.
+
+\begin{figure}[h!]
+    \centering
+%   % \includegraphics[width=\textwidth]{Figuras/heat_pipe_result.png}
+    \caption{Análisis del enfriamiento transitorio. Paneles superiores: campo de temperatura en el estado inicial (t=0, izquierda) y tras 5 minutos de enfriamiento (derecha), mostrando la contracción de la isoterma de 0°C. Panel inferior: evolución de la temperatura mínima en el concentrado, el indicador clave del sistema.}
+    \label{fig:heat-pipe-result}
+\end{figure}
+
+\textbf{Impacto y Análisis de Resultados:} La simulación proporciona una visión cuantitativa y alarmante de la dinámica del sistema, que contradice las estimaciones basadas en la intuición.
+\begin{itemize}
+    \item \textbf{Evolución Espacio-Temporal:} Las visualizaciones del campo 2D muestran que el estado inicial, con una gran región del concentrado por encima de los \(0^\circ\text{C}\), evoluciona rápidamente. A los 5 minutos, la isoterma de \(0^\circ\text{C}\) ha desaparecido, indicando que la totalidad del sistema se ha enfriado por debajo de la temperatura de solidificación.
+    \item \textbf{La Curva de Enfriamiento Crítica:} Este gráfico es el resultado de mayor valor ingenieril. Representa la evolución de la temperatura mínima del concentrado en función del tiempo. La curva no presenta un descenso suave, sino un colapso térmico. Cruza el umbral crítico de \(0^\circ\text{C}\) en aproximadamente \textbf{1.0 minuto}.
+\end{itemize}
+La conclusión es inequívoca y de un impacto operativo masivo. La noción de una ventana de respuesta de "90 minutos" era peligrosamente optimista. La simulación demuestra que, una vez que el flujo se detiene, el tiempo de reacción para evitar la formación de un tapón no se mide en horas ni en decenas de minutos, sino en segundos. \textbf{Desde una perspectiva de diseño de operaciones, el tiempo de respuesta es efectivamente nulo}, lo que exige un sistema de mitigación automático o un rediseño que garantice la integridad térmica.
+
+%==================================================================================
+\section*{Conclusión del Capítulo}
+\addcontentsline{toc}{section}{Conclusión del Capítulo}
+%==================================================================================
+En este capítulo, hemos añadido con éxito la dimensión del tiempo a la narrativa de nuestra tubería. Derivamos la Ecuación del Calor desde primeros principios y la formulamos en un marco variacional semi-discretizado en el tiempo, adecuado para la resolución con el Método de Elementos Finitos. La implementación de un modelo computacional, que se construye sobre el resultado estacionario del capítulo anterior, ilustra un flujo de trabajo realista y potente.
+
+La simulación ha proporcionado un ``insight'' brutalmente honesto: ha transformado una vaga noción de riesgo (``se va a congelar'') en una instrucción operativa cuantificada y urgente (``la solidificación comienza en 1 minuto''). Sin embargo, es crucial reconocer las limitaciones de nuestro modelo actual, que asume un proceso de solidificación lineal. En la realidad, el cambio de fase del agua a hielo libera una enorme cantidad de energía latente, un fenómeno altamente no lineal que podría ralentizar el proceso de enfriamiento. Para capturar esta física fundamental, debemos adentrarnos en el mundo de los problemas no lineales, que será el tema de nuestro próximo capítulo.

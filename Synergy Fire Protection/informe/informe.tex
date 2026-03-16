@@ -1,0 +1,68 @@
+\documentclass[11pt, a4paper, spanish]{article}
+
+% ==============================================================================
+% PREÁMBULO
+% ==============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{ragged2e}
+
+% --- CONFIGURACIONES ---
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\setlength{\parskip}{0.5em}
+\hypersetup{colorlinks=true, urlcolor=blue!50!black, linkcolor=blue!50!black}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Formato de títulos
+\titleformat{\section}{\Large\bfseries\color{blue!50!black}}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{2ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+% Configuración de tablas
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+
+% ==============================================================================
+% DOCUMENTO
+% ==============================================================================
+\begin{document}
+
+% [CONTENIDO PREVIO IGUAL...]
+
+\subsection*{La Hoja de Ruta: De los Datos a la Decisión}
+El entregable final fue una hoja de ruta estratégica, diseñada para ser presentada a la dirección, justificando cada acción con datos y un claro Retorno de la Inversión en Seguridad (ROSI).
+
+\begin{table}[h!]
+\centering
+\footnotesize
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}L{3cm} L{4.5cm} L{4.5cm} @{}}
+    \toprule
+    \textbf{Oportunidad Estratégica} & \textbf{Acción de Mitigación Propuesta} & \textbf{Impacto y Justificación (ROSI)} \\
+    \midrule
+    Mitigación de Riesgos Frecuentes & Implementar \textbf{Zonas de Exclusión Dinámicas} calculadas según la energía potencial de cada izaje (usando un modelo de trayectoria parabólica simple) y reforzar su señalización. & \textbf{Alto Retorno, Baja Inversión.} Mitiga el 85\% de los escenarios de riesgo moderado. Reduce drásticamente la exposición del personal al riesgo diario sin inversión en nuevo equipamiento. \\
+    
+    \addlinespace
+    Control de Riesgos Críticos & Establecer un protocolo de \textbf{Planes de Izaje Críticos (PIC)} para toda maniobra que supere un umbral de energía de 10 kJ, incluyendo revisión obligatoria por supervisión. & \textbf{Control de Procesos Clave.} Sistematiza la gestión de las operaciones más peligrosas, generando un registro auditable y reduciendo el factor de error humano con un costo administrativo marginal. \\
+    
+    \addlinespace
+    Eliminación de Riesgos Catastróficos & Requerir \textbf{sistemas de retención redundantes} (doble eslinga/estrobo) para todo izaje de más de 25 kJ o en áreas con personal no evacuable. & \textbf{Inversión en Resiliencia.} Aunque es un costo mayor, esta medida de ingeniería es la única que mitiga eficazmente el riesgo de falla de equipo, protegiendo vidas y evitando paradas de operación catastróficas. \\
+    \bottomrule
+\end{tabularx}
+\caption{Hoja de ruta estratégica para mitigación de riesgos}
+\end{table}
+
+% [RESTO DEL DOCUMENTO IGUAL...]
+
+\end{document}

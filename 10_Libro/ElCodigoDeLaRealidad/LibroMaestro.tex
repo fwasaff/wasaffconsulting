@@ -1,0 +1,85 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ARCHIVO MAESTRO
+% TÍTULO:     El Código de la Realidad
+% AUTOR:      Felipe Wasaff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Usamos la clase KOMA-Script (scrbook) por su excelente tipografía y flexibilidad.
+% Es una alternativa moderna a la clase 'book' estándar.
+\documentclass[11pt, a4paper, spanish, twoside]{scrbook}
+
+% --- PREÁMBULO MAESTRO ---
+% Carga todas las configuraciones, paquetes y comandos personalizados del libro.
+\input{Config/WASAFF_Preamble.tex}
+
+% ===================================================================================
+% INICIO DEL DOCUMENTO
+% ===================================================================================
+\begin{document}
+
+% --- PARTES PRELIMINARES ---
+% 'frontmatter' usa números de página romanos para el prólogo, índice, etc.
+\frontmatter
+\maketitle
+\cleardoublepage
+\input{Preliminares/Dedicatoria.tex}
+\cleardoublepage
+\input{Preliminares/Prologo.tex}
+\cleardoublepage
+
+% --- ÍNDICE GENERAL ---
+\tableofcontents
+\cleardoublepage
+
+\input{Preliminares/Introduccion.tex}
+\cleardoublepage
+
+% --- CUERPO PRINCIPAL DEL LIBRO ---
+% 'mainmatter' reinicia la numeración de página a arábiga (1, 2, 3...).
+\mainmatter
+
+% ===================================================================================
+% PARTE I: FUNDAMENTOS - MODELANDO UNA FÍSICA A LA VEZ
+% ===================================================================================
+\part{Fundamentos: Modelando una Física a la Vez}
+\input{Capitulos/Capitulo_1_Poisson.tex}
+\input{Capitulos/Capitulo_2_Calor.tex}
+%\input{Capitulos/Capitulo_3_NoLineal.tex}
+\cleardoublepage
+
+% ===================================================================================
+% PARTE II: EL ARTE DE LA MULTIFÍSICA
+% ===================================================================================
+\part{El Arte de la Multifísica: Cuando los Mundos Interactúan}
+%\input{Capitulos/Capitulo_4_Termoelasticidad.tex}
+%\input{Capitulos/Capitulo_5_Stokes.tex}
+%\input{Capitulos/Capitulo_6_Conveccion.tex}
+\cleardoublepage
+
+% ===================================================================================
+% PARTE III: SIMULACIÓN AVANZADA Y APLICACIONES DE ALTO VALOR
+% ===================================================================================
+\part{Simulación Avanzada y Aplicaciones de Alto Valor}
+%\input{Capitulos/Capitulo_7_Turbulencia.tex}
+%\input{Capitulos/Capitulo_8_FSI.tex}
+%\input{Capitulos/Capitulo_9_Optimizacion.tex}
+\cleardoublepage
+
+% ===================================================================================
+% APÉNDICES Y BIBLIOGRAFÍA
+% ===================================================================================
+% 'appendix' cambia la numeración de capítulos a letras (A, B, C...).
+\appendix
+\part*{Apéndices}
+\addcontentsline{toc}{part}{Apéndices}
+
+%\input{Apendices/Apendice_A_Calculo.tex}
+%\input{Apendices/Apendice_B_FEniCS.tex}
+%\input{Apendices/Apendice_C_Instalacion.tex}
+%\input{Apendices/Apendice_D_Verificacion_Validacion.tex}
+\cleardoublepage
+
+% --- BIBLIOGRAFÍA ---
+\printbibliography
+
+\end{document}

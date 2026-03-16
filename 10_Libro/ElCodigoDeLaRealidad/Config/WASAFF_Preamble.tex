@@ -1,0 +1,76 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREÁMBULO MAESTRO PARA "EL CÓDIGO DE LA REALIDAD"
+% WASAFF CONSULTING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- CONFIGURACIONES ESENCIALES ---
+\usepackage[utf8]{inputenc}   % Acentos y caracteres en español
+\usepackage[T1]{fontenc}      % Codificación de fuentes moderna
+\usepackage[spanish,es-noshorthands]{babel} % Soporte para español
+\usepackage{lmodern}          % Fuente Latin Modern (mejora de Computer Modern)
+
+% --- GEOMETRÍA Y DISEÑO DE PÁGINA ---
+% Márgenes definidos para una buena legibilidad en A4
+\usepackage[a4paper, top=2.5cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
+
+% --- PAQUETES MATEMÁTICOS ---
+\usepackage{amsmath}          % El paquete principal de la AMS para matemáticas
+\usepackage{amsfonts}         % Fuentes matemáticas
+\usepackage{amssymb}          % Símbolos matemáticos
+\usepackage{mathtools}        % Extensiones y correcciones para amsmath
+\usepackage{bm}               % Para poner símbolos matemáticos en negrita (vectores, etc.)
+
+% --- TIPOGRAFÍA Y ESTILO ---
+\usepackage{microtype}        % Mejora la justificación y el espaciado entre caracteres
+\usepackage{graphicx}         % Para incluir imágenes
+\usepackage{booktabs}         % Para tablas de calidad profesional
+\usepackage{xcolor}           % Para definir y usar colores
+\usepackage{lipsum}           % Para generar texto de relleno (lorem ipsum)
+\usepackage{csquotes}         % Para comillas inteligentes y compatibilidad con biblatex
+
+% Paquetes adicionales necesarios
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% --- CÓDIGO FUENTE ---
+% Minted es el estándar de oro para código con sintaxis coloreada.
+% ¡IMPORTANTE! Requiere compilar con la opción -shell-escape
+% Ejemplo: latexmk -pdf -shell-escape LibroMaestro.tex
+\usepackage{minted}
+
+% --- BIBLIOGRAFÍA ---
+% Usamos biblatex y biber, el sistema moderno y más flexible.
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\addbibresource{Bibliografia/BibliografiaMaestra.bib} % Apunta a nuestro archivo .bib
+
+% --- ENLACES Y REFERENCIAS ---
+% hyperref debe ser uno de los últimos paquetes en cargarse.
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,        % Color para enlaces internos (índice, citas)
+    citecolor=green,       % Color para citas bibliográficas
+    filecolor=magenta,
+    urlcolor=cyan,         % Color para URLs
+    pdftitle={El Código de la Realidad},
+    pdfauthor={Felipe Wasaff},
+    bookmarks=true,
+    pdfpagemode=FullScreen,
+}
+
+% --- INFORMACIÓN DEL TÍTULO ---
+% Este bloque es el que soluciona el error "! LaTeX Error: No \title given."
+\title{El Código de la Realidad \\ \large Simulación Multifísica desde los Primeros Principios para la Ingeniería Industrial}
+\author{Felipe Wasaff \\ Wasaff Consulting}
+\date{\today}
+
+% --- COMANDOS PERSONALIZADOS Y NUEVOS ENTORNOS ---
+\usepackage{newfloat} % Para crear nuevos tipos de flotantes
+% Aquí está la corrección: cambiamos 'listing' por 'codelisting'
+\DeclareFloatingEnvironment[fileext=lol, listname={Índice de Listados de Código}, name=Listado de Código, within=chapter]{codelisting}
+
+\newcommand{\fenics}{\textsc{FEniCS}}

@@ -1,0 +1,277 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WASAFF CONSULTING - MÓDULO DE APRENDIZAJE 3 (VERSÃO 1.1 - CORRECCIÓN DE TYPO)
+% RESOLVIENDO EL MUNDO REAL: PROBLEMAS NO LINEALES CON EL MÉTODO DE NEWTON
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper]{article}
+
+%=============== PREÂMBULO: CONFIGURAÇÃO DO DOCUMENTO =======================
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{listings}
+
+% --- Pacotes para Desenhos TikZ ---
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, babel, calc}
+
+% --- Geometria e Cores ---
+\geometry{a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, headheight=38pt}
+\definecolor{WasaffNavy}{HTML}{001F3F}
+\definecolor{WasaffCopper}{HTML}{B87333}
+\definecolor{WasaffLightGrey}{HTML}{F0F0F0}
+\definecolor{WasaffExampleBlue}{HTML}{EAF2F8}
+\definecolor{WasaffNoteYellow}{HTML}{FFF9E5}
+\definecolor{CodeBackground}{HTML}{FAFAFA}
+
+% --- Fontes e Títulos ---
+\usepackage{lmodern}
+\usepackage{tgheros}
+\renewcommand*\familydefault{\sfdefault}
+\titleformat{\section}{\normalfont\Large\bfseries\color{WasaffNavy}}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{WasaffCopper}}{\thesubsection.}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection.}{1em}{}
+\renewcommand*\familydefault{\rmdefault}
+
+% --- Cabeçalho e Rodapé ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1cm]{wasaff_logo.png}}
+\fancyhead[R]{\color{gray}\fontsize{9}{11}\selectfont \begin{tabular}{r} MÓDULO 3: PROBLEMAS NO LINEALES \\ \textit{Resolviendo la Realidad Física con el Método de Newton} \end{tabular}}
+\fancyfoot[C]{\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Configuração do Hyperref ---
+\hypersetup{
+    colorlinks=true, linkcolor=WasaffNavy, urlcolor=WasaffCopper,
+    pdftitle={Módulo 3: Análisis de Problemas No Lineales},
+    pdfauthor={Felipe Wasaff - Wasaff Consulting}
+}
+
+% --- Caixas de texto personalizadas ---
+\tcbuselibrary{skins,listings}
+\newtcolorbox{keybox}[1]{
+    enhanced, colback=#1!5, colframe=#1, fonttitle=\bfseries\small,
+    arc=2mm, boxrule=1pt, title=\MakeUppercase{#1}
+}
+\newtcolorbox{infobox}{
+    enhanced, colback=WasaffLightGrey, colframe=WasaffNavy,
+    fonttitle=\bfseries\small, arc=2mm, boxrule=1pt,
+    title=\MakeUppercase{Contexto Ingenieril}
+}
+\newtcolorbox{examplebox}[1]{
+    enhanced, colback=WasaffExampleBlue, colframe=WasaffNavy,
+    fonttitle=\bfseries\small, arc=2mm, boxrule=1pt,
+    title=#1
+}
+\newtcolorbox{notatecnica}{
+    enhanced, colback=WasaffNoteYellow, colframe=WasaffCopper,
+    fonttitle=\bfseries\small, arc=2mm, boxrule=1pt,
+    title=\MakeUppercase{Nota Técnica}
+}
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{CodeBackground},
+    commentstyle=\color{green!40!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1
+}
+
+%================= AQUI COMEÇA O DOCUMENTO ============================
+\begin{document}
+
+% --- BLOCO DO TÍTULO ---
+\sffamily
+{\color{WasaffCopper} \large \textbf{PORTAFOLIO TÉCNICO: MÓDULO 3}}\\
+\
+{\color{WasaffNavy} \huge \textbf{El Mundo Real: Problemas Físicos No Lineales}}\\
+\
+{\Large Resolviendo la Ecuación del Calor con Propiedades Variables}\\
+\vspace{1cm}
+\rmfamily
+\begin{tabular}{@{}p{14cm}}
+    \textbf{Autor:} Felipe Wasaff \\
+    \textit{Fundador, Wasaff Consulting} \\
+\end{tabular}
+\
+\hrulefill
+\
+\tableofcontents
+\
+\hrulefill
+\
+\newpage
+
+%=============== INICIO DE LA PARTE A ===============
+\part*{Parte A: Formulación Teórica del Problema}
+\addcontentsline{toc}{section}{Parte A: Formulación Teórica del Problema}
+
+\section{Introducción: Abrazando la Complejidad del Mundo Real}
+En los Módulos 1 y 2, construimos una base sólida para resolver problemas de conducción de calor en estado estacionario y transitorio. Sin embargo, lo hicimos bajo una suposición simplificadora crucial: que las propiedades del material ($k, \rho, c_p$) eran constantes. En el mundo real, esta rara vez es la situación.
+
+Este módulo aborda el siguiente nivel de realismo físico: los **problemas no lineales**. Un problema se vuelve no lineal cuando las propiedades que gobiernan su comportamiento dependen de la propia solución que buscamos. Para la Ecuación del Calor, esto ocurre comúnmente cuando la conductividad térmica depende de la temperatura, $k = k(T)$.
+
+Resolver este tipo de problemas requiere un salto conceptual y matemático. Ya no podemos ensamblar una única matriz y resolver un sistema de ecuaciones lineales. Debemos adoptar un enfoque \textbf{iterativo}. Presentaremos el \textbf{Método de Newton}, un algoritmo poderoso y universal que forma la columna vertebral de la mayoría de los solvers de elementos finitos para problemas no lineales.
+
+\begin{infobox}
+La no linealidad es la norma, no la excepción, en la ingeniería de vanguardia. Consideremos:
+\begin{itemize}
+    \item \textbf{Procesamiento de Materiales:} En tratamientos térmicos de aceros, la conductividad térmica y la capacidad calorífica varían drásticamente con la temperatura, afectando la velocidad de enfriamiento y las propiedades finales del material.
+    \item \textbf{Electrónica de Potencia:} La resistividad del silicio en un semiconductor cambia con la temperatura. A medida que se calienta por el paso de corriente, su capacidad para disipar ese calor también cambia, un acoplamiento no lineal crítico.
+    \item \textbf{Ablación Térmica:} En escudos térmicos para reentrada atmosférica, las propiedades del material cambian a temperaturas extremas, un comportamiento altamente no lineal que determina la supervivencia del vehículo.
+\end{itemize}
+Dominar los métodos no lineales nos permite simular la física con una fidelidad mucho mayor.
+\end{infobox}
+
+\section{La Naturaleza de la No Linealidad en la Ecuación del Calor}
+Recordemos la forma fuerte de la Ecuación del Calor del Módulo 2:
+$$ \rho c_p \frac{\partial T}{\partial t} - \nabla \cdot (k \nabla T) = f $$
+Hasta ahora, hemos tratado a $k$ como una constante. Sin embargo, para la mayoría de los metales, la conductividad térmica es una función de la temperatura. Una aproximación común es una relación lineal:
+\begin{equation}
+    k(T) = k_0 (1 + \alpha (T - T_{ref}))
+    \label{eq:k_lineal}
+\end{equation}
+donde $k_0$ es la conductividad a una temperatura de referencia $T_{ref}$ y $\alpha$ es el coeficiente de temperatura de la conductividad.
+
+Cuando sustituimos $k(T)$ en la Ecuación del Calor, el término de difusión se convierte en:
+$$ \nabla \cdot (k(T) \nabla T) $$
+Este término es ahora **no lineal** porque $k(T)$ depende de la solución $T$. Ya no podemos simplemente ``sacar a $k$ fuera de la derivada''. La ecuación ahora relaciona a $T$ consigo misma de una manera más compleja que una simple proporción.
+
+\section{Por Qué Fracasa el Enfoque Lineal}
+Recordemos que al final del proceso de discretización espacial y temporal del Módulo 2, llegábamos a un sistema de ecuaciones algebraicas que, para cada paso de tiempo, podíamos escribir en forma matricial como $\mathbf{A} \mathbf{T}^n = \mathbf{b}$, donde:
+\begin{itemize}
+    \item $\mathbf{A}$ era la ``matriz del sistema'', que dependía de la malla y las propiedades constantes ($k, \rho, c_p$).
+    \item $\mathbf{T}^n$ era el vector de temperaturas nodales desconocidas.
+    \item $\mathbf{b}$ era el ``vector de cargas'', que dependía de las fuentes y del estado anterior $\mathbf{T}^{n-1}$.
+\end{itemize}
+El punto clave es que podíamos ensamblar $\mathbf{A}$ \textit{una sola vez} al principio de la simulación.
+
+Cuando $k = k(T)$, la matriz del sistema $\mathbf{A}$ ahora depende de la solución $\mathbf{T}^n$ que estamos tratando de encontrar: $\mathbf{A}(\mathbf{T}^n) \mathbf{T}^n = \mathbf{b}$. Esto rompe completamente el paradigma anterior. No podemos construir la matriz sin conocer la solución, y no podemos encontrar la solución sin tener la matriz. Es un problema circular que exige un nuevo enfoque.
+
+\newpage
+\section{El Enfoque Iterativo: El Método de Newton-Raphson}
+El Método de Newton-Raphson (comúnmente, Método de Newton) es una técnica para encontrar las raíces de una función o un sistema de funciones no lineales. Su idea central es brillante por su simplicidad:
+\begin{enumerate}
+    \item Partir de una suposición inicial para la solución.
+    \item Linealizar el problema en torno a esa suposición (aproximar la función no lineal por su tangente).
+    \item Resolver este problema lineal aproximado para encontrar una mejor corrección.
+    \item Actualizar la suposición y repetir el proceso hasta que la solución converja.
+\end{enumerate}
+
+Para un sistema de ecuaciones no lineales $\mathbf{F}(\mathbf{u}) = \mathbf{0}$, la fórmula de iteración de Newton es:
+\begin{equation}
+    \mathbf{u}_k = \mathbf{u}_{k-1} - \mathbf{J}(\mathbf{u}_{k-1})^{-1} \mathbf{F}(\mathbf{u}_{k-1})
+\end{equation}
+donde $\mathbf{u}_k$ es la solución en la iteración $k$, $\mathbf{F}(\mathbf{u}_{k-1})$ es el **residuo** (cuán lejos estamos del cero) y $\mathbf{J}$ es la **matriz Jacobiana**, que es la derivada de $\mathbf{F}$ respecto a $\mathbf{u}$.
+
+\subsection{Aplicando Newton a Nuestra Forma Débil}
+Nuestro primer paso es reescribir la forma débil de la ecuación del calor no lineal como un \textbf{residuo} que debe ser cero para la solución correcta. Para una iteración $k$ dentro de un paso de tiempo $n$, y una solución tentativa $T_k^n$:
+\begin{equation}
+    F(T_k^n; v) = \int_{\Omega} \left( \rho c_p T_k^n v + \Delta t \, k(T_k^n) \nabla T_k^n \cdot \nabla v \right) dV - \int_{\Omega} \rho c_p T^{n-1} v \, dV - \dots = 0
+    \label{eq:residuo_weak}
+\end{equation}
+Para encontrar una mejor solución, $T_{k+1}^n = T_k^n + \delta T$ (donde $\delta T$ es la corrección), linealizamos este residuo. Esto requiere calcular la \textbf{derivada de Gâteaux}, que es el análogo del Jacobiano para formas variacionales. Al hacerlo (ver \cite{bazant2003} para detalles), obtenemos un problema lineal para la \textit{corrección} $\delta T$:
+
+\begin{equation}
+    J(\delta T; T_k^n, v) = -F(T_k^n; v)
+\end{equation}
+donde $J$ es la forma bilineal Jacobiana.
+
+\begin{keybox}{WasaffCopper}
+    \textbf{Problema Lineal a Resolver en Cada Iteración de Newton:}
+    
+    Dada una solución tentativa $T_k^n$, encontrar la corrección $\delta T$ tal que para todo $v \in \hat{V}$:
+    \begin{equation}
+        \boxed{
+        \underbrace{\int_{\Omega} \left( \rho c_p \delta T v + \Delta t (k'(T_k^n) \delta T \nabla T_k^n + k(T_k^n) \nabla \delta T) \cdot \nabla v \right) dV}_{\text{Jacobiano, } J(\delta T; v)} = \underbrace{-F(T_k^n; v)}_{\text{Residuo negativo}}
+        }
+        \label{eq:newton_weak}
+    \end{equation}
+\end{keybox}
+
+Aunque la Ecuación \ref{eq:newton_weak} parece intimidante, FEniCS es capaz de calcular el residuo y el Jacobiano \textbf{automáticamente} a partir de la forma del residuo no lineal (Ecuación \ref{eq:residuo_weak}), lo cual es una de sus características más potentes.
+
+\newpage
+%=============== INICIO DE LA PARTE B ===============
+\part*{Parte B: Plan de Implementación}
+\addcontentsline{toc}{section}{Parte B: Plan de Implementación}
+
+\section{Implementación de un Problema No Lineal en FEniCS}
+En esta parte, delineamos el plan para implementar un caso de estudio realista que encapsula los conceptos de no linealidad.
+
+\subsection{Caso de Estudio: Tratamiento Térmico de un Disco de Acero}
+\begin{examplebox}{Caso Práctico: Templo de un Disco de Acero AISI 304}
+    \textbf{Planteamiento del Problema:} Un disco circular de acero inoxidable AISI 304, de 5 cm de radio, está inicialmente a temperatura ambiente. Su borde exterior se calienta rápidamente a 1000$^{\circ}$C (por ejemplo, mediante calentamiento por inducción) y se mantiene a esa temperatura. Queremos simular la evolución de la temperatura en el interior del disco durante los primeros 60 segundos.
+    
+    \textbf{La No Linealidad Clave:} El acero inoxidable tiene propiedades térmicas que dependen fuertemente de la temperatura. Usaremos la siguiente relación para la conductividad térmica, extraída de datos de ingeniería:
+    $$ k(T) = 14.6 + 1.57 \times 10^{-2} \cdot T \quad [\text{W/(m·K)}] $$
+    
+    \textbf{Parámetros del Modelo:}
+    \begin{itemize}
+        \item \textbf{Geometría:} Disco 2D de radio $R=0.05$ m.
+        \item \textbf{Propiedades del Material (Acero AISI 304, aproximadas):}
+            \begin{itemize}
+                \item Conductividad térmica, $k(T)$ como se definió arriba.
+                \item Densidad, $\rho = 7900 \text{ kg/m}^3$.
+                \item Capacidad calorífica, $c_p = 500 \text{ J/(kg·K)}$.
+            \end{itemize}
+        \item \textbf{Condiciones de Simulación:}
+            \begin{itemize}
+                \item Temperatura inicial, $T_0 = 293.15 \text{ K}$ (20 $^{\circ}$C).
+                \item Condición de Contorno: Temperatura fija en el borde exterior, $T_{borde} = 1273.15 \text{ K}$ (1000 $^{\circ}$C) para $t>0$. (Condición de Dirichlet).
+                \item Fuentes Internas: No hay, $f=0$.
+                \item Duración total: $t_{final} = 60$ segundos.
+                \item Paso de tiempo, $\Delta t = 1$ segundo.
+            \end{itemize}
+\end{examplebox}
+
+\subsection{Plan de Implementación en FEniCS}
+La estructura del código será similar a la del Módulo 2, pero con una diferencia fundamental en el paso de resolución. En lugar de una simple llamada a `solve()`, el solver no lineal de FEniCS ejecutará internamente el bucle del método de Newton.
+
+\begin{tcolorbox}[colback=CodeBackground, title=Estructura del Script de Simulación No Lineal]
+\begin{lstlisting}[style=pythonstyle]
+# 1. Importar librerías.
+# 2. Definir parámetros físicos, incluyendo la expresión para k(T).
+# 3. Generar la malla (usando mshr para el disco) y definir el Espacio de Funciones.
+# 4. Definir las Condiciones de Contorno de Dirichlet.
+# 5. Definir las funciones para la solución. NOTA: T_n (anterior) y T (actual)
+#    serán ahora Function (no TrialFunction), porque T participa en k(T).
+# 6. Definir la forma débil del RESIDUO, F, como en la Ecuación 10.
+# 7. Preparar bucle temporal y archivos de salida.
+# 8. Bucle temporal:
+#    - solve(F == 0, T, bcs, solver_parameters={"newton_solver":...})
+#    - Guardar y actualizar T_n.assign(T)
+\end{lstlisting}
+\end{tcolorbox}
+En nuestra próxima sesión de trabajo, desarrollaremos el código completo y analizaremos los fascinantes resultados de esta simulación no lineal.
+
+\newpage
+% --- SECCIÓN DE BIBLIOGRAFÍA ---
+\bibliographystyle{plain}
+\bibliography{referencias_mod3}
+
+\end{document}

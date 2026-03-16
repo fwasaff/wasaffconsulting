@@ -1,0 +1,12 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Parte A: Formulación Teórica del Problema}{2}{part*.1}%
+\contentsline {section}{\numberline {1}Introducción: El Mundo de los Fluidos en Movimiento}{2}{section.1}%
+\contentsline {section}{\numberline {2}La Física de un Fluido Viscoso e Incompresible}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}La Simplificación de Stokes: El Régimen de Bajo Reynolds}{2}{subsection.2.1}%
+\contentsline {section}{\numberline {3}La Forma Débil: Un Problema de Punto de Silla}{3}{section.3}%
+\contentsline {section}{Parte B: Plan de Implementación y Análisis}{4}{part*.2}%
+\contentsline {section}{\numberline {4}Implementación de un Problema de Flujo de Stokes}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Caso de Estudio: Flujo alrededor de un Cilindro}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Plan de Implementación en FEniCS}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Análisis de Resultados Esperado}{5}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Conclusión General del Módulo}{5}{section.5}%

@@ -1,0 +1,12 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción: El Lenguaje de la Física en Estado Estacionario}{2}{section.1}%
+\contentsline {section}{\numberline {2}Planteamiento Físico del Problema}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Principio 1: Ley de Fourier (El Flujo de Calor)}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Principio 2: Conservación de la Energía}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Derivación de la Ecuación Gobernante (Forma Fuerte)}{3}{subsection.2.3}%
+\contentsline {section}{\numberline {3}El Puente a la Simulación: ¿Por qué la Forma Fuerte no es Suficiente?}{4}{section.3}%
+\contentsline {section}{\numberline {4}Derivación de la Forma Débil (Variacional)}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Paso 1: El Principio del Residuo Ponderado}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Paso 2: Integración por Partes (El ``Truco'' Mágico de FEM)}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}La Formulación Final y su Significado}{5}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Conclusión: Del Concepto al Código}{6}{section.5}%

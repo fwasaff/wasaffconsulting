@@ -1,0 +1,54 @@
+\part*{Parte B: Plan de Implementación y Análisis}
+\addcontentsline{toc}{section}{Parte B: Plan de Implementación y Análisis}
+
+\section{Implementación de un Problema de Flujo de Stokes}
+Aplicaremos nuestra formulación teórica a un problema canónico de la CFD: el flujo viscoso a través de un canal con un obstáculo cilíndrico.
+
+\subsection{Caso de Estudio: Flujo alrededor de un Cilindro}
+\begin{examplebox}{Caso Práctico: Flujo de Glicerina en un Canal}
+    \textbf{Planteamiento del Problema:} Se bombea glicerina a través de un canal rectangular largo que contiene un pilar cilíndrico en su centro. Queremos calcular el campo de velocidad y de presión del fluido en estado estacionario alrededor del obstáculo.
+    
+    \textbf{Suposiciones Físicas:} La glicerina es muy viscosa y la velocidad del flujo es baja, por lo que el número de Reynolds es mucho menor que 1, validando el uso de las ecuaciones de Stokes.
+    
+    \textbf{Parámetros del Modelo:}
+    \begin{itemize}
+        \item \textbf{Geometría:} Un canal de 2.2 m de largo por 0.41 m de alto, con un cilindro de 0.05 m de radio centrado en (0.2, 0.2).
+        \item \textbf{Propiedades del Fluido (Glicerina):} Viscosidad dinámica, $\mu = 1.49 \text{ Pa·s}$.
+        \item \textbf{Condiciones de Contorno:}
+             \begin{itemize}
+                \item \textbf{Entrada (Inlet, $x=0$):} Perfil de velocidad parabólico con velocidad máxima de 1 m/s en el centro del canal: $\mathbf{u}_{in} = (4 U_{max} y(H-y)/H^2, 0)$.
+                \item \textbf{Salida (Outlet, $x=2.2$):} Presión de salida nula, $p=0$.
+                \item \textbf{Paredes y Cilindro:} Condición de no deslizamiento (no-slip), $\mathbf{u} = (0,0)$.
+            \end{itemize}
+    \end{itemize}
+\end{examplebox}
+
+\subsection{Plan de Implementación en FEniCS}
+Este problema requiere la creación de una geometría compleja (un rectángulo con un agujero) y el uso de un Espacio de Funciones Mixto estable (Taylor-Hood).
+
+\begin{tcolorbox}[colback=CodeBackground, title=Estructura del Script de Simulación de Stokes]
+\begin{lstlisting}[style=pythonstyle]
+# 1. Importar librerías, incluyendo 'mshr' para la malla.
+# 2. Definir parámetros físicos y geométricos.
+# 3. Construir la geometría (rectángulo - círculo) y generar la malla con mshr.
+# 4. Definir el Espacio de Funciones Mixto (Taylor-Hood: P2 para velocidad, P1 para presión).
+# 5. Definir las Condiciones de Contorno para inlet, outlet, paredes y cilindro.
+# 6. Definir la forma débil acoplada para (u, p) como en la Parte A.
+# 7. Resolver el problema variacional.
+# 8. Guardar los campos de velocidad y presión en archivos VTK.
+# 9. Realizar post-procesamiento (ej. graficar presión en la superficie del cilindro).
+\end{lstlisting}
+\end{tcolorbox}
+
+\subsection{Análisis de Resultados Esperado}
+La simulación nos proporcionará una visión detallada del comportamiento del flujo.
+\begin{itemize}
+    \item \textbf{Campo de Presión:} Esperamos ver una alta presión en la cara frontal del cilindro (punto de estancamiento) y una baja presión en la estela justo detrás de él.
+    \item \textbf{Campo de Velocidad:} El flujo se acelerará al pasar por los lados del cilindro y la velocidad será exactamente cero en todas las superficies sólidas (paredes y cilindro). La estela detrás del obstáculo mostrará velocidades muy bajas.
+\end{itemize}
+Estos resultados son fundamentales para calcular fuerzas de arrastre (drag) y sustentación (lift) sobre objetos inmersos en un flujo, una de las aplicaciones más importantes de la CFD.
+
+\section{Conclusión General del Módulo}
+En este módulo, hemos abierto la puerta a la Dinámica de Fluidos Computacional. Partiendo de las ecuaciones completas de Navier-Stokes, derivamos el modelo simplificado pero potente del Flujo de Stokes. El paso crucial fue la formulación de un problema variacional mixto (punto de silla) para velocidad y presión.
+
+Hemos introducido la condición de estabilidad LBB, un pilar teórico de la simulación de fluidos incompresibles con FEM, y hemos delineado el plan para resolver un problema de ingeniería clásico. Esto nos posiciona perfectamente para, en el futuro, reintroducir los términos no lineales y abordar la complejidad completa del flujo de fluidos.

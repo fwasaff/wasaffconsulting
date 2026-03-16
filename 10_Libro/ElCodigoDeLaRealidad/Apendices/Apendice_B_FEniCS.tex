@@ -1,0 +1,150 @@
+\chapter{Guía de Referencia Rápida de \fenics}
+\label{app:fenics}
+
+Este apéndice proporciona una referencia rápida de los comandos y conceptos más comunes de \fenics utilizados en este libro. No pretende ser exhaustivo, sino servir como un recordatorio práctico para la sintaxis clave.
+
+%==================================================================================
+\section{Flujo de Trabajo Típico de un Script}
+%==================================================================================
+Un script de \fenics para un problema lineal sigue un patrón de 5 pasos bien definidos.
+\begin{enumerate}
+    \item \textbf{Malla y Espacio Funcional:} Definir el dominio computacional y el tipo de aproximación para la solución.
+    \item \textbf{Condiciones de Contorno:} Especificar los valores conocidos de la solución en la frontera (Dirichlet).
+    \item \textbf{Problema Variacional:} Traducir la forma débil \(a(u,v) = L(v)\) a código.
+    \item \textbf{Resolver:} Invocar al solver para encontrar la función de solución.
+    \item \textbf{Post-procesamiento:} Guardar o visualizar los resultados.
+\end{enumerate}
+
+%==================================================================================
+\section{Comandos Esenciales}
+%==================================================================================
+
+%----------------------------------------------------------------------------------
+\subsection{Malla y Geometría}
+%----------------------------------------------------------------------------------
+\begin{minted}[frame=lines, fontsize=\small]{python}
+from fenics import *
+from mshr import * # Para geometrías más complejas
+
+# Malla de un cuadrado unitario de 32x32 elementos
+mesh = UnitSquareMesh(32, 32)
+
+# Malla de un rectángulo
+mesh = RectangleMesh(Point(0,0), Point(L, H), nx, ny)
+
+# Malla de un disco
+domain = Circle(Point(cx, cy), radius)
+mesh = generate_mesh(domain, resolution)
+\end{minted}
+
+%----------------------------------------------------------------------------------
+\subsection{Espacio de Funciones}
+%----------------------------------------------------------------------------------
+\begin{minted}[frame=lines, fontsize=\small]{python}
+# Espacio de funciones escalares (para Temperatura, Presión)
+# Elementos Lagrange de primer orden (lineales)
+P1 = FiniteElement("P", mesh.ufl_cell(), 1)
+# Elementos Lagrange de segundo orden (cuadráticos)
+P2 = FiniteElement("P", mesh.ufl_cell(), 2)
+
+# Espacio de funciones vectoriales (para Desplazamiento, Velocidad)
+V_P2 = VectorElement("P", mesh.ufl_cell(), 2)
+
+# Creación del FunctionSpace
+V = FunctionSpace(mesh, P1)
+W = VectorFunctionSpace(mesh, "P", 2) # Atajo para vectoriales
+
+# Espacio mixto para Taylor-Hood (Velocidad-Presión)
+ME = MixedElement([V_P2, P1])
+W_mixed = FunctionSpace(mesh, ME)
+\end{minted}
+
+%----------------------------------------------------------------------------------
+\subsection{Definición de Funciones}
+%----------------------------------------------------------------------------------
+\begin{minted}[frame=lines, fontsize=\small]{python}
+# Funciones para la forma débil
+u = TrialFunction(V) # Incógnita principal, ej. T o u
+v = TestFunction(V)  # Función de prueba
+
+# Función para almacenar una solución calculada
+u_sol = Function(V)
+
+# Función del paso de tiempo anterior
+u_n = Function(V)
+
+# Constantes y Expresiones
+c = Constant(5.0)
+f = Expression("sin(x[0])*cos(x[1])", degree=2)
+\end{minted}
+
+%----------------------------------------------------------------------------------
+\subsection{Condiciones de Contorno (Dirichlet)}
+%----------------------------------------------------------------------------------
+\begin{minted}[frame=lines, fontsize=\small]{python}
+# 1. Definir el valor en el contorno
+u_D = Constant(0.0) # Para un valor constante
+u_expr = Expression("1 + x[0]*x[0]", degree=2) # Para un valor variable
+
+# 2. Definir la localización del contorno (toda la frontera)
+def boundary(x, on_boundary):
+    return on_boundary
+
+# 3. Crear el objeto DirichletBC
+bc = DirichletBC(V, u_D, boundary)
+\end{minted}
+
+%----------------------------------------------------------------------------------
+\subsection{Problema Variacional y Solución}
+%----------------------------------------------------------------------------------
+\paragraph{Problemas Lineales}
+\begin{minted}[frame=lines, fontsize=\small]{python}
+# Forma débil: a(u,v) = L(v)
+a = dot(grad(u), grad(v))*dx
+L = f*v*dx
+
+# Solución
+u_sol = Function(V)
+solve(a == L, u_sol, bc)
+\end{minted}
+
+\paragraph{Problemas No Lineales}
+\begin{minted}[frame=lines, fontsize=\small]{python}
+# La incógnita es una Function, no TrialFunction
+u = Function(V)
+
+# Definir la forma débil como un residuo F(u; v) = 0
+k = 1 + u**2 # Ejemplo de no linealidad
+F = k*dot(grad(u), grad(v))*dx - f*v*dx
+
+# Solución (FEniCS invoca a Newton automáticamente)
+solve(F == 0, u, bc)
+\end{minted}
+
+\paragraph{Problemas Transitorios (Bucle Temporal)}
+\begin{minted}[frame=lines, fontsize=\small]{python}
+for n in range(num_steps):
+    # Resolver el problema para el paso actual
+    solve(a == L, u_sol, bc)
+    
+    # Actualizar la solución del paso anterior
+    u_n.assign(u_sol)
+\end{-minted}
+
+%----------------------------------------------------------------------------------
+\subsection{Post-Procesamiento}
+%----------------------------------------------------------------------------------
+\begin{minted}[frame=lines, fontsize=\small]{python}
+# Guardar en formato VTK para ParaView
+vtkfile = File("resultado.pvd")
+vtkfile << u_sol
+
+# Graficar con Matplotlib (requiere 'import matplotlib.pyplot as plt')
+plot(u_sol)
+plt.show()
+
+# Proyectar un tensor a un campo escalar para visualización
+V_scalar = FunctionSpace(mesh, "P", 1)
+sigma_xx = project(sigma(u_sol)[0,0], V_scalar)
+plot(sigma_xx)
+\end{minted}

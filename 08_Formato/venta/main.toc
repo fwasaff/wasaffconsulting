@@ -1,0 +1,17 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Resumen Ejecutivo}{2}{section.1}%
+\contentsline {section}{\numberline {2}Entendimiento del Problema}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Contexto Operacional}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Impacto del Desgaste Acelerado}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Metodología Propuesta: Simulación DEM}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Modelo Físico-Matemático}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Análisis de Resultados}{2}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Resultados y Entregables}{2}{section.4}%
+\contentsline {section}{\numberline {5}Cronograma de Implementación}{3}{section.5}%
+\contentsline {section}{\numberline {6}Credibilidad y Casos de Éxito}{3}{section.6}%
+\contentsline {section}{\numberline {7}Inversión y Retorno Esperado (ROI)}{3}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Análisis de Valor}{3}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Condiciones de Pago}{3}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Términos y Condiciones}{4}{section.8}%
+\contentsline {section}{\numberline {9}Próximos Pasos}{4}{section.9}%
+\contentsline {section}{\numberline {10}Sobre el Consultor: Felipe Wasaff}{4}{section.10}%

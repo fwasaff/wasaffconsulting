@@ -1,0 +1,14 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Parte A: Formulación Teórica del Problema}{2}{part*.1}%
+\contentsline {section}{\numberline {1}Introducción: Cuando las Físicas Colaboran}{2}{section.1}%
+\contentsline {section}{\numberline {2}Los Dos Pilares Físicos del Problema}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Pilar 1: Elasticidad Lineal (El Mundo de la Mecánica)}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Pilar 2: Conducción de Calor Transitoria (El Mundo Térmico)}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}El Puente Multifísico: La Deformación Térmica}{3}{subsection.2.3}%
+\contentsline {section}{\numberline {3}La Forma Débil Acoplada}{4}{section.3}%
+\contentsline {section}{Parte B: Implementación y Análisis de Resultados}{5}{part*.2}%
+\contentsline {section}{\numberline {4}De la Teoría a la Práctica: Implementación con FEniCS}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Caso de Estudio: Flexión de una Tira Bimetálica}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Implementación del Código (Versión Final)}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Análisis de Resultados y Visualización}{5}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Conclusión General del Módulo}{5}{section.5}%

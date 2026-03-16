@@ -1,0 +1,14 @@
+{
+  "_instrucciones": "Este archivo es una plantilla. Copia a config.json (ignorado por git) y completa los valores reales. NUNCA hacer commit de config.json.",
+  "ambiente": "certificacion",
+  "rut_emisor": "REEMPLAZAR_CON_TU_RUT_SIN_PUNTOS",
+  "razon_social": "Wasaff Consulting",
+  "giro": "Consultoría en física computacional e ingeniería",
+  "actividad_economica": "74901",
+  "direccion": "Santiago, Chile",
+  "cert_path": "/ruta/absoluta/a/certificado.p12 — NUNCA commitear este archivo",
+  "key_path": "/ruta/absoluta/a/clave_privada.key — NUNCA commitear este archivo",
+  "endpoint_certificacion": "https://palena.sii.cl",
+  "endpoint_produccion": "https://maullin.sii.cl",
+  "nota": "La contraseña del certificado NO va en este archivo. Usar variable de entorno SII_CERT_PASS."
+}
