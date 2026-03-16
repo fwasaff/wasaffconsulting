@@ -1,6 +1,6 @@
 # Perfil de Cliente — Synergy Fire Protection
 
-*Creado: 2026-03-16 | Última actualización: 2026-03-16*
+*Creado: 2026-03-16 | Última actualización: 2026-03-16 (reorganización sistema)*
 
 ---
 
@@ -10,7 +10,7 @@
 |-------|-------|
 | Razón social | Synergy Fire Protection |
 | RUT | — (completar) |
-| Sector/Rubro | Protección contra incendios / Seguridad industrial |
+| Sector/Rubro | Protección contra incendios y sistemas de supresión / Seguridad industrial |
 | Tamaño | — (completar) |
 | Web | — (completar) |
 
@@ -42,7 +42,7 @@
 ---
 
 ## Descripción del proyecto realizado
-Análisis de propagación térmica y evaluación de riesgo físico para sistemas de protección contra incendios. Validación bajo normativas internacionales aplicables en Chile.
+Modelado de propagación térmica y análisis de riesgo físico para sistemas de supresión de incendios. Incluye simulación Python de escenarios críticos, mapa de riesgo categórico y dossier técnico con validación bajo normativas internacionales (NFPA) aplicables en Chile. Archivos en `03_PROYECTOS/COMPLETADOS/2024_Synergy_Incendio/`.
 
 ---
 
