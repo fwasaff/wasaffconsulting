@@ -1,6 +1,6 @@
-# Perfil de Cliente — Synergy Fire Protection
+# Perfil de Cliente — Synergy SpA
 
-*Creado: 2026-03-16 | Última actualización: 2026-03-16 (reorganización sistema)*
+*Creado: 2026-03-16 | Última actualización: 2026-03-16*
 
 ---
 
@@ -8,20 +8,19 @@
 
 | Campo | Valor |
 |-------|-------|
-| Razón social | Synergy Fire Protection |
-| RUT | — (completar) |
-| Sector/Rubro | Protección contra incendios y sistemas de supresión / Seguridad industrial |
+| Razón social | Synergy SpA |
+| Web | https://www.synergy-spa.cl/ |
+| Sector/Rubro | Protección contra incendios y sistemas de supresión |
 | Tamaño | — (completar) |
-| Web | — (completar) |
 
 ## Contacto principal
 
 | Campo | Valor |
 |-------|-------|
-| Nombre | — (completar) |
-| Cargo | — (completar) |
-| Email | — (completar) |
-| Teléfono | — (completar) |
+| Nombre | Francisco Pérez |
+| Relación | Ex alumno |
+| Email | PENDIENTE — buscar en comunicaciones antiguas |
+| Teléfono | — |
 
 ---
 
@@ -29,31 +28,28 @@
 
 | Fecha | Evento | Resultado |
 |-------|--------|-----------|
-| 2024 | Proyecto iniciado — Evaluaciones técnicas sistemas supresión incendios | Completado |
+| 2024 | Francisco solicitó análisis de fuerzas de impacto en tuberías SCH10/SCH40 | Cotización enviada |
+| 2024 | Cliente no respondió a cotización | Sin contrato |
+| 2024 | Análisis técnico completado como ejercicio propio | Trabajo disponible como portafolio |
 
 ---
 
-## Proyectos realizados
+## Proyectos relacionados
 
-| ID | Nombre | Estado | Año |
-|----|--------|--------|-----|
-| WC-2024-001 | Evaluaciones Técnicas para Sistemas de Supresión de Incendios | COMPLETADO | 2024 |
-
----
-
-## Descripción del proyecto realizado
-Modelado de propagación térmica y análisis de riesgo físico para sistemas de supresión de incendios. Incluye simulación Python de escenarios críticos, mapa de riesgo categórico y dossier técnico con validación bajo normativas internacionales (NFPA) aplicables en Chile. Archivos en `03_PROYECTOS/COMPLETADOS/2024_Synergy_Incendio/`.
-
----
-
-## Notas de relación
-- Sector con regulación estricta — las evaluaciones deben cumplir normativas internacionales
-- Potencial para proyectos recurrentes dado que las instalaciones requieren validación periódica
-- Completar datos de contacto al retomar comunicación
+| ID | Nombre | Estado | Factura |
+|----|--------|--------|---------|
+| WC-2024-001 | Análisis fuerzas de impacto tuberías (análisis completado como ejercicio) | COMPLETADO sin contrato | NO |
 
 ---
 
 ## Estado actual
-**Estado relación:** CLIENTE HISTÓRICO
+**Estado relación:** PROSPECTO INACTIVO
 
-**Potencial próximo proyecto:** Media probabilidad. El sector de protección contra incendios requiere evaluaciones periódicas — posible trabajo recurrente si se mantiene la relación.
+**Acción recomendada:** Recontactar en 2026 si hay oportunidad. El análisis ya está hecho — si retoma contacto, el entregable está listo.
+
+---
+
+## Notas
+- Sin contrato firmado, sin factura emitida
+- El trabajo fue completado para aprendizaje propio y como demostración de capacidad técnica
+- El análisis incluye: fuerzas de impacto Housner, comparativa SCH10/SCH40, gráficos y reporte CSV

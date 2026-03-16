@@ -5,25 +5,31 @@
 | Campo | Valor |
 |-------|-------|
 | **ID** | WC-2024-001 |
-| **Cliente** | Synergy Fire Protection |
-| **Contacto** | PENDIENTE DE COMPLETAR |
-| **Estado** | COMPLETADO |
-| **Factura emitida** | PENDIENTE DE VERIFICAR |
+| **Cliente** | Synergy SpA (prospecto — sin contrato firmado) |
+| **Contacto** | Francisco Pérez — https://www.synergy-spa.cl/ |
+| **Estado** | COMPLETADO (sin cliente activo) |
+| **Factura emitida** | NO — no hubo contrato |
 
 ## Alcance
-Evaluación técnica de riesgo de incendio: modelado de propagación térmica, análisis de escenarios críticos y mapa de riesgo categórico.
+Análisis de fuerzas de impacto en tuberías a diferentes diámetros (SCH10/SCH40) y alturas de caída. Cotización enviada, cliente no respondió. Trabajo completado para aprendizaje propio.
 
-## Fechas
-| Hito | Fecha |
-|------|-------|
-| Fecha inicio | 2024-01-01 (aprox.) |
-| Fecha entrega | 2024-06-01 (aprox.) |
+## Fecha
+2024
 
 ## Entregables
-- Dossier técnico (`dossier.pdf`)
-- Scripts de simulación Python (`simulacion.py`, `generar_graficas.py`)
-- Gráficos de análisis (escenarios críticos, mapa de riesgo categórico)
-- Reporte CSV completo (`reporte_riesgo_completo_CORRECTO.csv`)
+- Dossier técnico PDF → `05_entrega/dossier.pdf`
+- Scripts Python de análisis → `02_analisis/`
+- Gráficos comparativos → `03_resultados/`
+- Reporte CSV completo → `01_datos/`
+
+## Estructura
+```
+01_datos/     ← datos de entrada y reportes CSV
+02_analisis/  ← scripts Python (simulacion.py, analisis_riesgo_impacto.py, Fuerzas de impacto/, Calculos_mejorados_v2/)
+03_resultados/← gráficos de resultados
+04_informe/   ← borradores de informe (informe_v2/, propuesta_v1/, Proyecto v3/)
+05_entrega/   ← dossier.pdf (entregable final)
+```
 
 ## Notas
-Ver propuesta en `propuesta_v3/` para contexto del alcance contratado. El proyecto Synergy tiene también versiones en `~/Wasaff_Consulting/Synergy Fire Protection/` (carpeta antigua con cálculos mejorados v1 y v2).
+El análisis incluye método Housner, cálculo de fuerzas de impacto, comparativa de schedules SCH10/SCH40, gráficos y reporte. Código reutilizable para futuros proyectos de ingeniería de tuberías. Si Francisco Pérez retoma contacto, el entregable está disponible.

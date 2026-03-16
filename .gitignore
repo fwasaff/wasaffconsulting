@@ -22,3 +22,24 @@ __pycache__/
 *.dump
 *.xyz
 log.lammps
+*.stl
+*.foam
+
+# Entornos Python instalados
+.venv/
+venv/
+env/
+site-packages/
+dist-packages/
+share/jupyter/
+lib/python*/
+bin/python*
+*.egg-info/
+my_jupyter_projects/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Archivos de Office temporales
+~$*
