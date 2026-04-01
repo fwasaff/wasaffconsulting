@@ -95,7 +95,7 @@ export default function Hero() {
               Cuando el problema
               requiere física,{' '}
               <em style={{ color: '#a0c0e8' }}>
-                construimos el modelo.
+                el modelo es la respuesta.
               </em>
             </h1>
 
@@ -109,8 +109,8 @@ export default function Hero() {
               }}
             >
               Wasaff Consulting aplica simulación computacional avanzada y métodos numéricos
-              rigurosos donde los proveedores genéricos no alcanzan. Traducimos la física
-              de sus procesos en decisiones técnicas confiables para minería, energía y manufactura.
+              rigurosos donde los proveedores genéricos no alcanzan. La física de sus procesos
+              se convierte en decisiones técnicas confiables para minería, energía y manufactura.
             </p>
 
             <div className="fade-in-item flex flex-wrap gap-4">
