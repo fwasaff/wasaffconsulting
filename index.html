@@ -50,18 +50,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:     #050505;
-      --panel:  #0e0e11;
-      --panel-hover: #141418;
-      --border: rgba(255,255,255,0.08);
-      --border-hover: rgba(59, 130, 246, 0.3);
-      --blue:   #3b82f6;
-      --blue-glow: rgba(59, 130, 246, 0.15);
-      --text:   #f4f4f5;
-      --muted:  #a1a1aa;
-      --gold:   #d4a853;
-      --red:    #ef4444;
-      --green:  #10b981;
+      --bg:     #ffffff;
+      --panel:  #f5f4f0;
+      --panel-hover: #e8e5de;
+      --border: rgba(0,0,0,0.09);
+      --border-hover: rgba(34,81,255,0.35);
+      --blue:   #2251ff;
+      --blue-glow: rgba(34,81,255,0.08);
+      --text:   #111111;
+      --muted:  #666666;
+      --gold:   #9a6f0e;
+      --red:    #b91c1c;
+      --green:  #0d7c5a;
     }
 
     html { font-size: 18px; scroll-behavior: smooth; }
@@ -147,11 +147,12 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      background: rgba(5, 5, 5, 0.85);
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
       transition: all 0.3s ease;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     }
     .nav-inner {
       max-width: 1200px;
@@ -221,10 +222,10 @@
       flex-direction: column;
       position: absolute;
       top: 70px; left: 0; right: 0;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
       padding: 1rem 2rem 2rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
@@ -247,20 +248,30 @@
       align-items: center;
       padding-top: 70px;
       position: relative;
+      background: #0c1a35;
+      /* Overrides locales: todo dentro del hero usa paleta oscura */
+      --bg:          #0c1a35;
+      --panel:       rgba(255,255,255,0.06);
+      --panel-hover: rgba(255,255,255,0.10);
+      --border:      rgba(255,255,255,0.10);
+      --border-hover:rgba(59,130,246,0.45);
+      --text:        #f4f4f5;
+      --muted:       rgba(255,255,255,0.52);
+      --blue:        #4f8ef7;
+      --blue-glow:   rgba(79,142,247,0.18);
     }
     /* Grid de fondo high-tech */
     #hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: 
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
       background-size: 60px 60px;
       mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
       -webkit-mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
       pointer-events: none;
-      opacity: 0.4;
     }
     /* Resplandor azul industrial */
     #hero::after {
@@ -268,7 +279,7 @@
       position: absolute;
       top: 10%; right: -10%;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(79,142,247,0.18) 0%, transparent 70%);
       filter: blur(60px);
       pointer-events: none;
     }
@@ -349,7 +360,7 @@
       text-decoration: none;
       transition: all 0.2s ease;
     }
-    .btn-ghost:hover { border-color: var(--muted); background: rgba(255,255,255,0.03); }
+    .btn-ghost:hover { border-color: var(--muted); background: rgba(0,0,0,0.04); }
 
     /* Dashboard Metrics (Prueba Social B2B) */
     .hero-metrics {
@@ -363,7 +374,7 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
     .metric-cell {
-      background: rgba(14, 14, 17, 0.85);
+      background: rgba(5,15,40,0.75);
       backdrop-filter: blur(10px);
       padding: 2.5rem 2rem;
       display: flex;
@@ -371,7 +382,7 @@
       justify-content: center;
       transition: background 0.3s ease;
     }
-    .metric-cell:hover { background: var(--panel-hover); }
+    .metric-cell:hover { background: rgba(5,15,40,0.92); }
     .metric-val {
       font-family: 'JetBrains Mono', monospace;
       font-size: 2.5rem;
@@ -410,7 +421,7 @@
       position: relative;
       overflow: hidden;
     }
-    .card-uso:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .card-uso:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.10); }
     /* Detalle técnico visual */
     .card-uso::before {
       content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0;
@@ -449,14 +460,14 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
       color: var(--muted);
-      background: rgba(255,255,255,0.03);
+      background: rgba(0,0,0,0.04);
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 0.3rem 0.6rem;
     }
 
     /* Tarjeta de Servicio en I+D (Muestra honestidad y visión) */
-    .srv-card.dev { background: rgba(59, 130, 246, 0.03); border: 1px dashed rgba(59, 130, 246, 0.3); }
+    .srv-card.dev { background: rgba(34,81,255,0.03); border: 1px dashed rgba(34,81,255,0.25); }
     .badge-dev {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
@@ -516,9 +527,9 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       padding: 0.3rem 0.7rem;
-      background: rgba(59,130,246,0.08);
-      color: #60a5fa;
-      border: 1px solid rgba(59,130,246,0.2);
+      background: rgba(34,81,255,0.07);
+      color: var(--blue);
+      border: 1px solid rgba(34,81,255,0.18);
       border-radius: 4px;
     }
     
@@ -555,7 +566,7 @@
     .person-role { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.5rem; }
     
     .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
-    .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.5rem; background: rgba(255,255,255,0.05); color: var(--muted); border-radius: 4px; }
+    .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.5rem; background: rgba(0,0,0,0.06); color: var(--muted); border-radius: 4px; border: 1px solid var(--border); }
     
     .cita {
       font-family: 'Instrument Serif', Georgia, serif;
@@ -1080,15 +1091,13 @@
     });
   });
 
-  // Blur y Sombra en Navbar al hacer scroll
+  // Sombra en Navbar al hacer scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      navbar.style.background = 'rgba(5, 5, 5, 0.95)';
-      navbar.style.borderBottom = '1px solid rgba(59, 130, 246, 0.2)';
+      navbar.style.boxShadow = '0 2px 12px rgba(0,0,0,0.10)';
     } else {
-      navbar.style.background = 'rgba(5, 5, 5, 0.85)';
-      navbar.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+      navbar.style.boxShadow = '0 1px 0 rgba(0,0,0,0.06)';
     }
   }, { passive: true });
 
