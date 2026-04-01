@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CL">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wasaff Consulting — Simulación Computacional e Ingeniería Física</title>
-  <meta name="description" content="Modelado matemático y simulación computacional para ingeniería industrial. Análisis térmico, dinámica molecular, métodos numéricos. Santiago, Chile."/>
+  <title>Wasaff Consulting — Simulación Computacional e Ingeniería Física B2B</title>
+  <meta name="description" content="Simulación computacional, métodos numéricos y análisis térmico para optimización industrial en Chile. Traducimos física compleja en reducción de riesgo operativo y OPEX."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://wasaffconsulting.cl/"/>
   <meta property="og:title" content="Wasaff Consulting — Simulación Computacional e Ingeniería Física"/>
-  <meta property="og:description" content="Modelado matemático y simulación computacional para ingeniería industrial. Análisis térmico, dinámica molecular, métodos numéricos. Santiago, Chile."/>
+  <meta property="og:description" content="Simulación computacional y modelado matemático avanzado para continuidad operacional en minería, manufactura y energía. Santiago, Chile."/>
   <meta property="og:type" content="website"/>
   <meta property="og:locale" content="es_CL"/>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%232563eb' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%232563eb' stroke-width='1.5' fill='none' transform='rotate(60 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%232563eb' stroke-width='1.5' fill='none' transform='rotate(-60 16 16)'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%232563eb'/%3E%3C/svg%3E"/>
+  <!-- Favicon dinámico (SVG) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none' transform='rotate(60 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none' transform='rotate(-60 16 16)'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%233b82f6'/%3E%3C/svg%3E"/>
 
+  <!-- Fuentes Premium -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+  <!-- Marcado Schema.org para SEO Local (Consultora en Chile) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -29,106 +32,132 @@
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Santiago",
+      "addressRegion": "Región Metropolitana",
       "addressCountry": "CL"
     },
     "founder": {
       "@type": "Person",
       "name": "Felipe Wasaff",
-      "jobTitle": "Físico Computacional",
+      "jobTitle": "Físico Computacional y Consultor Senior",
       "sameAs": "https://www.linkedin.com/in/felipewasaff"
-    }
+    },
+    "areaServed": ["Chile", "Latinoamérica"]
   }
   </script>
 
   <style>
+    /* Reset & Variables Base */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:     #09090b;
-      --panel:  #111113;
-      --border: rgba(255,255,255,.08);
+      --bg:     #050505;
+      --panel:  #0e0e11;
+      --panel-hover: #141418;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(59, 130, 246, 0.3);
       --blue:   #3b82f6;
-      --text:   #e4e4e7;
-      --muted:  #71717a;
+      --blue-glow: rgba(59, 130, 246, 0.15);
+      --text:   #f4f4f5;
+      --muted:  #a1a1aa;
+      --gold:   #d4a853;
+      --red:    #ef4444;
+      --green:  #10b981;
     }
 
-    html { font-size: 19px; scroll-behavior: smooth; }
+    html { font-size: 18px; scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 400;
+      font-weight: 300;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* Fade-in on scroll */
+    /* Animaciones de Entrada */
     .fi {
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .55s ease, transform .55s ease;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .fi.in { opacity: 1; transform: none; }
+    .fi.in { opacity: 1; transform: translateY(0); }
 
-    /* Green dot pulse */
-    @keyframes dotpulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
+    /* Indicador de Disponibilidad */
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
     }
-    .dot-pulse {
+    .status-dot {
       display: inline-block;
-      width: 7px; height: 7px;
+      width: 8px; height: 8px;
       border-radius: 50%;
-      background: #22c55e;
-      animation: dotpulse 2s infinite;
+      background: var(--green);
+      animation: pulse-green 2s infinite;
+      margin-right: 0.5rem;
       vertical-align: middle;
-      margin-right: .45rem;
-      flex-shrink: 0;
     }
 
-    /* Shared layout */
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 2rem; }
-    section { padding: 7rem 0; }
+    /* Layout general */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 8rem 0; position: relative; }
 
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      section { padding: 5rem 0; }
+      .hero-inner { padding: 0 1.25rem; }
+    }
+    @media (max-width: 400px) {
+      .container { padding: 0 1rem; }
+      .hero-inner { padding: 0 1rem; }
+    }
+
+    /* Tipografía Corporativa Premium */
     .sec-title {
       font-family: 'Instrument Serif', Georgia, serif;
       font-style: italic;
-      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
-      line-height: 1.15;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1.1;
       color: var(--text);
-      margin-bottom: .75rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
     }
-    .sec-title .br { display: block; }
     .sec-sub {
-      font-size: .9rem;
+      font-size: 1.05rem;
       color: var(--muted);
-      max-width: 58ch;
+      max-width: 65ch;
       line-height: 1.7;
     }
     .label-mono {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--muted);
+      letter-spacing: 0.15em;
+      color: var(--blue);
+      display: block;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
     }
 
     /* ── NAVBAR ── */
     #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(9,9,11,.9);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      z-index: 1000;
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
     }
     .nav-inner {
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 2rem;
-      height: 62px;
+      height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -136,177 +165,193 @@
     .nav-logo {
       font-family: 'Instrument Serif', Georgia, serif;
       font-style: italic;
-      font-size: 1.15rem;
+      font-size: 1.3rem;
       color: var(--text);
       text-decoration: none;
+      letter-spacing: 0.02em;
     }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 2.5rem;
       list-style: none;
     }
     .nav-links a {
-      font-size: .82rem;
-      font-weight: 500;
+      font-size: 0.85rem;
+      font-weight: 400;
       color: var(--muted);
       text-decoration: none;
-      transition: color .2s;
+      transition: color 0.2s ease;
     }
     .nav-links a:hover { color: var(--text); }
     .btn-nav {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .72rem !important;
-      padding: .38rem .95rem;
-      border: 1px solid var(--blue);
+      font-size: 0.75rem !important;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
       border-radius: 4px;
-      color: var(--blue) !important;
-      background: transparent;
-      transition: background .2s, color .2s;
+      color: var(--text) !important;
+      background: var(--panel);
+      transition: all 0.2s ease;
     }
-    .btn-nav:hover { background: var(--blue); color: #fff !important; }
+    .btn-nav:hover { border-color: var(--blue); background: var(--blue-glow); }
 
+    /* Menú Móvil */
     .hamburger {
       display: none;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       cursor: pointer;
-      padding: 6px;
       background: none;
       border: none;
+      z-index: 1001;
     }
     .hamburger span {
       display: block;
-      width: 22px; height: 1.5px;
+      width: 24px; height: 1.5px;
       background: var(--text);
-      transition: transform .3s, opacity .3s;
+      transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
     .nav-mobile {
       display: none;
       flex-direction: column;
-      padding: 1rem 2rem 1.5rem;
-      border-top: 1px solid var(--border);
+      position: absolute;
+      top: 70px; left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
-      font-size: .88rem;
-      font-weight: 500;
-      color: var(--muted);
+      font-size: 1rem;
+      color: var(--text);
       text-decoration: none;
-      padding: .65rem 0;
+      padding: 1rem 0;
       border-bottom: 1px solid var(--border);
-      transition: color .2s;
     }
-    .nav-mobile a:last-child { border-bottom: none; }
-    .nav-mobile a:hover { color: var(--text); }
 
-    @media (max-width: 639px) {
+    @media (max-width: 768px) {
       .nav-links { display: none; }
       .hamburger { display: flex; }
     }
 
-    /* ── HERO ── */
+    /* ── HERO SECTION ── */
     #hero {
-      min-height: 100dvh;
-      position: relative;
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      overflow: hidden;
-      padding-top: 62px;
+      padding-top: 70px;
+      position: relative;
     }
+    /* Grid de fondo high-tech */
     #hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(59,130,246,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,130,246,.07) 1px, transparent 1px);
-      background-size: 72px 72px;
-      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 20%, transparent 100%);
-      mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 20%, transparent 100%);
-      z-index: 0;
+      background-image: 
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
       pointer-events: none;
+      opacity: 0.4;
     }
+    /* Resplandor azul industrial */
     #hero::after {
       content: '';
       position: absolute;
-      top: -10%; right: -18%;
-      width: 60%; height: 90%;
-      background: radial-gradient(circle, rgba(37,99,235,.14) 0%, transparent 62%);
+      top: 10%; right: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      filter: blur(60px);
       pointer-events: none;
-      z-index: 0;
     }
+    
     .hero-inner {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       width: 100%;
-      max-width: 1180px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 5rem 2rem 4rem;
+      padding: 0 2rem;
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 6rem;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
       align-items: center;
     }
     .hero-kicker {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .68rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: .12em;
+      letter-spacing: 0.1em;
       color: var(--muted);
-      display: flex;
+      margin-bottom: 2rem;
+      display: inline-flex;
       align-items: center;
-      margin-bottom: 1.5rem;
+      background: rgba(255,255,255,0.03);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
     }
     .hero-h1 {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      font-size: clamp(2.4rem, 5.5vw, 4rem);
-      line-height: 1.08;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 1.05;
       color: var(--text);
       margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
     }
-    .hero-h1 em { color: var(--blue); font-style: italic; }
+    /* Efecto Premium en el texto itálico */
+    .hero-h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, #fff 0%, var(--blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding-right: 10px;
+    }
     .hero-p {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       color: var(--muted);
-      max-width: 50ch;
-      line-height: 1.7;
-      margin-bottom: 2.25rem;
+      max-width: 48ch;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
     }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    
     .btn-solid {
-      font-size: .82rem;
+      font-size: 0.9rem;
       font-weight: 500;
-      padding: .7rem 1.4rem;
+      padding: 0.85rem 1.8rem;
       background: var(--blue);
       color: #fff;
-      border: 1px solid var(--blue);
-      border-radius: 5px;
+      border-radius: 4px;
       text-decoration: none;
-      transition: background .2s, transform .15s;
-      white-space: nowrap;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
     }
-    .btn-solid:hover { background: #2563eb; transform: translateY(-1px); }
+    .btn-solid:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
+    
     .btn-ghost {
-      font-size: .82rem;
-      font-weight: 500;
-      padding: .7rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding: 0.85rem 1.8rem;
       background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 5px;
+      border-radius: 4px;
       text-decoration: none;
-      transition: border-color .2s, transform .15s;
-      white-space: nowrap;
+      transition: all 0.2s ease;
     }
-    .btn-ghost:hover { border-color: rgba(255,255,255,.28); transform: translateY(-1px); }
+    .btn-ghost:hover { border-color: var(--muted); background: rgba(255,255,255,0.03); }
 
-    /* Metrics grid */
+    /* Dashboard Metrics (Prueba Social B2B) */
     .hero-metrics {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -315,402 +360,284 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
     .metric-cell {
-      background: var(--panel);
-      padding: 2.25rem;
-      min-height: 140px;
+      background: rgba(14, 14, 17, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem 2rem;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+      justify-content: center;
+      transition: background 0.3s ease;
     }
+    .metric-cell:hover { background: var(--panel-hover); }
     .metric-val {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
+      font-weight: 400;
       color: var(--text);
       line-height: 1;
-      margin-bottom: .55rem;
+      margin-bottom: 0.75rem;
     }
-    .metric-label { font-size: .82rem; color: var(--muted); line-height: 1.45; }
-    .metric-label strong { display: block; font-weight: 500; color: var(--text); font-size: .82rem; }
+    .metric-val span { font-size: 1.2rem; color: var(--blue); }
+    .metric-label { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .metric-label strong { display: block; color: var(--text); font-weight: 500; font-size: 0.9rem; margin-bottom: 0.2rem; }
 
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 4rem; text-align: left; }
+      #hero::after { right: 50%; transform: translateX(50%); top: 50%; }
     }
     @media (max-width: 480px) {
       .hero-metrics { grid-template-columns: 1fr; }
     }
 
-    /* ── CASOS DE USO ── */
-    #casos-uso {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .casos-head { margin-bottom: 3.5rem; }
+    /* ── CASOS DE USO / DOLORES INDUSTRIALES ── */
+    #casos-uso { background: var(--panel); border-top: 1px solid var(--border); }
+    .casos-head { margin-bottom: 4rem; }
+    
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      overflow: hidden;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
     }
     .card-uso {
-      background: var(--panel);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: .85rem;
-      transition: background .2s;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .card-uso:hover { background: #18181b; }
-    .card-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .6rem;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--blue);
+    .card-uso:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    /* Detalle técnico visual */
+    .card-uso::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0;
+      background: var(--blue); transition: height 0.3s ease;
     }
-    .card-q { font-size: .95rem; font-weight: 500; color: var(--text); line-height: 1.5; }
-    .card-r { font-size: .87rem; color: var(--muted); line-height: 1.65; }
+    .card-uso:hover::before { height: 100%; }
+    
+    .card-q { font-size: 1.05rem; font-weight: 500; color: var(--text); line-height: 1.5; margin-bottom: 1rem; }
+    .card-r { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
 
-    /* ── SERVICIOS ── */
+    /* ── SERVICIOS B2B ── */
     #servicios { background: var(--bg); }
-    .srv-head { margin-bottom: 3.5rem; }
     .srv-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1px;
       background: var(--border);
       border: 1px solid var(--border);
-      border-radius: 7px;
+      border-radius: 8px;
       overflow: hidden;
     }
     .srv-card {
       background: var(--panel);
-      padding: 2rem;
+      padding: 3rem 2.5rem;
       display: flex;
       flex-direction: column;
-      gap: .7rem;
-      transition: background .2s;
+      transition: background 0.3s ease;
     }
-    .srv-card:hover { background: #18181b; }
-    .srv-card.dev { background: rgba(255,255,255,.02); }
-    .srv-card.dev:hover { background: rgba(255,255,255,.04); }
-    .srv-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .68rem;
-      color: var(--muted);
-    }
-    .srv-title { font-size: 1rem; font-weight: 600; color: var(--text); line-height: 1.4; }
-    .srv-desc { font-size: .87rem; color: var(--muted); line-height: 1.65; flex: 1; }
-    .srv-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .3rem; }
+    .srv-card:hover { background: var(--panel-hover); }
+    .srv-num { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--blue); margin-bottom: 1rem; display: block;}
+    .srv-title { font-size: 1.2rem; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 1rem; }
+    .srv-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1.5rem; }
+    
+    .srv-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .srv-tag {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .6rem;
+      font-size: 0.65rem;
       color: var(--muted);
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: .15rem .45rem;
-    }
-    .badge-dev {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .58rem;
-      padding: .2rem .55rem;
-      background: rgba(212,168,83,.12);
-      color: #d4a853;
-      border: 1px solid rgba(212,168,83,.3);
-      border-radius: 3px;
-      align-self: flex-start;
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
     }
 
-    /* ── PROYECTOS ── */
-    #casos {
-      background: var(--panel);
-      border-top: 1px solid var(--border);
+    /* Tarjeta de Servicio en I+D (Muestra honestidad y visión) */
+    .srv-card.dev { background: rgba(59, 130, 246, 0.03); border: 1px dashed rgba(59, 130, 246, 0.3); }
+    .badge-dev {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      padding: 0.25rem 0.6rem;
+      background: rgba(212,168,83,0.1);
+      color: var(--gold);
+      border: 1px solid rgba(212,168,83,0.3);
+      border-radius: 4px;
+      float: right;
     }
-    .proyectos-head { margin-bottom: 3.5rem; }
-    .proyectos-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      overflow: hidden;
-    }
+
+    /* ── PROYECTOS / EXPERIENCIA INDUSTRIAL ── */
+    #casos { background: var(--panel); border-top: 1px solid var(--border); }
+    .proyectos-list { display: flex; flex-direction: column; gap: 2rem; }
+    
     .proyecto {
-      background: var(--panel);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
       display: grid;
-      grid-template-columns: 180px 1fr;
-      transition: background .2s;
+      grid-template-columns: 280px 1fr;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
     }
-    .proyecto:hover { background: #18181b; }
+    .proyecto:hover { border-color: var(--border-hover); }
+    
     .proyecto-meta {
-      padding: 2.5rem 2rem 2.5rem 2.5rem;
+      padding: 2.5rem;
+      background: rgba(255,255,255,0.01);
       border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: .5rem;
     }
     .proyecto-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .58rem;
+      font-size: 0.65rem;
       text-transform: uppercase;
-      letter-spacing: .08em;
-      padding: .22rem .55rem;
-      border-radius: 3px;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
       align-self: flex-start;
+      margin-bottom: 1.5rem;
     }
-    .badge-gold { background: rgba(212,168,83,.15); color: #d4a853; border: 1px solid rgba(212,168,83,.3); }
-    .badge-red  { background: rgba(239,68,68,.12);  color: #f87171; border: 1px solid rgba(239,68,68,.25); }
-    .badge-blue { background: rgba(59,130,246,.12); color: var(--blue); border: 1px solid rgba(59,130,246,.25); }
-    .proyecto-year { font-family: 'JetBrains Mono', monospace; font-size: .7rem; color: var(--muted); margin-top: .2rem; }
-    .proyecto-client { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-top: .2rem; }
+    .badge-gold { background: rgba(212,168,83,0.1); color: var(--gold); border: 1px solid rgba(212,168,83,0.3); }
+    .badge-red  { background: rgba(239,68,68,0.1);  color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .badge-blue { background: rgba(59,130,246,0.1); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+    
+    .proyecto-year { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .proyecto-client { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+    
     .proyecto-body { padding: 2.5rem; }
-    .proyecto-title { font-size: 1.05rem; font-weight: 600; color: var(--text); margin-bottom: .75rem; line-height: 1.4; }
-    .proyecto-desc { font-size: .87rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
-    .kpis { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .proyecto-title { font-size: 1.25rem; font-weight: 500; color: var(--text); margin-bottom: 1rem; line-height: 1.3; }
+    .proyecto-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    
+    .kpis { display: flex; flex-wrap: wrap; gap: 0.5rem; }
     .kpi {
       font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem;
-      padding: .22rem .6rem;
-      background: rgba(59,130,246,.08);
-      color: var(--blue);
-      border: 1px solid rgba(59,130,246,.2);
-      border-radius: 3px;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(59,130,246,0.08);
+      color: #60a5fa;
+      border: 1px solid rgba(59,130,246,0.2);
+      border-radius: 4px;
     }
-    @media (max-width: 640px) {
+    
+    @media (max-width: 800px) {
       .proyecto { grid-template-columns: 1fr; }
-      .proyecto-meta { border-right: none; border-bottom: 1px solid var(--border); padding: 1.75rem 1.75rem 1.25rem; }
-      .proyecto-body { padding: 1.75rem; }
+      .proyecto-meta { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }
+      .proyecto-body { padding: 2rem; }
     }
 
-    /* ── QUIÉN ── */
-    #quien {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-    }
+    /* ── QUIÉN / AUTORIDAD ── */
+    #quien { background: var(--bg); border-top: 1px solid var(--border); }
     .quien-grid {
       display: grid;
-      grid-template-columns: 260px 1fr;
+      grid-template-columns: 320px 1fr;
       gap: 5rem;
-      align-items: flex-start;
     }
+    
     .person-card {
       position: sticky;
-      top: 76px;
+      top: 100px;
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      padding: 2.5rem;
     }
     .avatar {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Instrument Serif', serif;
-      font-style: italic;
-      font-size: 1.3rem;
-      color: #fff;
-      flex-shrink: 0;
+      width: 100px; height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
     }
-    .person-name { font-size: .95rem; font-weight: 600; color: var(--text); }
-    .person-role { font-size: .78rem; color: var(--muted); line-height: 1.5; }
-    .chips { display: flex; flex-wrap: wrap; gap: .3rem; }
-    .chip {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .6rem;
-      padding: .18rem .5rem;
-      background: rgba(59,130,246,.08);
-      color: var(--blue);
-      border: 1px solid rgba(59,130,246,.2);
-      border-radius: 3px;
-    }
-    .person-links { display: flex; flex-direction: column; gap: .5rem; margin-top: .2rem; }
-    .person-link {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      font-size: .78rem;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color .2s;
-      word-break: break-all;
-    }
-    .person-link:hover { color: var(--text); }
-    .person-link svg { flex-shrink: 0; }
-
-    .quien-content { padding-top: .25rem; }
-    .quien-label { margin-bottom: 1.5rem; }
+    .person-name { font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+    .person-role { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.5rem; }
+    
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
+    .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.5rem; background: rgba(255,255,255,0.05); color: var(--muted); border-radius: 4px; }
+    
     .cita {
       font-family: 'Instrument Serif', Georgia, serif;
       font-style: italic;
-      font-size: 1.15rem;
-      line-height: 1.6;
+      font-size: 1.3rem;
+      line-height: 1.4;
       color: var(--text);
-      border-left: 2px solid #d4a853;
-      padding-left: 1.25rem;
-      margin-bottom: 2rem;
+      border-left: 2px solid var(--blue);
+      padding-left: 1.5rem;
+      margin-bottom: 2.5rem;
     }
-    .quien-content p {
-      font-size: .92rem;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 1.1rem;
-    }
+    .quien-content p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
     .quien-content p strong { color: var(--text); font-weight: 500; }
-    .quien-content p em { color: var(--text); font-style: italic; }
-
-    .timeline { margin-top: 2.25rem; display: flex; flex-direction: column; }
+    
+    .timeline { margin-top: 3rem; }
     .tl-entry {
       display: grid;
-      grid-template-columns: 108px 1fr;
-      gap: 1.25rem;
-      padding: 1rem 0;
+      grid-template-columns: 120px 1fr;
+      gap: 2rem;
+      padding: 1.5rem 0;
       border-bottom: 1px solid var(--border);
-      align-items: flex-start;
     }
     .tl-entry:last-child { border-bottom: none; }
-    .tl-year {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .68rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      padding-top: .15rem;
-    }
-    .tl-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--blue);
-      flex-shrink: 0;
-      box-shadow: 0 0 6px rgba(59,130,246,.65);
-    }
-    .tl-rol { font-size: .88rem; color: var(--text); line-height: 1.5; }
-    .tl-rol small { display: block; font-size: .78rem; color: var(--muted); margin-top: .12rem; }
+    .tl-year { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--blue); display: flex; align-items: flex-start; gap: 0.75rem; margin-top: 0.2rem;}
+    .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); margin-top: 0.3rem; box-shadow: 0 0 10px var(--blue); }
+    .tl-rol { font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .tl-rol small { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 400; margin-top: 0.3rem; }
 
-    @media (max-width: 800px) {
-      .quien-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    @media (max-width: 900px) {
+      .quien-grid { grid-template-columns: 1fr; gap: 3rem; }
       .person-card { position: static; }
     }
 
-    /* ── CONTACTO ── */
-    #contacto {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-    }
-    .contacto-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: flex-start;
-    }
-    .contacto-label { margin-bottom: 1rem; }
+    /* ── CONTACTO B2B ── */
+    #contacto { background: var(--panel); border-top: 1px solid var(--border); }
+    .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    
     .contacto-h2 {
       font-family: 'Instrument Serif', Georgia, serif;
       font-style: italic;
-      font-size: clamp(1.7rem, 3vw, 2.3rem);
-      line-height: 1.15;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.1;
       color: var(--text);
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
-    .contacto-p { font-size: .9rem; color: var(--muted); line-height: 1.75; margin-bottom: 2rem; }
-    .contact-links { display: flex; flex-direction: column; gap: .55rem; }
+    .contacto-p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin-bottom: 3rem; }
+    
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
     .contact-link {
-      display: flex;
-      align-items: center;
-      gap: .85rem;
-      padding: 1rem 1.25rem;
-      background: var(--panel);
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.5rem;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 8px;
       text-decoration: none;
-      color: var(--text);
-      transition: border-color .2s, transform .2s;
+      transition: all 0.2s ease;
     }
-    .contact-link:hover { border-color: var(--blue); transform: translateX(3px); }
-    .contact-link-icon { color: var(--blue); flex-shrink: 0; }
-    .contact-link-text { display: flex; flex-direction: column; gap: .08rem; }
-    .contact-link-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .6rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-    .contact-link-val { font-size: .84rem; color: var(--text); }
+    .contact-link:hover { border-color: var(--blue); transform: translateX(5px); }
+    .contact-link svg { color: var(--blue); }
+    .contact-link-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.2rem;}
+    .contact-link-val { font-size: 1rem; font-weight: 500; color: var(--text); }
 
-    .contacto-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      overflow: hidden;
-    }
-    .contacto-row {
-      display: grid;
-      grid-template-columns: 110px 1fr;
-      padding: 1rem 1.4rem;
-      border-bottom: 1px solid var(--border);
-      align-items: baseline;
-      gap: 1rem;
-    }
-    .contacto-row:last-child { border-bottom: none; }
-    .contacto-key {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .62rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-    .contacto-val { font-size: .87rem; color: var(--text); line-height: 1.5; }
+    .contacto-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 3rem; }
+    .contacto-row { display: flex; justify-content: space-between; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .contacto-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .contacto-key { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .contacto-val { font-size: 0.9rem; font-weight: 500; color: var(--text); text-align: right; }
 
-    @media (max-width: 720px) {
-      .contacto-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    @media (max-width: 800px) {
+      .contacto-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .contacto-card { padding: 2rem; }
+      .contacto-row { flex-direction: column; gap: 0.5rem; text-align: left; }
+      .contacto-val { text-align: left; }
     }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--panel);
-      border-top: 1px solid var(--border);
-      padding: 1.75rem 0;
-    }
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; }
     .footer-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
     }
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-      text-decoration: none;
-    }
-    .footer-logo-text {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-style: italic;
-      font-size: .95rem;
-      color: var(--text);
-    }
-    .footer-copy {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .65rem;
-      color: var(--muted);
-    }
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -720,348 +647,357 @@
   <div class="nav-inner">
     <a href="#" class="nav-logo">Wasaff Consulting</a>
     <ul class="nav-links">
-      <li><a href="#casos-uso">Casos</a></li>
-      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#casos-uso">Problemas Industriales</a></li>
+      <li><a href="#servicios">Capacidades</a></li>
       <li><a href="#casos">Proyectos</a></li>
-      <li><a href="#contacto" class="btn-nav">Contacto</a></li>
+      <li><a href="#contacto" class="btn-nav">Agendar Evaluación</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+    <button class="hamburger" id="hamburger" aria-label="Abrir Menú">
       <span></span><span></span><span></span>
     </button>
   </div>
   <div class="nav-mobile" id="nav-mobile">
-    <a href="#casos-uso">Casos</a>
-    <a href="#servicios">Servicios</a>
+    <a href="#casos-uso">Problemas Industriales</a>
+    <a href="#servicios">Capacidades</a>
     <a href="#casos">Proyectos</a>
-    <a href="#contacto">Contacto</a>
+    <a href="#contacto">Agendar Evaluación</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-inner">
-
     <div>
-      <p class="hero-kicker fi">
-        <span class="dot-pulse"></span>
-        Santiago, Chile &nbsp;·&nbsp; disponible para proyectos
-      </p>
+      <div class="hero-kicker fi">
+        <span class="status-dot"></span>
+        Santiago, Chile · Atención industria nacional
+      </div>
       <h1 class="hero-h1 fi">
-        Su problema<br>tiene física.<br><em>Eso tiene solución.</em>
+        Tu desafío industrial tiene física.<br><em>La optimización,<br>modelos matemáticos.</em>
       </h1>
       <p class="hero-p fi">
-        Simulación computacional y modelado matemático para ingeniería industrial.
-        Cuando los métodos convencionales no alcanzan.
+        Simulación computacional, métodos numéricos y análisis térmico avanzado. Traducimos leyes físicas en continuidad operacional, cumplimiento normativo y reducción de OPEX para minería, energía y manufactura.
       </p>
       <div class="hero-btns fi">
-        <a href="#contacto" class="btn-solid">Revisar mi caso →</a>
-        <a href="#casos" class="btn-ghost">Ver proyectos</a>
+        <a href="#contacto" class="btn-solid">Solicitar factibilidad técnica →</a>
+        <a href="#casos" class="btn-ghost">Ver evidencia industrial</a>
       </div>
     </div>
 
     <div class="hero-metrics fi">
       <div class="metric-cell">
-        <div class="metric-val">622 kW</div>
+        <div class="metric-val">505 <span>kW</span></div>
         <div class="metric-label">
-          <strong>Sistema térmico diseñado</strong>
-          Papeles Cordillera (CMPC)
+          <strong>Potencia Térmica Recuperada</strong>
+          Diseño para Papeles Cordillera (CMPC)
         </div>
       </div>
       <div class="metric-cell">
-        <div class="metric-val">6+</div>
+        <div class="metric-val">1</div>
         <div class="metric-label">
-          <strong>Años en docencia técnica</strong>
-          e ingeniería aplicada
+          <strong>Proyecto B2B Ejecutado</strong>
+          Ingeniería térmica e hidráulica industrial
         </div>
       </div>
       <div class="metric-cell">
         <div class="metric-val">MD</div>
         <div class="metric-label">
-          <strong>Dinámica molecular</strong>
-          LAMMPS · LPMD
+          <strong>Dinámica Molecular</strong>
+          Simulación de materiales (LAMMPS/LPMD)
         </div>
       </div>
       <div class="metric-cell">
-        <div class="metric-val">Pub</div>
+        <div class="metric-val">6<span>+</span></div>
         <div class="metric-label">
-          <strong>Artículo científico</strong>
-          Physica B · Springer
+          <strong>Años de Rigor Técnico</strong>
+          Puente entre academia (UChile) e industria
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- ¿CUÁNDO LLAMARME? -->
+<!-- DOLORES INDUSTRIALES -->
 <section id="casos-uso">
   <div class="container">
     <div class="casos-head fi">
-      <h2 class="sec-title">
-        <span class="br">Reconoce tu problema</span>
-        en alguno de estos
-      </h2>
-      <p class="sec-sub">Si tu proyecto tiene física involucrada y los métodos convencionales no entregan la precisión que necesitas, probablemente puedo ayudarte.</p>
+      <span class="label-mono">Diagnóstico</span>
+      <h2 class="sec-title">Reconoce el síntoma<br>en tu operación</h2>
+      <p class="sec-sub">Cuando las hojas de cálculo estándar o los proveedores genéricos no pueden resolver la complejidad de tu proceso, intervengo mediante física computacional.</p>
     </div>
+    
     <div class="cards-grid">
       <div class="card-uso fi">
-        <span class="card-tag">Eficiencia energética</span>
-        <p class="card-q">«Tenemos calor residual que no estamos aprovechando.»</p>
-        <p class="card-r">Dimensiono el sistema completo: intercambiadores, acumuladores, bomba y red de tuberías. Cálculo de demanda térmica y pérdidas de presión con modelos validados.</p>
+        <span class="label-mono">Eficiencia Energética</span>
+        <p class="card-q">«Estamos perdiendo calor residual y el OPEX es insostenible.»</p>
+        <p class="card-r">Modelo el proceso termodinámico y dimensiono la ingeniería conceptual: intercambiadores, hidráulica (Darcy-Weisbach) y redes, justificando matemáticamente la inversión.</p>
       </div>
       <div class="card-uso fi">
-        <span class="card-tag">Materiales</span>
-        <p class="card-q">«Necesitamos entender este material a escala molecular.»</p>
-        <p class="card-r">Configuro y ejecuto simulaciones de dinámica molecular con LAMMPS o LPMD para estudiar propiedades mecánicas, transiciones de fase o comportamiento bajo impacto.</p>
+        <span class="label-mono">Validación / Riesgo</span>
+        <p class="card-q">«Un proveedor entregó este diseño. Necesitamos saber si fallará.»</p>
+        <p class="card-r">Realizo ingeniería de contraparte. Reconstruyo los cálculos mediante métodos numéricos independientes para validar factores de seguridad y cumplimiento normativo.</p>
       </div>
       <div class="card-uso fi">
-        <span class="card-tag">Modelado numérico</span>
-        <p class="card-q">«El modelo existe en teoría, nadie lo ha implementado.»</p>
-        <p class="card-r">Lo implemento en Python con métodos robustos (RK45, Newton-Raphson, LU), lo valido contra datos reales y entrego código documentado y reproducible.</p>
+        <span class="label-mono">Comportamiento de Materiales</span>
+        <p class="card-q">«El material no rinde como especifica el fabricante ante impactos.»</p>
+        <p class="card-r">Simulación de dinámica molecular a escala nanométrica para estudiar propiedades mecánicas, transiciones de fase o fatiga, que pruebas macroscópicas no detectan.</p>
       </div>
       <div class="card-uso fi">
-        <span class="card-tag">Informes técnicos</span>
-        <p class="card-q">«Necesitamos respaldo técnico riguroso para una licitación.»</p>
-        <p class="card-r">Redacto informes con desarrollo matemático completo, referencias normativas y conclusiones verificables. Formato profesional en LaTeX.</p>
-      </div>
-      <div class="card-uso fi">
-        <span class="card-tag">Datos de ingeniería</span>
-        <p class="card-q">«Tenemos datos de simulación pero no sabemos interpretarlos.»</p>
-        <p class="card-r">Proceso, analizo y visualizo grandes volúmenes de datos técnicos. Extraigo métricas útiles para decisiones de ingeniería, no solo gráficos.</p>
-      </div>
-      <div class="card-uso fi">
-        <span class="card-tag">Seguridad industrial</span>
-        <p class="card-q">«Necesitamos validar el comportamiento térmico de este sistema.»</p>
-        <p class="card-r">Modelado de propagación térmica y análisis de riesgo físico para sistemas de protección contra incendios u otras instalaciones críticas.</p>
+        <span class="label-mono">Procesamiento Masivo de Datos</span>
+        <p class="card-q">«Los sensores arrojan gigabytes de datos, pero no hay métricas.»</p>
+        <p class="card-r">Automatizo la ingesta, limpieza y análisis de datos industriales usando Python/Pandas. Transformo ruido de sensores en métricas predictivas para mantenimiento o control.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICIOS -->
+<!-- CAPACIDADES (SERVICIOS) -->
 <section id="servicios">
   <div class="container">
-    <div class="srv-head fi">
-      <h2 class="sec-title">
-        <span class="br">Capacidades reales,</span>
-        sin relleno
-      </h2>
-      <p class="sec-sub">Lo que está en desarrollo se indica explícitamente.</p>
+    <div class="casos-head fi">
+      <span class="label-mono">Capacidades Técnicas</span>
+      <h2 class="sec-title">Solo lo que puedo<br>demostrar y ejecutar</h2>
+      <p class="sec-sub">Transparencia radical técnica. No vendo desarrollo web ni marketing; resuelvo problemas de ingeniería dura a través de modelamiento avanzado.</p>
     </div>
+    
     <div class="srv-grid">
       <div class="srv-card fi">
         <span class="srv-num">01</span>
-        <p class="srv-title">Modelado Térmico y de Fluidos</p>
-        <p class="srv-desc">Análisis de transferencia de calor y pérdidas hidráulicas. Dimensionamiento de sistemas: intercambiadores, acumuladores, redes de tuberías. Aplicado a eficiencia energética y auditorías industriales.</p>
+        <h3 class="srv-title">Modelado Térmico y Mecánica de Fluidos (Redes)</h3>
+        <p class="srv-desc">Estudio de transferencia de calor y cálculo de pérdidas de carga hidráulica para optimización de plantas industriales. Auditorías energéticas respaldadas por cálculo analítico.</p>
         <div class="srv-tags">
-          <span class="srv-tag">Q=mcΔT</span>
-          <span class="srv-tag">Darcy-Weisbach</span>
-          <span class="srv-tag">Python</span>
-          <span class="srv-tag">NumPy</span>
+          <span class="srv-tag">Termodinámica</span>
+          <span class="srv-tag">Hidráulica</span>
+          <span class="srv-tag">Python (SciPy)</span>
         </div>
       </div>
+      
       <div class="srv-card fi">
         <span class="srv-num">02</span>
-        <p class="srv-title">Dinámica Molecular</p>
-        <p class="srv-desc">Simulación nanoscópica de propiedades mecánicas, colisiones inelásticas, transiciones de fase y transferencia de energía. Procesamiento y análisis de trayectorias.</p>
+        <h3 class="srv-title">Simulación de Materiales y Dinámica Molecular</h3>
+        <p class="srv-desc">I+D para minería y manufactura avanzada. Estudio computacional de colisiones inelásticas, transferencia de energía y comportamiento de redes atómicas bajo estrés.</p>
         <div class="srv-tags">
           <span class="srv-tag">LAMMPS</span>
           <span class="srv-tag">LPMD</span>
           <span class="srv-tag">Paraview</span>
-          <span class="srv-tag">Linux</span>
+          <span class="srv-tag">Linux HPC</span>
         </div>
       </div>
+      
       <div class="srv-card fi">
         <span class="srv-num">03</span>
-        <p class="srv-title">Métodos Numéricos Aplicados</p>
-        <p class="srv-desc">Implementación de solvers para EDOs, sistemas lineales y no lineales, integración e interpolación. Modelos físicos con validación contra datos experimentales o analíticos.</p>
+        <h3 class="srv-title">Ingeniería Numérica y Automatización de Datos</h3>
+        <p class="srv-desc">Creación de algoritmos ad-hoc para resolver ecuaciones diferenciales de procesos productivos. Digitalización de flujos de trabajo de ingeniería pesada usando Python.</p>
         <div class="srv-tags">
-          <span class="srv-tag">RK45</span>
-          <span class="srv-tag">Newton-Raphson</span>
-          <span class="srv-tag">LU/Cholesky</span>
-          <span class="srv-tag">SciPy</span>
-        </div>
-      </div>
-      <div class="srv-card fi">
-        <span class="srv-num">04</span>
-        <p class="srv-title">Análisis y Automatización de Datos</p>
-        <p class="srv-desc">Procesamiento de datos de simulación o experimentales, visualización científica y automatización de flujos técnicos. De datos brutos a métricas accionables.</p>
-        <div class="srv-tags">
-          <span class="srv-tag">Python</span>
           <span class="srv-tag">Pandas</span>
-          <span class="srv-tag">Bash</span>
+          <span class="srv-tag">Integradores RK45</span>
           <span class="srv-tag">Apps Script</span>
         </div>
       </div>
+      
       <div class="srv-card fi">
-        <span class="srv-num">05</span>
-        <p class="srv-title">Informes Técnicos y Peritajes</p>
-        <p class="srv-desc">Redacción con desarrollo matemático riguroso, referencias normativas y conclusiones verificables. Revisión de cálculos de terceros para proyectos sujetos a fiscalización.</p>
+        <span class="srv-num">04</span>
+        <h3 class="srv-title">Validación de Ingeniería e Informes de Peritaje</h3>
+        <p class="srv-desc">Documentación técnica escrita en LaTeX, con rigor matemático de nivel universitario. Ideal para licitaciones, resolución de controversias técnicas o cumplimiento de normas ANSI/ISO.</p>
         <div class="srv-tags">
           <span class="srv-tag">LaTeX</span>
-          <span class="srv-tag">Normas ANSI/ISO</span>
-          <span class="srv-tag">Respaldo matemático</span>
+          <span class="srv-tag">Ing. de Contraparte</span>
+          <span class="srv-tag">Rigor Académico</span>
         </div>
       </div>
+      
       <div class="srv-card dev fi">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;">
-          <span class="srv-num">06</span>
-          <span class="badge-dev">En desarrollo · 2026</span>
-        </div>
-        <p class="srv-title">CFD y Computación de Alto Rendimiento</p>
-        <p class="srv-desc">Mecánica de fluidos computacional (Navier-Stokes), solvers paralelos y GPU computing. Disponible progresivamente durante 2026–2027.</p>
+        <span class="badge-dev">I+D · Proyección 2026</span>
+        <span class="srv-num">05</span>
+        <h3 class="srv-title">CFD Avanzado y Alto Rendimiento (HPC)</h3>
+        <p class="srv-desc">Desarrollo en curso de solvers basados en Navier-Stokes y paralelización en GPU para modelamiento tridimensional de fluidos complejos.</p>
         <div class="srv-tags">
-          <span class="srv-tag">CFD</span>
+          <span class="srv-tag">OpenFOAM</span>
           <span class="srv-tag">PETSc</span>
           <span class="srv-tag">JAX</span>
-          <span class="srv-tag">GPU</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROYECTOS -->
+<!-- PROYECTOS B2B -->
 <section id="casos">
   <div class="container">
-    <div class="proyectos-head fi">
-      <h2 class="sec-title">
-        <span class="br">Trabajo verificable,</span>
-        no casos de estudio ficticios
-      </h2>
-      <p class="sec-sub">Participación directa en cada uno. Los números son reales.</p>
+    <div class="casos-head fi">
+      <span class="label-mono">Evidencia</span>
+      <h2 class="sec-title">Proyectos auditables</h2>
+      <p class="sec-sub">Participación directa como ingeniero de cálculo e investigador principal. Los resultados no son teóricos; operan en plantas chilenas hoy.</p>
     </div>
+    
     <div class="proyectos-list">
-
       <article class="proyecto fi">
         <div class="proyecto-meta">
-          <span class="proyecto-badge badge-gold">Eficiencia Energética</span>
+          <span class="proyecto-badge badge-gold">Recuperación Energética</span>
           <p class="proyecto-year">2023 – 2024</p>
-          <p class="proyecto-client">Leycero SpA / Papeles Cordillera S.A. (CMPC) / Kaeser Compresores Chile</p>
+          <p class="proyecto-client">Papeles Cordillera (CMPC) / Leycero SpA</p>
         </div>
         <div class="proyecto-body">
-          <h3 class="proyecto-title">Sistema de Recuperación de Calor en Compresores Industriales</h3>
-          <p class="proyecto-desc">Diseño del sistema de recuperación de calor residual para 6 compresores de aire en planta de papel Puente Alto. Análisis térmico completo, cálculo de pérdidas de presión (Darcy-Weisbach) en 11 tramos, y dimensionamiento de intercambiadores, acumulador, red de tuberías 1″–3″ y bomba. Demanda térmica cubierta: 622 kW.</p>
+          <h3 class="proyecto-title">Diseño de Ingeniería Térmica para Planta de Compresores Kaeser</h3>
+          <p class="proyecto-desc">Levantamiento y modelado matemático para un sistema de aprovechamiento de calor residual de 6 compresores industriales. El diseño incluyó cálculo de transferencia térmica e hidráulica (pérdidas en tuberías de 1" a 3"), dimensionando equipos para cubrir la demanda térmica de la planta y abatir costos energéticos.</p>
           <div class="kpis">
-            <span class="kpi">622 kW demanda térmica</span>
-            <span class="kpi">21.396 kg/h caudal</span>
-            <span class="kpi">Efic. recuperación 80–90%</span>
-            <span class="kpi">6 compresores Kaeser</span>
-            <span class="kpi">11 tramos modelados</span>
+            <span class="kpi">505 kW de Demanda Térmica cubierta</span>
+            <span class="kpi">Caudal: 21.396 kg/h</span>
+            <span class="kpi">Reducción directa de OPEX (Gas/Petróleo)</span>
           </div>
         </div>
       </article>
 
-      <article class="proyecto fi">
-        <div class="proyecto-meta">
-          <span class="proyecto-badge badge-red">Seguridad Industrial</span>
-          <p class="proyecto-year">2024</p>
-          <p class="proyecto-client">Synergy Fire Protection</p>
-        </div>
-        <div class="proyecto-body">
-          <h3 class="proyecto-title">Evaluaciones Técnicas para Sistemas de Supresión de Incendios</h3>
-          <p class="proyecto-desc">Análisis de propagación térmica y evaluación de riesgo físico para sistemas de protección. Validación bajo normativas internacionales aplicables en Chile.</p>
-          <div class="kpis">
-            <span class="kpi">Propagación térmica</span>
-            <span class="kpi">Normativas internacionales</span>
-          </div>
-        </div>
-      </article>
+      <!-- Esquema técnico del sistema -->
+      <div class="fi" style="margin-top:2.5rem; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:2rem;">
+        <span class="label-mono" style="margin-bottom:1.25rem;">Esquema del Sistema · Planta Compresores Kaeser</span>
+        <svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" role="img" aria-label="Diagrama de recuperación de calor residual">
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/>
+            </marker>
+            <marker id="arr-w" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.3)"/>
+            </marker>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
 
-      <article class="proyecto fi">
-        <div class="proyecto-meta">
-          <span class="proyecto-badge badge-blue">Investigación</span>
-          <p class="proyecto-year">2010 – 2013</p>
-          <p class="proyecto-client">Grupo NanoMaterials / Universidad de Chile</p>
-        </div>
-        <div class="proyecto-body">
-          <h3 class="proyecto-title">Simulación MD de Colisiones Inelásticas a Escala Atómica</h3>
-          <p class="proyecto-desc">Dinámica molecular con LPMD para estudiar colisiones e impactos a escala nanoscópica. Publicado en Springer (2011), presentado en SOCHIFI 2010.</p>
-          <div class="kpis">
-            <span class="kpi">LPMD</span>
-            <span class="kpi">Linux HPC</span>
-            <span class="kpi">Capítulo Springer 2011</span>
-          </div>
-        </div>
-      </article>
+          <!-- Compresores (6 unidades) -->
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="rgba(161,161,170,0.9)">
+            <text x="18" y="18" fill="#3b82f6" font-size="8" letter-spacing="1">COMPRESORES KAESER</text>
+            <!-- Compresor 1-6 columnas -->
+            <rect x="15" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="37" y="46" text-anchor="middle">C1</text>
+            <rect x="67" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="89" y="46" text-anchor="middle">C2</text>
+            <rect x="119" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="141" y="46" text-anchor="middle">C3</text>
+            <rect x="171" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="193" y="46" text-anchor="middle">C4</text>
+            <rect x="223" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="245" y="46" text-anchor="middle">C5</text>
+            <rect x="275" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="297" y="46" text-anchor="middle">C6</text>
+          </g>
+
+          <!-- Tuberías de bajada de cada compresor al colector -->
+          <g stroke="#3b82f6" stroke-width="1.5" fill="none" opacity="0.7" filter="url(#glow)">
+            <line x1="37" y1="56" x2="37" y2="110"/>
+            <line x1="89" y1="56" x2="89" y2="110"/>
+            <line x1="141" y1="56" x2="141" y2="110"/>
+            <line x1="193" y1="56" x2="193" y2="110"/>
+            <line x1="245" y1="56" x2="245" y2="110"/>
+            <line x1="297" y1="56" x2="297" y2="110"/>
+          </g>
+
+          <!-- Colector principal -->
+          <rect x="15" y="110" width="306" height="18" rx="4" fill="none" stroke="#3b82f6" stroke-width="2" filter="url(#glow)"/>
+          <text x="163" y="122" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#3b82f6">COLECTOR  ·  Ø 3"</text>
+
+          <!-- Flecha colector → intercambiador -->
+          <line x1="321" y1="119" x2="410" y2="119" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr)" filter="url(#glow)"/>
+          <text x="360" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(161,161,170,0.8)">21.396 kg/h</text>
+
+          <!-- Intercambiador de calor -->
+          <rect x="415" y="95" width="90" height="48" rx="4" fill="none" stroke="rgba(212,168,83,0.8)" stroke-width="2"/>
+          <text x="460" y="115" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(212,168,83,0.9)">INTERCAMBIADOR</text>
+          <text x="460" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(212,168,83,0.9)">DE CALOR</text>
+          <!-- Símbolo curvas de intercambio -->
+          <path d="M425,107 Q435,102 445,107 Q455,112 465,107 Q475,102 485,107" stroke="rgba(212,168,83,0.5)" stroke-width="1" fill="none"/>
+          <path d="M425,131 Q435,136 445,131 Q455,126 465,131 Q475,136 485,131" stroke="#3b82f6" stroke-width="1" fill="none" opacity="0.5"/>
+
+          <!-- Flecha intercambiador → distribución -->
+          <line x1="505" y1="119" x2="580" y2="119" stroke="rgba(212,168,83,0.8)" stroke-width="2" marker-end="url(#arr)" filter="url(#glow)"/>
+
+          <!-- Red de distribución -->
+          <text x="590" y="103" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(161,161,170,0.7)">RED TÉRMICA</text>
+          <line x1="590" y1="108" x2="790" y2="108" stroke="rgba(212,168,83,0.6)" stroke-width="1.5"/>
+          <!-- Derivaciones -->
+          <line x1="630" y1="108" x2="630" y2="140" stroke="rgba(212,168,83,0.5)" stroke-width="1" marker-end="url(#arr)"/>
+          <line x1="690" y1="108" x2="690" y2="140" stroke="rgba(212,168,83,0.5)" stroke-width="1" marker-end="url(#arr)"/>
+          <line x1="750" y1="108" x2="750" y2="140" stroke="rgba(212,168,83,0.5)" stroke-width="1" marker-end="url(#arr)"/>
+          <rect x="610" y="140" width="40" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <text x="630" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.7)">Zona A</text>
+          <rect x="670" y="140" width="40" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <text x="690" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.7)">Zona B</text>
+          <rect x="730" y="140" width="40" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <text x="750" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.7)">Zona C</text>
+
+          <!-- Etiquetas de parámetros clave -->
+          <g font-family="JetBrains Mono, monospace" font-size="8.5">
+            <text x="15" y="205" fill="rgba(161,161,170,0.6)">Fluido portador</text>
+            <text x="15" y="218" fill="rgba(244,244,245,0.85)">Agua / Propilenglicol</text>
+
+            <text x="180" y="205" fill="rgba(161,161,170,0.6)">Tuberías</text>
+            <text x="180" y="218" fill="rgba(244,244,245,0.85)">Ø 1" – 3"  ·  Darcy-Weisbach</text>
+
+            <text x="415" y="205" fill="rgba(161,161,170,0.6)">Demanda cubierta</text>
+            <text x="415" y="218" fill="rgba(212,168,83,0.9)" font-size="11" font-weight="500">505 kW</text>
+
+            <text x="595" y="205" fill="rgba(161,161,170,0.6)">Ahorro energético</text>
+            <text x="595" y="218" fill="rgba(16,185,129,0.9)">Reducción OPEX Gas/Petróleo</text>
+          </g>
+
+          <!-- Línea separadora inferior -->
+          <line x1="15" y1="232" x2="805" y2="232" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <text x="15" y="248" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.4)">Wasaff Consulting · Leycero SpA / Papeles Cordillera (CMPC) · 2023–2024</text>
+        </svg>
+      </div>
 
     </div>
   </div>
 </section>
 
-<!-- QUIÉN -->
+<!-- QUIÉN (AUTORIDAD B2B) -->
 <section id="quien">
   <div class="container">
     <div class="quien-grid">
-
       <div class="person-card fi">
-        <div class="avatar">FW</div>
-        <div>
-          <p class="person-name">Felipe Wasaff</p>
-          <p class="person-role">Físico Computacional<br>Lic. Ciencias con mención en Física · U. de Chile</p>
-        </div>
+        <div class="avatar"><img src="felipe.png" alt="Felipe Wasaff" style="width:100%;height:100%;object-fit:cover;"></div>
+        <h3 class="person-name">Felipe Wasaff</h3>
+        <p class="person-role">Físico Computacional<br>Magíster (c) Simulación Computacional, PUCV</p>
         <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">LAMMPS</span>
-          <span class="chip">LPMD</span>
-          <span class="chip">Bash</span>
+          <span class="chip">Python/SciPy</span>
+          <span class="chip">LAMMPS/LPMD</span>
+          <span class="chip">Bash/Linux</span>
           <span class="chip">LaTeX</span>
-          <span class="chip">Pandas</span>
-          <span class="chip">Paraview</span>
-          <span class="chip">Linux</span>
         </div>
-        <div class="person-links">
-          <a href="mailto:felipe.wasaff@uchile.cl" class="person-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <path d="m2 7 10 7 10-7"/>
-            </svg>
-            felipe.wasaff@uchile.cl
+        <div style="display:flex; gap:0.5rem; margin-top:1rem;">
+          <a href="https://www.linkedin.com/in/felipewasaff" target="_blank" rel="noopener" class="btn-ghost" style="flex:1; text-align:center; padding:0.6rem; font-size:0.8rem;">
+            LinkedIn
           </a>
-          <a href="tel:+56946125682" class="person-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 18v-.08z"/>
-            </svg>
-            +56 9 4612 5682
-          </a>
-          <a href="https://www.linkedin.com/in/felipewasaff" target="_blank" rel="noopener" class="person-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-              <rect x="2" y="9" width="4" height="12"/>
-              <circle cx="4" cy="4" r="2"/>
-            </svg>
-            linkedin.com/in/felipewasaff
+          <a href="https://github.com/fwasaff" target="_blank" rel="noopener" class="btn-ghost" style="flex:1; text-align:center; padding:0.6rem; font-size:0.8rem;">
+            GitHub
           </a>
         </div>
       </div>
 
       <div class="quien-content">
-        <p class="label-mono quien-label fi">Quién está detrás</p>
+        <span class="label-mono fi">El Puente Técnico</span>
         <blockquote class="cita fi">
-          «La diferencia entre un análisis útil y uno inútil está en si el modelo responde la pregunta correcta.»
+          «La diferencia entre un paper académico y una herramienta industrial es su capacidad de reducir el riesgo y ahorrar costos en terreno.»
         </blockquote>
-        <p class="fi"><strong>Físico Computacional de la Universidad de Chile</strong> con más de 6 años conectando métodos formales de física con problemas de ingeniería que tienen costos reales.</p>
-        <p class="fi">Investigador en dinámica molecular (publicado en Springer, 2011) y autor de artículo en revisión en <em>Physica B</em> (2025). Seis años enseñando física técnica en INACAP me dan el lenguaje común con ingenieros de planta.</p>
+        <p class="fi">Hablo ambos idiomas. Como <strong>Físico egresado de la Universidad de Chile</strong>, garantizo que las matemáticas detrás de su proyecto no tengan fisuras. Como consultor para empresas (CMPC, Synergy), sé que ese rigor debe traducirse en informes accionables que aprueben presupuestos.</p>
+        <p class="fi">Actualmente soy Coordinador de Laboratorios en la U. de Chile e investigador activo (artículo en revisión en <em>Physica B</em>, 2025). Mis +6 años en docencia técnica en INACAP me permiten explicar la complejidad matemática de manera clara a jefes de turno, mecánicos de planta y gerentes de finanzas por igual.</p>
+        
         <div class="timeline fi">
           <div class="tl-entry">
-            <div class="tl-year"><span class="tl-dot"></span>2025 → hoy</div>
-            <div class="tl-rol">Coordinador Laboratorios de Física<small>Universidad de Chile</small></div>
+            <div class="tl-year"><span class="tl-dot"></span>2025 – Hoy</div>
+            <div class="tl-rol">Coordinador de Laboratorios de Física<small>Universidad de Chile</small></div>
           </div>
           <div class="tl-entry">
             <div class="tl-year"><span class="tl-dot"></span>2023 – 2024</div>
-            <div class="tl-rol">Ingeniero de Simulación<small>Leycero SpA / CMPC</small></div>
+            <div class="tl-rol">Ingeniero de Simulación y Modelado Térmico<small>Leycero SpA / Proyectos CMPC</small></div>
           </div>
           <div class="tl-entry">
             <div class="tl-year"><span class="tl-dot"></span>2018 – 2024</div>
-            <div class="tl-rol">Docente Técnico<small>INACAP</small></div>
-          </div>
-          <div class="tl-entry">
-            <div class="tl-year"><span class="tl-dot"></span>2010 – 2013</div>
-            <div class="tl-rol">Investigador DM<small>Grupo NanoMaterials, U. de Chile</small></div>
+            <div class="tl-rol">Docencia de Ingeniería Aplicada (Termofluidos, Control)<small>INACAP</small></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1070,70 +1006,51 @@
 <section id="contacto">
   <div class="container">
     <div class="contacto-grid">
-
       <div>
-        <p class="label-mono contacto-label fi">Contacto</p>
-        <h2 class="contacto-h2 fi">¿Tiene sentido<br>trabajar juntos?</h2>
-        <p class="contacto-p fi">Cuéntame el problema. Si está dentro de mis capacidades reales, lo conversamos. Si no, te lo digo directo.</p>
+        <span class="label-mono fi">Factibilidad Técnica</span>
+        <h2 class="contacto-h2 fi">Revisemos tu<br>desafío operativo.</h2>
+        <p class="contacto-p fi">Valoro tu tiempo y el rigor profesional. Escríbeme y evaluaremos la viabilidad de una simulación para tu caso. Si el problema escapa a mis áreas de especialidad, te lo indicaré desde el primer correo.</p>
+        
         <div class="contact-links">
           <a href="mailto:felipe.wasaff@uchile.cl" class="contact-link fi">
-            <span class="contact-link-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                <path d="m2 7 10 7 10-7"/>
-              </svg>
-            </span>
-            <span class="contact-link-text">
-              <span class="contact-link-label">Email</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>
+            </svg>
+            <div>
+              <span class="contact-link-label">Correo Directo</span>
               <span class="contact-link-val">felipe.wasaff@uchile.cl</span>
-            </span>
-          </a>
-          <a href="https://www.linkedin.com/in/felipewasaff" target="_blank" rel="noopener" class="contact-link fi">
-            <span class="contact-link-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                <rect x="2" y="9" width="4" height="12"/>
-                <circle cx="4" cy="4" r="2"/>
-              </svg>
-            </span>
-            <span class="contact-link-text">
-              <span class="contact-link-label">LinkedIn</span>
-              <span class="contact-link-val">linkedin.com/in/felipewasaff</span>
-            </span>
+            </div>
           </a>
           <a href="tel:+56946125682" class="contact-link fi">
-            <span class="contact-link-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 18v-.08z"/>
-              </svg>
-            </span>
-            <span class="contact-link-text">
-              <span class="contact-link-label">Teléfono</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 18v-.08z"/>
+            </svg>
+            <div>
+              <span class="contact-link-label">Llamada (Horario Hábil)</span>
               <span class="contact-link-val">+56 9 4612 5682</span>
-            </span>
+            </div>
           </a>
         </div>
       </div>
 
       <div class="contacto-card fi">
         <div class="contacto-row">
-          <span class="contacto-key">Ubicación</span>
+          <span class="contacto-key">Base Operativa</span>
           <span class="contacto-val">Santiago, Chile</span>
         </div>
         <div class="contacto-row">
-          <span class="contacto-key">Modalidad</span>
-          <span class="contacto-val">Remoto · Presencial · Por proyecto</span>
+          <span class="contacto-key">Modalidad Comercial</span>
+          <span class="contacto-val">Consultoría B2B · Proyectos cerrados</span>
         </div>
         <div class="contacto-row">
-          <span class="contacto-key">Sectores</span>
-          <span class="contacto-val">Minería · Energía · Manufactura · I+D</span>
+          <span class="contacto-key">Sectores Clave</span>
+          <span class="contacto-val">Minería · Generación Energética · Manufactura</span>
         </div>
         <div class="contacto-row">
-          <span class="contacto-key">Respuesta</span>
-          <span class="contacto-val">≤ 24 h hábiles</span>
+          <span class="contacto-key">Acuerdos</span>
+          <span class="contacto-val">Firma de NDA disponible a solicitud</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -1141,65 +1058,51 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <a href="#" class="footer-logo">
-      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <ellipse cx="16" cy="16" rx="13" ry="4.5" stroke="#3b82f6" stroke-width="1.4"/>
-        <ellipse cx="16" cy="16" rx="13" ry="4.5" stroke="#3b82f6" stroke-width="1.4" transform="rotate(60 16 16)"/>
-        <ellipse cx="16" cy="16" rx="13" ry="4.5" stroke="#3b82f6" stroke-width="1.4" transform="rotate(-60 16 16)"/>
-        <circle cx="16" cy="16" r="2" fill="#3b82f6"/>
-      </svg>
-      <span class="footer-logo-text">Wasaff Consulting</span>
-    </a>
-    <p class="footer-copy">© 2026 · Santiago, Chile</p>
+    <a href="#" class="nav-logo" style="font-size:1.1rem;">Wasaff Consulting</a>
+    <p class="footer-copy">© 2026 Wasaff Consulting. Modelado Matemático e Ingeniería Física en Chile.</p>
   </div>
 </footer>
 
 <script>
-  // Hamburger
+  // Menú Móvil
   const hamburger = document.getElementById('hamburger');
   const navMobile = document.getElementById('nav-mobile');
+  
   hamburger.addEventListener('click', () => {
-    const open = navMobile.classList.toggle('open');
-    hamburger.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.classList.toggle('open');
+    navMobile.classList.toggle('open');
   });
-  navMobile.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navMobile.classList.remove('open');
+  
+  navMobile.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
       hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
+      navMobile.classList.remove('open');
     });
   });
 
-  // Navbar shadow on scroll
+  // Blur y Sombra en Navbar al hacer scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
-    navbar.style.boxShadow = window.scrollY > 10 ? '0 1px 28px rgba(0,0,0,.5)' : '';
+    if (window.scrollY > 20) {
+      navbar.style.background = 'rgba(5, 5, 5, 0.95)';
+      navbar.style.borderBottom = '1px solid rgba(59, 130, 246, 0.2)';
+    } else {
+      navbar.style.background = 'rgba(5, 5, 5, 0.85)';
+      navbar.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+    }
   }, { passive: true });
 
-  // Fade-in IntersectionObserver
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
+  // Animación de entrada (Intersection Observer)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.06 });
+  }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+  
   document.querySelectorAll('.fi').forEach(el => io.observe(el));
-
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const id = a.getAttribute('href').slice(1);
-      if (!id) return;
-      const target = document.getElementById(id);
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
 </script>
 </body>
 </html>
