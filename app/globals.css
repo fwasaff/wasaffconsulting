@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --font-inter:  'Inter', sans-serif;
+  --font-serif:  'Instrument Serif', Georgia, serif;
+  --font-mono:   'JetBrains Mono', monospace;
+
+  /* ── Fondos ── */
+  --bg:          #ffffff;
+  --panel:       #f4f4f0;   /* gris cálido McKinsey — secciones alternas */
+  --panel-hover: #ebebeb;
+
+  /* ── Secciones oscuras (hero, footer) ── */
+  --dark:        #051c2c;   /* navy profundo McKinsey */
+  --dark-panel:  #0c2f4a;   /* cards sobre fondo oscuro */
+  --dark-hover:  #103858;
+  --dark-text:   #f0f4f8;   /* texto sobre fondo oscuro */
+  --dark-muted:  #8aa4bc;   /* muted sobre fondo oscuro */
+  --dark-border: rgba(255, 255, 255, 0.1);
+
+  /* ── Azul eléctrico — SOLO CTAs y acentos puntuales ── */
+  --blue:        #2251ff;   /* McKinsey signature blue */
+  --blue-hover:  #1a3fd4;
+  --blue-glow:   rgba(34, 81, 255, 0.1);
+
+  /* ── Texto claro ── */
+  --text:        #051c2c;   /* navy profundo — mismo que --dark */
+  --muted:       #5e6e82;   /* gris-azul neutro */
+
+  /* ── Bordes ── */
+  --border:       #e5e5e5;
+  --border-hover: rgba(34, 81, 255, 0.35);
+
+  /* ── Acentos semánticos ── */
+  --gold:   #8a6424;
+  --red:    #9e2525;
+  --green:  #0a7a65;
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-inter);
+    font-weight: 300;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  /* Botones */
+  .btn-solid {
+    @apply inline-flex items-center gap-2 px-6 py-3 font-medium text-sm text-white
+           transition-all duration-200;
+    background: var(--blue);
+    border-radius: 2px;
+  }
+  .btn-solid:hover {
+    background: var(--blue-hover);
+  }
+
+  /* Ghost sobre fondo claro */
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-6 py-3 font-medium text-sm
+           transition-all duration-200;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  .btn-ghost:hover {
+    background: var(--panel);
+    border-color: var(--text);
+  }
+
+  /* Ghost sobre fondo oscuro (hero, footer) */
+  .btn-ghost-dark {
+    @apply inline-flex items-center gap-2 px-6 py-3 font-medium text-sm
+           transition-all duration-200;
+    color: var(--dark-text);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+  .btn-ghost-dark:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-sm
+           transition-all duration-200;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--border-hover); }
+
+  /* Label mono (etiqueta de sección) */
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  /* Título de sección */
+  .sec-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  .sec-sub {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Contenedor */
+  .container-w {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Animación de entrada */
+  .fade-in-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .fade-in-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Status dot verde */
+  .status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulseGreen 2s infinite;
+  }
+
+  /* Separador de sección */
+  .section-base {
+    padding: 6rem 0;
+  }
+
+  /* Tags técnicos */
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    background: rgba(34, 81, 255, 0.07);
+    color: #1a3fd4;
+    border: 1px solid rgba(34, 81, 255, 0.18);
+    border-radius: 2px;
+  }
+
+  /* KPI badge */
+  .kpi-badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    background: rgba(34, 81, 255, 0.07);
+    color: #1a3fd4;
+    border: 1px solid rgba(34, 81, 255, 0.18);
+    border-radius: 2px;
+  }
+}
+
+@keyframes pulseGreen {
+  0%   { box-shadow: 0 0 0 0 rgba(10, 122, 101, 0.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(10, 122, 101, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(10, 122, 101, 0); }
+}
