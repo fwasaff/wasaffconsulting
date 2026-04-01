@@ -124,43 +124,28 @@ export default function Hero() {
           </div>
 
           <div
-            className="fade-in-item grid grid-cols-2 gap-px overflow-hidden"
+            className="fade-in-item overflow-hidden relative"
             style={{ border: '1px solid var(--dark-border)', borderRadius: '2px' }}
           >
-            {metrics.map((m) => (
-              <div
-                key={m.label}
-                className="p-7 flex flex-col gap-3 transition-colors duration-200 cursor-default"
-                style={{ background: 'var(--dark-panel)' }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.background = 'var(--dark-hover)')}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.background = 'var(--dark-panel)')}
-              >
-                <div
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontStyle: 'italic',
-                    fontSize: 'clamp(2rem, 3.5vw, 2.8rem)',
-                    color: '#ffffff',
-                    lineHeight: 1,
-                  }}
-                >
-                  {m.val}
-                  {m.unit && (
-                    <span style={{ fontSize: '1rem', color: 'var(--blue)', marginLeft: '0.15rem' }}>
-                      {m.unit}
-                    </span>
-                  )}
+            <img
+              src="/tuberias.png"
+              alt="Red de tuberías industriales con válvulas y manómetros"
+              style={{ width: '100%', display: 'block', height: '420px', objectFit: 'cover', objectPosition: 'center' }}
+            />
+            <div
+              className="absolute bottom-0 left-0 right-0 grid grid-cols-2 gap-px"
+              style={{ background: 'rgba(10,22,48,0.88)', backdropFilter: 'blur(6px)' }}
+            >
+              {metrics.map((m) => (
+                <div key={m.label} className="p-5 flex flex-col gap-1.5">
+                  <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: 'clamp(1.4rem, 2.5vw, 1.9rem)', color: '#ffffff', lineHeight: 1 }}>
+                    {m.val}
+                    {m.unit && <span style={{ fontSize: '0.8rem', color: 'var(--blue)', marginLeft: '0.1rem' }}>{m.unit}</span>}
+                  </div>
+                  <p style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--dark-text)', lineHeight: 1.3 }}>{m.label}</p>
                 </div>
-                <div>
-                  <p style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--dark-text)', lineHeight: 1.3 }}>
-                    {m.label}
-                  </p>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--dark-muted)', lineHeight: 1.45, marginTop: '0.25rem' }}>
-                    {m.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
         </div>

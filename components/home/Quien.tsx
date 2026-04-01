@@ -59,19 +59,11 @@ export default function Quien() {
             className="fade-in-item self-start lg:sticky lg:top-28 p-8"
             style={{ background: 'var(--panel)', border: '1px solid var(--border)', borderRadius: '2px' }}
           >
-            <div
-              className="w-16 h-16 flex items-center justify-center mb-6"
-              style={{
-                background: 'linear-gradient(135deg, #0a2260 0%, #1a6fe0 100%)',
-                borderRadius: '2px',
-                fontFamily: 'var(--font-serif)',
-                fontStyle: 'italic',
-                fontSize: '1.8rem',
-                color: '#fff',
-              }}
-            >
-              FW
-            </div>
+            <img
+              src="/felipe.png"
+              alt="Felipe Wasaff — Fundador y Director de Wasaff Consulting"
+              style={{ width: '100%', borderRadius: '2px', display: 'block', marginBottom: '1.5rem', aspectRatio: '1/1', objectFit: 'cover', objectPosition: 'center top' }}
+            />
             <p
               style={{
                 fontFamily: 'var(--font-mono)',

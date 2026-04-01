@@ -55,6 +55,17 @@ export default function CasosUso() {
       style={{ background: 'var(--panel)', borderTop: '1px solid var(--border)' }}
     >
       <div className="container-w">
+        <div
+          className="fade-in-item overflow-hidden mb-14"
+          style={{ borderRadius: '2px', border: '1px solid var(--border)' }}
+        >
+          <img
+            src="/planta.png"
+            alt="Planta industrial de manufactura"
+            style={{ width: '100%', height: '260px', objectFit: 'cover', display: 'block', objectPosition: 'center 40%' }}
+          />
+        </div>
+
         <div className="text-center mb-14">
           <span className="label-mono fade-in-item">Áreas de Intervención</span>
           <h2 className="sec-title fade-in-item">
