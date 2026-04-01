@@ -643,12 +643,13 @@
     }
 
     /* ── FOOTER ── */
-    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; }
+    footer { background: #0c1a35; border-top: none; padding: 2.5rem 0; }
     .footer-inner {
       max-width: 1200px; margin: 0 auto; padding: 0 2rem;
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
     }
-    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+    footer .nav-logo { color: rgba(255,255,255,0.85); }
   </style>
 </head>
 <body>
@@ -782,9 +783,6 @@
     <div class="srv-grid">
       <div class="srv-card fi">
         <span class="srv-num">01</span>
-        <div style="width:100%;height:130px;margin-bottom:1rem;border-radius:6px;overflow:hidden;">
-          <img src="mapa-termico.png" alt="Mapa térmico de intercambiador de calor" style="width:100%;height:100%;object-fit:cover;object-position:center 20%;">
-        </div>
         <h3 class="srv-title">Modelado Térmico y Mecánica de Fluidos (Redes)</h3>
         <p class="srv-desc">Estudio de transferencia de calor y cálculo de pérdidas de carga hidráulica para optimización de plantas industriales. Auditorías energéticas respaldadas por cálculo analítico.</p>
         <div class="srv-tags">
@@ -873,10 +871,8 @@
         </div>
       </article>
 
-      <!-- Esquema técnico del sistema -->
-      <div class="fi" style="margin-top:2.5rem; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:2rem;">
-        <span class="label-mono" style="margin-bottom:1.25rem;">Esquema del Sistema · Planta Compresores Kaeser</span>
-        <svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" role="img" aria-label="Diagrama de recuperación de calor residual">
+      <!-- SVG eliminado -->
+      <svg viewBox="0 0 0 0" xmlns="http://www.w3.org/2000/svg" style="display:none;" role="img" aria-label="">
           <defs>
             <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
               <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/>
@@ -970,7 +966,6 @@
           <line x1="15" y1="232" x2="805" y2="232" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
           <text x="15" y="248" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.4)">Wasaff Consulting · Leycero SpA / Papeles Cordillera (CMPC) · 2023–2024</text>
         </svg>
-      </div>
 
     </div>
   </div>
@@ -1005,7 +1000,7 @@
         <blockquote class="cita fi">
           «La diferencia entre un paper académico y una herramienta industrial es su capacidad de reducir el riesgo y ahorrar costos en terreno.»
         </blockquote>
-        <p class="fi">Hablo ambos idiomas. Como <strong>Físico egresado de la Universidad de Chile</strong>, garantizo que las matemáticas detrás de su proyecto no tengan fisuras. Como consultor para empresas (CMPC, Synergy), sé que ese rigor debe traducirse en informes accionables que aprueben presupuestos.</p>
+        <p class="fi">Hablo ambos idiomas. Como <strong>Físico egresado de la Universidad de Chile</strong>, garantizo que las matemáticas detrás de su proyecto no tengan fisuras. Como consultor industrial, sé que ese rigor debe traducirse en informes accionables que aprueben presupuestos.</p>
         <p class="fi">Actualmente soy Coordinador de Laboratorios en la U. de Chile e investigador activo (artículo en revisión en <em>Physica B</em>, 2025). Mis +6 años en docencia técnica en INACAP me permiten explicar la complejidad matemática de manera clara a jefes de turno, mecánicos de planta y gerentes de finanzas por igual.</p>
         
         <div class="timeline fi">
@@ -1015,7 +1010,7 @@
           </div>
           <div class="tl-entry">
             <div class="tl-year"><span class="tl-dot"></span>2023 – 2024</div>
-            <div class="tl-rol">Ingeniero de Simulación y Modelado Térmico<small>Leycero SpA / Proyectos CMPC</small></div>
+            <div class="tl-rol">Ingeniero de Simulación y Modelado Térmico<small>Leycero SpA</small></div>
           </div>
           <div class="tl-entry">
             <div class="tl-year"><span class="tl-dot"></span>2018 – 2024</div>
