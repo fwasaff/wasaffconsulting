@@ -54,13 +54,37 @@ export default function Contacto() {
             >
               Evaluemos la viabilidad<br />técnica de su desafío.
             </h2>
+
+            {/* Diagnóstico gratuito */}
+            <div
+              className="fade-in-item inline-flex items-center gap-3 mb-6 px-4 py-3"
+              style={{
+                background: 'rgba(34,81,255,0.05)',
+                border: '1px solid rgba(34,81,255,0.18)',
+                borderRadius: '2px',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.68rem',
+                  color: 'var(--blue)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  fontWeight: 500,
+                }}
+              >
+                Diagnóstico inicial · 45 min · Sin costo · Sin compromiso
+              </span>
+            </div>
+
             <p
               className="fade-in-item"
               style={{ fontSize: '1.05rem', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '2.5rem' }}
             >
-              Wasaff Consulting responde toda consulta con una evaluación honesta del alcance.
-              Si el proyecto requiere capacidades fuera de nuestra práctica, lo comunicamos
-              en el primer intercambio — sin compromisos y con total transparencia.
+              La primera conversación es una evaluación honesta del alcance técnico y la
+              viabilidad del proyecto. Si la solución requiere capacidades fuera de nuestra
+              práctica, lo comunicamos en ese mismo intercambio.
             </p>
 
             <div className="flex flex-col gap-3 fade-in-item">

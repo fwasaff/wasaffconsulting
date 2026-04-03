@@ -10,21 +10,23 @@ export const metadata: Metadata = {
     template: '%s | Wasaff Consulting',
   },
   description:
-    'Simulación computacional, métodos numéricos y análisis térmico para optimización industrial en Chile. Traducimos física compleja en reducción de riesgo operativo y OPEX.',
+    'Consultoría de ingeniería física computacional en Chile. Simulación computacional, métodos numéricos y análisis térmico para reducción de OPEX y continuidad operacional en minería, energía y manufactura.',
   keywords: [
-    'simulación computacional', 'ingeniería física', 'análisis térmico', 'métodos numéricos',
-    'dinámica molecular', 'LAMMPS', 'optimización industrial', 'consultoría ingeniería Chile',
-    'minería', 'manufactura', 'energía',
+    'simulación computacional Chile', 'ingeniería física industrial', 'análisis térmico plantas',
+    'métodos numéricos ingeniería', 'dinámica molecular materiales', 'consultoría ingeniería Santiago',
+    'OPEX energético minería', 'modelado matemático procesos', 'auditoría energética industrial',
+    'contraparte técnica Chile', 'optimización plantas industriales',
   ],
   authors: [{ name: 'Felipe Wasaff', url: 'https://wasaffconsulting.cl' }],
   openGraph: {
     type: 'website',
     locale: 'es_CL',
     siteName: 'Wasaff Consulting',
-    title: 'Wasaff Consulting — Simulación Computacional e Ingeniería Física',
-    description: 'Simulación computacional y modelado matemático avanzado para continuidad operacional en minería, manufactura y energía.',
+    title: 'Wasaff Consulting — Ingeniería Física Computacional para la Industria',
+    description: 'Reducción de OPEX y continuidad operacional mediante simulación computacional y modelado matemático riguroso. Minería, manufactura y energía en Chile.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Wasaff Consulting — Ingeniería Física Computacional' }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: ['/og-image.png'] },
   robots: { index: true, follow: true },
   icons: {
     icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none' transform='rotate(60 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none' transform='rotate(-60 16 16)'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%233b82f6'/%3E%3C/svg%3E",
@@ -37,10 +39,52 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const schemaOrg = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Wasaff Consulting',
+  description:
+    'Consultoría boutique de ingeniería física computacional. Simulación computacional, métodos numéricos y análisis térmico para reducción de OPEX y continuidad operacional en minería, energía y manufactura.',
+  url: 'https://wasaffconsulting.cl',
+  telephone: '+56946125682',
+  email: 'felipe.wasaff@uchile.cl',
+  founder: {
+    '@type': 'Person',
+    name: 'Felipe Wasaff',
+    jobTitle: 'Fundador y Director',
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidad de Chile' },
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Santiago',
+    addressRegion: 'Región Metropolitana',
+    addressCountry: 'CL',
+  },
+  areaServed: { '@type': 'Country', name: 'Chile' },
+  knowsAbout: [
+    'Simulación Computacional', 'Ingeniería Física', 'Análisis Térmico',
+    'Dinámica Molecular', 'Métodos Numéricos', 'Mecánica de Fluidos',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Servicios de Ingeniería Computacional',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Modelado Térmico y Mecánica de Fluidos' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Simulación de Materiales y Dinámica Molecular' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Métodos Numéricos y Automatización de Datos' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ingeniería de Contraparte e Informes de Peritaje' } },
+    ],
+  },
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es-CL">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+        />
         <Navbar />
         <main>{children}</main>
         <Footer />

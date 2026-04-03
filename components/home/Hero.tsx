@@ -113,14 +113,26 @@ export default function Hero() {
               se convierte en decisiones técnicas confiables para minería, energía y manufactura.
             </p>
 
-            <div className="fade-in-item flex flex-wrap gap-4">
+            <div className="fade-in-item flex flex-wrap gap-4 items-center">
               <Link href="#contacto" className="btn-solid">
-                Solicitar diagnóstico técnico →
+                Diagnóstico inicial gratuito →
               </Link>
               <Link href="#casos" className="btn-ghost-dark">
                 Ver proyectos
               </Link>
             </div>
+            <p
+              className="fade-in-item"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                color: 'var(--dark-muted)',
+                letterSpacing: '0.06em',
+                marginTop: '0.75rem',
+              }}
+            >
+              45 minutos · sin costo · sin compromiso
+            </p>
           </div>
 
           <div
