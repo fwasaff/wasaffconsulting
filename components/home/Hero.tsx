@@ -3,30 +3,10 @@ import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 
 const metrics = [
-  {
-    val: '505',
-    unit: 'kW',
-    label: 'Recuperación Energética',
-    desc: 'Calor residual capturado en operación normal — industria manufacturera',
-  },
-  {
-    val: '3',
-    unit: '/3',
-    label: 'Validación Normativa',
-    desc: 'Proyectos aprobados por contraparte técnica independiente',
-  },
-  {
-    val: 'HPC',
-    unit: '',
-    label: 'Cómputo de Alto Rendimiento',
-    desc: 'Dinámica molecular y simulación paralela en Linux',
-  },
-  {
-    val: '6',
-    unit: '+',
-    label: 'Años de Rigor Técnico',
-    desc: 'Desde la investigación académica hasta la planta industrial',
-  },
+  { val: '505', unit: 'kW',  label: 'Recuperación Energética' },
+  { val: '3',   unit: '/3',  label: 'Validación Normativa' },
+  { val: 'HPC', unit: '',    label: 'Cómputo de Alto Rendimiento' },
+  { val: '6',   unit: '+',   label: 'Años de Rigor Técnico' },
 ];
 
 export default function Hero() {
@@ -42,7 +22,7 @@ export default function Hero() {
       { threshold: 0.1 }
     );
     items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 80}ms`;
+      (item as HTMLElement).style.transitionDelay = `${i * 110}ms`;
       io.observe(item);
     });
     return () => io.disconnect();
@@ -52,102 +32,161 @@ export default function Hero() {
     <section
       ref={ref}
       id="hero"
-      className="min-h-screen flex items-center pt-16 relative overflow-hidden"
-      style={{ background: 'var(--dark)' }}
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        background: '#000000',
+        paddingTop: '4rem',
+      }}
     >
-      <div
+      {/* Imagen de fondo con opacidad baja */}
+      <img
+        src="/tuberias.png"
         aria-hidden
-        className="absolute inset-0 pointer-events-none"
+        alt=""
         style={{
-          background: 'radial-gradient(ellipse 70% 50% at 70% 60%, rgba(34,81,255,0.06) 0%, transparent 65%)',
+          position: 'absolute', inset: 0,
+          width: '100%', height: '100%',
+          objectFit: 'cover',
+          objectPosition: 'center',
+          opacity: 0.15,
+          pointerEvents: 'none',
         }}
       />
 
-      <div className="container-w w-full py-20 relative z-10">
-        <div className="grid gap-16 lg:grid-cols-2 lg:gap-12 items-center">
+      {/* Gradiente radial — punto de fuga central */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(ellipse 85% 85% at 50% 48%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.92) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
 
-          <div>
-            <div
-              className="fade-in-item inline-flex items-center gap-2 mb-8"
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.72rem',
-                color: 'var(--dark-muted)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.12em',
-              }}
-            >
-              <span className="status-dot" style={{ background: 'var(--green)' }} />
-              Consultoría de Ingeniería Computacional · Santiago, Chile
-            </div>
+      {/* Contenido centrado */}
+      <div
+        className="relative z-10 text-center"
+        style={{ maxWidth: '800px', width: '100%', padding: '0 2rem' }}
+      >
+        {/* Indicador de estado */}
+        <div
+          className="fade-in-item inline-flex items-center justify-center gap-2 mb-10"
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.65rem',
+            color: 'rgba(255,255,255,0.38)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.2em',
+          }}
+        >
+          <span className="status-dot" style={{ background: 'var(--green)' }} />
+          Consultoría de Ingeniería Computacional · Santiago, Chile
+        </div>
 
-            <h1
-              className="fade-in-item mb-7"
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontStyle: 'italic',
-                fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
-                lineHeight: 1.08,
-                color: 'var(--dark-text)',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              Cuando el problema
-              requiere física,{' '}
-              <em style={{ color: '#a0c0e8' }}>
-                el modelo es la respuesta.
-              </em>
-            </h1>
+        {/* H1 */}
+        <h1
+          className="fade-in-item mb-8"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontStyle: 'italic',
+            fontSize: 'clamp(2.6rem, 6vw, 4.5rem)',
+            lineHeight: 1.06,
+            color: '#ffffff',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          Cuando el problema
+          requiere física,{' '}
+          <em style={{ color: 'var(--mustard)' }}>
+            el modelo es la respuesta.
+          </em>
+        </h1>
 
-            <p
-              className="fade-in-item mb-10"
-              style={{
-                fontSize: '1.05rem',
-                lineHeight: 1.75,
-                color: 'var(--dark-muted)',
-                maxWidth: '500px',
-              }}
-            >
-              Wasaff Consulting aplica simulación computacional avanzada y métodos numéricos
-              rigurosos donde los proveedores genéricos no alcanzan. La física de sus procesos
-              se convierte en decisiones técnicas confiables para minería, energía y manufactura.
-            </p>
+        {/* Subtítulo */}
+        <p
+          className="fade-in-item"
+          style={{
+            fontSize: '1.05rem',
+            lineHeight: 1.78,
+            color: 'rgba(255,255,255,0.5)',
+            maxWidth: '560px',
+            margin: '0 auto 2.75rem',
+          }}
+        >
+          Wasaff Consulting aplica simulación computacional avanzada y métodos numéricos
+          rigurosos donde los proveedores genéricos no alcanzan. La física de sus procesos
+          se convierte en decisiones técnicas confiables para minería, energía y manufactura.
+        </p>
 
-            <div className="fade-in-item flex flex-wrap gap-4">
-              <Link href="#contacto" className="btn-solid">
-                Solicitar diagnóstico técnico →
-              </Link>
-              <Link href="#casos" className="btn-ghost-dark">
-                Ver proyectos
-              </Link>
-            </div>
-          </div>
-
-          <div
-            className="fade-in-item overflow-hidden relative"
-            style={{ border: '1px solid var(--dark-border)', borderRadius: '2px' }}
+        {/* CTAs */}
+        <div className="fade-in-item flex flex-wrap gap-4 justify-center">
+          <Link href="#contacto" className="btn-solid">
+            Solicitar diagnóstico técnico →
+          </Link>
+          <Link
+            href="#casos"
+            className="btn-ghost-dark"
           >
-            <img
-              src="/tuberias.png"
-              alt="Red de tuberías industriales con válvulas y manómetros"
-              style={{ width: '100%', display: 'block', height: '420px', objectFit: 'cover', objectPosition: 'center' }}
-            />
-            <div
-              className="absolute bottom-0 left-0 right-0 grid grid-cols-2 gap-px"
-              style={{ background: 'rgba(10,22,48,0.88)', backdropFilter: 'blur(6px)' }}
-            >
-              {metrics.map((m) => (
-                <div key={m.label} className="p-5 flex flex-col gap-1.5">
-                  <div style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: 'clamp(1.4rem, 2.5vw, 1.9rem)', color: '#ffffff', lineHeight: 1 }}>
-                    {m.val}
-                    {m.unit && <span style={{ fontSize: '0.8rem', color: 'var(--blue)', marginLeft: '0.1rem' }}>{m.unit}</span>}
-                  </div>
-                  <p style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--dark-text)', lineHeight: 1.3 }}>{m.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+            Ver proyectos
+          </Link>
+        </div>
+      </div>
 
+      {/* Franja de métricas — anclada al fondo */}
+      <div
+        className="fade-in-item relative z-10 w-full"
+        style={{
+          marginTop: 'auto',
+          borderTop: '1px solid rgba(255,255,255,0.07)',
+          background: 'rgba(0,0,0,0.65)',
+          backdropFilter: 'blur(10px)',
+        }}
+      >
+        <div className="container-w grid grid-cols-2 md:grid-cols-4">
+          {metrics.map((m, i) => (
+            <div
+              key={m.label}
+              className="py-6 text-center"
+              style={{
+                borderRight: i < metrics.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontStyle: 'italic',
+                  fontSize: 'clamp(1.5rem, 2.5vw, 1.9rem)',
+                  color: 'var(--mustard)',
+                  lineHeight: 1,
+                  marginBottom: '0.4rem',
+                }}
+              >
+                {m.val}
+                {m.unit && (
+                  <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', marginLeft: '0.1rem' }}>
+                    {m.unit}
+                  </span>
+                )}
+              </div>
+              <p
+                style={{
+                  fontSize: '0.65rem',
+                  color: 'rgba(255,255,255,0.38)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                  lineHeight: 1.35,
+                }}
+              >
+                {m.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

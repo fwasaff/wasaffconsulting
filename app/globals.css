@@ -14,16 +14,20 @@
   --panel:       #f4f4f0;   /* gris cálido McKinsey — secciones alternas */
   --panel-hover: #ebebeb;
 
-  /* ── Secciones oscuras (hero, footer) ── */
-  --dark:        #051c2c;   /* navy profundo McKinsey */
-  --dark-panel:  #0c2f4a;   /* cards sobre fondo oscuro */
-  --dark-hover:  #103858;
-  --dark-text:   #f0f4f8;   /* texto sobre fondo oscuro */
-  --dark-muted:  #8aa4bc;   /* muted sobre fondo oscuro */
-  --dark-border: rgba(255, 255, 255, 0.1);
+  /* ── Secciones oscuras (hero, footer, chapter dividers) ── */
+  --dark:        #0a0a0a;   /* negro cinematográfico */
+  --dark-panel:  #161616;   /* cards sobre fondo oscuro */
+  --dark-hover:  #222222;
+  --dark-text:   #f0ece0;   /* crema cálida sobre negro */
+  --dark-muted:  #888880;   /* muted neutro sobre negro */
+  --dark-border: rgba(255, 255, 255, 0.08);
 
-  /* ── Azul eléctrico — SOLO CTAs y acentos puntuales ── */
-  --blue:        #2251ff;   /* McKinsey signature blue */
+  /* ── Mostaza — EXCLUSIVO para CTAs y elementos de interacción ── */
+  --mustard:       #FFDB58;
+  --mustard-hover: #e8c800;
+
+  /* ── Azul — acentos secundarios ── */
+  --blue:        #2251ff;
   --blue-hover:  #1a3fd4;
   --blue-glow:   rgba(34, 81, 255, 0.1);
 
@@ -64,13 +68,15 @@
 @layer components {
   /* Botones */
   .btn-solid {
-    @apply inline-flex items-center gap-2 px-6 py-3 font-medium text-sm text-white
+    @apply inline-flex items-center gap-2 px-6 py-3 font-medium text-sm
            transition-all duration-200;
-    background: var(--blue);
+    background: var(--mustard);
+    color: #0a0a0a;
     border-radius: 2px;
+    font-weight: 500;
   }
   .btn-solid:hover {
-    background: var(--blue-hover);
+    background: var(--mustard-hover);
   }
 
   /* Ghost sobre fondo claro */
