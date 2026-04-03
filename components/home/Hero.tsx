@@ -114,9 +114,16 @@ export default function Hero() {
             </p>
 
             <div className="fade-in-item flex flex-wrap gap-4 items-center">
-              <Link href="#contacto" className="btn-solid">
-                Diagnóstico inicial gratuito →
-              </Link>
+              <button
+                className="btn-solid"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).Calendly) {
+                    (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/fegonzalezw/30min' });
+                  }
+                }}
+              >
+                Agendar diagnóstico gratuito →
+              </button>
               <Link href="#casos" className="btn-ghost-dark">
                 Ver proyectos
               </Link>
@@ -131,7 +138,7 @@ export default function Hero() {
                 marginTop: '0.75rem',
               }}
             >
-              45 minutos · sin costo · sin compromiso
+              30 minutos · sin costo · sin compromiso
             </p>
           </div>
 

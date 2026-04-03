@@ -74,7 +74,7 @@ export default function Contacto() {
                   fontWeight: 500,
                 }}
               >
-                Diagnóstico inicial · 45 min · Sin costo · Sin compromiso
+                Diagnóstico inicial · 30 min · Sin costo · Sin compromiso
               </span>
             </div>
 
@@ -86,6 +86,20 @@ export default function Contacto() {
               viabilidad del proyecto. Si la solución requiere capacidades fuera de nuestra
               práctica, lo comunicamos en ese mismo intercambio.
             </p>
+
+            <div className="fade-in-item mb-5">
+              <button
+                className="btn-solid w-full justify-center"
+                style={{ width: '100%', justifyContent: 'center' }}
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).Calendly) {
+                    (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/fegonzalezw/30min' });
+                  }
+                }}
+              >
+                Agendar diagnóstico gratuito →
+              </button>
+            </div>
 
             <div className="flex flex-col gap-3 fade-in-item">
               <Link
