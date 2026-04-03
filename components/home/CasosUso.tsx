@@ -62,7 +62,9 @@ export default function CasosUso() {
           <img
             src="/planta.png"
             alt="Planta industrial de manufactura"
-            style={{ width: '100%', height: '260px', objectFit: 'cover', display: 'block', objectPosition: 'center 40%' }}
+            draggable={false}
+            onContextMenu={(e) => e.preventDefault()}
+            style={{ width: '100%', height: '260px', objectFit: 'cover', display: 'block', objectPosition: 'center 40%', userSelect: 'none' }}
           />
         </div>
 

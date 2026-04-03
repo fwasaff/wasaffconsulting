@@ -10,10 +10,10 @@ const metrics = [
     desc: 'Calor residual capturado en operación normal — industria manufacturera',
   },
   {
-    val: '3',
-    unit: '/3',
-    label: 'Validación Normativa',
-    desc: 'Proyectos aprobados por contraparte técnica independiente',
+    val: '2011',
+    unit: '',
+    label: 'Publicación Springer',
+    desc: 'Investigación publicada en editorial científica internacional',
   },
   {
     val: 'HPC',
@@ -130,7 +130,9 @@ export default function Hero() {
             <img
               src="/tuberias.png"
               alt="Red de tuberías industriales con válvulas y manómetros"
-              style={{ width: '100%', display: 'block', height: '420px', objectFit: 'cover', objectPosition: 'center' }}
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+              style={{ width: '100%', display: 'block', height: '420px', objectFit: 'cover', objectPosition: 'center', userSelect: 'none' }}
             />
             <div
               className="absolute bottom-0 left-0 right-0 grid grid-cols-2 gap-px"

@@ -83,7 +83,9 @@ export default function Proyectos() {
                   <img
                     src="/compresores.png"
                     alt="Compresores industriales de tornillo rotatorio"
-                    style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block' }}
+                    draggable={false}
+                    onContextMenu={(e) => e.preventDefault()}
+                    style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block', userSelect: 'none' }}
                   />
                 </div>
                 <div className="grid md:grid-cols-[300px_1fr]">

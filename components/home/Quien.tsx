@@ -11,7 +11,7 @@ const timeline = [
   {
     years: '2025 – Presente',
     rol: 'Coordinador de Laboratorios de Física',
-    org: 'Universidad de Chile · Facultad de Ciencias Físicas y Matemáticas',
+    org: 'Universidad de Chile · Facultad de Ciencias',
   },
   {
     years: '2023 – 2024',
@@ -62,7 +62,9 @@ export default function Quien() {
             <img
               src="/felipe.png"
               alt="Felipe Wasaff — Fundador y Director de Wasaff Consulting"
-              style={{ width: '100%', borderRadius: '2px', display: 'block', marginBottom: '1.5rem', aspectRatio: '1/1', objectFit: 'cover', objectPosition: 'center top' }}
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+              style={{ width: '100%', borderRadius: '50%', display: 'block', marginBottom: '1.5rem', aspectRatio: '1/1', objectFit: 'cover', objectPosition: 'center top', userSelect: 'none' }}
             />
             <p
               style={{
