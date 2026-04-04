@@ -148,10 +148,12 @@ export default function Quien() {
               style={{ fontSize: '1.05rem', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '2.5rem' }}
             >
               La dirección de cada proyecto recae en Felipe Wasaff, Físico egresado de la
-              Universidad de Chile e investigador activo en física computacional de materia condensada.
-              Su trayectoria en docencia técnica a nivel superior
-              garantiza que la complejidad matemática se traduzca en informes accionables,
-              comprensibles para equipos de operaciones, ingeniería y dirección financiera.
+              Universidad de Chile e investigador activo en física computacional de materia condensada,
+              con publicación en <em>Molecular Dynamics – Theoretical Developments and Applications
+              in Nanotechnology and Energy</em> (InTech Open, 2012). Su trayectoria en docencia
+              técnica a nivel superior garantiza que la complejidad matemática se traduzca en
+              informes accionables, comprensibles para equipos de operaciones, ingeniería y
+              dirección financiera.
             </p>
 
             {/* Timeline */}

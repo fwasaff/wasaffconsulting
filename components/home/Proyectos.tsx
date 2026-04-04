@@ -33,11 +33,11 @@ const proyectos: {
   {
     badge: 'I+D Científico',
     badgeColor: 'blue',
-    year: '2010 – 2013 · Publicación 2011',
-    client: 'Universidad de Chile · Editorial Springer',
-    title: 'Simulación Nanoscópica de Impactos de Alta Velocidad mediante Dinámica Molecular',
-    desc: 'Investigación computacional ejecutada con LPMD en infraestructura HPC Linux para interpretar transiciones de fase estructural producidas por impactos inelásticos a escala nanométrica. La metodología, publicada en Springer, es directamente aplicable al I+D de nuevos materiales para minería e industria de alta exigencia mecánica.',
-    kpis: ['Publicado en Springer (2011)', 'Infraestructura HPC Linux', 'Aplicable a I+D minería'],
+    year: '2012',
+    client: 'Universidad de Chile · InTech Open',
+    title: 'Inelastic Collisions and Hypervelocity Impacts at Nanoscopic Level: A Molecular Dynamics Study',
+    desc: 'Investigación computacional ejecutada con dinámica molecular no-equilibrio (NEMD) para caracterizar colisiones inelásticas e impactos de hipervelocidad a escala nanométrica. Publicado como capítulo en el libro "Molecular Dynamics – Theoretical Developments and Applications in Nanotechnology and Energy" (InTech Open, 2012). Directamente aplicable al I+D de materiales para minería e industria de alta exigencia mecánica.',
+    kpis: ['Publicado en InTech Open (2012)', 'NEMD · Infraestructura HPC Linux', 'Aplicable a I+D de materiales'],
   },
 ];
 
