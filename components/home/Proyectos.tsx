@@ -21,6 +21,24 @@ const proyectos: {
     desc: 'Wasaff Consulting desarrolló el modelo matemático completo de un sistema de recuperación de calor residual generado por seis compresores industriales de tornillo rotatorio. El trabajo incluyó análisis ε-NTU de intercambiadores de placas, red hidráulica de 11 tramos (Darcy-Weisbach + Colebrook-White), verificación de acumuladores térmicos y dimensionamiento de bomba de circulación.',
     kpis: ['505 kW recuperados en operación normal', '27 m³/h · ΔP total 7,6 kPa', 'Bomba: 0,55 kW para todo el circuito'],
   },
+  {
+    badge: 'Hidráulica Industrial',
+    badgeColor: 'red',
+    year: '2024',
+    client: 'Sector protección contra incendios · Chile',
+    title: 'Análisis de Pérdidas de Carga e Impacto Mecánico en Redes de Tuberías',
+    desc: 'Wasaff Consulting resolvió el comportamiento hidráulico de redes de tuberías en distintos diámetros nominales, calculando las pérdidas de carga por fricción y accesorios bajo distintos caudales. Complementariamente, se modeló la fuerza de impacto al caída libre de secciones de tubería desde diferentes alturas, con aplicación directa en evaluación de riesgos en faenas.',
+    kpis: ['Pérdidas de carga por diámetro y caudal', 'Fuerza de impacto en caída libre', 'Aplicación en evaluación de riesgos'],
+  },
+  {
+    badge: 'I+D Científico',
+    badgeColor: 'blue',
+    year: '2010 – 2013 · Publicación 2011',
+    client: 'Universidad de Chile · Editorial Springer',
+    title: 'Simulación Nanoscópica de Impactos de Alta Velocidad mediante Dinámica Molecular',
+    desc: 'Investigación computacional ejecutada con LPMD en infraestructura HPC Linux para interpretar transiciones de fase estructural producidas por impactos inelásticos a escala nanométrica. La metodología, publicada en Springer, es directamente aplicable al I+D de nuevos materiales para minería e industria de alta exigencia mecánica.',
+    kpis: ['Publicado en Springer (2011)', 'Infraestructura HPC Linux', 'Aplicable a I+D minería'],
+  },
 ];
 
 const badgeStyles: Record<BadgeColor, { bg: string; color: string; border: string }> = {

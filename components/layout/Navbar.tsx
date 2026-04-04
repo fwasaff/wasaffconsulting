@@ -16,7 +16,7 @@ export default function Navbar() {
     { href: '#casos-uso', label: 'Diagnóstico' },
     { href: '#servicios', label: 'Capacidades' },
     { href: '#casos',     label: 'Proyectos' },
-    { href: '#quien',     label: 'Felipe Wasaff' },
+    { href: '#quien',     label: 'Director' },
   ];
 
   return (

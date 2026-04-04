@@ -73,7 +73,7 @@ export default function Servicios() {
           </h2>
           <p className="sec-sub fade-in-item mx-auto">
             Transparencia técnica radical. Wasaff Consulting no ofrece desarrollo de software
-            genérico ni marketing. Nuestra práctica se limita a ingeniería física computacional
+            genérico ni marketing. La práctica se limita a ingeniería física computacional
             de alto rigor matemático.
           </p>
         </div>
