@@ -11,6 +11,7 @@ const proyectos: {
   title: string;
   desc: string;
   kpis: string[];
+  image?: { src: string; alt: string };
 }[] = [
   {
     badge: 'Recuperación Energética',
@@ -20,6 +21,7 @@ const proyectos: {
     title: 'Modelado Térmico e Hidráulico para Sistema de Recuperación de Calor Residual',
     desc: 'Wasaff Consulting desarrolló el modelo matemático completo de un sistema de recuperación de calor residual generado por seis compresores industriales de tornillo rotatorio. El trabajo incluyó análisis ε-NTU de intercambiadores de placas, red hidráulica de 11 tramos (Darcy-Weisbach + Colebrook-White), verificación de acumuladores térmicos y dimensionamiento de bomba de circulación.',
     kpis: ['505 kW recuperados en operación normal', '27 m³/h · ΔP total 7,6 kPa', 'Bomba: 0,55 kW para todo el circuito'],
+    image: { src: '/compresores.png', alt: 'Compresores industriales de tornillo rotatorio' },
   },
   {
     badge: 'Hidráulica Industrial',
@@ -29,6 +31,7 @@ const proyectos: {
     title: 'Análisis de Pérdidas de Carga e Impacto Mecánico en Redes de Tuberías',
     desc: 'Wasaff Consulting resolvió el comportamiento hidráulico de redes de tuberías en distintos diámetros nominales, calculando las pérdidas de carga por fricción y accesorios bajo distintos caudales. Complementariamente, se modeló la fuerza de impacto al caída libre de secciones de tubería desde diferentes alturas, con aplicación directa en evaluación de riesgos en faenas.',
     kpis: ['Pérdidas de carga por diámetro y caudal', 'Fuerza de impacto en caída libre', 'Aplicación en evaluación de riesgos'],
+    image: { src: '/tuberias.png', alt: 'Red de tuberías industriales con válvulas y manómetros' },
   },
   {
     badge: 'I+D Científico',
@@ -38,6 +41,7 @@ const proyectos: {
     title: 'Inelastic Collisions and Hypervelocity Impacts at Nanoscopic Level: A Molecular Dynamics Study',
     desc: 'Investigación computacional ejecutada con dinámica molecular no-equilibrio (NEMD) para caracterizar colisiones inelásticas e impactos de hipervelocidad a escala nanométrica. Publicado como capítulo en el libro "Molecular Dynamics – Theoretical Developments and Applications in Nanotechnology and Energy" (InTech Open, 2012). Directamente aplicable al I+D de materiales para minería e industria de alta exigencia mecánica.',
     kpis: ['Publicado en InTech Open (2012)', 'NEMD · Infraestructura HPC Linux', 'Aplicable a I+D de materiales'],
+    image: { src: '/nanoimpacto.png', alt: 'Simulación de dinámica molecular: nanopartícula impactando superficie cristalina' },
   },
 ];
 
@@ -97,15 +101,17 @@ export default function Proyectos() {
                   borderRadius: '2px',
                 }}
               >
-                <div style={{ borderBottom: '1px solid var(--border)' }}>
-                  <img
-                    src="/compresores.png"
-                    alt="Compresores industriales de tornillo rotatorio"
-                    draggable={false}
-                    onContextMenu={(e) => e.preventDefault()}
-                    style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block', userSelect: 'none' }}
-                  />
-                </div>
+                {p.image && (
+                  <div style={{ borderBottom: '1px solid var(--border)' }}>
+                    <img
+                      src={p.image.src}
+                      alt={p.image.alt}
+                      draggable={false}
+                      onContextMenu={(e) => e.preventDefault()}
+                      style={{ width: '100%', height: '240px', objectFit: 'cover', display: 'block', userSelect: 'none' }}
+                    />
+                  </div>
+                )}
                 <div className="grid md:grid-cols-[300px_1fr]">
                   <div
                     className="p-8 flex flex-col gap-3"
