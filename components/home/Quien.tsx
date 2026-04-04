@@ -148,8 +148,8 @@ export default function Quien() {
               style={{ fontSize: '1.05rem', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '2.5rem' }}
             >
               La dirección de cada proyecto recae en Felipe Wasaff, Físico egresado de la
-              Universidad de Chile e investigador activo — con publicación en
-              <em> Physica B</em> (Springer). Su trayectoria en docencia técnica a nivel superior
+              Universidad de Chile e investigador activo en física computacional de materia condensada.
+              Su trayectoria en docencia técnica a nivel superior
               garantiza que la complejidad matemática se traduzca en informes accionables,
               comprensibles para equipos de operaciones, ingeniería y dirección financiera.
             </p>
