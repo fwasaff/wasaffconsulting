@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
 const competencias = [
@@ -62,22 +63,17 @@ export default function Quien() {
             className="fade-in-item self-start lg:sticky lg:top-28 p-8"
             style={{ background: 'var(--panel)', border: '1px solid var(--border)', borderRadius: '2px' }}
           >
-            <img
-              src="/felipe.png"
-              alt="Felipe Wasaff — Fundador y Director de Wasaff Consulting"
-              draggable={false}
-              onContextMenu={(e) => e.preventDefault()}
-              style={{
-                width: '100%',
-                borderRadius: '50%',
-                display: 'block',
-                marginBottom: '1.5rem',
-                aspectRatio: '1/1',
-                objectFit: 'cover',
-                objectPosition: 'center top',
-                userSelect: 'none',
-              }}
-            />
+            <div style={{ position: 'relative', width: '100%', aspectRatio: '1/1', borderRadius: '50%', overflow: 'hidden', marginBottom: '1.5rem' }}>
+              <Image
+                src="/felipe.png"
+                alt="Felipe Wasaff — Fundador y Director de Wasaff Consulting"
+                fill
+                sizes="(max-width: 1024px) 240px, 300px"
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
+                style={{ objectFit: 'cover', objectPosition: 'center top', userSelect: 'none' }}
+              />
+            </div>
             <p
               style={{
                 fontFamily: 'var(--font-mono)',

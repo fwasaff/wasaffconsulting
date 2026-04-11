@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
 export default function Hero() {
@@ -141,9 +142,12 @@ export default function Hero() {
             className="fade-in-item overflow-hidden relative"
             style={{ border: '1px solid var(--dark-border)', borderRadius: '2px' }}
           >
-            <img
+            <Image
               src="/tuberias.png"
               alt="Red de tuberías industriales con válvulas y manómetros"
+              width={1376}
+              height={768}
+              priority
               draggable={false}
               onContextMenu={(e) => e.preventDefault()}
               style={{ width: '100%', display: 'block', height: '420px', objectFit: 'cover', objectPosition: 'center', userSelect: 'none' }}

@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 
 type BadgeColor = 'gold' | 'red' | 'blue';
@@ -105,13 +106,15 @@ export default function Proyectos() {
               >
                 {/* Imagen de cabecera */}
                 {p.image && (
-                  <div style={{ borderBottom: '1px solid var(--border)' }}>
-                    <img
+                  <div style={{ borderBottom: '1px solid var(--border)', position: 'relative', height: '220px' }}>
+                    <Image
                       src={p.image.src}
                       alt={p.image.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 900px"
                       draggable={false}
                       onContextMenu={(e) => e.preventDefault()}
-                      style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block', userSelect: 'none' }}
+                      style={{ objectFit: 'cover', userSelect: 'none' }}
                     />
                   </div>
                 )}
