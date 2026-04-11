@@ -17,8 +17,8 @@ const columnas = {
     { label: 'Diagnóstico gratuito',      href: '#contacto' },
   ],
   legal: [
-    { label: 'Política de privacidad', href: '#' },
-    { label: 'Términos de servicio',   href: '#' },
+    { label: 'Política de privacidad', href: '/privacidad' },
+    { label: 'Términos de servicio',   href: '/terminos' },
     { label: 'NDA disponible',         href: '#contacto' },
   ],
 };
