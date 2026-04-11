@@ -4,23 +4,23 @@ import { useState } from 'react';
 
 const columnas = {
   servicios: [
-    { label: 'Eficiencia Energética',    href: '#servicios' },
-    { label: 'Validación de Diseño',     href: '#servicios' },
-    { label: 'Monitoreo Predictivo',     href: '#servicios' },
-    { label: 'Peritaje y Litigios',      href: '#servicios' },
-    { label: 'Simulación de Materiales', href: '#servicios' },
+    { label: 'Eficiencia Energética',    href: '/#servicios' },
+    { label: 'Validación de Diseño',     href: '/#servicios' },
+    { label: 'Monitoreo Predictivo',     href: '/#servicios' },
+    { label: 'Peritaje y Litigios',      href: '/#servicios' },
+    { label: 'Simulación de Materiales', href: '/#servicios' },
   ],
   recursos: [
     { label: 'Calculadora de ahorro ROI', href: '/calculadora' },
     { label: 'Preguntas frecuentes',      href: '/faq' },
-    { label: 'Casos de éxito',            href: '#casos' },
-    { label: 'Insights técnicos',         href: '#blog' },
-    { label: 'Diagnóstico gratuito',      href: '#contacto' },
+    { label: 'Casos de éxito',            href: '/#casos' },
+    { label: 'Insights técnicos',         href: '/#blog' },
+    { label: 'Diagnóstico gratuito',      href: '/#contacto' },
   ],
   legal: [
-    { label: 'Política de privacidad', href: '#' },
-    { label: 'Términos de servicio',   href: '#' },
-    { label: 'NDA disponible',         href: '#contacto' },
+    { label: 'Política de privacidad', href: '/privacidad' },
+    { label: 'Términos de servicio',   href: '/terminos' },
+    { label: 'NDA disponible',         href: '/#contacto' },
   ],
 };
 
