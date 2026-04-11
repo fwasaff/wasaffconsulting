@@ -7,29 +7,41 @@ import Footer from '@/components/layout/Footer';
 const GA_ID = 'G-6DPM8LHP43';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wasaffconsulting.cl'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wasaffconsulting.vercel.app'),
   title: {
-    default: 'Wasaff Consulting — Simulación Computacional e Ingeniería Física',
+    default: 'Simulación Computacional Industrial | Eficiencia Energética | Wasaff Consulting',
     template: '%s | Wasaff Consulting',
   },
   description:
-    'Consultoría de ingeniería física computacional en Chile. Simulación computacional, métodos numéricos y análisis térmico para reducción de OPEX y continuidad operacional en minería, energía y manufactura.',
+    'Reduzca el OPEX energético 15–30% con modelos termodinámicos validados. Proyectos desde CLP $1.500.000 para minería, energía y manufactura en Chile. 505 kW recuperados en proyecto real.',
   keywords: [
-    'simulación computacional Chile', 'ingeniería física industrial', 'análisis térmico plantas',
-    'métodos numéricos ingeniería', 'dinámica molecular materiales', 'consultoría ingeniería Santiago',
-    'OPEX energético minería', 'modelado matemático procesos', 'auditoría energética industrial',
-    'contraparte técnica Chile', 'optimización plantas industriales',
+    'simulación computacional Chile',
+    'eficiencia energética industrial Chile',
+    'recuperación calor residual',
+    'ingeniería térmica Santiago',
+    'modelado CFD Chile',
+    'OPEX energético minería',
+    'consultoría ingeniería computacional',
+    'reducción costos energéticos planta',
+    'auditoría energética industrial',
+    'contraparte técnica licitaciones Chile',
   ],
-  authors: [{ name: 'Felipe Wasaff', url: 'https://wasaffconsulting.cl' }],
+  authors: [{ name: 'Felipe Wasaff', url: 'https://wasaffconsulting.vercel.app' }],
   openGraph: {
     type: 'website',
     locale: 'es_CL',
     siteName: 'Wasaff Consulting',
-    title: 'Wasaff Consulting — Ingeniería Física Computacional para la Industria',
-    description: 'Reducción de OPEX y continuidad operacional mediante simulación computacional y modelado matemático riguroso. Minería, manufactura y energía en Chile.',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Wasaff Consulting — Ingeniería Física Computacional' }],
+    title: 'Reducción de OPEX Energético 15–30% | Wasaff Consulting',
+    description:
+      'Ingeniería física computacional para minería, energía y manufactura. Proyectos desde CLP $1.500.000 con resultados medibles en 90 días. 505 kW recuperados en caso real.',
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Wasaff Consulting — Eficiencia Energética Industrial' }],
   },
-  twitter: { card: 'summary_large_image', images: ['/og-image.png'] },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Reducción de OPEX Energético 15–30% | Wasaff Consulting',
+    description: 'Simulación computacional validada para reducir costos energéticos industriales en Chile.',
+    images: ['/og-image.png'],
+  },
   robots: { index: true, follow: true },
   verification: { google: 't8e4oxLXgfMxcB9RSMjiRCGwfj3Zt_ySXBFIm2bVK3U' },
   icons: {
@@ -48,15 +60,17 @@ const schemaOrg = {
   '@type': 'ProfessionalService',
   name: 'Wasaff Consulting',
   description:
-    'Consultoría boutique de ingeniería física computacional. Simulación computacional, métodos numéricos y análisis térmico para reducción de OPEX y continuidad operacional en minería, energía y manufactura.',
-  url: 'https://wasaffconsulting.cl',
+    'Consultoría boutique de ingeniería física computacional. Reducción de OPEX energético 15–30% mediante simulación computacional validada para minería, energía y manufactura en Chile.',
+  url: 'https://wasaffconsulting.vercel.app',
   telephone: '+56946125682',
   email: 'felipe.wasaff@uchile.cl',
+  priceRange: 'CLP $1.500.000 – $5.000.000',
   founder: {
     '@type': 'Person',
     name: 'Felipe Wasaff',
     jobTitle: 'Fundador y Director',
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'Universidad de Chile' },
+    sameAs: 'https://www.linkedin.com/in/felipewasaff',
   },
   address: {
     '@type': 'PostalAddress',
@@ -66,17 +80,36 @@ const schemaOrg = {
   },
   areaServed: { '@type': 'Country', name: 'Chile' },
   knowsAbout: [
-    'Simulación Computacional', 'Ingeniería Física', 'Análisis Térmico',
-    'Dinámica Molecular', 'Métodos Numéricos', 'Mecánica de Fluidos',
+    'Simulación Computacional',
+    'Eficiencia Energética Industrial',
+    'Recuperación de Calor Residual',
+    'Modelado Termodinámico',
+    'Dinámica Molecular',
+    'Mecánica de Fluidos Computacional',
+    'Ingeniería Física',
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Servicios de Ingeniería Computacional',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Modelado Térmico y Mecánica de Fluidos' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Simulación de Materiales y Dinámica Molecular' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Métodos Numéricos y Automatización de Datos' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ingeniería de Contraparte e Informes de Peritaje' } },
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Eficiencia Energética' },
+        price: '1500000',
+        priceCurrency: 'CLP',
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Validación de Diseño' },
+        price: '800000',
+        priceCurrency: 'CLP',
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: { '@type': 'Service', name: 'Peritaje y Litigios' },
+        price: '2000000',
+        priceCurrency: 'CLP',
+      },
     ],
   },
 };

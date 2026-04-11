@@ -13,10 +13,11 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { href: '#casos-uso', label: 'Diagnóstico' },
-    { href: '#servicios', label: 'Capacidades' },
-    { href: '#casos',     label: 'Proyectos' },
-    { href: '#quien',     label: 'Director' },
+    { href: '#servicios',       label: 'Servicios' },
+    { href: '#casos',           label: 'Casos de éxito' },
+    { href: '#diferenciadores', label: '¿Por qué Wasaff?' },
+    { href: '#quien',           label: 'Director' },
+    { href: '#blog',            label: 'Insights' },
   ];
 
   return (
@@ -32,7 +33,7 @@ export default function Navbar() {
       <div className="container-w flex items-center justify-between h-16">
         {/* Logo */}
         <Link
-          href="#"
+          href="/"
           style={{
             fontFamily: 'var(--font-serif)',
             fontStyle: 'italic',
@@ -46,17 +47,18 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop */}
-        <ul className="hidden md:flex items-center gap-8 list-none m-0 p-0">
+        <ul className="hidden md:flex items-center gap-6 list-none m-0 p-0">
           {links.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
                 style={{
-                  fontSize: '0.875rem',
+                  fontSize: '0.85rem',
                   fontWeight: 400,
                   color: 'var(--muted)',
                   textDecoration: 'none',
                   transition: 'color 0.2s',
+                  whiteSpace: 'nowrap',
                 }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--text)')}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = 'var(--muted)')}
@@ -66,8 +68,12 @@ export default function Navbar() {
             </li>
           ))}
           <li>
-            <Link href="#contacto" className="btn-solid" style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem' }}>
-              Agendar Evaluación
+            <Link
+              href="/calculadora"
+              className="btn-solid"
+              style={{ fontSize: '0.82rem', padding: '0.5rem 1.1rem' }}
+            >
+              Calcular ahorro →
             </Link>
           </li>
         </ul>
@@ -99,7 +105,7 @@ export default function Navbar() {
           className="md:hidden flex flex-col"
           style={{ borderTop: '1px solid var(--border)', background: '#ffffff' }}
         >
-          {[...links, { href: '#contacto', label: 'Agendar Evaluación' }].map((l) => (
+          {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -117,6 +123,18 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
+          <Link
+            href="/calculadora"
+            className="btn-solid"
+            style={{
+              margin: '1rem 2rem',
+              justifyContent: 'center',
+              fontSize: '0.95rem',
+            }}
+            onClick={() => setMobileOpen(false)}
+          >
+            Calcular ahorro potencial →
+          </Link>
         </div>
       )}
     </nav>
