@@ -1,0 +1,68 @@
+\part*{Parte A: Formulación Teórica del Problema}
+\addcontentsline{toc}{section}{Parte A: Formulación Teórica del Problema}
+
+\section{Introducción: La Simulación como un Sistema Integrado}
+Este módulo representa la culminación de nuestro viaje a través de los fundamentos de la simulación. Hemos construido, ladrillo a ladrillo, el conocimiento necesario para abordar problemas de difusión (Módulos 1 y 2), no linealidades (Módulo 3) y problemas acoplados de mecánica y fluidos (Módulos 4 y 5). Ahora, uniremos estas piezas para simular un fenómeno multifísico dinámico: la **convección forzada**.
+
+La convección es el mecanismo de transferencia de calor que ocurre por el movimiento de un fluido. En la convección forzada, este movimiento es impuesto por medios externos (una bomba, un ventilador). Nuestro objetivo es resolver el problema clásico de un fluido que enfría un sólido caliente. Esto requiere resolver simultáneamente las ecuaciones del movimiento del fluido y la ecuación de la energía, donde el campo de velocidad del fluido afecta directamente a la distribución de temperaturas.
+
+\begin{infobox}
+La convección forzada es, posiblemente, el problema de simulación más valioso en una enorme cantidad de industrias:
+\begin{itemize}
+    \item \textbf{Electrónica:} El diseño de cualquier sistema de refrigeración, desde el disipador con ventilador de una CPU hasta los complejos sistemas de refrigeración líquida en centros de datos.
+    \item \textbf{Automoción:} El diseño de radiadores, la refrigeración de bloques de motor, y la gestión térmica de baterías de vehículos eléctricos.
+    \item \textbf{Aeroespacial:} La refrigeración de los álabes de turbinas de alta presión en motores a reacción, un problema que define la eficiencia y seguridad del motor.
+    \item \textbf{Industria Química y Energética:} El diseño de intercambiadores de calor de todo tipo, que son el corazón de innumerables procesos industriales.
+\end{itemize}
+\end{infobox}
+
+\section{La Física Acoplada: Navier-Stokes y la Ecuación de Energía}
+Para modelar este fenómeno, necesitamos las ecuaciones gobernantes completas para un fluido en movimiento que transporta calor.
+
+\subsection{El Movimiento del Fluido: Las Ecuaciones de Navier-Stokes}
+En el Módulo 5, simplificamos el flujo a un régimen de Stokes. Ahora, consideramos el caso más general, incluyendo el término de inercia. Las ecuaciones de Navier-Stokes para un fluido incompresible en estado estacionario son:
+\begin{align}
+    \rho (\mathbf{u} \cdot \nabla) \mathbf{u} &= -\nabla p + \mu \nabla^2 \mathbf{u} + \mathbf{f} && \text{(Conservación de Momento)} \\
+    \nabla \cdot \mathbf{u} &= 0 && \text{(Incompresibilidad)}
+\end{align}
+El término no lineal $\rho (\mathbf{u} \cdot \nabla) \mathbf{u}$ es el término de \textbf{convección de momento} y es el responsable de la complejidad y riqueza de los fenómenos de la fluidodinámica (ej. turbulencia).
+
+\subsection{La Transferencia de Calor: La Ecuación de Energía}
+La ecuación del calor que derivamos en el Módulo 2 debe ser ahora modificada para incluir el transporte de energía debido al movimiento del fluido. El nuevo término es el término de **advección** o **convección de calor**. La ecuación completa de la energía es:
+\begin{equation}
+    \rho c_p \left( \frac{\partial T}{\partial t} + \mathbf{u} \cdot \nabla T \right) - \nabla \cdot (k \nabla T) = f
+\end{equation}
+El término $\mathbf{u} \cdot \nabla T$ es el puente multifísico clave: el campo de velocidad $\mathbf{u}$ (solución de Navier-Stokes) ahora participa directamente en la ecuación que gobierna la temperatura $T$.
+
+\section{Estrategia de Solución: Un Enfoque Partitionado (Desacoplado)}
+Resolver este sistema completo (dos ecuaciones no lineales para el fluido y una ecuación transitoria para el calor) de forma monolítica es computacionalmente muy costoso. Para muchos problemas de ingeniería, se puede usar una suposición simplificadora muy potente: el \textbf{acoplamiento unidireccional} (*one-way coupling*).
+
+Esto es válido cuando los cambios de temperatura en el fluido no son lo suficientemente grandes como para alterar significativamente sus propiedades (densidad $\rho$ y viscosidad $\mu$). En este caso, podemos desacoplar el problema en dos pasos secuenciales:
+
+\begin{enumerate}
+    \item \textbf{Resolver la Fluidodinámica:} Primero, se resuelve el problema de Navier-Stokes para obtener un campo de velocidad estacionario, $\mathbf{u}$. En este paso, ignoramos la temperatura.
+    \item \textbf{Resolver la Transferencia de Calor:} Luego, se resuelve la ecuación de energía transitoria. El campo de velocidad $\mathbf{u}$ obtenido en el paso 1 se trata como un parámetro \textbf{conocido y fijo} que transporta el calor.
+\end{enumerate}
+Esta estrategia, conocida como un método \textbf{partitionado} o \textbf{segregado}, es inmensamente más eficiente y es el estándar en la industria para esta clase de problemas.
+
+\section{La Forma Débil de Cada Sub-problema}
+Siguiendo la estrategia particionada, necesitamos dos formas débiles.
+
+\textbf{1. Forma Débil de Navier-Stokes (Problema no lineal):}
+Debemos reescribirla como un residuo $F_{NS}(\mathbf{u}, p; \mathbf{v}, q)=0$ para ser resuelta con el método de Newton.
+\begin{keybox}{WasaffCopper}
+    Encontrar el par ($\mathbf{u}, p$) tal que para todo ($\mathbf{v}, q$):
+    $$ \int_{\Omega} \left( \rho (\mathbf{u} \cdot \nabla) \mathbf{u} \cdot \mathbf{v} + \mu \nabla\mathbf{u} : \nabla\mathbf{v} - p (\nabla \cdot \mathbf{v}) - q (\nabla \cdot \mathbf{u}) \right) dV = \int_{\Omega} \mathbf{f} \cdot \mathbf{v} \, dV $$
+\end{keybox}
+
+\textbf{2. Forma Débil de la Ecuación de Energía (Problema lineal en cada paso de tiempo):}
+Usando la discretización temporal de Euler Implícito como en el Módulo 2, la forma débil para encontrar $T^n$ conociendo $T^{n-1}$ y $\mathbf{u}$ es:
+\begin{keybox}{WasaffCopper}
+    Para cada paso de tiempo $n$, encontrar $T^n$ tal que para todo $v$:
+    $$ \int_{\Omega} \left( \rho c_p \frac{T^n - T^{n-1}}{\Delta t} v + \rho c_p (\mathbf{u} \cdot \nabla T^n) v + k \nabla T^n \cdot \nabla v \right) dV = \int_{\Omega} f^n v \, dV $$
+\end{keybox}
+
+\begin{notatecnica}
+    \textbf{Estabilización para Problemas Dominados por Convección:}
+    Cuando los términos convectivos $\mathbf{u} \cdot \nabla(\cdot)$ son muy grandes comparados con los difusivos (alto número de Reynolds o de Péclet), el método de Galerkin estándar puede producir soluciones con oscilaciones espurias. En la práctica profesional, se utilizan técnicas de \textbf{estabilización} como Streamline-Upwind Petrov-Galerkin (SUPG) o Galerkin-Least-Squares (GLS) para suprimir estas oscilaciones y obtener resultados físicamente realistas. Aunque la derivación completa está fuera del alcance de este módulo, es crucial ser consciente de su necesidad en simulaciones de CFD avanzadas.
+\end{notatecnica}

@@ -1,0 +1,196 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel} % Cambia a 'english' si prefieres inglés
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% Configuración de márgenes
+\geometry{
+    a4paper,
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm,
+}
+
+% Configuración de espaciado
+\setstretch{1.5} % Espaciado entre líneas
+\setlength{\parindent}{0pt} % Sin sangría en los párrafos
+\setlength{\parskip}{1em} % Espaciado entre párrafos
+
+% Configuración de títulos de sección
+\titleformat{\section}
+    {\normalfont\Large\bfseries}
+    {\thesection.}
+    {1em}
+    {}
+\titleformat{\subsection}
+    {\normalfont\large\bfseries}
+    {\thesubsection.}
+    {1em}
+    {}
+\titleformat{\subsubsection}
+    {\normalfont\normalsize\bfseries}
+    {\thesubsubsection.}
+    {1em}
+    {}
+
+% Configuración de listas
+\setlist[itemize]{noitemsep, topsep=0.5em} % Menos espacio en listas
+
+\begin{document}
+
+\title{Análisis Termodinámico de Respaldo en Sistemas de Refrigeración para Salas de Servidores}
+\author{Wasaff Consulting}
+\date{\today}
+\maketitle
+
+\newpage
+\section{Resumen Ejecutivo}
+
+\subsection*{Objetivo}
+
+\subsection{Conclusiones Principales}
+
+\subsection*{Recomendaciones}
+
+\section{Introducción}
+
+\subsection*{Contexto}
+
+\subsection*{Objetivo}
+
+\newpage
+\section{Metodología}
+
+\subsection*{Modelo Utilizado}
+
+El problema físico de enfriamiento con glicol se modela como un \textbf{sistema acoplado de ecuaciones diferenciales parciales (EDP)}, que describen la dinámica del fluido y la transferencia de calor. A continuación, se detallan las ecuaciones clave:
+
+\begin{enumerate}
+\item[1.] \textbf{Ecuación de Continuidad (Conservación de masa)}:
+
+\begin{align*}
+\frac{\partial V}{\partial t}+\nabla\cdot(\textbf{u}V)=0,
+\end{align*}
+
+donde $V$ es el volumen de glicol y $\textbf{u}$ es el campo de velocidad.
+
+
+\item[2.] \textbf{Ecuación de Navier-Stokes (Conservación de momento)}:
+
+\begin{align*}
+\rho\left(\frac{\partial \textbf{u}}{\partial t}+\textbf{u}\cdot\nabla \textbf{u} \right)=-\nabla p+\mu \nabla^2\textbf{u}+\textbf{f},
+\end{align*}
+
+donde $\rho$  es la densidad del glicol, $p$ es la presión,$\mu$ es la viscosidad dinámica, y $\textbf{f}$ representa las fuerzas externas (gravedad y pérdidas por fricción).
+
+\item[3.] \textbf{Ecuaciones de Transferencia de Calor (Conservación de Energía)}:
+
+\begin{align*}
+\rho C_p\left(\frac{\partial T}{\partial t}+\textbf{u}\cdot\nabla T \right)=\nabla \cdot (k\nabla T)+Q,
+\end{align*}
+
+donde $T$ es la temperatura $C_p$ es la capacidad calorífica, $k$ es la conductividad térmica, y $Q$ es la fuente de calor (generada por los servidores).
+
+\item[4.] \textbf{Condiciones de Frontera e Iniciales}
+
+\begin{itemize}
+\item \textbf{Caudal de entrada}: $Q_\text{entrada}=85~\text{m}^3\text{/h}$
+\item \textbf{Temperatura inicial}: $T_\text{tanque1}=10~^\circ\text{C}$
+\item \textbf{Interación térmica con el ambiente}: Convección y radiación solar.
+\end{itemize}
+
+Este sistema de EDP se resuelve utilizando el \textbf{método de elementos finitos (FEM)}, implementado en FEniCS, que permite discretizar el dominio y resolver las ecuaciones de manera numérica.
+
+\end{enumerate}
+\subsection*{Software}
+Para la implementación del modelo, se utiliza \textbf{FEniCS}, una plataforma de código abierto para la solución numérica de ecuaciones diferenciales parciales mediante el método de elementos finitos.
+
+%\subsection*{Herramientas Adicionales}
+%\begin{itemize}
+%\item \textbf{Meshio}: Para la generación y manipulación de mallas.
+%\item \textbf{Matplotlib y Paraview}: Para la visualización de resultados (campos de velocidad, temperatura, etc.).
+%\item \textbf{Numpy y SciPy}: Para cálculos numéricos adicionales y análisis de datos.
+%\end{itemize}
+
+\newpage
+\section{Metodología}
+
+\subsection*{Planteamiento del Modelo Matemático}
+
+El problema físico consiste en modelar la dinámica de flujo y transferencia de calor en un sistema de enfriamiento basado en glicol. Se resuelven las ecuaciones de Navier-Stokes para flujo incompresible y la ecuación de conducción de calor con términos de fuente térmica debido a la radiación solar y la absorción de calor en los servidores.
+
+Las ecuaciones gobernantes del sistema son:
+
+\textbf{Ecuación de conservación de la masa:}
+\begin{equation}
+\nabla \cdot \mathbf{u} = 0
+\end{equation}
+
+\textbf{Ecuación de Navier-Stokes para flujo incompresible:}
+\begin{equation}
+\rho \left( \frac{\partial \mathbf{u}}{\partial t} + \mathbf{u} \cdot \nabla \mathbf{u} \right) = -\nabla p + \mu \nabla^2 \mathbf{u} + \mathbf{F}
+\end{equation}
+donde $\mathbf{u}$ es el campo de velocidad, $p$ la presión, $\rho$ la densidad del glicol, $\mu$ la viscosidad y $\mathbf{F}$ representa fuerzas externas, como la gravedad.
+
+\textbf{Ecuación de transferencia de calor:}
+\begin{equation}
+\rho c_p \frac{\partial T}{\partial t} + \rho c_p \mathbf{u} \cdot \nabla T = \nabla \cdot (k \nabla T) + Q
+\end{equation}
+donde $T$ es la temperatura, $c_p$ el calor específico, $k$ la conductividad térmica, y $Q$ la fuente térmica por los servidores y la radiación solar.
+
+\textbf{Condiciones de frontera:}
+- **Entrada (Tanque 1):** Se impone un caudal inicial de 100 m³/h que disminuye progresivamente hasta 85 m³/h en 300 s.
+- **Salida (Tanque 2):** Se impone una presión ambiente.
+- **Superficie expuesta:** Se modela la convección con el ambiente y la absorción de radiación solar mediante la condición de Neumann:
+  \begin{equation}
+  - k \frac{\partial T}{\partial n} = h(T - T_{\infty}) + \alpha I
+  \end{equation}
+  donde $h$ es el coeficiente de transferencia de calor convectivo, $T_{\infty}$ la temperatura ambiente, $\alpha$ el coeficiente de absorción de radiación e $I$ la irradiancia solar.
+
+\subsection*{Implementación en FEniCSx}
+
+La simulación fue implementada en \textbf{FEniCSx 0.9}, utilizando el método de elementos finitos para resolver las ecuaciones de flujo y calor en un dominio bidimensional. La malla fue generada como una geometría rectangular, representando el sistema de tanques y tuberías.
+
+Las funciones base de \textbf{Lagrange de primer orden} fueron utilizadas para la discretización de velocidad, presión y temperatura. Se empleó un esquema de Euler implícito para la discretización temporal, asegurando estabilidad numérica.
+
+Los principales pasos en la implementación fueron:
+
+\begin{enumerate}
+\item \textbf{Definición del dominio y malla}: Se utilizó una malla triangular estructurada en 2D, con refinamiento en la zona de la tubería.
+\item \textbf{Definición de espacios funcionales}: Se emplearon elementos finitos de tipo P1-P2 para la velocidad y presión.
+\item \textbf{Implementación de ecuaciones}: Se formularon las ecuaciones en notación variacional y se resolvieron utilizando PETSc como solver numérico.
+\item \textbf{Condiciones de frontera}: Se impusieron condiciones de Dirichlet en la entrada y salida del glicol, y de Neumann para la transferencia de calor.
+\item \textbf{Resolución iterativa}: Se avanzó en el tiempo con un paso de $\Delta t = 1$ s, calculando el campo de temperatura y velocidad en cada iteración.
+\end{enumerate}
+
+
+\subsection*{Validación y Análisis de Resultados}
+
+Para validar la coherencia del modelo, se verificaron los siguientes criterios:
+
+\begin{itemize}
+\item \textbf{Conservación de masa:} Se garantizó que el volumen total del glicol en los tanques se mantuviera en 8.5 m³ en todo momento.
+\item \textbf{Estabilidad numérica:} Se detuvo la simulación si el Tanque 1 alcanzaba un volumen crítico menor a 0.01 m³.
+\item \textbf{Coherencia térmica:} Se evaluó que la temperatura del Tanque 2 siempre fuera mayor que la del Tanque 1, como resultado de la absorción de calor.
+\end{itemize}
+
+Los resultados fueron postprocesados utilizando \textbf{ParaView} y \textbf{Matplotlib}, generando gráficos de evolución de caudal, temperatura y energía acumulada en el sistema.
+
+\section{Resultados}
+
+\subsection*{Gráficos Clave}
+
+\section{Discusión}
+
+\section{Conclusiones y Recomendaciones}
+
+\end{document}

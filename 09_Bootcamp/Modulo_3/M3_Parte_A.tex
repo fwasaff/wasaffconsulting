@@ -1,0 +1,61 @@
+\part*{Parte A: Formulación Teórica del Problema}
+\addcontentsline{toc}{section}{Parte A: Formulación Teórica del Problema}
+
+\section{Introducción: Abrazando la Complejidad del Mundo Real}
+En los Módulos 1 y 2, construimos una base sólida para resolver problemas de conducción de calor. Sin embargo, lo hicimos bajo una suposición simplificadora crucial: que las propiedades del material ($k, \rho, c_p$) eran constantes. En el mundo real, esta rara vez es la situación.
+
+Este módulo aborda el siguiente nivel de realismo físico: los \textbf{problemas no lineales}. Un problema se vuelve no lineal cuando las propiedades que gobiernan su comportamiento dependen de la propia solución que buscamos. Para la Ecuación del Calor, esto ocurre comúnmente cuando la conductividad térmica depende de la temperatura, $k = k(T)$.
+
+Resolver este tipo de problemas requiere un salto conceptual y matemático. Ya no podemos ensamblar una única matriz y resolver un sistema de ecuaciones lineales. Debemos adoptar un enfoque \textbf{iterativo}. Presentaremos el \textbf{Método de Newton}, un algoritmo poderoso y universal que forma la columna vertebral de la mayoría de los solvers de elementos finitos para problemas no lineales.
+
+\begin{infobox}
+La no linealidad es la norma, no la excepción, en la ingeniería de vanguardia. Consideremos:
+\begin{itemize}
+    \item \textbf{Procesamiento de Materiales:} En tratamientos térmicos de aceros, la conductividad térmica y la capacidad calorífica varían drásticamente con la temperatura, afectando la velocidad de enfriamiento y las propiedades finales del material.
+    \item \textbf{Electrónica de Potencia:} La resistividad del silicio en un semiconductor cambia con la temperatura. A medida que se calienta por el paso de corriente, su capacidad para disipar ese calor también cambia, un acoplamiento no lineal crítico.
+    \item \textbf{Ablación Térmica:} En escudos térmicos para reentrada atmosférica, las propiedades del material cambian a temperaturas extremas, un comportamiento altamente no lineal que determina la supervivencia del vehículo.
+\end{itemize}
+Dominar los métodos no lineales nos permite simular la física con una fidelidad mucho mayor.
+\end{infobox}
+
+\section{La Naturaleza de la No Linealidad en la Ecuación del Calor}
+Recordemos la forma fuerte de la Ecuación del Calor:
+$$ \rho c_p \frac{\partial T}{\partial t} - \nabla \cdot (k \nabla T) = f $$
+Hasta ahora, hemos tratado a $k$ como una constante. Sin embargo, para la mayoría de los materiales, la conductividad es función de la temperatura. Una aproximación común es una relación lineal:
+\begin{equation}
+    k(T) = k_0 (1 + \alpha (T - T_{\text{ref}}))
+    \label{eq:k_lineal}
+\end{equation}
+Cuando sustituimos $k(T)$ en la Ecuación del Calor, el término de difusión se convierte en $\nabla \cdot (k(T) \nabla T)$. Este término es ahora \textbf{no lineal} porque $k(T)$ depende de la solución $T$.
+
+\section{Por Qué Fracasa el Enfoque Lineal}
+En los módulos anteriores, llegábamos a un sistema de ecuaciones algebraicas de la forma $\mathbf{A} \mathbf{T}^n = \mathbf{b}$. La clave era que la ``matriz del sistema'' $\mathbf{A}$ era constante.
+
+Cuando $k = k(T)$, la matriz del sistema ahora depende de la solución que estamos tratando de encontrar: $\mathbf{A}(\mathbf{T}^n) \mathbf{T}^n = \mathbf{b}$. Esto rompe completamente el paradigma anterior. No podemos construir la matriz sin conocer la solución, y no podemos encontrar la solución sin tener la matriz. Es un problema circular que exige un nuevo enfoque.
+
+\section{El Enfoque Iterativo: El Método de Newton-Raphson}
+El Método de Newton es una técnica para encontrar las raíces de un sistema de funciones no lineales. Su idea central es:
+\begin{enumerate}
+    \item Partir de una suposición inicial para la solución.
+    \item Linealizar el problema en torno a esa suposición (aproximarlo por su tangente).
+    \item Resolver este problema lineal aproximado para encontrar una corrección.
+    \item Actualizar la suposición con la corrección y repetir el proceso hasta que la solución converja.
+\end{enumerate}
+
+\subsection{Aplicando Newton a Nuestra Forma Débil}
+El primer paso es reescribir nuestra forma débil como un \textbf{residuo} $F(T;v)$ que debe ser cero. Para un problema transitorio con discretización de Euler implícito (Módulo 2), el residuo para el paso de tiempo actual $n$ es:
+\begin{equation}
+    F(T^n; v) = \int_{\Omega} \left( \rho c_p (T^n - T^{n-1}) v + \Delta t \, k(T^n) \nabla T^n \cdot \nabla v \right) dV - \int_{\Omega} \Delta t \, f^n v \, dV = 0
+\end{equation}
+El método de Newton busca iterativamente una solución $T^n$ que anule este residuo. Partiendo de una conjetura inicial $T_k^n$, busca una corrección $\delta T$ tal que $T_{k+1}^n = T_k^n + \delta T$. Para ello, linealiza el residuo, lo que requiere calcular su derivada (el Jacobiano), un tema central en los textos de FEM no lineal como \cite{bazant2003}.
+
+\begin{keybox}{WasaffCopper}
+    \textbf{Problema Lineal a Resolver en Cada Iteración de Newton:}
+    
+    Dada una solución tentativa $T_k^n$, encontrar la corrección $\delta T$ tal que para todo $v \in \hat{V}$:
+    \begin{equation}
+        \underbrace{\int_{\Omega} \left( \rho c_p \delta T v + \Delta t (k'(T_k^n) \delta T \nabla T_k^n + k(T_k^n) \nabla \delta T) \cdot \nabla v \right) dV}_{\text{Jacobiano, } J(\delta T; v)} = \underbrace{-F(T_k^n; v)}_{\text{Residuo negativo}}
+    \end{equation}
+\end{keybox}
+
+Afortunadamente, FEniCS calcula este complejo Jacobiano \textbf{automáticamente}. Solo necesitamos proporcionarle la forma del residuo no lineal y él se encarga del resto, como veremos en la Parte B.

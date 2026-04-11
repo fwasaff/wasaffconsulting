@@ -1,0 +1,41 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WASAFF CONSULTING - CUERPO DEL TEMPLATE
+% Define la estructura del documento.
+% Versión: 1.1
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% --- BLOQUE DE TÍTULO AUTOMÁTICO ---
+\sffamily
+{\color{WasaffCopper} \large \textbf{PORTAFOLIO TÉCNICO: MÓDULO \moduleNumber}}\\
+\
+{\color{WasaffNavy} \huge \textbf{\moduleTitle}}\\
+\
+{\Large \moduleSubtitle}\\
+\vspace{1cm}
+\rmfamily
+\begin{tabular}{@{}p{14cm}}
+    \textbf{Autor:} \consultingAuthor \\
+    \textit{Fundador, \consultingCompany} \\
+\end{tabular}
+\
+\hrulefill
+\
+\tableofcontents
+\
+\hrulefill
+\
+\newpage
+
+% --- INSERCIÓN DEL CONTENIDO DE LAS PARTES A Y B ---
+\input{\partAfile}
+\clearpage 
+\input{\partBfile}
+
+% --- INSERCIÓN DE LA BIBLIOGRAFÍA ---
+\newpage
+\bibliographystyle{plain}
+\bibliography{\bibfile}
+
+\end{document}

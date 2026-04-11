@@ -1,0 +1,96 @@
+% ==============================================================================
+% === WASAFF CONSULTING - PLANTILLA DE INGENIERÍA PREDICTIVA v4.0 (Final) ===
+% === Este es el paquete de estilo. Define la apariencia de todos los documentos. ===
+% ==============================================================================
+
+\ProvidesPackage{wasaff_consulting}
+
+% --- PAQUETES DE NÚCLEO ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{tikz}
+
+% --- FUENTES PROFESIONALES ---
+\usepackage{lato}
+\usepackage[light]{raleway}
+\renewcommand*\familydefault{\sfdefault}
+
+% --- CONFIGURACIÓN GLOBAL ---
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, headheight=20pt}
+\setstretch{1.4}
+
+% --- PALETA DE COLORES ---
+\definecolor{WCDarkBlue}{RGB}{22, 34, 57}
+\definecolor{WCBlue}{RGB}{0, 84, 166}
+\definecolor{WCGray}{RGB}{68, 68, 68}
+\definecolor{WCBgGray}{RGB}{248, 248, 248}
+
+% --- HIPERVÍNCULOS ---
+\hypersetup{
+    colorlinks=true, linkcolor=WCBlue, urlcolor=WCDarkBlue,
+    pdftitle={\@title},
+    pdfauthor={\@author}
+}
+
+% --- TÍTULOS DE SECCIÓN ---
+\titleformat{\section}{\raleway\Large\bfseries\color{WCDarkBlue}}{}{0em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titleformat{\subsection}{\raleway\large\bfseries\color{WCGray}}{}{0em}{}
+
+% --- ENCABEZADO Y PIE DE PÁGINA ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily Wasaff Consulting}
+\fancyhead[R]{\small\sffamily \@title}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% --- COMANDOS PARA LA PORTADA ---
+\makeatletter
+\newcommand{\wctitle}[1]{\gdef\@wctitle{#1}}
+\newcommand{\wcsubtitle}[1]{\gdef\@wcsubtitle{#1}}
+\newcommand{\wccovergraphic}[1]{\gdef\@wccovergraphic{#1}}
+\newcommand{\wccredits}[1]{\gdef\@wccredits{#1}}
+\gdef\@wctitle{} \gdef\@wcsubtitle{} \gdef\@wccovergraphic{} \gdef\@wccredits{}
+
+\newcommand{\makeWCTitlePage}{%
+    \begin{titlepage}
+        \pagecolor{WCDarkBlue}
+        \color{white}
+        \sffamily
+        \begin{center}
+            \vspace*{4cm}
+            {\raleway\Huge\bfseries \@wctitle}
+            \vspace{0.3cm}
+            {\raleway\itshape\Large \@wcsubtitle}
+            \vspace{2cm}
+            % La imagen debe tener fondo transparente
+            \includegraphics[width=0.7\textwidth]{\@wccovergraphic}
+            \vfill
+            % Logo al final
+            {\raleway\bfseries\LARGE Wasaff} \\
+            {\raleway\small\scshape CONSULTING}
+            \vspace{1cm}
+            {\small \@wccredits}
+            \vspace{2cm}
+        \end{center}
+    \end{titlepage}
+    \thispagestyle{empty}
+    \clearpage
+    \pagecolor{white}
+    \color{WCGray}
+}
+\makeatother

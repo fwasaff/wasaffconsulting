@@ -1,0 +1,80 @@
+\part*{Parte B: Implementación y Análisis de Resultados}
+\addcontentsline{toc}{section}{Parte B: Implementación y Análisis de Resultados}
+
+\section{De la Teoría a la Práctica: Implementación con FEniCS}
+En esta segunda parte, implementaremos un caso práctico: el calentamiento de una superficie con un flujo de calor constante, utilizando FEniCS.
+
+\subsection{Definición del Problema Físico y Parámetros}
+Para que la simulación sea concreta, asignamos valores numéricos:
+\begin{itemize}
+    \item \textbf{Geometría:} Una placa cuadrada de titanio de $10 \text{ cm} \times 10 \text{ cm}$.
+    \item \textbf{Propiedades del Material (Titanio):}
+        \begin{itemize}
+            \item Conductividad térmica, $k = 21.9 \text{ W/(m·K)}$.
+            \item Densidad, $\rho = 4500 \text{ kg/m}^3$.
+            \item Capacidad calorífica, $c_p = 523 \text{ J/(kg·K)}$.
+        \end{itemize}
+    \item \textbf{Condiciones de Simulación:}
+        \begin{itemize}
+            \item Temperatura inicial, $T_0 = 298.15 \text{ K}$ (25 $^{\circ}$C).
+            \item Flujo de calor impuesto, $g = 10000 \text{ W/m}^2$, en el borde izquierdo de la placa ($x=0$).
+            \item El resto de bordes se consideran aislados ($g=0$).
+            \item Duración total de la simulación: $t_{final} = 100$ segundos.
+            \item Paso de tiempo, $\Delta t = 2$ segundos.
+        \end{itemize}
+\end{itemize}
+
+\subsection{Implementación del Código (Versión Final)}
+El siguiente script de Python resuelve el problema, traduciendo la Ecuación \ref{eq:heat_weak} a código.
+
+% --- INICIO DEL BLOQUE DE CÓDIGO CORREGIDO Y ENVUELTO ---
+\begin{tcolorbox}[colback=CodeBackground, title=Script de Simulación para Calor Transitorio en FEniCS, listing only, listing options={style=pythonstyle}]
+from fenics import *
+import numpy as np
+
+# 1. Parámetros físicos y de la simulación
+t_final = 100.0; dt = 2.0; num_steps = int(t_final / dt)
+k = 21.9; rho = 4500; cp = 523; T0 = 298.15; g_in = 10000
+
+# 2. Malla y Espacio de Funciones
+mesh = RectangleMesh(Point(0, 0), Point(0.1, 0.1), 20, 20)
+V = FunctionSpace(mesh, 'P', 1)
+
+# 3. Funciones de prueba y de solución
+T = TrialFunction(V); v = TestFunction(V)
+T_n = Function(V) # Solución del tiempo anterior (n-1)
+
+# 4. Condición Inicial
+T_0_expr = Constant(T0)
+T_n.assign(interpolate(T_0_expr, V))
+
+# 5. Fronteras y medidas de integración
+left_boundary = 'on_boundary && near(x[0], 0)'
+ds_heat = ds(subdomain_data=CompiledSubDomain(left_boundary))
+
+# 6. Forma Débil en código UFL
+f = Constant(0); g = Constant(g_in)
+a = rho*cp*T*v*dx + dt*k*dot(grad(T), grad(v))*dx
+L = rho*cp*T_n*v*dx + dt*f*v*dx + dt*g*v*ds_heat(1)
+
+# 7. Bucle de solución temporal
+T_sol = Function(V)
+vtkfile = File('calor_transitorio/solution.pvd')
+t = 0
+for n in range(num_steps):
+    t += dt
+    solve(a == L, T_sol)
+    vtkfile << (T_sol, t)
+    T_n.assign(T_sol)
+\end{lstlisting}
+\end{tcolorbox}
+% --- FIN DEL BLOQUE DE CÓDIGO ---
+
+\subsection{Análisis de Resultados y Visualización}
+La ejecución del script genera un archivo `solution.pvd` que se puede visualizar en ParaView para analizar la evolución temporal y espacial del calor.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.8\textwidth]{wasaff_logo.png} % Placeholder para el resultado de ParaView
+\caption{Mapa de contorno de la temperatura final ($t=100$s). Se observa la máxima temperatura en la cara izquierda, donde se aplica el flujo de calor, y cómo este se difunde hacia el interior de la placa.}
+\end{figure}

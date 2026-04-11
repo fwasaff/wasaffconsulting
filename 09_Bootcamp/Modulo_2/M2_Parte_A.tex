@@ -1,0 +1,80 @@
+\part*{Parte A: Formulación Teórica del Problema}
+\addcontentsline{toc}{section}{Parte A: Formulación Teórica del Problema}
+
+\section{Introducción: De la Fotografía al Vídeo de la Física}
+En el Módulo 1, dominamos la Ecuación de Poisson para describir sistemas en estado estacionario: una ``fotografía'' del estado de equilibrio final. Sin embargo, en la vasta mayoría de los problemas de ingeniería, la pregunta crucial no es solo dónde termina el sistema, sino \textit{cómo} y \textit{cuándo} llega allí.
+
+Este módulo da el siguiente paso fundamental: la introducción de la dimensión del \textbf{tiempo}. Pasaremos de la fotografía al ``vídeo'', modelando la evolución dinámica de los sistemas físicos. Derivaremos la \textbf{Ecuación del Calor}, la contraparte transitoria de la Ecuación de Poisson, que gobierna fenómenos como el calentamiento, el enfriamiento y la difusión.
+
+El desafío computacional ahora es doble: debemos discretizar tanto el espacio (con FEM, como ya aprendimos) como el tiempo. Demostraremos cómo una técnica de diferencias finitas nos permite transformar un problema dinámico continuo en una secuencia de problemas estáticos, que podemos resolver paso a paso utilizando el conocimiento fundamental del módulo anterior.
+
+\begin{infobox}
+    El análisis transitorio es indispensable para el diseño y la operación de sistemas de ingeniería. La Ecuación del Calor nos permite responder preguntas como:
+    \begin{itemize}
+        \item \textbf{Seguridad y Diseño Térmico:} ¿Cuánto tiempo tarda un componente electrónico en alcanzar una temperatura crítica durante un pico de operación?
+        \item \textbf{Procesos de Manufactura:} ¿Cuál es la curva de enfriamiento de una pieza de metal fundido para asegurar la microestructura deseada?
+        \item \textbf{Sistemas de Baterías:} ¿Cómo se distribuye y evoluciona el calor en una batería de vehículo eléctrico durante un ciclo de carga rápida?
+    \end{itemize}
+    Modelar la dinámica temporal es esencial para predecir el rendimiento, la eficiencia y la fiabilidad de un sistema.
+\end{infobox}
+
+\section{Derivación Física de la Ecuación del Calor}
+Para introducir el tiempo, debemos volver al principio más fundamental: la conservación de la energía. En el Módulo 1, el estado estacionario nos permitió asumir que la energía neta que entraba y se generaba era cero. Ahora, en un problema transitorio, debemos considerar el término de \textbf{acumulación de energía}, como se detalla en textos de referencia como \cite{incropera2007}.
+
+El balance de energía completo para un volumen de control $\Omega$ es:
+$$ \left( \begin{array}{c} \text{Tasa de energía} \\ \text{que entra} \end{array} \right) - \left( \begin{array}{c} \text{Tasa de energía} \\ \text{que sale} \end{array} \right) + \left( \begin{array}{c} \text{Tasa de energía} \\ \text{generada} \end{array} \right) = \left( \begin{array}{c} \text{Tasa de energía} \\ \text{acumulada} \end{array} \right) $$
+
+\subsection{El Término de Acumulación: La Inercia Térmica}
+La tasa a la que un volumen de material acumula energía es su capacidad para almacenar calor, lo cual se manifiesta como un cambio en su temperatura. Esta relación se define a través de dos propiedades intrínsecas del material:
+\begin{itemize}
+    \item \textbf{Densidad ($\rho$):} Masa por unidad de volumen [kg/m$^3$].
+    \item \textbf{Capacidad Calorífica Específica ($c_p$):} Energía necesaria para elevar la temperatura de una unidad de masa en un grado [J/(kg·K)].
+\end{itemize}
+Así, la tasa de acumulación de energía por unidad de volumen es:
+\begin{equation}
+    \text{Tasa de acumulación} = \rho c_p \frac{\partial T}{\partial t}
+\end{equation}
+
+\subsection{La Ecuación Gobernante (Forma Fuerte Transitoria)}
+Combinando todos los términos en un balance por unidad de volumen y usando la Ley de Fourier, llegamos a la forma canónica de la \textbf{Ecuación del Calor}:
+\begin{equation}
+    \rho c_p \frac{\partial T}{\partial t} - \nabla \cdot (k \nabla T) = f
+    \label{eq:heat_strong}
+\end{equation}
+Esta es una Ecuación Diferencial Parcial (EDP) de tipo parabólico, que describe la evolución de la temperatura $T(x,y,z,t)$.
+
+\section{El Salto al Mundo Digital: Discretizando el Tiempo}
+La Ecuación \ref{eq:heat_strong} es una ley continua. Nuestra estrategia será avanzar en el tiempo en pequeños ``pasos'' discretos, $\Delta t$. Transformaremos el problema de encontrar una función continua $T(t)$ a encontrar una secuencia de ``fotografías'' de la temperatura en los instantes $t_0, t_1, \dots, t_N$.
+
+\subsection{El Método de Diferencias Finitas: Euler Implícito}
+Para aproximar la derivada temporal, usaremos el método de \textbf{Euler Implícito}, una técnica robusta y estable detallada en textos de matemática numérica como \cite{quarteroni2007}. Aproximamos la derivada en el tiempo actual $t^n$ usando el estado conocido del tiempo anterior $t^{n-1}$:
+\begin{equation}
+    \frac{\partial T}{\partial t} \bigg|_{t=t^n} \approx \frac{T^n - T^{n-1}}{\Delta t}
+    \label{eq:euler}
+\end{equation}
+
+\subsection{La Ecuación Semi-Discretizada: De Dinámica a Estática}
+Sustituyendo la aproximación de Euler en la forma fuerte y reordenando, obtenemos una ecuación puramente espacial para la incógnita $T^n$:
+\begin{equation}
+    \underbrace{\rho c_p T^n - \Delta t \, \nabla \cdot (k \nabla T^n)}_{\text{Términos desconocidos en } t^n} = \underbrace{\rho c_p T^{n-1} + \Delta t \, f^n}_{\text{Términos conocidos}}
+    \label{eq:semidiscrete}
+\end{equation}
+¡Hemos transformado el problema dinámico en una secuencia de problemas estáticos!
+
+\section{Derivación de la Forma Débil Transitoria}
+Aplicamos el procedimiento de residuo ponderado e integración por partes a la Ecuación \ref{eq:semidiscrete}, una técnica central del FEM \cite{zienkiewicz2013}. Esto nos lleva a la forma débil final, el lenguaje que FEniCS entiende \cite{logg2012}.
+
+\begin{keybox}{WasaffCopper}
+    \textbf{Formulación Débil (Variacional) de la Ecuación del Calor:}
+    
+    Para cada paso de tiempo $n$, encontrar $T^n \in V$ tal que para todo $v \in \hat{V}$:
+    \begin{equation}
+        \boxed{
+        \underbrace{\int_{\Omega} \left( \rho c_p T^n v + \Delta t \, k \nabla T^n \cdot \nabla v \right) dV}_{\substack{\text{a(T\textsuperscript{n},v)} \\ \text{Acumulación + Difusión en } t^n}} = \underbrace{\int_{\Omega} \rho c_p T^{n-1} v \, dV + \Delta t \left( \int_{\Omega} f^n v \, dV + \int_{\partial \Omega} g^n v \, dS \right)}_{\substack{\text{L(v)} \\ \text{Estado anterior + Fuentes externas}}}
+        }
+        \label{eq:heat_weak}
+    \end{equation}
+\end{keybox}
+
+\section{Conclusión de la Parte A: La Receta para la Simulación}
+Hemos completado el riguroso viaje teórico para modelar problemas de calor transitorios. El resultado final, la Ecuación \ref{eq:heat_weak}, es una receta precisa y robusta lista para ser implementada en un software de elementos finitos. Hemos construido el ``porqué'' y el ``qué''. En la Parte B, nos enfocaremos en el ``cómo''.

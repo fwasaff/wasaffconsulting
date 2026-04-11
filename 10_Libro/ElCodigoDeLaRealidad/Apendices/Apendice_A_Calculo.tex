@@ -1,0 +1,92 @@
+\chapter{Notación y Operaciones de Cálculo Tensorial}
+\label{app:calculus}
+
+Este apéndice sirve como una referencia rápida para la notación y las operaciones de cálculo vectorial y tensorial utilizadas a lo largo de este libro. El objetivo es proporcionar definiciones concisas y recordar la intuición física detrás de los operadores fundamentales.
+
+%==================================================================================
+\section{\texorpdfstring{El Operador Nabla ($\nabla$)}{El Operador Nabla (nabla)}}
+%==================================================================================
+El pilar de todo el cálculo vectorial es el operador diferencial vectorial \textbf{nabla} (o del), denotado por $\nabla$. En coordenadas cartesianas $(x, y, z)$, se define como:
+\begin{equation}
+    \nabla \equiv \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z} \right)
+\end{equation}
+Este operador no tiene valor por sí mismo; adquiere significado cuando actúa sobre un campo escalar, vectorial o tensorial.
+
+%==================================================================================
+\section{Operaciones Fundamentales}
+%==================================================================================
+
+%----------------------------------------------------------------------------------
+\subsection{\texorpdfstring{Operaciones sobre Campos Escalares ($s$)}{Operaciones sobre Campos Escalares (s)}}
+%----------------------------------------------------------------------------------
+\paragraph{\texorpdfstring{Gradiente ($\nabla s$)}{Gradiente (nabla s)}}
+El gradiente de un campo escalar $s$ es un campo vectorial que apunta en la dirección del máximo incremento de $s$. Su magnitud es la tasa de dicho incremento.
+\begin{equation}
+    \text{grad}(s) = \nabla s = \left( \frac{\partial s}{\partial x}, \frac{\partial s}{\partial y}, \frac{\partial s}{\partial z} \right)
+\end{equation}
+\textit{Intuición Física:} Si $s$ es la temperatura de una placa, $\nabla s$ en un punto apunta hacia la dirección en la que la placa se calienta más rápidamente.
+
+%----------------------------------------------------------------------------------
+\subsection{\texorpdfstring{Operaciones sobre Campos Vectoriales ($\bm{v}$)}{Operaciones sobre Campos Vectoriales (v)}}
+%----------------------------------------------------------------------------------
+\paragraph{\texorpdfstring{Divergencia ($\nabla \cdot \bm{v}$)}{Divergencia (nabla . v)}}
+La divergencia de un campo vectorial $\bm{v}$ es un campo escalar que mide la tasa a la que un ``flujo'' emana de un punto.
+\begin{equation}
+    \text{div}(\bm{v}) = \nabla \cdot \bm{v} = \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z}
+\end{equation}
+\textit{Intuición Física:} Una divergencia positiva significa que el punto es una fuente (ej. una fuente de calor). Una divergencia negativa significa que es un sumidero. Una divergencia cero (como en la ecuación de incompresibilidad, $\nabla \cdot \bm{u} = 0$) significa que el fluido no se crea ni se destruye.
+
+\paragraph{\texorpdfstring{Gradiente de un Vector ($\nabla\bm{v}$)}{Gradiente de un Vector (nabla v)}}
+El gradiente de un campo vectorial $\bm{v}$ es un campo tensorial de segundo orden que describe cómo cambia el vector en el espacio.
+\begin{equation}
+    \nabla\bm{v} = 
+    \begin{pmatrix}
+        \frac{\partial v_x}{\partial x} & \frac{\partial v_x}{\partial y} & \frac{\partial v_x}{\partial z} \\
+        \frac{\partial v_y}{\partial x} & \frac{\partial v_y}{\partial y} & \frac{\partial v_y}{\partial z} \\
+        \frac{\partial v_z}{\partial x} & \frac{\partial v_z}{\partial y} & \frac{\partial v_z}{\partial z}
+    \end{pmatrix}
+\end{equation}
+Su parte simétrica es el tensor de deformación, $\bm{\varepsilon} = \frac{1}{2}(\nabla\bm{v} + (\nabla\bm{v})^T)$.
+
+%----------------------------------------------------------------------------------
+\subsection{\texorpdfstring{Operaciones sobre Campos Tensoriales ($\bm{\sigma}$)}{Operaciones sobre Campos Tensoriales (sigma)}}
+%----------------------------------------------------------------------------------
+\paragraph{\texorpdfstring{Divergencia de un Tensor ($\nabla \cdot \bm{\sigma}$)}{Divergencia de un Tensor (nabla . sigma)}}
+La divergencia de un campo tensorial de segundo orden $\bm{\sigma}$ es un campo vectorial. Es fundamental en la mecánica de medios continuos.
+\begin{equation}
+    \nabla \cdot \bm{\sigma} = \left( \frac{\partial \sigma_{xx}}{\partial x} + \frac{\partial \sigma_{xy}}{\partial y} + \frac{\partial \sigma_{xz}}{\partial z}, \dots \right)
+\end{equation}
+\textit{Intuición Física:} Representa la fuerza neta por unidad de volumen debida a la variación espacial de los esfuerzos. En equilibrio, $\nabla \cdot \bm{\sigma} = \bm{0}$ significa que las fuerzas internas están balanceadas.
+
+%==================================================================================
+\section{Teoremas Integrales Clave}
+%==================================================================================
+
+%----------------------------------------------------------------------------------
+\subsection{El Teorema de la Divergencia (Gauss)}
+%----------------------------------------------------------------------------------
+Este es el teorema más importante del cálculo vectorial. Relaciona la integral de la divergencia de un campo vectorial $\bm{v}$ sobre un volumen $\Omega$ con la integral del flujo de ese campo a través de la frontera cerrada $\partial\Omega$.
+\begin{equation}
+    \int_{\Omega} (\nabla \cdot \bm{v}) \, dV = \int_{\partial\Omega} (\bm{v} \cdot \bm{n}) \, dS
+    \label{eq:div-theorem}
+\end{equation}
+donde $\bm{n}$ es el vector normal unitario exterior a la frontera.
+\textit{Intuición Física:} La cantidad neta de ``algo'' que se genera dentro de un volumen (lado izquierdo) debe ser igual a la cantidad neta de ese ``algo'' que fluye hacia afuera a través de su frontera (lado derecho). Es la base de todas las leyes de conservación.
+
+%----------------------------------------------------------------------------------
+\subsection{Integración por Partes (Primera Identidad de Green)}
+%----------------------------------------------------------------------------------
+Esta es la herramienta que constituye el ``truco mágico del FEM'' y que nos permite derivar la forma débil. Se obtiene directamente del teorema de la divergencia al elegir un campo vectorial específico, $\bm{v} = s \nabla w$, donde $s$ y $w$ son campos escalares.
+\begin{equation}
+    \int_{\Omega} (s \nabla^2 w + \nabla s \cdot \nabla w) \, dV = \int_{\partial\Omega} s (\nabla w \cdot \bm{n}) \, dS
+\end{equation}
+Reordenando, obtenemos la forma que usamos repetidamente en este libro para mover una derivada de una función a otra:
+\begin{equation}
+    \int_{\Omega} s \nabla^2 w \, dV = \int_{\partial\Omega} s (\nabla w \cdot \bm{n}) \, dS - \int_{\Omega} \nabla s \cdot \nabla w \, dV
+    \label{eq:green-first}
+\end{equation}
+Una versión más general para un campo vectorial $\bm{v}$ y un campo tensorial $\bm{\sigma}$ es:
+\begin{equation}
+    \int_{\Omega} (\nabla \cdot \bm{\sigma}) \cdot \bm{v} \, dV = \int_{\partial\Omega} (\bm{\sigma} \cdot \bm{n}) \cdot \bm{v} \, dS - \int_{\Omega} \bm{\sigma} : \nabla\bm{v} \, dV
+\end{equation}
+Esta última forma es la que se utiliza en la derivación de la forma débil de la mecánica de sólidos.

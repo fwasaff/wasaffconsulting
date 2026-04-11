@@ -1,0 +1,169 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- PAQUETES ESENCIALES ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel} 
+\usepackage{graphicx}                
+\usepackage{amsmath}                 
+\usepackage{geometry}                
+\usepackage{fancyhdr}                
+\usepackage[sans]{raleway}           % Fuente Raleway (similar a la de tu web)
+\usepackage[table]{xcolor}           
+\usepackage{booktabs}                
+\usepackage{float}                   
+\usepackage{enumitem}                
+\usepackage{hyperref}                % Para links y referencias cruzadas
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Dossier de Ingeniería - Synergy},
+    pdfpagemode=FullScreen,
+}
+
+% --- CONFIGURACIÓN DEL DOCUMENTO ---
+\geometry{
+    a4paper,
+    left=2.5cm,
+    right=2.5cm,
+    top=3cm,
+    bottom=3cm,
+    headheight=15pt
+}
+\renewcommand{\familydefault}{\sfdefault} 
+\setlength{\parindent}{0pt} 
+\setlength{\parskip}{1.2ex} 
+
+% --- CONFIGURACIÓN DE ENCABEZADO Y PIE DE PÁGINA ---
+\pagestyle{fancy}
+\fancyhf{} 
+\fancyhead[L]{\includegraphics[height=1cm]{logo_wasaff_consulting.png}}
+\fancyhead[R]{\itshape{Dossier de Ingeniería} \\ \textbf{Proyecto Synergy - Análisis de Riesgo por Izaje}}
+\fancyfoot[C]{\thepage} 
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- PORTADA DEL DOCUMENTO ---
+\title{
+    \vspace{2cm}
+    \includegraphics[height=4cm]{logo_wasaff_consulting.png}\\[2cm]
+    \huge{\textbf{Dossier de Ingeniería}}\\[0.5cm]
+    \Large{Análisis Predictivo de Riesgos por Caída de Tuberías}\\[1.5cm]
+}
+\author{
+    \large{Preparado para: \textbf{Synergy Fire Protection}}\\[0.5cm]
+    \large{Contacto: \textbf{Francisco Pérez, Gerente de Operaciones}}\\[2cm]
+    \large{Preparado por: \textbf{Felipe Wasaff}}\\
+    \large{\textit{Fundador, Wasaff Consulting}}\\[0.2cm]
+    \texttt{felipe@wasaffconsulting.com}
+}
+\date{Julio de 2025}
+
+% =============================================================================
+% INICIO DEL DOCUMENTO
+% =============================================================================
+\begin{document}
+
+\maketitle
+\thispagestyle{empty} 
+
+\newpage
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+\setcounter{page}{3} 
+
+% --- SECCIÓN 1: RESUMEN EJECUTIVO ---
+\section{Resumen Ejecutivo y Recomendaciones Clave}
+
+El presente documento detalla el análisis de riesgo por impacto para operaciones de izaje de tuberías, solicitado por Synergy Fire Protection. Nuestro estudio, basado en los primeros principios de la física de impacto y un modelo computacional, concluye lo siguiente:
+
+\begin{itemize}[leftmargin=*, itemsep=1ex]
+    \item \textbf{El riesgo no es lineal:} El análisis revela que la energía de impacto, y por ende el riesgo, aumenta de forma exponencial con el diámetro de la tubería, superando rápidamente la capacidad de los Equipos de Protección Personal (EPP) estándar.
+    
+    \item \textbf{El EPP es insuficiente como control primario:} A partir de caídas de baja altura (2-3 metros) con tuberías de más de 2 pulgadas, la energía liberada excede sistemáticamente el umbral de protección de un casco de seguridad industrial (50 J), representando un riesgo de lesión grave o mortal.
+    
+    \item \textbf{Es necesario un nuevo paradigma de seguridad:} Se requiere un protocolo basado en niveles de riesgo cuantitativos y controles de ingeniería (zonas de exclusión), en lugar de depender únicamente del EPP.
+\end{itemize}
+
+\subsection*{Recomendación Principal}
+\textbf{Wasaff Consulting recomienda formalmente la adopción de un Protocolo de Seguridad de Izaje por Niveles, basado en el Mapa de Riesgo Operacional (Figura \ref{fig:heatmap}) desarrollado en este informe.} Se propone la implementación inmediata de \textbf{Zonas de Exclusión Controlada} para todas las operaciones clasificadas con riesgo `GRAVE (Rojo)` o superior, y el tratamiento de los escenarios de mayor energía como \textbf{Izajes Críticos}.
+
+% --- SECCIÓN 2: METODOLOGÍA ---
+\section{Metodología de Análisis}
+
+Para cuantificar el riesgo, se desarrolló un modelo computacional en Python que calcula la energía potencial de impacto ($E_p = m \cdot g \cdot h$) para una matriz de 288 escenarios, cubriendo alturas de 1 a 16 metros y diámetros de tubería de 1" a 12" (SCH 40), asumiendo un tramo estándar de 6 metros. Los resultados energéticos (en KiloJoules) se clasificaron en cuatro niveles de riesgo basados en umbrales de seguridad industrial establecidos (ANSI/ASTM).
+
+\newpage
+
+% --- SECCIÓN 3: RESULTADOS Y VISUALIZACIÓN ---
+\section{Resultados: El Mapa de Riesgo Operacional}
+
+La Figura \ref{fig:heatmap} presenta el "Dashboard de Decisión". Cada celda indica el nivel de riesgo para una combinación específica de altura y diámetro. Es una herramienta visual diseñada para la toma de decisiones rápidas en terreno. Se observa que la gran mayoría de las operaciones de izaje comunes caen en la categoría de riesgo `GRAVE`, haciendo imperativa la implementación de controles de ingeniería.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{grafico_mapa_riesgo_categorico.png}
+    \caption{Mapa de Riesgo Operacional por Escenario de Izaje (Tuberías SCH 40)}
+    \label{fig:heatmap}
+\end{figure}
+
+% --- SECCIÓN 4: ANÁLISIS DE ESCENARIOS ---
+\section{Análisis de Escenarios Críticos}
+
+La Figura \ref{fig:impact_curve} ilustra por qué el riesgo no debe ser subestimado. Se seleccionaron tres diámetros representativos (2", 6" y 12"). La curva demuestra que el salto de una tubería de 6" a una de 12" no duplica la energía de impacto; la multiplica por un factor de $\sim$2.6, cruzando el umbral de "Riesgo Estructural" (>10 kJ) a solo 3-4 metros de altura. Esta no-linealidad es el principal insight del estudio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{grafico_escenarios_criticos.png}
+    \caption{El Impacto No Lineal del Diámetro en la Energía de Caída (SCH 40)}
+    \label{fig:impact_curve}
+\end{figure}
+
+\newpage
+
+% --- SECCIÓN 5: RECOMENDACIONES ---
+\section{Recomendaciones y Protocolo de Seguridad Propuesto}
+
+Basado en el análisis cuantitativo, se propone el siguiente protocolo de seguridad por niveles. Cada nivel de riesgo requiere la implementación de controles progresivamente más estrictos.
+
+\begin{itemize}[leftmargin=*, itemsep=2ex]
+    \item \textbf{NIVEL BAJO (VERDE) -- Energía < 50 J}
+    \begin{itemize}
+        \item \textit{Controles Requeridos:} Procedimientos estándar de izaje. Uso obligatorio de EPP completo (casco, botas, guantes). Inspección visual de eslingas y aparejos.
+    \end{itemize}
+
+    \item \textbf{NIVEL SIGNIFICATIVO (AMARILLO) -- 50 J $\le$ E < 200 J}
+    \begin{itemize}
+        \item \textit{Controles Requeridos:} Todos los controles del Nivel Bajo, MÁS: Supervisión dedicada durante la maniobra y delimitación de un área de trabajo señalizada.
+    \end{itemize}
+
+    \item \textbf{NIVEL GRAVE (ROJO) -- 200 J $\le$ E < 10,000 J}
+    \begin{itemize}
+        \item \textit{Controles Requeridos:} Todos los controles anteriores, MÁS: Implementación obligatoria de una **Zona de Exclusión Controlada (barreras físicas)**. Prohibido el personal no esencial en el área.
+    \end{itemize}
+
+    \item \textbf{NIVEL CATASTRÓFICO (PÚRPURA) -- Energía $\ge$ 10,000 J}
+    \begin{itemize}
+        \item \textit{Controles Requeridos:} La operación debe ser tratada como un **IZAJE CRÍTICO**. Requiere un **Plan de Izaje (Rigging Plan)** formal, revisado y firmado por un supervisor senior. Prohibición total de personal en toda la zona de sombra de la grúa.
+    \end{itemize}
+\end{itemize}
+
+% --- SECCIÓN 6: CONCLUSIÓN ---
+\section{Conclusión}
+
+Wasaff Consulting ha proporcionado a Synergy Fire Protection un análisis cuantitativo que transforma la percepción del riesgo en una certeza medible. La implementación de los protocolos recomendados no solo elevará drásticamente los estándares de seguridad, sino que también posicionará a Synergy como un líder en la gestión de riesgos operacionales en la industria. Estamos a su disposición para colaborar en la fase de implementación y capacitación de estos nuevos estándares.
+
+\vspace{1.5cm}
+\begin{center}
+\rule{0.8\textwidth}{0.4pt}
+\end{center}
+\vspace{0.3cm}
+\begin{center}
+\parbox{0.8\textwidth}{\footnotesize\itshape \textbf{Nota Importante sobre el Alcance:} Este documento constituye el Diagnóstico Estratégico de Riesgos. Wasaff Consulting está preparado para entregar una propuesta comercial detallada para la fase subsecuente de "Implementación y Capacitación de Protocolos de Seguridad".}
+\end{center}
+
+\end{document}

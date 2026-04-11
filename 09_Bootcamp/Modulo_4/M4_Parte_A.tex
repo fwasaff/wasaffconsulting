@@ -1,0 +1,92 @@
+\part*{Parte A: Formulación Teórica del Problema}
+\addcontentsline{toc}{section}{Parte A: Formulación Teórica del Problema}
+
+\section{Introducción: Cuando las Físicas Colaboran}
+Hasta ahora, hemos operado en silos físicos: resolvimos problemas de calor sin considerar sus efectos mecánicos. Sin embargo, la verdadera ingeniería a menudo reside en la intersección de múltiples dominios. La \textbf{termoelasticidad} es nuestro primer paso en este fascinante mundo de la simulación multifísica.
+
+Este módulo acopla dos campos de estudio que a primera vista son independientes: el campo de \textbf{temperatura} (gobernado por la Ecuación del Calor) y el campo de \textbf{desplazamientos} (gobernado por las ecuaciones de la elasticidad). Analizaremos el fenómeno fundamental de la \textbf{dilatación térmica}: cómo un cambio de temperatura en un cuerpo induce un deseo de expandirse o contraerse y, si este movimiento es restringido, cómo se generan esfuerzos internos que pueden llevar al fallo del componente.
+
+\begin{infobox}
+    El acoplamiento termo-mecánico es crítico en innumerables aplicaciones de alta tecnología:
+    \begin{itemize}
+        \item \textbf{Motores y Turbinas:} Los componentes operan a temperaturas extremas. Los gradientes térmicos generan esfuerzos que son el principal factor limitante de la vida útil del componente.
+        \item \textbf{Microelectrónica (MEMS):} Actuadores y sensores diminutos se diseñan para deformarse de manera predecible con pequeños cambios de temperatura. Un ejemplo clásico son las tiras bimetálicas, el corazón de muchos termostatos.
+        \item \textbf{Ingeniería Civil y Aeroespacial:} Los esfuerzos térmicos en puentes, edificios o alas de avión debidos a la variación de la temperatura día-noche o de operación deben ser considerados en el diseño estructural para evitar fallos catastróficos.
+    \end{itemize}
+\end{infobox}
+
+\section{Los Dos Pilares Físicos del Problema}
+Para construir nuestro modelo multifísico, debemos primero entender las ecuaciones gobernantes de cada física por separado, para luego identificar el término que actúa como puente entre ellas.
+
+\subsection{Pilar 1: Elasticidad Lineal (El Mundo de la Mecánica)}
+La mecánica de sólidos se encarga de describir cómo un cuerpo se deforma y genera esfuerzos internos cuando se le aplican fuerzas. Se basa en tres conceptos clave:
+
+\textbf{1. Desplazamiento ($\mathbf{u}$):} Es un campo vectorial que describe cuánto se ha movido cada punto del cuerpo desde su posición original.
+
+\textbf{2. Deformación ($\bm{\varepsilon}$):} Mide el cambio de forma \textit{relativo} de un material; no le importa si el cuerpo se movió rígidamente, solo si se estiró, se comprimió o se distorsionó. Se calcula como la parte simétrica del gradiente del desplazamiento:
+\begin{equation}
+    \bm{\varepsilon}(\mathbf{u}) = \frac{1}{2} \left( \nabla \mathbf{u} + (\nabla \mathbf{u})^T \right)
+\end{equation}
+
+\textbf{3. Esfuerzo ($\bm{\sigma}$):} Es un tensor que representa las fuerzas internas que las partículas de un material se ejercen entre sí como reacción a una deformación. Es la medida de qué tan ``cargado'' está internamente el material.
+
+Estos tres conceptos se relacionan mediante dos leyes fundamentales:
+
+\textbf{Ley Constitutiva (Ley de Hooke):} Relaciona la deformación con el esfuerzo a través de las propiedades del material. Para un material elástico lineal, el esfuerzo es proporcional a la deformación mecánica.
+
+\textbf{Ecuación de Equilibrio:} Es la aplicación de la segunda ley de Newton a un cuerpo continuo. Dicta que, para que el cuerpo esté en equilibrio estático (sin acelerar), la suma de las fuerzas internas debe ser cero en cada punto. Esto se expresa matemáticamente como la divergencia del tensor de esfuerzos. En ausencia de fuerzas externas (como la gravedad), la ecuación es:
+\begin{equation}
+    \nabla \cdot \bm{\sigma} = \mathbf{0}
+\end{equation}
+
+\subsection{Pilar 2: Conducción de Calor Transitoria (El Mundo Térmico)}
+Este es el campo que ya conocemos del Módulo 2. La evolución de la temperatura $T$ se rige por la \textbf{Ecuación del Calor}:
+\begin{equation}
+    \rho c_p \frac{\partial T}{\partial t} - \nabla \cdot (k \nabla T) = f
+\end{equation}
+
+\subsection{El Puente Multifísico: La Deformación Térmica}
+Hasta ahora, las dos físicas parecen completamente separadas. El eslabón que las une es un principio fundamental: \textbf{los materiales cambian su volumen con la temperatura.}
+
+La deformación total ($\bm{\varepsilon}$) en un cuerpo que sufre un cambio de temperatura se puede descomponer en dos partes:
+$$ \bm{\varepsilon}_{\text{total}} = \bm{\varepsilon}_{\text{mecánica}} + \bm{\varepsilon}_{\text{térmica}} $$
+El término clave es la \textbf{deformación térmica} ($\bm{\varepsilon}_{\text{th}}$). Para un cambio de temperatura $\Delta T = T - T_{\text{ref}}$, el material intentará expandirse o contraerse de forma isótropa (igual en todas las direcciones). Esta deformación ``deseada'' se modela como:
+\begin{equation}
+    \bm{\varepsilon}_{\text{th}} = \alpha \Delta T \mathbf{I}
+\end{equation}
+donde $\alpha$ es el coeficiente de dilatación térmica (una propiedad del material) y $\mathbf{I}$ es el tensor identidad.
+
+Aquí reside la clave del acoplamiento: \textbf{El esfuerzo solo es generado por la deformación mecánica}. Si una pieza se calienta y es libre de expandirse, lo hará sin generar esfuerzos. Los esfuerzos aparecen cuando esta expansión es \textit{restringida}, forzando al material a acomodarse.
+
+La ley constitutiva debe ser modificada para reflejar esto. El esfuerzo ahora se calcula a partir de la deformación mecánica, que es la deformación total menos la parte térmica:
+\begin{equation}
+    \bm{\sigma} = \lambda \text{tr}(\bm{\varepsilon}_{\text{mec}}) \mathbf{I} + 2\mu \bm{\varepsilon}_{\text{mec}} \quad \text{con} \quad \bm{\varepsilon}_{\text{mec}} = \underbrace{\bm{\varepsilon}(\mathbf{u})}_{\text{Total}} - \underbrace{\alpha \Delta T \mathbf{I}}_{\text{Térmica}}
+\end{equation}
+Al sustituir la temperatura $T$ en esta ecuación, hemos inyectado la física térmica directamente en el corazón de la ecuación de equilibrio mecánico.
+
+\section{La Forma Débil Acoplada}
+Para resolver este sistema con FEM, necesitamos derivar la forma débil de ambas ecuaciones gobernantes.
+
+\textbf{Forma Débil Térmica:} Esta ya la conocemos del Módulo 2. La multiplicamos por una función de prueba escalar $v$ y aplicamos integración por partes.
+
+\textbf{Forma Débil Mecánica:} Este paso es nuevo, pero sigue la misma lógica.
+\begin{enumerate}
+    \item Partimos de la forma fuerte: $\nabla \cdot \bm{\sigma} = \mathbf{0}$.
+    \item Multiplicamos por una función de prueba \textit{vectorial} $\mathbf{v}$ (ya que la ecuación es vectorial): $(\nabla \cdot \bm{\sigma}) \cdot \mathbf{v} = 0$.
+    \item Integramos sobre el dominio: $\int_{\Omega} (\nabla \cdot \bm{\sigma}) \cdot \mathbf{v} \, dV = 0$.
+    \item Aplicamos la integración por partes (usando una identidad de Green para tensores):
+    $$ \int_{\Omega} (\nabla \cdot \bm{\sigma}) \cdot \mathbf{v} \, dV = - \int_{\Omega} \bm{\sigma} : \nabla\mathbf{v} \, dV + \int_{\partial \Omega} (\bm{\sigma}\cdot\mathbf{n}) \cdot \mathbf{v} \, dS $$
+    \item Dado que $\bm{\sigma}$ es simétrico y $\bm{\varepsilon}(\mathbf{v})$ es la parte simétrica de $\nabla\mathbf{v}$, la primera integral del lado derecho se puede reescribir, llegando a la forma final. El término de frontera $\mathbf{t} = \bm{\sigma}\cdot\mathbf{n}$ representa las fuerzas de tracción aplicadas.
+\end{enumerate}
+
+\begin{keybox}{WasaffCopper}
+    \textbf{Sistema Variacional de Termoelasticidad:}
+    
+    Encontrar el par ($T, \mathbf{u}$) tal que para todo par de funciones de prueba ($v, \mathbf{v}$):
+    \begin{align}
+        \int_{\Omega} \rho c_p \frac{\partial T}{\partial t} v + k \nabla T \cdot \nabla v \, dV &= \int_{\Omega} fv \, dV + \int_{\partial \Omega} gv \, dS \\
+        \int_{\Omega} \bm{\sigma}(T, \mathbf{u}) : \bm{\varepsilon}(\mathbf{v}) \, dV &= \int_{\partial \Omega_N} \mathbf{t} \cdot \mathbf{v} \, dS
+    \end{align}
+\end{keybox}
+
+Este sistema se resuelve de forma ``monolítica''. Esto significa que el software ensamblará una única y gran matriz de sistema que contiene las incógnitas tanto de temperatura como de desplazamiento en todos los nodos de la malla, y resolverá todo simultáneamente.

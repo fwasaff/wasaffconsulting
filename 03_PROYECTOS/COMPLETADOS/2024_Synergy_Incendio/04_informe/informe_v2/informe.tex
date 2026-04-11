@@ -1,0 +1,210 @@
+\documentclass[11pt, a4paper, spanish]{article}
+
+% ==============================================================================
+% PREÁMBULO PROFESIONAL (idéntico al tuyo, ya es excelente)
+% ==============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{helvet}
+\renewcommand*\familydefault{\sfdefault}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage[labelfont=bf, textfont=it, singlelinecheck=false]{caption}
+\usepackage{fancyhdr}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, headheight=15pt}
+\setstretch{1.2}
+
+\definecolor{WCBlue}{RGB}{0, 84, 166}
+\definecolor{WCGray}{RGB}{45, 45, 45}
+\definecolor{WCLightGray}{RGB}{245, 245, 245}
+
+\hypersetup{
+    colorlinks=true, linkcolor=WCBlue, urlcolor=WCBlue,
+    pdftitle={Caso de Estudio: Ingeniería Predictiva en Riesgos de Izaje},
+    pdfauthor={Felipe Wasaff, Wasaff Consulting}
+}
+
+\titleformat{\section}{\Large\bfseries\scshape\color{WCBlue}}{}{0em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titleformat{\subsection}{\large\bfseries\color{WCGray}}{}{0em}{}
+
+\pagestyle{fancy}
+\fancyhf{} 
+\fancyhead[L]{\small\itshape Wasaff Consulting}
+\fancyhead[R]{\small\itshape Caso de Estudio: Análisis de Riesgos en Izaje}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% === INICIO DEL DOCUMENTO ===
+\begin{document}
+\thispagestyle{empty}
+
+% --- PORTADA --- (Mantenida, es profesional y limpia)
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        {\LARGE \textbf{WASAFF CONSULTING}} \\
+        \vspace{0.2cm}
+        {\scshape \small FÍSICA APLICADA E INGENIERÍA PREDICTIVA}
+        \vspace{3cm}
+        \rule{\textwidth}{0.8pt}
+        \vspace{0.2cm}
+        {\Huge\bfseries CASO DE ESTUDIO}
+        \vspace{0.5cm}\\
+        {\Large\itshape De la Incertidumbre a la Certeza Cuantitativa\par en Riesgos de Izaje Industrial}
+        \vspace{0.2cm}
+        \rule{\textwidth}{0.8pt}
+        \vfill
+        \begin{tabular}{rl}
+            \textbf{Cliente:} & Empresa Líder en Seguridad Industrial \\
+            \textbf{Servicio Aplicado:} & Diagnóstico Estratégico Predictivo \\
+        \end{tabular}
+        \vfill
+        \fcolorbox{WCGray}{WCLightGray}{%
+        \begin{minipage}{0.9\textwidth}
+            \centering
+            \vspace{0.3cm}
+            \textbf{IMPACTO CLAVE:} Desarrollo de una hoja de ruta para la mitigación de riesgos basada en evidencia física, que permite optimizar protocolos y justificar inversiones en seguridad con un ROI claro.
+            \vspace{0.3cm}
+        \end{minipage}%
+        }
+        \vfill
+        \small {\today}
+    \end{center}
+\end{titlepage}
+\clearpage
+
+% ==============================================================================
+% PÁGINA 2: RESUMEN EJECUTIVO (Refinado)
+% ==============================================================================
+\section*{Resumen Ejecutivo}
+\subsection*{El Desafío}
+Una empresa líder del sector de seguridad industrial solicitó un diagnóstico para validar sus protocolos en operaciones de izaje. Los métodos cualitativos, basados en percepciones, carecían del rigor para enfrentar escenarios de alta consecuencia. La pregunta fundamental era: \textbf{¿cómo transformar la gestión de riesgos de reactiva a predictiva?}
+
+\subsection*{Metodología de Análisis}
+Desarrollé un modelo físico-matemático en Python para simular más de 800 escenarios de caída de tuberías (ASME B36.10M), cuantificando dos métricas clave:
+\begin{itemize}[leftmargin=*, noitemsep, topsep=1ex]
+    \item \textbf{Energía de Impacto Vertical} (\(E = mgh\)), para caracterizar el peor escenario de impacto directo.
+    \item \textbf{Radio de Exclusión Horizontal}, mediante un modelo de trayectoria balística para el caso de una falla de eslinga.
+\end{itemize}
+Mi objetivo fue traducir la física a protocolos de seguridad basados en evidencia auditable.
+
+\subsection*{Hallazgos Cuantitativos}
+El análisis reveló una alarmante disparidad entre el riesgo percibido y la realidad física:
+\begin{itemize}[leftmargin=*, noitemsep, topsep=1ex]
+    \item \textbf{Ineficacia del EPP:} El \textbf{99.7\%} de los escenarios superan la capacidad protectora de un casco ANSI Tipo II (135 J).
+    \item \textbf{Riesgo Inmediato:} Maniobras rutinarias (tubería de 4" Sch 10 cayendo 1 metro) ya constituyen un riesgo potencialmente letal.
+    \item \textbf{Energía Catastrófica:} Los tubos de gran diámetro ($\geq$ 8") liberan energías >10 kJ, equivalentes a un impacto vehicular.\footnote{El umbral de 10 kJ se establece como un proxy conservador para ``daño estructural significativo'', consistente con estudios de balística terminal y normativas de seguridad industrial para contención de energía.}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figura_energia_impacto_multi_schedule.png} % <-- NUEVA FIGURA MEJORADA
+    \caption{
+        \textbf{Mapa de Energía de Impacto Multidimensional.}
+        El gráfico muestra la energía liberada para tuberías de diferentes diámetros y \textbf{espesores (Schedule)}. Se evidencia que el Schedule es un factor tan crítico como el diámetro. Las líneas punteadas indican umbrales clave, incluyendo el límite normativo \textbf{ANSI Z89.1-2014 (Tipo II)} para cascos.
+    }
+\end{figure}
+\clearpage
+
+% ==============================================================================
+% PÁGINA 3: SOLUCIÓN Y ROI (Secciones combinadas y enfocadas en el valor)
+% ==============================================================================
+\section*{La Solución: Hoja de Ruta para la Mitigación Inteligente}
+El diagnóstico culminó en una hoja de ruta con tres oportunidades estratégicas, priorizadas por su Retorno de Inversión (ROI) y facilidad de implementación.
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.8}
+    \begin{tabularx}{\textwidth}{>{\bfseries\raggedright}p{3.2cm} >{\raggedright}X >{\raggedright\arraybackslash}X}
+    \toprule
+    \rowcolor{WCGray}
+    \textbf{\color{white}Nivel de Riesgo} & \textbf{\color{white}Solución de Ingeniería Propuesta} & \textbf{\color{white}Justificación Estratégica y ROI} \\
+    \midrule
+    \rowcolor{WCLightGray}
+    \textbf{Frecuentes} & Implementar \textbf{Zonas de Exclusión Dinámicas} basadas en los modelos de impacto y trayectoria balística. & \textbf{Alto Retorno, Cero Inversión.} Mitiga el 85\% de los escenarios de riesgo sin costo de equipamiento. El ROI es efectivamente infinito, previniendo incidentes menores que erosionan la productividad. \\
+    
+    \textbf{Críticos (>10 kJ)} & Establecer un protocolo de \textbf{Planes de Izaje Críticos (PIC)} obligatorio y auditable. & \textbf{Control de Procesos Clave.} Formaliza la planificación de maniobras peligrosas. El ROI se manifiesta en la reducción del riesgo de incidentes graves, cuyas consecuencias (detención de obra) costarían >200x el valor de este diagnóstico por día. \\
+    
+    \rowcolor{WCLightGray}
+    \textbf{Catastróficos (>25 kJ)} & Requerir \textbf{retención redundante} (doble eslinga) y \textbf{barreras físicas duras}. & \textbf{Inversión en Resiliencia y Vidas Humanas.} Mitiga escenarios de máxima consecuencia. El ROI es proteger el activo más valioso: la vida de los trabajadores, previniendo fallas que detendrían un proyecto indefinidamente. \\
+    \bottomrule
+    \end{tabularx}
+\end{table}
+\vfill
+
+\subsection*{Próximos Pasos}
+Este diagnóstico entrega al cliente una base irrefutable para transformar su cultura de seguridad, pasando de la percepción al cálculo.
+\textbf{Los próximos pasos recomendados son:}
+\begin{enumerate}
+\item Implementar las Oportunidades 1 y 2 a nivel de procedimiento interno, usando la Tabla de Activación como guía de campo.
+\item \textbf{Solicitar a Wasaff Consulting una propuesta de Nivel 2 para la ingeniería de detalle de la Oportunidad 3} (diseño y simulación FEA de barreras de impacto).
+\end{enumerate}
+
+\begin{center}
+    \vspace{0.5cm}
+    \fcolorbox{WCBlue}{WCBlue}{%
+    \href{https://wasaffconsulting.com/diagnostico-estrategico}{%
+        \begin{minipage}{0.6\textwidth}
+            \centering
+            \color{white}\Large\bfseries\strut Inicie su Propio Diagnóstico Estratégico
+        \end{minipage}%
+    }}
+\end{center}
+
+\clearpage
+% ==============================================================================
+% PÁGINA 4: ANEXOS (A y B)
+% ==============================================================================
+\section*{Anexo A: Tabla de Activación de Protocolos en Terreno}
+
+\begin{table}[H]
+    \centering
+    \caption*{Tabla de Decisión Rápida para Izaje de Tuberías (Sch 40, L=6m)}
+    % ... (La tabla se mantiene igual, ya es excelente) ...
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabular}{c c c c c}
+        \toprule
+        \rowcolor{WCGray}
+        & \multicolumn{4}{c}{\textbf{\color{white}Altura de Caída Máxima (m)}} \\
+        \cmidrule(lr){2-5}
+        \rowcolor{WCGray}
+        \textbf{\color{white}Diámetro (NPS)} & \textbf{\color{white}Nivel 1} & \textbf{\color{white}Nivel 2} & \textbf{\color{white}Nivel 3} & \textbf{\color{white}Protocolo Mínimo Requerido} \\
+        \rowcolor{WCGray}
+        & \small{\color{white}<10 kJ} & \small{\color{white}10-25 kJ} & \small{\color{white}>25 kJ} & \\
+        \midrule
+        \rowcolor{WCLightGray}
+        \textbf{1" a 4"}   & Toda Altura & --           & --            & Zonas de Exclusión Dinámicas \\
+        \textbf{6"}         & hasta 10m   & $>$ 10m      & --            & Plan de Izaje Crítico (PIC) \\
+        \rowcolor{WCLightGray}
+        \textbf{8"}         & hasta 6m    & 7m a 15m     & $>$ 15m       & PIC + Posible Barrera Física \\
+        \textbf{10"}        & hasta 4m    & 5m a 10m     & $>$ 10m       & PIC + Retención Redundante \\
+        \rowcolor{WCLightGray}
+        \textbf{12"}        & hasta 2m    & 3m a 7m      & $>$ 7m        & PIC + Retención + Barreras Duras \\
+        \bottomrule
+    \end{tabular}
+    \vspace{0.2cm}
+    \small\textit{Nota: Los valores de altura son conservadores y redondeados a la baja para máxima seguridad.}
+\end{table}
+
+\section*{Anexo B: Transparencia Metodológica}
+Los cálculos de este informe se basan en los siguientes modelos simplificados, seleccionados por su naturaleza conservadora.
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Energía de Impacto:} Se utiliza un modelo de balance energético de cuerpo rígido, \(E = mgh\). Se desprecia la resistencia del aire para maximizar la energía calculada, representando así el escenario más conservador de impacto vertical.
+    \item \textbf{Radio de Exclusión:} Se modela la tubería como un proyectil balístico liberado desde una altura \(h\) con una velocidad horizontal inicial derivada de una falla de eslinga en un sistema de izaje estándar. Se consideran factores de seguridad para establecer un perímetro que contenga la trayectoria en el 99\% de los escenarios simulados.
+\end{itemize}
+Todo el código de cálculo y los datos de entrada (ASME B36.10M) están disponibles para el cliente, asegurando una completa \textbf{auditabilidad} de los resultados.
+
+
+\end{document}

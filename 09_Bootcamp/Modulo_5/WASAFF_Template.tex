@@ -1,0 +1,119 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WASAFF CONSULTING - TEMPLATE PREAMBLE
+% Define los paquetes, estilos y comandos globales.
+% Versión: 2.0
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- CARGA DE PAQUETES ---
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{bm}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, babel, calc, decorations.pathmorphing}
+
+% --- Carga la hoja de estilo con colores y datos ---
+\input{WASAFF_Config.tex}
+
+% --- DEFINICIÓN DE FUENTES Y TÍTULOS ---
+\usepackage{lmodern}
+\usepackage{tgheros}
+\renewcommand*\familydefault{\sfdefault}
+\titleformat{\section}{\normalfont\Large\bfseries\color{WasaffNavy}}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{WasaffCopper}}{\thesubsection.}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection.}{1em}{}
+\renewcommand*\familydefault{\rmdefault}
+
+% --- DEFINICIÓN DE CAJAS DE TEXTO PERSONALIZADAS ---
+\tcbuselibrary{skins,listings}
+\newtcolorbox{keybox}[1]{enhanced, colback=#1!5, colframe=#1, fonttitle=\bfseries\small, arc=2mm, boxrule=1pt, title=\MakeUppercase{#1}}
+\newtcolorbox{infobox}{enhanced, colback=WasaffLightGrey, colframe=WasaffNavy, fonttitle=\bfseries\small, arc=2mm, boxrule=1pt, title=\MakeUppercase{Contexto Ingenieril}}
+\newtcolorbox{examplebox}[1]{enhanced, colback=WasaffExampleBlue, colframe=WasaffNavy, fonttitle=\bfseries\small, arc=2mm, boxrule=1pt, title=#1}
+\newtcolorbox{notatecnica}{enhanced, colback=WasaffNoteYellow, colframe=WasaffCopper, fonttitle=\bfseries\small, arc=2mm, boxrule=1pt, title=\MakeUppercase{Nota Técnica}}
+\lstdefinestyle{pythonstyle}{backgroundcolor=\color{CodeBackground}, commentstyle=\color{green!40!black}, keywordstyle=\color{blue}, numberstyle=\tiny\color{gray}, stringstyle=\color{purple}, basicstyle=\ttfamily\footnotesize, breakatwhitespace=false, breaklines=true, captionpos=b, keepspaces=true, numbers=left, numbersep=5pt, showspaces=false, showstringspaces=false, showtabs=false, tabsize=2, language=Python, literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1}```
+
+---
+### **Paso 2: Reemplaza tu archivo `Modulo_4_Main.tex`**
+
+Reemplaza todo el contenido de tu `Modulo_4_Main.tex` con esta nueva versión. Este archivo ahora se encarga de orquestar todo: define la clase del documento, carga las configuraciones, **DEFINE LAS VARIABLES** y luego construye el documento. **Este es el archivo que debes compilar.**
+
+#### **`Modulo_4_Main.tex` (Versión 2.0 - Orquestador Principal)**
+```latex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WASAFF CONSULTING - MÓDULO DE APRENDIZAJE 4
+% Archivo principal para el Módulo de Termoelasticidad
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt, a4paper]{article}
+
+% --- CARGA EL PREÁMBULO DEL TEMPLATE (paquetes, colores, comandos) ---
+\input{WASAFF_Template.tex}
+
+% --- DEFINICIÓN DE VARIABLES ESPECÍFICAS DE ESTE MÓDULO ---
+\newcommand{\moduleNumber}{4}
+\newcommand{\moduleTitle}{Simulación Multifísica I: Termoelasticidad}
+\newcommand{\moduleSubtitle}{Acoplando Campos Físicos: Cómo el Calor Deforma los Materiales}
+\newcommand{\moduleHeaderSubtitle}{Introducción a la Simulación Multifísica Acoplada}
+\newcommand{\partAfile}{M4_Parte_A.tex}
+\newcommand{\partBfile}{M4_Parte_B.tex}
+\newcommand{\bibfile}{referencias_mod4}
+
+% --- AHORA QUE TODO ESTÁ DEFINIDO, CONFIGURAMOS HYPERREF Y ENCABEZADOS ---
+\hypersetup{
+    pdftitle={Módulo \moduleNumber: \moduleTitle},
+    pdfauthor={\consultingAuthor - \consultingCompany}
+}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1cm]{wasaff_logo.png}}
+\fancyhead[R]{\color{gray}\fontsize{9}{11}\selectfont \begin{tabular}{r} MÓDULO \moduleNumber: \MakeUppercase{\moduleTitle} \\ \textit{\moduleHeaderSubtitle} \end{tabular}}
+\fancyfoot[C]{\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+%================= COMIENZO DEL DOCUMENTO =================
+\begin{document}
+
+% --- BLOQUE DE TÍTULO AUTOMÁTICO ---
+\sffamily
+{\color{WasaffCopper} \large \textbf{PORTAFOLIO TÉCNICO: MÓDULO \moduleNumber}}\\
+\
+{\color{WasaffNavy} \huge \textbf{\moduleTitle}}\\
+\
+{\Large \moduleSubtitle}\\
+\vspace{1cm}
+\rmfamily
+\begin{tabular}{@{}p{14cm}}
+    \textbf{Autor:} \consultingAuthor \\
+    \textit{Fundador, \consultingCompany} \\
+\end{tabular}
+\
+\hrulefill
+\
+\tableofcontents
+\
+\hrulefill
+\
+\newpage
+
+% --- INSERCIÓN DEL CONTENIDO DE LAS PARTES A Y B ---
+\input{\partAfile}
+\clearpage 
+\input{\partBfile}
+
+% --- INSERCIÓN DE LA BIBLIOGRAFÍA ---
+\newpage
+\bibliographystyle{plain}
+\bibliography{\bibfile}
+
+\end{document}

@@ -1,0 +1,112 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  11                                    |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+castellatedMesh true;
+snap            true;
+addLayers       false; // Lo desactivamos para esta primera simulación para asegurar la robustez
+
+geometry
+{
+    manifold.stl
+    {
+        type triSurfaceMesh;
+        name manifoldSurface;
+        
+        // Asignamos nombres a las regiones del STL para las fronteras
+        regions
+        {
+            // OJO: El nombre 'manifold.stl' aquí debe coincidir
+            // con el nombre interno que le dio tu software CAD.
+            // Si el mallado falla, este es el primer lugar a revisar.
+            "manifold.stl" 
+            {
+                name solid;
+            }
+        }
+    }
+};
+
+castellatedMeshControls
+{
+    maxLocalCells 100000;
+    maxGlobalCells 2000000;
+    minRefinementCells 10;
+    nCellsBetweenLevels 3;
+
+    features
+    [
+    ];
+
+    refinementSurfaces
+    {
+        manifoldSurface
+        {
+            level (2 2);
+        }
+    }
+    
+    // Un punto dentro del manifold para decirle a snappyHexMesh qué parte de la malla mantener
+    locationInMesh (0.1 0 0); 
+    
+    resolveFeatureAngle 30;
+    
+    // DEBE COINCIDIR con los nombres de las fronteras en los archivos '0/p' y '0/U'
+    // El nombre de cada 'patch' se toma del nombre de la región del STL
+    patchInfo
+    {
+        type patch;
+        name solid;
+        patches(solid);
+    }
+}
+
+snapControls
+{
+    nSolveIter 30;
+    tolerance 2.0;
+    nRelaxIter 5;
+    nFeatureSnapIter 10;
+}
+
+addLayersControls
+{
+    relativeSizes true;
+    layers
+    {
+        // Añadiríamos aquí la configuración para las capas, pero la dejamos desactivada
+    }
+    expansionRatio 1.0;
+    finalLayerThickness 0.3;
+    minThickness 0.1;
+    nGrow 0;
+}
+
+meshQualityControls
+{
+    maxNonOrtho 65;
+    maxBoundarySkewness 20;
+    maxInternalSkewness 4;
+    maxConcave 80;
+    minVol 1e-13;
+    minTetQuality 1e-9;
+    minArea -1;
+    minTwist 0.02;
+    minDeterminant 0.001;
+    minFaceWeight 0.05;
+    minVolRatio 0.01;
+    minTriangleTwist -1;
+}

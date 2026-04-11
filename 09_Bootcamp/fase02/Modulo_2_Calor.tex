@@ -1,0 +1,442 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WASAFF CONSULTING - MÓDULO DE APRENDIZAJE 2 (VERSÃO 3.5 - LISTO PARA PDFLATEX)
+% ANÁLISIS DE LA ECUACIÓN DEL CALOR: DE LA FORMULACIÓN A LA IMPLEMENTACIÓN
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt, a4paper]{article}
+
+%=============== PREÂMBULO: CONFIGURAÇÃO DO DOCUMENTO =======================
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{listings}
+
+% --- Pacotes para Desenhos TikZ ---
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, babel, calc}
+
+% --- Geometria e Cores ---
+\geometry{a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm, headheight=38pt}
+\definecolor{WasaffNavy}{HTML}{001F3F}
+\definecolor{WasaffCopper}{HTML}{B87333}
+\definecolor{WasaffLightGrey}{HTML}{F0F0F0}
+\definecolor{WasaffExampleBlue}{HTML}{EAF2F8}
+\definecolor{WasaffNoteYellow}{HTML}{FFF9E5}
+\definecolor{CodeBackground}{HTML}{FAFAFA}
+
+% --- Fontes e Títulos ---
+\usepackage{lmodern}
+\usepackage{tgheros}
+\renewcommand*\familydefault{\sfdefault}
+\titleformat{\section}{\normalfont\Large\bfseries\color{WasaffNavy}}{\thesection.}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{WasaffCopper}}{\thesubsection.}{1em}{}
+\titleformat{\subsubsection}{\normalfont\bfseries}{\thesubsubsection.}{1em}{}
+\renewcommand*\familydefault{\rmdefault}
+
+% --- Cabeçalho e Rodapé ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[height=1cm]{wasaff_logo.png}}
+\fancyhead[R]{\color{gray}\fontsize{9}{11}\selectfont \begin{tabular}{r} MÓDULO 2: ECUACIÓN DEL CALOR \\ \textit{Modelando la Evolución Temporal de Sistemas Físicos} \end{tabular}}
+\fancyfoot[C]{\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Configuração do Hyperref ---
+\hypersetup{
+    colorlinks=true, linkcolor=WasaffNavy, urlcolor=WasaffCopper,
+    pdftitle={Módulo 2: Análisis de la Ecuación del Calor},
+    pdfauthor={Felipe Wasaff - Wasaff Consulting}
+}
+
+% --- Caixas de texto personalizadas ---
+\tcbuselibrary{skins,listings}
+\newtcolorbox{keybox}[1]{
+    enhanced, colback=#1!5, colframe=#1, fonttitle=\bfseries\small,
+    arc=2mm, boxrule=1pt, title=\MakeUppercase{#1}
+}
+\newtcolorbox{infobox}{
+    enhanced, colback=WasaffLightGrey, colframe=WasaffNavy,
+    fonttitle=\bfseries\small, arc=2mm, boxrule=1pt,
+    title=\MakeUppercase{Contexto Ingenieril}
+}
+\newtcolorbox{examplebox}[1]{
+    enhanced, colback=WasaffExampleBlue, colframe=WasaffNavy,
+    fonttitle=\bfseries\small, arc=2mm, boxrule=1pt,
+    title=#1
+}
+\newtcolorbox{notatecnica}{
+    enhanced, colback=WasaffNoteYellow, colframe=WasaffCopper,
+    fonttitle=\bfseries\small, arc=2mm, boxrule=1pt,
+    title=\MakeUppercase{Nota Técnica}
+}
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{CodeBackground},
+    commentstyle=\color{green!40!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=Python,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1
+}
+
+%================= AQUI COMEÇA O DOCUMENTO ============================
+\begin{document}
+
+% --- BLOCO DO TÍTULO ---
+\sffamily
+{\color{WasaffCopper} \large \textbf{PORTAFOLIO TÉCNICO: MÓDULO 2}}\\
+\
+{\color{WasaffNavy} \huge \textbf{La Ecuación del Calor para Problemas Transitorios}}\\
+\
+{\Large De la Formulación a la Implementación en FEniCS}\\
+\vspace{1cm}
+\rmfamily
+\begin{tabular}{@{}p{14cm}}
+    \textbf{Autor:} Felipe Wasaff \\
+    \textit{Fundador, Wasaff Consulting} \\
+\end{tabular}
+\
+\hrulefill
+\
+\tableofcontents
+\
+\hrulefill
+\
+\newpage
+
+%=============== INICIO DE LA PARTE A ===============
+\part*{Parte A: Formulación Teórica del Problema}
+\addcontentsline{toc}{section}{Parte A: Formulación Teórica del Problema}
+
+\section{Introducción: De la Fotografía al Vídeo de la Física}
+En el Módulo 1, dominamos la Ecuación de Poisson para describir sistemas en estado estacionario: una ``fotografía'' del estado de equilibrio final. Sin embargo, en la vasta mayoría de los problemas de ingeniería, la pregunta crucial no es solo dónde termina el sistema, sino \textit{cómo} y \textit{cuándo} llega allí.
+
+Este módulo da el siguiente paso fundamental: la introducción de la dimensión del \textbf{tiempo}. Pasaremos de la fotografía al ``vídeo'', modelando la evolución dinámica de los sistemas físicos. Derivaremos la \textbf{Ecuación del Calor}, la contraparte transitoria de la Ecuación de Poisson, que gobierna fenómenos como el calentamiento, el enfriamiento y la difusión.
+
+El desafío computacional ahora es doble: debemos discretizar tanto el espacio (con FEM, como ya aprendimos) como el tiempo. Demostraremos cómo una técnica de diferencias finitas nos permite transformar un problema dinámico continuo en una secuencia de problemas estáticos, que podemos resolver paso a paso utilizando el conocimiento fundamental del módulo anterior.
+
+\begin{infobox}
+    El análisis transitorio es indispensable para el diseño y la operación de sistemas de ingeniería. La Ecuación del Calor nos permite responder preguntas como:
+    \begin{itemize}
+        \item \textbf{Seguridad y Diseño Térmico:} ¿Cuánto tiempo tarda un componente electrónico en alcanzar una temperatura crítica durante un pico de operación?
+        \item \textbf{Procesos de Manufactura:} ¿Cuál es la curva de enfriamiento de una pieza de metal fundido para asegurar la microestructura deseada?
+        \item \textbf{Sistemas de Baterías:} ¿Cómo se distribuye y evoluciona el calor en una batería de vehículo eléctrico durante un ciclo de carga rápida?
+    \end{itemize}
+    Modelar la dinámica temporal es esencial para predecir el rendimiento, la eficiencia y la fiabilidad de un sistema.
+\end{infobox}
+
+\section{Derivación Física de la Ecuación del Calor}
+Para introducir el tiempo, debemos volver al principio más fundamental: la conservación de la energía. En el Módulo 1, el estado estacionario nos permitió asumir que la energía neta que entraba y se generaba era cero. Ahora, en un problema transitorio, debemos considerar el término de \textbf{acumulación de energía}, como se detalla en textos de referencia como \cite{incropera2007}.
+
+El balance de energía completo para un volumen de control $\Omega$ es:
+$$ \left( \begin{array}{c} \text{Tasa de energía} \\ \text{que entra} \end{array} \right) - \left( \begin{array}{c} \text{Tasa de energía} \\ \text{que sale} \end{array} \right) + \left( \begin{array}{c} \text{Tasa de energía} \\ \text{generada} \end{array} \right) = \left( \begin{array}{c} \text{Tasa de energía} \\ \text{acumulada} \end{array} \right) $$
+El lado izquierdo de la ecuación es idéntico al que ya modelamos: el flujo neto de calor a través de las fronteras ($\nabla \cdot \vec{q}$) y la generación interna de calor ($f$). Es el término del lado derecho el que introduce la dinámica.
+
+\subsection{El Término de Acumulación: La Inercia Térmica}
+La tasa a la que un volumen de material acumula energía interna es su capacidad para almacenar calor, lo cual se manifiesta como un cambio en su temperatura. Esta relación se define a través de dos propiedades intrínsecas del material:
+\begin{itemize}
+    \item \textbf{Densidad ($\rho$):} Masa por unidad de volumen [kg/m$^3$].
+    \item \textbf{Capacidad Calorífica Específica ($c_p$):} Energía necesaria para elevar la temperatura de una unidad de masa en un grado [J/(kg·K)].
+\end{itemize}
+Así, la tasa de acumulación de energía por unidad de volumen es:
+\begin{equation}
+    \text{Tasa de acumulación} = \rho c_p \frac{\partial T}{\partial t}
+\end{equation}
+El producto $\rho c_p$ se puede interpretar como la \textbf{inercia térmica} del material: una medida de su resistencia a cambiar de temperatura. Materiales con un $\rho c_p$ alto (como el agua) requieren mucha energía para calentarse, mientras que los que tienen un valor bajo (como el aire) cambian de temperatura rápidamente.
+
+\subsection{La Ecuación Gobernante (Forma Fuerte Transitoria)}
+Combinando todos los términos en un balance por unidad de volumen, tenemos:
+$$ - \nabla \cdot \vec{q} + f = \rho c_p \frac{\partial T}{\partial t} $$
+Finalmente, sustituimos la Ley de Fourier ($\vec{q} = -k \nabla T$) y reordenamos los términos para agrupar la incógnita $T$ y sus derivadas a un lado, llegando a la forma canónica de la \textbf{Ecuación del Calor}:
+\begin{equation}
+    \rho c_p \frac{\partial T}{\partial t} - \nabla \cdot (k \nabla T) = f
+    \label{eq:heat_strong}
+\end{equation}
+Esta es una Ecuación Diferencial Parcial (EDP) de tipo parabólico, que describe la evolución de la temperatura $T(x,y,z,t)$ tanto en el dominio espacial como en el temporal.
+
+\newpage
+
+\section{El Salto al Mundo Digital: Discretizando el Tiempo}
+La Ecuación \ref{eq:heat_strong} es una ley continua. Mientras que el Método de Elementos Finitos (FEM) es la herramienta perfecta para discretizar el espacio (el término $\nabla \cdot (k \nabla T)$), necesitamos una estrategia separada para la derivada temporal ($\frac{\partial T}{\partial t}$).
+
+La estrategia más común es avanzar en el tiempo en pequeños ``pasos'' o incrementos discretos, $\Delta t$. Transformaremos el problema de encontrar una función continua $T(t)$ a encontrar una secuencia de ``fotografías'' de la temperatura en los instantes $t_0, t_1, t_2, \dots, t_N$.
+
+\subsection{El Método de Diferencias Finitas: Euler Implícito}
+Para aproximar la derivada temporal, usaremos el \textbf{método de diferencias finitas}. Si estamos en el instante de tiempo actual $t^n$ y queremos calcular la temperatura desconocida $T^n \equiv T(t^n)$, basándonos en la temperatura \textit{conocida} del instante anterior $T^{n-1} \equiv T(t^{n-1})$, podemos aproximar la derivada como:
+\begin{equation}
+    \frac{\partial T}{\partial t} \bigg|_{t=t^n} \approx \frac{T^n - T^{n-1}}{\Delta t}
+    \label{eq:euler}
+\end{equation}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+    \draw[->, thick] (0,0) -- (9,0) node[right] {$t$};
+    \node[below=3pt] at (1,0) {$t^{n-1}$};
+    \node[below=3pt] at (4,0) {$t^{n}$};
+    \node[below=3pt] at (7,0) {$t^{n+1}$};
+    \fill (1,0) circle (2pt);
+    \fill (4,0) circle (2pt);
+    \fill (7,0) circle (2pt);
+    \draw[<->] (1,-0.5) -- (4,-0.5) node[midway, below] {$\Delta t$};
+    \node[above=15pt, align=center] at (1,0) {\textbf{Estado Conocido} \\ $T^{n-1}$};
+    \node[above=15pt, align=center, color=red] at (4,0) {\textbf{Estado a Calcular} \\ $T^{n}$};
+\end{tikzpicture}
+\caption{Esquema de la discretización temporal. En cada paso, resolvemos para el estado actual $T^n$ usando la información del estado anterior $T^{n-1}$ como un dato de entrada.}
+\end{figure}
+
+\begin{notatecnica}
+    Existen múltiples esquemas de diferencias finitas. Una alternativa común es el método de \textbf{Euler Explícito}, que calcula la derivada en $t^{n-1}$. Aunque es computacionalmente más simple, sufre de severas restricciones de estabilidad: si el paso de tiempo $\Delta t$ es demasiado grande, la solución numérica puede ``explotar'' y divergir.
+    
+    El método de \textbf{Euler Implícito} (o \textit{Backward Euler}), que hemos elegido, es \textbf{incondicionalmente estable}, como se discute en \cite{quarteroni2007}. Esto significa que podemos usar pasos de tiempo más grandes sin que la simulación diverja, lo cual es una ventaja decisiva en problemas de ingeniería prácticos. Esta robustez es la razón por la que es el método por defecto en muchas aplicaciones de simulación profesional.
+\end{notatecnica}
+
+\subsection{La Ecuación Semi-Discretizada: De Dinámica a Estática}
+Ahora, sustituimos la aproximación de Euler (Ecuación \ref{eq:euler}) en la forma fuerte (Ecuación \ref{eq:heat_strong}), con la convención de que todos los términos espaciales se evalúan en el instante actual $n$:
+$$ \rho c_p \frac{T^n - T^{n-1}}{\Delta t} - \nabla \cdot (k \nabla T^n) = f^n $$
+Nuestro objetivo es resolver para $T^n$. Para ello, reorganizamos la ecuación para agrupar todos los términos que contienen la incógnita $T^n$ en el lado izquierdo y todos los términos conocidos en el lado derecho:
+$$ \rho c_p T^n - \rho c_p T^{n-1} - \Delta t \, \nabla \cdot (k \nabla T^n) = \Delta t \, f^n $$
+\begin{equation}
+    \underbrace{\rho c_p T^n - \Delta t \, \nabla \cdot (k \nabla T^n)}_{\text{Términos desconocidos en } t^n} = \underbrace{\rho c_p T^{n-1} + \Delta t \, f^n}_{\text{Términos conocidos}}
+    \label{eq:semidiscrete}
+\end{equation}
+Esta ecuación es el corazón del método. A pesar de describir un problema dinámico, es una EDP puramente \textbf{espacial} para la incógnita $T^n$. Se asemeja a la Ecuación de Poisson, pero con un término adicional ($\rho c_p T^n$) y un lado derecho que depende de la solución del paso de tiempo anterior, $T^{n-1}$.
+
+\section{Derivación de la Forma Débil Transitoria}
+Con la Ecuación \ref{eq:semidiscrete}, hemos transformado el problema dinámico en una secuencia de problemas estáticos. Ahora podemos aplicar el poderoso mecanismo de la forma débil que desarrollamos en el Módulo 1, una técnica central del FEM \cite{zienkiewicz2013}.
+
+Aplicamos el procedimiento de residuo ponderado a la Ecuación \ref{eq:semidiscrete}:
+1.  Pasamos todos los términos a un lado para formar el residuo.
+2.  Multiplicamos el residuo por una función de prueba arbitraria $v$.
+3.  Integramos sobre todo el dominio espacial $\Omega$ y lo igualamos a cero.
+$$ \int_{\Omega} \left( \rho c_p T^n - \Delta t \, \nabla \cdot (k \nabla T^n) - \rho c_p T^{n-1} - \Delta t \, f^n \right) v \, dV = 0 $$
+Aplicamos la integración por partes (o Identidad de Green) \textit{únicamente} al término que contiene la segunda derivada, $\int_{\Omega} - \Delta t (\nabla \cdot (k \nabla T^n)) v \, dV$, para reducir el orden de la derivada y revelar el término de frontera. Esto nos da:
+$$ \int_{\Omega} \Delta t \, k \nabla T^n \cdot \nabla v \, dV - \int_{\partial \Omega} \Delta t \, (k \nabla T^n \cdot \vec{n}) v \, dS $$
+Sustituyendo esto de nuevo en la ecuación integral y reordenando para separar los términos con $T^n$ (lado izquierdo) de los términos conocidos (lado derecho), llegamos a la formulación final, el lenguaje que FEniCS entiende \cite{logg2012}.
+
+\begin{keybox}{WasaffCopper}
+    \textbf{Formulación Débil (Variacional) de la Ecuación del Calor:}
+    
+    Para cada paso de tiempo $n$, encontrar $T^n \in V$ tal que para todo $v \in \hat{V}$:
+    \begin{equation}
+        \boxed{
+        \underbrace{\int_{\Omega} \left( \rho c_p T^n v + \Delta t \, k \nabla T^n \cdot \nabla v \right) dV}_{\substack{\text{a(T\textsuperscript{n},v)} \\ \text{Acumulación + Difusión en } t^n}} = \underbrace{\int_{\Omega} \rho c_p T^{n-1} v \, dV + \Delta t \left( \int_{\Omega} f^n v \, dV + \int_{\partial \Omega} g^n v \, dS \right)}_{\substack{\text{L(v)} \\ \text{Estado anterior + Fuentes externas}}}
+        }
+        \label{eq:heat_weak}
+    \end{equation}
+\end{keybox}
+
+\newpage
+
+\section{Aplicación Práctica: Desglosando Problemas Reales}
+La forma débil de la Ecuación \ref{eq:heat_weak} es nuestra plantilla maestra. Su poder reside en su generalidad. Veamos cómo se especializa para modelar tres escenarios de ingeniería.
+
+\subsection{Ejemplo 1: Enfriamiento Pasivo de una Placa Metálica}
+\begin{examplebox}{Ejemplo 1: Enfriamiento Pasivo}
+    \textbf{Planteamiento:} Una placa de acero a 800$^{\circ}$C se deja enfriar en un ambiente aislado.
+    \textbf{Condiciones:} $f = 0$ (sin fuentes), $g = 0$ (aislado).
+    \textbf{Forma Débil Resultante:}
+    $$ \int_{\Omega} \left( \rho c_p T^n v + \Delta t \, k \nabla T^n \cdot \nabla v \right) dV = \int_{\Omega} \rho c_p T^{n-1} v \, dV $$
+    \textbf{Interpretación:} La única ``fuerza'' que impulsa el sistema es su propio estado térmico en el paso anterior. El sistema solo redistribuye su energía interna por conducción hasta alcanzar un estado de equilibrio uniforme.
+\end{examplebox}
+
+\subsection{Ejemplo 2: Encendido de un Componente Electrónico}
+\begin{examplebox}{Ejemplo 2: Calentamiento por Fuente Interna}
+    \textbf{Planteamiento:} Un microprocesador genera calor ($f>0$) al encenderse. Sus bordes se mantienen a temperatura constante (condición de Dirichlet).
+    \textbf{Condiciones:} $f > 0$, $g$ no se prescribe en las fronteras de Dirichlet.
+    \textbf{Forma Débil Resultante:}
+    $$ \int_{\Omega} \left( \rho c_p T^n v + \Delta t \, k \nabla T^n \cdot \nabla v \right) dV = \int_{\Omega} \left( \rho c_p T^{n-1} + \Delta t \, f^n \right) v \, dV $$
+    \textbf{Interpretación:} La solución es impulsada por dos factores: la inercia térmica (estado anterior) y la generación constante de calor interno.
+\end{examplebox}
+
+\subsection{Ejemplo 3: Calentamiento de una Superficie con un Láser}
+\begin{examplebox}{Ejemplo 3: Calentamiento por Flujo Externo}
+    \textbf{Planteamiento:} Un láser impone un flujo de calor $g$ sobre una cara de una pieza de titanio. Las otras caras están aisladas.
+    \textbf{Condiciones:} $f = 0$, $g > 0$ en la cara del láser ($\partial\Omega_{\text{laser}}$).
+    \textbf{Forma Débil Resultante:}
+    $$ \int_{\Omega} \left( \rho c_p T^n v + \Delta t \, k \nabla T^n \cdot \nabla v \right) dV = \int_{\Omega} \rho c_p T^{n-1} v \, dV + \Delta t \int_{\partial \Omega_{\text{laser}}} g^n v \, dS $$
+    \textbf{Interpretación:} El calor entra al dominio a través de la frontera. La simulación mostrará cómo el frente de calor penetra en el material desde la superficie, impulsado tanto por la fuente externa como por la difusión del calor ya presente en el paso anterior.
+\end{examplebox}
+
+\section{Conclusión de la Parte A: La Receta para la Simulación}
+Hemos completado el riguroso viaje teórico para modelar problemas de calor transitorios. Partimos de la física fundamental, derivamos la Ecuación del Calor, y la transformamos en una forma computable a través de una doble discretización: en el tiempo con diferencias finitas y en el espacio con el método de la forma débil.
+
+El resultado final, la Ecuación \ref{eq:heat_weak}, es mucho más que una fórmula: es una receta precisa y robusta lista para ser implementada en un software de elementos finitos. Hemos construido el ``porqué'' y el ``qué''. En la Parte B de este módulo, nos enfocaremos en el ``cómo'', traduciendo esta receta a un código funcional en FEniCS para resolver un problema de ingeniería tangible.
+
+\part*{Parte B: Implementación y Análisis de Resultados}
+\addcontentsline{toc}{section}{Parte B: Implementación y Análisis de Resultados}
+
+\section{De la Teoría a la Práctica: Implementación con FEniCS}
+Hemos construido el andamiaje teórico completo para resolver problemas de calor transitorios. Ahora, es el momento de traducir este conocimiento en una herramienta de simulación funcional. En esta segunda parte, implementaremos el **Ejemplo 3: Calentamiento de una Superficie con un Láser** utilizando la librería FEniCS en Python.
+
+Nuestro objetivo es doble:
+\begin{enumerate}
+    \item Demostrar cómo la forma débil (Ecuación \ref{eq:heat_weak}) se traduce de manera casi directa al lenguaje simbólico de FEniCS.
+    \item Generar resultados visuales (gráficos y animaciones) y, lo más importante, interpretarlos para extraer conclusiones de ingeniería valiosas.
+\end{enumerate}
+
+\subsection{Definición del Problema Físico y Parámetros}
+Para que la simulación sea concreta, debemos asignar valores numéricos a nuestro problema:
+\begin{itemize}
+    \item \textbf{Geometría:} Una placa cuadrada de titanio de $10 \text{ cm} \times 10 \text{ cm}$.
+    \item \textbf{Propiedades del Material (Titanio):}
+        \begin{itemize}
+            \item Conductividad térmica, $k = 21.9 \text{ W/(m·K)}$.
+            \item Densidad, $\rho = 4500 \text{ kg/m}^3$.
+            \item Capacidad calorífica, $c_p = 523 \text{ J/(kg·K)}$.
+        \end{itemize}
+    \item \textbf{Condiciones de Simulación:}
+        \begin{itemize}
+            \item Temperatura inicial, $T_0 = 298.15 \text{ K}$ (25 $^{\circ}$C).
+            \item Flujo del láser, $g = 10000 \text{ W/m}^2$. El láser incide en el borde izquierdo de la placa ($x=0$).
+            \item Los bordes superior, inferior y derecho se consideran aislados ($g=0$).
+            \item Duración total de la simulación: $t_{final} = 100$ segundos.
+            \item Paso de tiempo, $\Delta t = 2$ segundos.
+        \end{itemize}
+\end{itemize}
+
+\subsection{Implementación del Código (Paso a Paso)}
+El siguiente bloque de código muestra la implementación completa. Cada sección está numerada y comentada para corresponder directamente con la estructura de una simulación en FEniCS.
+
+\begin{tcolorbox}[colback=CodeBackground, title=Script de Simulación Completo en FEniCS, listing only, listing options={style=pythonstyle}]
+from fenics import *
+import numpy as np
+
+# 1. Parámetros físicos y de la simulación
+t_final = 100.0  # Tiempo total de simulación [s]
+dt = 2.0         # Paso de tiempo [s]
+num_steps = int(t_final / dt)
+
+k = 21.9         # Conductividad térmica [W/(m*K)]
+rho = 4500       # Densidad [kg/m^3]
+cp = 523         # Capacidad calorífica [J/(kg*K)]
+T0 = 298.15      # Temperatura inicial [K]
+g_laser = 10000  # Flujo de calor del láser [W/m^2]
+
+# 2. Creación de la malla y definición de los espacios de funciones
+nx, ny = 20, 20
+mesh = RectangleMesh(Point(0, 0), Point(0.1, 0.1), nx, ny)
+V = FunctionSpace(mesh, 'P', 1)
+
+# 3. Definición de las funciones de prueba y de solución
+T = TrialFunction(V)
+v = TestFunction(V)
+T_n = Function(V)  # Solución del tiempo anterior (n-1)
+
+# 4. Definir y asignar la condición inicial
+T_0_expr = Constant(T0)
+T_n.assign(interpolate(T_0_expr, V))
+
+# 5. Definir las fronteras y la medida de integración
+left_boundary = 'on_boundary && near(x[0], 0)'
+ds_laser = ds(subdomain_data=CompiledSubDomain(left_boundary))
+
+# 6. Traducir la forma débil a código FEniCS (UFL)
+#    (rho*cp*T*v + dt*k*dot(grad(T), grad(v)))*dx = (rho*cp*T_n*v + dt*g*v)*ds
+f = Constant(0) # No hay fuentes internas
+g = Constant(g_laser)
+
+a = rho*cp*T*v*dx + dt*k*dot(grad(T), grad(v))*dx
+L = rho*cp*T_n*v*dx + dt*f*v*dx + dt*g*v*ds_laser(1)
+
+# 7. Preparar el bucle temporal y el almacenamiento de resultados
+T_sol = Function(V)
+vtkfile = File('calor_transitorio/solution.pvd')
+timeseries = TimeSeries('calor_transitorio/timeseries')
+
+# 8. Ejecutar el bucle de solución temporal
+t = 0
+for n in range(num_steps):
+    t += dt
+    solve(a == L, T_sol)
+    
+    # Guardar resultados
+    vtkfile << (T_sol, t)
+    timeseries.store(T_sol.vector(), t)
+    
+    # Actualizar la solución anterior
+    T_n.assign(T_sol)
+
+print("Simulación completada.")
+\end{tcolorbox}
+
+\newpage
+\subsection{Análisis de Resultados y Visualización}
+Una vez ejecutado el script, se generan archivos que contienen la solución en cada paso de tiempo. Estos datos nos permiten realizar un análisis post-procesamiento para extraer conocimiento ingenieril. A continuación, se muestran ejemplos del tipo de visualizaciones que se obtendrían y su interpretación.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.7\textwidth]{wasaff_logo.png}}; % Placeholder
+    \begin{scope}[x={(image.south east)},y={(image.north west)}]
+        % Simulamos un mapa de calor con un gradiente
+        \fill[left color=red, right color=blue!50!cyan, fill opacity=0.7] (0,0) rectangle (1,1);
+        % Añadimos una barra de color (colorbar)
+        \shade[left color=red, right color=blue!50!cyan] (1.05,0) rectangle (1.1,1);
+        \foreach \i in {0,0.25,0.5,0.75,1} {
+            \draw (1.1, \i) -- (1.12, \i);
+        }
+        \node[right] at (1.12, 1) {$T_{max}$};
+        \node[right] at (1.12, 0) {$T_{min}$};
+        \node[above, rotate=90] at (1.18, 0.5) {Temperatura [K]};
+    \end{scope}
+\caption{Ejemplo de mapa de contorno de la temperatura final ($t=100$s). Se observa la máxima temperatura en la cara izquierda (incidencia del láser) y cómo el calor se difunde hacia la derecha.}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+    % Ejes del gráfico
+    \draw[->, thick] (0,0) -- (8,0) node[right] {Tiempo (s)};
+    \draw[->, thick] (0,0) -- (0,5) node[above] {Temperatura (K)};
+    % Marcas en los ejes
+    \foreach \x/\label in {2/25, 4/50, 6/75, 7.5/100} \draw (\x,0.1) -- (\x,-0.1) node[below] {\label};
+    \foreach \y/\label in {1/300, 2/350, 3/400, 4/450} \draw (0.1,\y) -- (-0.1,\y) node[left] {\label};
+    % Curvas de temperatura
+    \draw[WasaffNavy, thick, smooth, tension=0.7] plot coordinates {(0,0.8) (2,2.5) (4,3.5) (6,3.9) (7.5,4.1)};
+    \draw[WasaffCopper, thick, dashed, smooth, tension=0.9] plot coordinates {(0,0.8) (2,0.9) (4,1.5) (6,2.5) (7.5,3.2)};
+    % Leyenda
+    \draw[WasaffNavy] (5, 4.5) -- (5.5, 4.5) node[right, black] {Punto A (Superficie)};
+    \draw[WasaffCopper, dashed] (5, 4) -- (5.5, 4) node[right, black] {Punto B (Centro)};
+\end{tikzpicture}
+\caption{Ejemplo de gráfico de la evolución de la temperatura en dos puntos. El Punto A (superficie del láser) se calienta rápidamente, mientras que el Punto B (centro de la placa) muestra un retardo debido a la inercia y difusión térmica.}
+\end{figure}
+
+\subsubsection{Interpretación de los Resultados}
+Los gráficos nos permiten cuantificar el comportamiento del sistema. De la Figura 2, observaríamos que la superficie expuesta al láser (Punto A) sufre un calentamiento muy rápido al inicio, pero la tasa de calentamiento disminuye con el tiempo a medida que la conducción de calor hacia el interior de la placa se vuelve más significativa. Por otro lado, la temperatura en el centro de la placa (Punto B) no empieza a aumentar de forma notable hasta pasados unos segundos, lo que demuestra el \textbf{retardo difusivo}.
+
+Estas visualizaciones nos permitirían responder preguntas de diseño como: ¿El material alcanza una temperatura que pueda comprometer su integridad estructural en los 100 segundos de operación? ¿Es necesario un sistema de refrigeración adicional? La simulación, basada en la teoría de la Parte A, nos proporciona los datos cuantitativos para tomar estas decisiones de ingeniería con confianza.
+
+\section{Conclusión General del Módulo}
+Este módulo ha servido como un puente entre el análisis estático y el dinámico. Hemos derivado la Ecuación del Calor, la hemos preparado para el cálculo numérico mediante la discretización temporal, y hemos delineado el camino exacto para su implementación y análisis.
+
+Al combinar la formulación teórica de la Parte A con el plan de implementación de la Parte B, hemos establecido un flujo de trabajo completo que es representativo de cómo se abordan los problemas de simulación en la consultoría de ingeniería de alto nivel. Estamos listos para escribir el código.
+
+\newpage
+% --- SECCIÓN DE BIBLIOGRAFÍA ---
+\bibliographystyle{plain}
+\bibliography{referencias_mod2}
+
+\end{document}

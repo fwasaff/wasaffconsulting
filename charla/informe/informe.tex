@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{geometry}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{enumitem}
+
+\geometry{margin=2.5cm}
+\setstretch{1.15}
+
+\begin{document}
+
+\begin{center}
+\Large\textbf{Informe de Revisión de Tesis Doctoral} \\[0.5cm]
+\normalsize
+\textbf{Título:} \textit{Conforming and non-conforming discretizations for desalination process models} \\[0.2cm]
+\textbf{Autor:} Miguel Serón Almonacid \\[0.2cm]
+\textbf{Programa:} Doctorado en Matemática Aplicada, Universidad del Bío-Bío \\[0.2cm]
+\textbf{Evaluador:} [Nombre del jurado evaluador] \\[0.2cm]
+\textbf{Fecha:} [Fecha] 
+\end{center}
+
+\section*{1. Introducción}
+La tesis evalúa esquemas numéricos conformes y no conformes para un modelo acoplado fluido–membrana no isotérmico, con aplicaciones en desalinización. Se formula el problema, se proponen discretizaciones basadas en elementos finitos, se realiza análisis funcional y se validan resultados mediante simulaciones numéricas. El manuscrito evidencia un alto nivel técnico y dominio conceptual.
+
+\section*{2. Evaluación técnica y científica}
+
+\textbf{Estructura y redacción:} La tesis está bien organizada, con redacción formal y uso consistente de notación matemática. Podría beneficiarse de un resumen de notación y esquemas visuales para capítulos técnicos densos.
+
+\textbf{Modelo matemático:} El Capítulo 2 presenta rigurosamente un sistema acoplado Navier--Stokes--calor y Darcy--calor, junto con condiciones interfaciales físicamente justificadas. El tratamiento de las condiciones de borde es sólido.
+
+\textbf{Desarrollo numérico:} En el Capítulo 3 se formula un método conforme, demostrando existencia, unicidad y estabilidad mediante Lax--Milgram y técnicas funcionales. Los capítulos posteriores desarrollan un estimador de error a posteriori y un esquema conservador con elementos $H(\text{div})$-conformes, ambos con base teórica y validación numérica.
+
+\section*{3. Resultados y observaciones}
+Las simulaciones numéricas validan los métodos y muestran consistencia con las estimaciones teóricas. Las conclusiones resumen bien los aportes, aunque se recomienda ampliar la discusión sobre limitaciones del modelo y aplicaciones reales. 
+
+\textbf{Sugerencias:}
+\begin{itemize}[leftmargin=0.5cm]
+  \item Incluir esquemas visuales del dominio y condiciones de frontera.
+  \item Incorporar una tabla o resumen de notación.
+  \item Añadir una introducción conceptual breve al inicio de cada capítulo técnico.
+  \item Discutir comparativamente las ventajas y costos de los esquemas propuestos.
+  \item Mencionar resultados sometidos a publicación y potencial impacto práctico.
+\end{itemize}
+
+\section*{4. Recomendación final}
+La tesis presenta contribuciones relevantes, bien fundamentadas y desarrolladas con rigor matemático y computacional. Se recomienda su \textbf{aprobación}, sujeta a la incorporación de observaciones menores orientadas a mejorar la presentación y potenciar el impacto de los resultados.
+
+\vspace{0.5cm}
+\noindent\textbf{Firma:} \\[1cm]
+\rule{7cm}{0.4pt} \\ 
+[Nombre del evaluador] \\ 
+[Institución]
+
+\end{document}
+

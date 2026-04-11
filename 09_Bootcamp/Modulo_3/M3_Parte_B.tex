@@ -1,0 +1,54 @@
+\part*{Parte B: Plan de Implementación}
+\addcontentsline{toc}{section}{Parte B: Plan de Implementación}
+
+\section{Implementación de un Problema No Lineal en FEniCS}
+En esta parte, delineamos el plan para implementar un caso de estudio realista que encapsula los conceptos de no linealidad.
+
+\subsection{Caso de Estudio: Tratamiento Térmico de un Disco de Acero}
+\begin{examplebox}{Caso Práctico: Temple de un Disco de Acero AISI 304}
+    \textbf{Planteamiento del Problema:} Un disco circular de acero inoxidable AISI 304, de 5 cm de radio, está inicialmente a temperatura ambiente. Su borde exterior se calienta rápidamente a 1000$^{\circ}$C (por ejemplo, mediante calentamiento por inducción) y se mantiene a esa temperatura. Queremos simular la evolución de la temperatura en el interior del disco durante los primeros 60 segundos.
+    
+    \textbf{La No Linealidad Clave:} El acero inoxidable tiene propiedades térmicas que dependen fuertemente de la temperatura. Usaremos la siguiente relación para la conductividad térmica, extraída de datos de ingeniería:
+    $$ k(T) = 14.6 + 1.57 \times 10^{-2} \cdot T \quad [\text{W/(m·K)}] $$
+    
+    \textbf{Parámetros del Modelo:}
+    \begin{itemize}
+        \item \textbf{Geometría:} Disco 2D de radio $R=0.05$ m.
+        \item \textbf{Propiedades del Material (Acero AISI 304, aproximadas):}
+            \begin{itemize}
+                \item Conductividad térmica, $k(T)$ como se definió arriba.
+                \item Densidad, $\rho = 7900 \text{ kg/m}^3$.
+                \item Capacidad calorífica, $c_p = 500 \text{ J/(kg·K)}$.
+            \end{itemize}
+        \item \textbf{Condiciones de Simulación:}
+            \begin{itemize}
+                \item Temperatura inicial, $T_0 = 293.15 \text{ K}$ (20 $^{\circ}$C).
+                \item Condición de Contorno: Temperatura fija en el borde exterior, $T_{\text{borde}} = 1273.15 \text{ K}$ (1000 $^{\circ}$C) para $t>0$. (Condición de Dirichlet).
+                \item Fuentes Internas: No hay, $f=0$.
+                \item Duración total: $t_{final} = 60$ segundos; Paso de tiempo, $\Delta t = 1$ segundo.
+            \end{itemize}
+    \end{itemize} % <--- ¡ESTA ES LA LÍNEA QUE FALTABA!
+\end{examplebox}
+
+\subsection{Plan de Implementación en FEniCS}
+La estructura del código será similar a la del Módulo 2, pero con una diferencia fundamental en el paso de resolución. En lugar de una simple llamada a `solve()`, el solver no lineal de FEniCS ejecutará internamente el bucle del método de Newton.
+
+\begin{tcolorbox}[colback=CodeBackground, title=Estructura del Script de Simulación No Lineal]
+\begin{lstlisting}[style=pythonstyle]
+# 1. Importar librerías.
+# 2. Definir parámetros físicos, incluyendo la expresión para k(T).
+# 3. Generar la malla (usando mshr para el disco) y definir el Espacio de Funciones.
+# 4. Definir las Condiciones de Contorno de Dirichlet.
+# 5. Definir las funciones para la solución. NOTA: T_n (anterior) y T (actual)
+#    serán ahora Function (no TrialFunction), porque T participa en k(T).
+# 6. Definir la forma débil del RESIDUO, F, como en la Ecuación 10.
+# 7. Preparar bucle temporal y archivos de salida.
+# 8. Bucle temporal:
+#    - solve(F == 0, T, bcs, solver_parameters={"newton_solver":...})
+#    - Guardar y actualizar T_n.assign(T)
+\end{lstlisting}
+\end{tcolorbox}
+En nuestra próxima sesión de trabajo, desarrollaremos el código completo y analizaremos los fascinantes resultados de esta simulación no lineal.
+
+\section{Conclusión General del Módulo}
+Al abordar la no linealidad, hemos dado un paso decisivo hacia la simulación de problemas del mundo real. Hemos visto cómo la dependencia de las propiedades del material con la solución transforma un problema simple en uno que requiere un enfoque iterativo, como el Método de Newton. Entender la formulación del residuo es la clave para desbloquear el poder de FEniCS para resolver automáticamente esta clase de problemas complejos, un pilar de la simulación de ingeniería avanzada.
