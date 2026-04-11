@@ -4,6 +4,7 @@
 *.key
 config.json
 .env
+.env*.local
 **/apis_sii/config.json
 
 # Archivos del sistema
@@ -43,3 +44,8 @@ my_jupyter_projects/
 
 # Archivos de Office temporales
 ~$*
+
+# Vercel y Node
+.vercel
+node_modules/
+.next/

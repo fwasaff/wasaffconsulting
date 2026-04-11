@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wasaff Consulting — Simulación Computacional e Ingeniería Física B2B</title>
+  <meta name="description" content="Simulación computacional, métodos numéricos y análisis térmico para optimización industrial en Chile. Traducimos física compleja en reducción de riesgo operativo y OPEX."/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://wasaffconsulting.cl/"/>
+  <meta property="og:title" content="Wasaff Consulting — Simulación Computacional e Ingeniería Física"/>
+  <meta property="og:description" content="Simulación computacional y modelado matemático avanzado para continuidad operacional en minería, manufactura y energía. Santiago, Chile."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="es_CL"/>
+
+  <!-- Favicon dinámico (SVG) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none' transform='rotate(60 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='13' ry='4.5' stroke='%233b82f6' stroke-width='1.5' fill='none' transform='rotate(-60 16 16)'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%233b82f6'/%3E%3C/svg%3E"/>
+
+  <!-- Fuentes Premium -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Marcado Schema.org para SEO Local (Consultora en Chile) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Wasaff Consulting",
+    "url": "https://wasaffconsulting.cl",
+    "telephone": "+56946125682",
+    "email": "felipe.wasaff@uchile.cl",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Santiago",
+      "addressRegion": "Región Metropolitana",
+      "addressCountry": "CL"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Felipe Wasaff",
+      "jobTitle": "Físico Computacional y Consultor Senior",
+      "sameAs": "https://www.linkedin.com/in/felipewasaff"
+    },
+    "areaServed": ["Chile", "Latinoamérica"]
+  }
+  </script>
+
+  <style>
+    /* Reset & Variables Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #ffffff;
+      --panel:  #f5f4f0;
+      --panel-hover: #e8e5de;
+      --border: rgba(0,0,0,0.09);
+      --border-hover: rgba(34,81,255,0.35);
+      --blue:   #2251ff;
+      --blue-glow: rgba(34,81,255,0.08);
+      --text:   #111111;
+      --muted:  #666666;
+      --gold:   #9a6f0e;
+      --red:    #b91c1c;
+      --green:  #0d7c5a;
+    }
+
+    html { font-size: 18px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Animaciones de Entrada */
+    .fi {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fi.in { opacity: 1; transform: translateY(0); }
+
+    /* Indicador de Disponibilidad */
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .status-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse-green 2s infinite;
+      margin-right: 0.5rem;
+      vertical-align: middle;
+    }
+
+    /* Layout general */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 8rem 0; position: relative; }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 1.25rem; }
+      section { padding: 5rem 0; }
+      .hero-inner { padding: 0 1.25rem; }
+    }
+    @media (max-width: 400px) {
+      .container { padding: 0 1rem; }
+      .hero-inner { padding: 0 1rem; }
+    }
+
+    /* Tipografía Corporativa Premium */
+    .sec-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .sec-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 65ch;
+      line-height: 1.7;
+    }
+    .label-mono {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--blue);
+      display: block;
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .btn-nav {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem !important;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text) !important;
+      background: var(--panel);
+      transition: all 0.2s ease;
+    }
+    .btn-nav:hover { border-color: var(--blue); background: var(--blue-glow); }
+
+    /* Menú Móvil */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--text);
+      transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px; left: 0; right: 0;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding: 1rem 2rem 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ── HERO SECTION ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 70px;
+      position: relative;
+      background: #0c1a35;
+      /* Overrides locales: todo dentro del hero usa paleta oscura */
+      --bg:          #0c1a35;
+      --panel:       rgba(255,255,255,0.06);
+      --panel-hover: rgba(255,255,255,0.10);
+      --border:      rgba(255,255,255,0.10);
+      --border-hover:rgba(59,130,246,0.45);
+      --text:        #f4f4f5;
+      --muted:       rgba(255,255,255,0.52);
+      --blue:        #4f8ef7;
+      --blue-glow:   rgba(79,142,247,0.18);
+    }
+    /* Grid de fondo high-tech */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
+      pointer-events: none;
+    }
+    /* Resplandor azul industrial */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: 10%; right: -10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(79,142,247,0.18) 0%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255,255,255,0.03);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+    }
+    .hero-h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    /* Efecto Premium en el texto itálico */
+    .hero-h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, #fff 0%, var(--blue) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      padding-right: 10px;
+    }
+    .hero-p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 48ch;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    
+    .btn-solid {
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.85rem 1.8rem;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);
+    }
+    .btn-solid:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4); }
+    
+    .btn-ghost {
+      font-size: 0.9rem;
+      font-weight: 400;
+      padding: 0.85rem 1.8rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-ghost:hover { border-color: var(--muted); background: rgba(0,0,0,0.04); }
+
+    /* Dashboard Metrics (Prueba Social B2B) */
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+    .metric-cell {
+      background: rgba(5,15,40,0.75);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .metric-cell:hover { background: rgba(5,15,40,0.92); }
+    .metric-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .metric-val span { font-size: 1.2rem; color: var(--blue); }
+    .metric-label { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+    .metric-label strong { display: block; color: var(--text); font-weight: 500; font-size: 0.9rem; margin-bottom: 0.2rem; }
+
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 4rem; text-align: left; }
+      #hero::after { right: 50%; transform: translateX(50%); top: 50%; }
+    }
+    @media (max-width: 480px) {
+      .hero-metrics { grid-template-columns: 1fr; }
+    }
+
+    /* ── CASOS DE USO / DOLORES INDUSTRIALES ── */
+    #casos-uso { background: var(--panel); border-top: 1px solid var(--border); }
+    .casos-head { margin-bottom: 4rem; }
+    
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .card-uso {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-uso:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.10); }
+    /* Detalle técnico visual */
+    .card-uso::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0;
+      background: var(--blue); transition: height 0.3s ease;
+    }
+    .card-uso:hover::before { height: 100%; }
+    
+    .card-q { font-size: 1.05rem; font-weight: 500; color: var(--text); line-height: 1.5; margin-bottom: 1rem; }
+    .card-r { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── SERVICIOS B2B ── */
+    #servicios { background: var(--bg); }
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .srv-card {
+      background: var(--panel);
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s ease;
+    }
+    .srv-card:hover { background: var(--panel-hover); }
+    .srv-num { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--blue); margin-bottom: 1rem; display: block;}
+    .srv-title { font-size: 1.2rem; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 1rem; }
+    .srv-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1.5rem; }
+    
+    .srv-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .srv-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      background: rgba(0,0,0,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+    }
+
+    /* Tarjeta de Servicio en I+D (Muestra honestidad y visión) */
+    .srv-card.dev { background: rgba(34,81,255,0.03); border: 1px dashed rgba(34,81,255,0.25); }
+    .badge-dev {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      padding: 0.25rem 0.6rem;
+      background: rgba(212,168,83,0.1);
+      color: var(--gold);
+      border: 1px solid rgba(212,168,83,0.3);
+      border-radius: 4px;
+      float: right;
+    }
+
+    /* ── PROYECTOS / EXPERIENCIA INDUSTRIAL ── */
+    #casos { background: var(--panel); border-top: 1px solid var(--border); }
+    .proyectos-list { display: flex; flex-direction: column; gap: 2rem; }
+    
+    .proyecto {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+    .proyecto:hover { border-color: var(--border-hover); }
+    
+    .proyecto-meta {
+      padding: 2.5rem;
+      background: rgba(255,255,255,0.01);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+    .proyecto-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      align-self: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .badge-gold { background: rgba(212,168,83,0.1); color: var(--gold); border: 1px solid rgba(212,168,83,0.3); }
+    .badge-red  { background: rgba(239,68,68,0.1);  color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .badge-blue { background: rgba(59,130,246,0.1); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+    
+    .proyecto-year { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .proyecto-client { font-size: 0.9rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+    
+    .proyecto-body { padding: 2.5rem; }
+    .proyecto-title { font-size: 1.25rem; font-weight: 500; color: var(--text); margin-bottom: 1rem; line-height: 1.3; }
+    .proyecto-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    
+    .kpis { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .kpi {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      background: rgba(34,81,255,0.07);
+      color: var(--blue);
+      border: 1px solid rgba(34,81,255,0.18);
+      border-radius: 4px;
+    }
+    
+    @media (max-width: 800px) {
+      .proyecto { grid-template-columns: 1fr; }
+      .proyecto-meta { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; }
+      .proyecto-body { padding: 2rem; }
+    }
+
+    /* ── QUIÉN / AUTORIDAD ── */
+    #quien { background: var(--bg); border-top: 1px solid var(--border); }
+    .quien-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 5rem;
+    }
+    
+    .person-card {
+      position: sticky;
+      top: 100px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem;
+    }
+    .avatar {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+    .person-name { font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+    .person-role { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.5rem; }
+    
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
+    .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.5rem; background: rgba(0,0,0,0.06); color: var(--muted); border-radius: 4px; border: 1px solid var(--border); }
+    
+    .cita {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.3rem;
+      line-height: 1.4;
+      color: var(--text);
+      border-left: 2px solid var(--blue);
+      padding-left: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .quien-content p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .quien-content p strong { color: var(--text); font-weight: 500; }
+    
+    .timeline { margin-top: 3rem; }
+    .tl-entry {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 2rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-entry:last-child { border-bottom: none; }
+    .tl-year { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--blue); display: flex; align-items: flex-start; gap: 0.75rem; margin-top: 0.2rem;}
+    .tl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); margin-top: 0.3rem; box-shadow: 0 0 10px var(--blue); }
+    .tl-rol { font-size: 1rem; font-weight: 500; color: var(--text); line-height: 1.4; }
+    .tl-rol small { display: block; font-size: 0.85rem; color: var(--muted); font-weight: 400; margin-top: 0.3rem; }
+
+    @media (max-width: 900px) {
+      .quien-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .person-card { position: static; }
+    }
+
+    /* ── CONTACTO B2B ── */
+    #contacto { background: var(--panel); border-top: 1px solid var(--border); }
+    .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    
+    .contacto-h2 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .contacto-p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin-bottom: 3rem; }
+    
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .contact-link:hover { border-color: var(--blue); transform: translateX(5px); }
+    .contact-link svg { color: var(--blue); }
+    .contact-link-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.2rem;}
+    .contact-link-val { font-size: 1rem; font-weight: 500; color: var(--text); }
+
+    .contacto-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 3rem; }
+    .contacto-row { display: flex; justify-content: space-between; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+    .contacto-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .contacto-key { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .contacto-val { font-size: 0.9rem; font-weight: 500; color: var(--text); text-align: right; }
+
+    @media (max-width: 800px) {
+      .contacto-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .contacto-card { padding: 2rem; }
+      .contacto-row { flex-direction: column; gap: 0.5rem; text-align: left; }
+      .contacto-val { text-align: left; }
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #0c1a35; border-top: none; padding: 2.5rem 0; }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+    footer .nav-logo { color: rgba(255,255,255,0.85); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Wasaff Consulting</a>
+    <ul class="nav-links">
+      <li><a href="#casos-uso">Problemas Industriales</a></li>
+      <li><a href="#servicios">Capacidades</a></li>
+      <li><a href="#casos">Proyectos</a></li>
+      <li><a href="#contacto" class="btn-nav">Agendar Evaluación</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Abrir Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#casos-uso">Problemas Industriales</a>
+    <a href="#servicios">Capacidades</a>
+    <a href="#casos">Proyectos</a>
+    <a href="#contacto">Agendar Evaluación</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker fi">
+        <span class="status-dot"></span>
+        Santiago, Chile · Atención industria nacional
+      </div>
+      <h1 class="hero-h1 fi">
+        Tu desafío industrial tiene física.<br><em>La optimización,<br>modelos matemáticos.</em>
+      </h1>
+      <p class="hero-p fi">
+        Simulación computacional, métodos numéricos y análisis térmico avanzado. Traducimos leyes físicas en continuidad operacional, cumplimiento normativo y reducción de OPEX para minería, energía y manufactura.
+      </p>
+      <div class="hero-btns fi">
+        <a href="#contacto" class="btn-solid">Solicitar factibilidad técnica →</a>
+        <a href="#casos" class="btn-ghost">Ver evidencia industrial</a>
+      </div>
+    </div>
+
+    <div class="fi" style="display:flex;flex-direction:column;gap:1rem;">
+    <div style="border-radius:8px;overflow:hidden;height:200px;border:1px solid rgba(255,255,255,0.1);">
+      <img src="compresores.png" alt="Planta de compresores industriales" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.85);">
+    </div>
+    <div class="hero-metrics">
+      <div class="metric-cell">
+        <div class="metric-val">505 <span>kW</span></div>
+        <div class="metric-label">
+          <strong>Potencia Térmica Recuperada</strong>
+          Diseño para Papeles Cordillera (CMPC)
+        </div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-val">1</div>
+        <div class="metric-label">
+          <strong>Proyecto B2B Ejecutado</strong>
+          Ingeniería térmica e hidráulica industrial
+        </div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-val">MD</div>
+        <div class="metric-label">
+          <strong>Dinámica Molecular</strong>
+          Simulación de materiales (LAMMPS/LPMD)
+        </div>
+      </div>
+      <div class="metric-cell">
+        <div class="metric-val">6<span>+</span></div>
+        <div class="metric-label">
+          <strong>Años de Rigor Técnico</strong>
+          Puente entre academia (UChile) e industria
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOLORES INDUSTRIALES -->
+<section id="casos-uso">
+  <div class="container">
+    <div class="fi" style="margin-bottom:3rem;border-radius:8px;overflow:hidden;height:260px;">
+      <img src="planta-industrial.png" alt="Planta industrial manufacturera en Chile" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;">
+    </div>
+    <div class="casos-head fi">
+      <span class="label-mono">Diagnóstico</span>
+      <h2 class="sec-title">Reconoce el síntoma<br>en tu operación</h2>
+      <p class="sec-sub">Cuando las hojas de cálculo estándar o los proveedores genéricos no pueden resolver la complejidad de tu proceso, intervengo mediante física computacional.</p>
+    </div>
+    
+    <div class="cards-grid">
+      <div class="card-uso fi">
+        <span class="label-mono">Eficiencia Energética</span>
+        <p class="card-q">«Estamos perdiendo calor residual y el OPEX es insostenible.»</p>
+        <p class="card-r">Modelo el proceso termodinámico y dimensiono la ingeniería conceptual: intercambiadores, hidráulica (Darcy-Weisbach) y redes, justificando matemáticamente la inversión.</p>
+      </div>
+      <div class="card-uso fi">
+        <span class="label-mono">Validación / Riesgo</span>
+        <p class="card-q">«Un proveedor entregó este diseño. Necesitamos saber si fallará.»</p>
+        <p class="card-r">Realizo ingeniería de contraparte. Reconstruyo los cálculos mediante métodos numéricos independientes para validar factores de seguridad y cumplimiento normativo.</p>
+      </div>
+      <div class="card-uso fi">
+        <span class="label-mono">Comportamiento de Materiales</span>
+        <p class="card-q">«El material no rinde como especifica el fabricante ante impactos.»</p>
+        <p class="card-r">Simulación de dinámica molecular a escala nanométrica para estudiar propiedades mecánicas, transiciones de fase o fatiga, que pruebas macroscópicas no detectan.</p>
+      </div>
+      <div class="card-uso fi">
+        <span class="label-mono">Procesamiento Masivo de Datos</span>
+        <p class="card-q">«Los sensores arrojan gigabytes de datos, pero no hay métricas.»</p>
+        <p class="card-r">Automatizo la ingesta, limpieza y análisis de datos industriales usando Python/Pandas. Transformo ruido de sensores en métricas predictivas para mantenimiento o control.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPACIDADES (SERVICIOS) -->
+<section id="servicios">
+  <div class="container">
+    <div class="casos-head fi">
+      <span class="label-mono">Capacidades Técnicas</span>
+      <h2 class="sec-title">Solo lo que puedo<br>demostrar y ejecutar</h2>
+      <p class="sec-sub">Transparencia radical técnica. No vendo desarrollo web ni marketing; resuelvo problemas de ingeniería dura a través de modelamiento avanzado.</p>
+    </div>
+    
+    <div class="srv-grid">
+      <div class="srv-card fi">
+        <span class="srv-num">01</span>
+        <h3 class="srv-title">Modelado Térmico y Mecánica de Fluidos (Redes)</h3>
+        <p class="srv-desc">Estudio de transferencia de calor y cálculo de pérdidas de carga hidráulica para optimización de plantas industriales. Auditorías energéticas respaldadas por cálculo analítico.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">Termodinámica</span>
+          <span class="srv-tag">Hidráulica</span>
+          <span class="srv-tag">Python (SciPy)</span>
+        </div>
+      </div>
+      
+      <div class="srv-card fi">
+        <span class="srv-num">02</span>
+        <h3 class="srv-title">Simulación de Materiales y Dinámica Molecular</h3>
+        <p class="srv-desc">I+D para minería y manufactura avanzada. Estudio computacional de colisiones inelásticas, transferencia de energía y comportamiento de redes atómicas bajo estrés.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">LAMMPS</span>
+          <span class="srv-tag">LPMD</span>
+          <span class="srv-tag">Paraview</span>
+          <span class="srv-tag">Linux HPC</span>
+        </div>
+      </div>
+      
+      <div class="srv-card fi">
+        <span class="srv-num">03</span>
+        <h3 class="srv-title">Ingeniería Numérica y Automatización de Datos</h3>
+        <p class="srv-desc">Creación de algoritmos ad-hoc para resolver ecuaciones diferenciales de procesos productivos. Digitalización de flujos de trabajo de ingeniería pesada usando Python.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">Pandas</span>
+          <span class="srv-tag">Integradores RK45</span>
+          <span class="srv-tag">Apps Script</span>
+        </div>
+      </div>
+      
+      <div class="srv-card fi">
+        <span class="srv-num">04</span>
+        <h3 class="srv-title">Validación de Ingeniería e Informes de Peritaje</h3>
+        <p class="srv-desc">Documentación técnica escrita en LaTeX, con rigor matemático de nivel universitario. Ideal para licitaciones, resolución de controversias técnicas o cumplimiento de normas ANSI/ISO.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">LaTeX</span>
+          <span class="srv-tag">Ing. de Contraparte</span>
+          <span class="srv-tag">Rigor Académico</span>
+        </div>
+      </div>
+      
+      <div class="srv-card dev fi">
+        <span class="badge-dev">I+D · Proyección 2026</span>
+        <span class="srv-num">05</span>
+        <h3 class="srv-title">CFD Avanzado y Alto Rendimiento (HPC)</h3>
+        <p class="srv-desc">Desarrollo en curso de solvers basados en Navier-Stokes y paralelización en GPU para modelamiento tridimensional de fluidos complejos.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">OpenFOAM</span>
+          <span class="srv-tag">PETSc</span>
+          <span class="srv-tag">JAX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS B2B -->
+<section id="casos">
+  <div class="container">
+    <div class="casos-head fi">
+      <span class="label-mono">Evidencia</span>
+      <h2 class="sec-title">Proyectos auditables</h2>
+      <p class="sec-sub">Participación directa como ingeniero de cálculo e investigador principal. Los resultados no son teóricos; operan en plantas chilenas hoy.</p>
+    </div>
+    
+    <div class="proyectos-list">
+      <article class="proyecto fi">
+        <div class="proyecto-meta">
+          <span class="proyecto-badge badge-gold">Recuperación Energética</span>
+          <p class="proyecto-year">2023 – 2024</p>
+          <p class="proyecto-client">Papeles Cordillera (CMPC) / Leycero SpA</p>
+        </div>
+        <div class="proyecto-body">
+          <h3 class="proyecto-title">Diseño de Ingeniería Térmica para Planta de Compresores Kaeser</h3>
+          <p class="proyecto-desc">Levantamiento y modelado matemático para un sistema de aprovechamiento de calor residual de 6 compresores industriales. El diseño incluyó cálculo de transferencia térmica e hidráulica (pérdidas en tuberías de 1" a 3"), dimensionando equipos para cubrir la demanda térmica de la planta y abatir costos energéticos.</p>
+          <div style="margin:1.5rem 0;border-radius:8px;overflow:hidden;height:210px;">
+            <img src="tuberias.png" alt="Red de tuberías con aislación térmica — sistema de recuperación de calor" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;">
+          </div>
+          <div class="kpis">
+            <span class="kpi">505 kW de Demanda Térmica cubierta</span>
+            <span class="kpi">Caudal: 21.396 kg/h</span>
+            <span class="kpi">Reducción directa de OPEX (Gas/Petróleo)</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- SVG eliminado -->
+      <svg viewBox="0 0 0 0" xmlns="http://www.w3.org/2000/svg" style="display:none;" role="img" aria-label="">
+          <defs>
+            <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/>
+            </marker>
+            <marker id="arr-w" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.3)"/>
+            </marker>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Compresores (6 unidades) -->
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="rgba(161,161,170,0.9)">
+            <text x="18" y="18" fill="#3b82f6" font-size="8" letter-spacing="1">COMPRESORES KAESER</text>
+            <!-- Compresor 1-6 columnas -->
+            <rect x="15" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="37" y="46" text-anchor="middle">C1</text>
+            <rect x="67" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="89" y="46" text-anchor="middle">C2</text>
+            <rect x="119" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="141" y="46" text-anchor="middle">C3</text>
+            <rect x="171" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="193" y="46" text-anchor="middle">C4</text>
+            <rect x="223" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="245" y="46" text-anchor="middle">C5</text>
+            <rect x="275" y="28" width="44" height="28" rx="3" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+            <text x="297" y="46" text-anchor="middle">C6</text>
+          </g>
+
+          <!-- Tuberías de bajada de cada compresor al colector -->
+          <g stroke="#3b82f6" stroke-width="1.5" fill="none" opacity="0.7" filter="url(#glow)">
+            <line x1="37" y1="56" x2="37" y2="110"/>
+            <line x1="89" y1="56" x2="89" y2="110"/>
+            <line x1="141" y1="56" x2="141" y2="110"/>
+            <line x1="193" y1="56" x2="193" y2="110"/>
+            <line x1="245" y1="56" x2="245" y2="110"/>
+            <line x1="297" y1="56" x2="297" y2="110"/>
+          </g>
+
+          <!-- Colector principal -->
+          <rect x="15" y="110" width="306" height="18" rx="4" fill="none" stroke="#3b82f6" stroke-width="2" filter="url(#glow)"/>
+          <text x="163" y="122" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="#3b82f6">COLECTOR  ·  Ø 3"</text>
+
+          <!-- Flecha colector → intercambiador -->
+          <line x1="321" y1="119" x2="410" y2="119" stroke="#3b82f6" stroke-width="2" marker-end="url(#arr)" filter="url(#glow)"/>
+          <text x="360" y="113" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(161,161,170,0.8)">21.396 kg/h</text>
+
+          <!-- Intercambiador de calor -->
+          <rect x="415" y="95" width="90" height="48" rx="4" fill="none" stroke="rgba(212,168,83,0.8)" stroke-width="2"/>
+          <text x="460" y="115" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(212,168,83,0.9)">INTERCAMBIADOR</text>
+          <text x="460" y="128" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(212,168,83,0.9)">DE CALOR</text>
+          <!-- Símbolo curvas de intercambio -->
+          <path d="M425,107 Q435,102 445,107 Q455,112 465,107 Q475,102 485,107" stroke="rgba(212,168,83,0.5)" stroke-width="1" fill="none"/>
+          <path d="M425,131 Q435,136 445,131 Q455,126 465,131 Q475,136 485,131" stroke="#3b82f6" stroke-width="1" fill="none" opacity="0.5"/>
+
+          <!-- Flecha intercambiador → distribución -->
+          <line x1="505" y1="119" x2="580" y2="119" stroke="rgba(212,168,83,0.8)" stroke-width="2" marker-end="url(#arr)" filter="url(#glow)"/>
+
+          <!-- Red de distribución -->
+          <text x="590" y="103" font-family="JetBrains Mono, monospace" font-size="8" fill="rgba(161,161,170,0.7)">RED TÉRMICA</text>
+          <line x1="590" y1="108" x2="790" y2="108" stroke="rgba(212,168,83,0.6)" stroke-width="1.5"/>
+          <!-- Derivaciones -->
+          <line x1="630" y1="108" x2="630" y2="140" stroke="rgba(212,168,83,0.5)" stroke-width="1" marker-end="url(#arr)"/>
+          <line x1="690" y1="108" x2="690" y2="140" stroke="rgba(212,168,83,0.5)" stroke-width="1" marker-end="url(#arr)"/>
+          <line x1="750" y1="108" x2="750" y2="140" stroke="rgba(212,168,83,0.5)" stroke-width="1" marker-end="url(#arr)"/>
+          <rect x="610" y="140" width="40" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <text x="630" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.7)">Zona A</text>
+          <rect x="670" y="140" width="40" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <text x="690" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.7)">Zona B</text>
+          <rect x="730" y="140" width="40" height="22" rx="3" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <text x="750" y="155" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.7)">Zona C</text>
+
+          <!-- Etiquetas de parámetros clave -->
+          <g font-family="JetBrains Mono, monospace" font-size="8.5">
+            <text x="15" y="205" fill="rgba(161,161,170,0.6)">Fluido portador</text>
+            <text x="15" y="218" fill="rgba(244,244,245,0.85)">Agua / Propilenglicol</text>
+
+            <text x="180" y="205" fill="rgba(161,161,170,0.6)">Tuberías</text>
+            <text x="180" y="218" fill="rgba(244,244,245,0.85)">Ø 1" – 3"  ·  Darcy-Weisbach</text>
+
+            <text x="415" y="205" fill="rgba(161,161,170,0.6)">Demanda cubierta</text>
+            <text x="415" y="218" fill="rgba(212,168,83,0.9)" font-size="11" font-weight="500">505 kW</text>
+
+            <text x="595" y="205" fill="rgba(161,161,170,0.6)">Ahorro energético</text>
+            <text x="595" y="218" fill="rgba(16,185,129,0.9)">Reducción OPEX Gas/Petróleo</text>
+          </g>
+
+          <!-- Línea separadora inferior -->
+          <line x1="15" y1="232" x2="805" y2="232" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <text x="15" y="248" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.4)">Wasaff Consulting · Leycero SpA / Papeles Cordillera (CMPC) · 2023–2024</text>
+        </svg>
+
+    </div>
+  </div>
+</section>
+
+<!-- QUIÉN (AUTORIDAD B2B) -->
+<section id="quien">
+  <div class="container">
+    <div class="quien-grid">
+      <div class="person-card fi">
+        <div class="avatar"><img src="felipe-profesional.png" alt="Felipe Wasaff" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></div>
+        <h3 class="person-name">Felipe Wasaff</h3>
+        <p class="person-role">Físico Computacional<br>Magíster (c) Simulación Computacional, PUCV</p>
+        <div class="chips">
+          <span class="chip">Python/SciPy</span>
+          <span class="chip">LAMMPS/LPMD</span>
+          <span class="chip">Bash/Linux</span>
+          <span class="chip">LaTeX</span>
+        </div>
+        <div style="display:flex; gap:0.5rem; margin-top:1rem;">
+          <a href="https://www.linkedin.com/in/felipewasaff" target="_blank" rel="noopener" class="btn-ghost" style="flex:1; text-align:center; padding:0.6rem; font-size:0.8rem;">
+            LinkedIn
+          </a>
+          <a href="https://github.com/fwasaff" target="_blank" rel="noopener" class="btn-ghost" style="flex:1; text-align:center; padding:0.6rem; font-size:0.8rem;">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="quien-content">
+        <span class="label-mono fi">El Puente Técnico</span>
+        <blockquote class="cita fi">
+          «La diferencia entre un paper académico y una herramienta industrial es su capacidad de reducir el riesgo y ahorrar costos en terreno.»
+        </blockquote>
+        <p class="fi">Hablo ambos idiomas. Como <strong>Físico egresado de la Universidad de Chile</strong>, garantizo que las matemáticas detrás de su proyecto no tengan fisuras. Como consultor industrial, sé que ese rigor debe traducirse en informes accionables que aprueben presupuestos.</p>
+        <p class="fi">Actualmente soy Coordinador de Laboratorios en la U. de Chile e investigador activo (artículo en revisión en <em>Physica B</em>, 2025). Mis +6 años en docencia técnica en INACAP me permiten explicar la complejidad matemática de manera clara a jefes de turno, mecánicos de planta y gerentes de finanzas por igual.</p>
+        
+        <div class="timeline fi">
+          <div class="tl-entry">
+            <div class="tl-year"><span class="tl-dot"></span>2025 – Hoy</div>
+            <div class="tl-rol">Coordinador de Laboratorios de Física<small>Universidad de Chile</small></div>
+          </div>
+          <div class="tl-entry">
+            <div class="tl-year"><span class="tl-dot"></span>2023 – 2024</div>
+            <div class="tl-rol">Ingeniero de Simulación y Modelado Térmico<small>Leycero SpA</small></div>
+          </div>
+          <div class="tl-entry">
+            <div class="tl-year"><span class="tl-dot"></span>2018 – 2024</div>
+            <div class="tl-rol">Docencia de Ingeniería Aplicada (Termofluidos, Control)<small>INACAP</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div class="contacto-grid">
+      <div>
+        <span class="label-mono fi">Factibilidad Técnica</span>
+        <h2 class="contacto-h2 fi">Revisemos tu<br>desafío operativo.</h2>
+        <p class="contacto-p fi">Valoro tu tiempo y el rigor profesional. Escríbeme y evaluaremos la viabilidad de una simulación para tu caso. Si el problema escapa a mis áreas de especialidad, te lo indicaré desde el primer correo.</p>
+        
+        <div class="contact-links">
+          <a href="mailto:felipe.wasaff@uchile.cl" class="contact-link fi">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>
+            </svg>
+            <div>
+              <span class="contact-link-label">Correo Directo</span>
+              <span class="contact-link-val">felipe.wasaff@uchile.cl</span>
+            </div>
+          </a>
+          <a href="tel:+56946125682" class="contact-link fi">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.09 5.18 2 2 0 0 1 5.07 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 18v-.08z"/>
+            </svg>
+            <div>
+              <span class="contact-link-label">Llamada (Horario Hábil)</span>
+              <span class="contact-link-val">+56 9 4612 5682</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contacto-card fi">
+        <div class="contacto-row">
+          <span class="contacto-key">Base Operativa</span>
+          <span class="contacto-val">Santiago, Chile</span>
+        </div>
+        <div class="contacto-row">
+          <span class="contacto-key">Modalidad Comercial</span>
+          <span class="contacto-val">Consultoría B2B · Proyectos cerrados</span>
+        </div>
+        <div class="contacto-row">
+          <span class="contacto-key">Sectores Clave</span>
+          <span class="contacto-val">Minería · Generación Energética · Manufactura</span>
+        </div>
+        <div class="contacto-row">
+          <span class="contacto-key">Acuerdos</span>
+          <span class="contacto-val">Firma de NDA disponible a solicitud</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="nav-logo" style="font-size:1.1rem;">Wasaff Consulting</a>
+    <p class="footer-copy">© 2026 Wasaff Consulting. Modelado Matemático e Ingeniería Física en Chile.</p>
+  </div>
+</footer>
+
+<script>
+  // Menú Móvil
+  const hamburger = document.getElementById('hamburger');
+  const navMobile = document.getElementById('nav-mobile');
+  
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMobile.classList.toggle('open');
+  });
+  
+  navMobile.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navMobile.classList.remove('open');
+    });
+  });
+
+  // Sombra en Navbar al hacer scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.style.boxShadow = '0 2px 12px rgba(0,0,0,0.10)';
+    } else {
+      navbar.style.boxShadow = '0 1px 0 rgba(0,0,0,0.06)';
+    }
+  }, { passive: true });
+
+  // Animación de entrada (Intersection Observer)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+  
+  document.querySelectorAll('.fi').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
