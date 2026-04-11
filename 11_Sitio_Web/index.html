@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wasaff Consulting — Simulación Computacional e Ingeniería Física B2B</title>
-  <meta name="description" content="Simulación computacional, métodos numéricos y análisis térmico para optimización industrial en Chile. Traducimos física compleja en reducción de riesgo operativo y OPEX."/>
+  <meta name="description" content="Consultor técnico en simulación computacional para ingeniería industrial. Análisis térmico, hidráulico y validación de diseños con Python y métodos numéricos. Entrego el código fuente, no solo un PDF. Santiago, Chile."/>
   <meta name="robots" content="index, follow"/>
   <link rel="canonical" href="https://wasaffconsulting.cl/"/>
   <meta property="og:title" content="Wasaff Consulting — Simulación Computacional e Ingeniería Física"/>
@@ -50,18 +50,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:     #050505;
-      --panel:  #0e0e11;
-      --panel-hover: #141418;
-      --border: rgba(255,255,255,0.08);
-      --border-hover: rgba(59, 130, 246, 0.3);
-      --blue:   #3b82f6;
-      --blue-glow: rgba(59, 130, 246, 0.15);
-      --text:   #f4f4f5;
-      --muted:  #a1a1aa;
-      --gold:   #d4a853;
-      --red:    #ef4444;
-      --green:  #10b981;
+      --bg:     #ffffff;
+      --panel:  #f5f4f0;
+      --panel-hover: #e8e5de;
+      --border: rgba(0,0,0,0.09);
+      --border-hover: rgba(34,81,255,0.35);
+      --blue:   #2251ff;
+      --blue-glow: rgba(34,81,255,0.08);
+      --text:   #111111;
+      --muted:  #666666;
+      --gold:   #9a6f0e;
+      --red:    #b91c1c;
+      --green:  #0d7c5a;
     }
 
     html { font-size: 18px; scroll-behavior: smooth; }
@@ -147,11 +147,12 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      background: rgba(5, 5, 5, 0.85);
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
       transition: all 0.3s ease;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
     }
     .nav-inner {
       max-width: 1200px;
@@ -221,10 +222,10 @@
       flex-direction: column;
       position: absolute;
       top: 70px; left: 0; right: 0;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      background: #ffffff;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
       padding: 1rem 2rem 2rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
@@ -247,20 +248,30 @@
       align-items: center;
       padding-top: 70px;
       position: relative;
+      background: #0c1a35;
+      /* Overrides locales: todo dentro del hero usa paleta oscura */
+      --bg:          #0c1a35;
+      --panel:       rgba(255,255,255,0.06);
+      --panel-hover: rgba(255,255,255,0.10);
+      --border:      rgba(255,255,255,0.10);
+      --border-hover:rgba(59,130,246,0.45);
+      --text:        #f4f4f5;
+      --muted:       rgba(255,255,255,0.52);
+      --blue:        #4f8ef7;
+      --blue-glow:   rgba(79,142,247,0.18);
     }
     /* Grid de fondo high-tech */
     #hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image: 
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
       background-size: 60px 60px;
       mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
       -webkit-mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 70%);
       pointer-events: none;
-      opacity: 0.4;
     }
     /* Resplandor azul industrial */
     #hero::after {
@@ -268,7 +279,7 @@
       position: absolute;
       top: 10%; right: -10%;
       width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(79,142,247,0.18) 0%, transparent 70%);
       filter: blur(60px);
       pointer-events: none;
     }
@@ -349,7 +360,7 @@
       text-decoration: none;
       transition: all 0.2s ease;
     }
-    .btn-ghost:hover { border-color: var(--muted); background: rgba(255,255,255,0.03); }
+    .btn-ghost:hover { border-color: var(--muted); background: rgba(0,0,0,0.04); }
 
     /* Dashboard Metrics (Prueba Social B2B) */
     .hero-metrics {
@@ -363,7 +374,7 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
     .metric-cell {
-      background: rgba(14, 14, 17, 0.85);
+      background: rgba(5,15,40,0.75);
       backdrop-filter: blur(10px);
       padding: 2.5rem 2rem;
       display: flex;
@@ -371,7 +382,7 @@
       justify-content: center;
       transition: background 0.3s ease;
     }
-    .metric-cell:hover { background: var(--panel-hover); }
+    .metric-cell:hover { background: rgba(5,15,40,0.92); }
     .metric-val {
       font-family: 'JetBrains Mono', monospace;
       font-size: 2.5rem;
@@ -410,7 +421,7 @@
       position: relative;
       overflow: hidden;
     }
-    .card-uso:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .card-uso:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.10); }
     /* Detalle técnico visual */
     .card-uso::before {
       content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0;
@@ -449,14 +460,14 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.65rem;
       color: var(--muted);
-      background: rgba(255,255,255,0.03);
+      background: rgba(0,0,0,0.04);
       border: 1px solid var(--border);
       border-radius: 4px;
       padding: 0.3rem 0.6rem;
     }
 
     /* Tarjeta de Servicio en I+D (Muestra honestidad y visión) */
-    .srv-card.dev { background: rgba(59, 130, 246, 0.03); border: 1px dashed rgba(59, 130, 246, 0.3); }
+    .srv-card.dev { background: rgba(34,81,255,0.03); border: 1px dashed rgba(34,81,255,0.25); }
     .badge-dev {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.6rem;
@@ -516,9 +527,9 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
       padding: 0.3rem 0.7rem;
-      background: rgba(59,130,246,0.08);
-      color: #60a5fa;
-      border: 1px solid rgba(59,130,246,0.2);
+      background: rgba(34,81,255,0.07);
+      color: var(--blue);
+      border: 1px solid rgba(34,81,255,0.18);
       border-radius: 4px;
     }
     
@@ -545,17 +556,17 @@
       padding: 2.5rem;
     }
     .avatar {
-      width: 100px; height: 100px;
-      border-radius: 8px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 3px solid var(--border);
       margin-bottom: 1.5rem;
     }
     .person-name { font-size: 1.1rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
     .person-role { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.5rem; }
     
     .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
-    .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.5rem; background: rgba(255,255,255,0.05); color: var(--muted); border-radius: 4px; }
+    .chip { font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; padding: 0.2rem 0.5rem; background: rgba(0,0,0,0.06); color: var(--muted); border-radius: 4px; border: 1px solid var(--border); }
     
     .cita {
       font-family: 'Instrument Serif', Georgia, serif;
@@ -632,12 +643,13 @@
     }
 
     /* ── FOOTER ── */
-    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; }
+    footer { background: #0c1a35; border-top: none; padding: 2.5rem 0; }
     .footer-inner {
       max-width: 1200px; margin: 0 auto; padding: 0 2rem;
       display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
     }
-    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); }
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: rgba(255,255,255,0.45); }
+    footer .nav-logo { color: rgba(255,255,255,0.85); }
   </style>
 </head>
 <body>
@@ -670,13 +682,13 @@
     <div>
       <div class="hero-kicker fi">
         <span class="status-dot"></span>
-        Santiago, Chile · Atención industria nacional
+        Santiago, Chile · Especialista técnico · 1 proyecto B2B ejecutado
       </div>
       <h1 class="hero-h1 fi">
-        Tu desafío industrial tiene física.<br><em>La optimización,<br>modelos matemáticos.</em>
+        Simulación computacional para el problema industrial<br><em>que no cuadra en Excel.</em>
       </h1>
       <p class="hero-p fi">
-        Simulación computacional, métodos numéricos y análisis térmico avanzado. Traducimos leyes físicas en continuidad operacional, cumplimiento normativo y reducción de OPEX para minería, energía y manufactura.
+        Cálculo térmico, análisis hidráulico y validación de diseños con Python y métodos numéricos. Entrego el código fuente junto con el informe — no solo un PDF.
       </p>
       <div class="hero-btns fi">
         <a href="#contacto" class="btn-solid">Solicitar factibilidad técnica →</a>
@@ -684,12 +696,16 @@
       </div>
     </div>
 
-    <div class="hero-metrics fi">
+    <div class="fi" style="display:flex;flex-direction:column;gap:1rem;">
+    <div style="border-radius:8px;overflow:hidden;height:200px;border:1px solid rgba(255,255,255,0.1);">
+      <img src="compresores.png" alt="Planta de compresores industriales" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.85);">
+    </div>
+    <div class="hero-metrics">
       <div class="metric-cell">
         <div class="metric-val">505 <span>kW</span></div>
         <div class="metric-label">
           <strong>Potencia Térmica Recuperada</strong>
-          Diseño para Papeles Cordillera (CMPC)
+          Industria pulp · Leycero SpA
         </div>
       </div>
       <div class="metric-cell">
@@ -714,12 +730,16 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </section>
 
 <!-- DOLORES INDUSTRIALES -->
 <section id="casos-uso">
   <div class="container">
+    <div class="fi" style="margin-bottom:3rem;border-radius:8px;overflow:hidden;height:260px;">
+      <img src="planta-industrial.png" alt="Planta industrial manufacturera en Chile" style="width:100%;height:100%;object-fit:cover;object-position:center 40%;">
+    </div>
     <div class="casos-head fi">
       <span class="label-mono">Diagnóstico</span>
       <h2 class="sec-title">Reconoce el síntoma<br>en tu operación</h2>
@@ -763,46 +783,45 @@
     <div class="srv-grid">
       <div class="srv-card fi">
         <span class="srv-num">01</span>
-        <h3 class="srv-title">Modelado Térmico y Mecánica de Fluidos (Redes)</h3>
-        <p class="srv-desc">Estudio de transferencia de calor y cálculo de pérdidas de carga hidráulica para optimización de plantas industriales. Auditorías energéticas respaldadas por cálculo analítico.</p>
+        <h3 class="srv-title">Análisis térmico de sistemas industriales</h3>
+        <p class="srv-desc">Cálculo de intercambiadores (método ε-NTU / LMTD), dimensionamiento de acumuladores y redes de distribución. Entregable: informe PDF en LaTeX + script Python ejecutable con los parámetros de diseño.</p>
         <div class="srv-tags">
-          <span class="srv-tag">Termodinámica</span>
-          <span class="srv-tag">Hidráulica</span>
-          <span class="srv-tag">Python (SciPy)</span>
+          <span class="srv-tag">ε-NTU / LMTD</span>
+          <span class="srv-tag">Python</span>
+          <span class="srv-tag">LaTeX</span>
         </div>
       </div>
-      
+
       <div class="srv-card fi">
         <span class="srv-num">02</span>
-        <h3 class="srv-title">Simulación de Materiales y Dinámica Molecular</h3>
-        <p class="srv-desc">I+D para minería y manufactura avanzada. Estudio computacional de colisiones inelásticas, transferencia de energía y comportamiento de redes atómicas bajo estrés.</p>
+        <h3 class="srv-title">Cálculo hidráulico de redes de tuberías</h3>
+        <p class="srv-desc">Pérdidas de carga por tramo con Darcy-Weisbach y Colebrook-White, selección de bomba, verificación de velocidades. Entregable: reporte con tabla de tramos + código Python + criterio de diseño documentado.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">Darcy-Weisbach</span>
+          <span class="srv-tag">Colebrook-White</span>
+          <span class="srv-tag">Python</span>
+        </div>
+      </div>
+
+      <div class="srv-card fi">
+        <span class="srv-num">03</span>
+        <h3 class="srv-title">Validación e ingeniería de contraparte</h3>
+        <p class="srv-desc">Recálculo independiente del diseño de un proveedor usando métodos numéricos propios. Entregable: dictamen técnico escrito con las ecuaciones explícitas y los factores de seguridad verificados.</p>
+        <div class="srv-tags">
+          <span class="srv-tag">Métodos numéricos</span>
+          <span class="srv-tag">LaTeX</span>
+          <span class="srv-tag">Análisis de riesgo</span>
+        </div>
+      </div>
+
+      <div class="srv-card fi">
+        <span class="srv-num">04</span>
+        <h3 class="srv-title">Simulación de materiales (dinámica molecular)</h3>
+        <p class="srv-desc">Propiedades mecánicas, transiciones de fase y comportamiento bajo impacto a escala nanométrica, para casos donde las pruebas macroscópicas no son suficientes. Entregable: configuración LAMMPS + análisis Python + visualización Paraview.</p>
         <div class="srv-tags">
           <span class="srv-tag">LAMMPS</span>
           <span class="srv-tag">LPMD</span>
           <span class="srv-tag">Paraview</span>
-          <span class="srv-tag">Linux HPC</span>
-        </div>
-      </div>
-      
-      <div class="srv-card fi">
-        <span class="srv-num">03</span>
-        <h3 class="srv-title">Ingeniería Numérica y Automatización de Datos</h3>
-        <p class="srv-desc">Creación de algoritmos ad-hoc para resolver ecuaciones diferenciales de procesos productivos. Digitalización de flujos de trabajo de ingeniería pesada usando Python.</p>
-        <div class="srv-tags">
-          <span class="srv-tag">Pandas</span>
-          <span class="srv-tag">Integradores RK45</span>
-          <span class="srv-tag">Apps Script</span>
-        </div>
-      </div>
-      
-      <div class="srv-card fi">
-        <span class="srv-num">04</span>
-        <h3 class="srv-title">Validación de Ingeniería e Informes de Peritaje</h3>
-        <p class="srv-desc">Documentación técnica escrita en LaTeX, con rigor matemático de nivel universitario. Ideal para licitaciones, resolución de controversias técnicas o cumplimiento de normas ANSI/ISO.</p>
-        <div class="srv-tags">
-          <span class="srv-tag">LaTeX</span>
-          <span class="srv-tag">Ing. de Contraparte</span>
-          <span class="srv-tag">Rigor Académico</span>
         </div>
       </div>
       
@@ -827,7 +846,7 @@
     <div class="casos-head fi">
       <span class="label-mono">Evidencia</span>
       <h2 class="sec-title">Proyectos auditables</h2>
-      <p class="sec-sub">Participación directa como ingeniero de cálculo e investigador principal. Los resultados no son teóricos; operan en plantas chilenas hoy.</p>
+      <p class="sec-sub">Participación directa como ingeniero de cálculo. Cada proyecto incluye código fuente entregado al cliente — auditable, reproducible, sin caja negra.</p>
     </div>
     
     <div class="proyectos-list">
@@ -835,11 +854,14 @@
         <div class="proyecto-meta">
           <span class="proyecto-badge badge-gold">Recuperación Energética</span>
           <p class="proyecto-year">2023 – 2024</p>
-          <p class="proyecto-client">Papeles Cordillera (CMPC) / Leycero SpA</p>
+          <p class="proyecto-client">Leycero SpA · Industria pulp, Puente Alto</p>
         </div>
         <div class="proyecto-body">
           <h3 class="proyecto-title">Diseño de Ingeniería Térmica para Planta de Compresores Kaeser</h3>
           <p class="proyecto-desc">Levantamiento y modelado matemático para un sistema de aprovechamiento de calor residual de 6 compresores industriales. El diseño incluyó cálculo de transferencia térmica e hidráulica (pérdidas en tuberías de 1" a 3"), dimensionando equipos para cubrir la demanda térmica de la planta y abatir costos energéticos.</p>
+          <div style="margin:1.5rem 0;border-radius:8px;overflow:hidden;height:210px;">
+            <img src="tuberias.png" alt="Red de tuberías con aislación térmica — sistema de recuperación de calor" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;">
+          </div>
           <div class="kpis">
             <span class="kpi">505 kW de Demanda Térmica cubierta</span>
             <span class="kpi">Caudal: 21.396 kg/h</span>
@@ -848,10 +870,26 @@
         </div>
       </article>
 
-      <!-- Esquema técnico del sistema -->
-      <div class="fi" style="margin-top:2.5rem; background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:2rem;">
-        <span class="label-mono" style="margin-bottom:1.25rem;">Esquema del Sistema · Planta Compresores Kaeser</span>
-        <svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" role="img" aria-label="Diagrama de recuperación de calor residual">
+      <article class="proyecto fi">
+        <div class="proyecto-meta">
+          <span class="proyecto-badge badge-blue">Análisis Estructural</span>
+          <p class="proyecto-year">2024</p>
+          <p class="proyecto-client">Empresa de protección contra incendios · Sector industrial</p>
+        </div>
+        <div class="proyecto-body">
+          <h3 class="proyecto-title">Análisis de fuerzas de impacto en tuberías industriales</h3>
+          <p class="proyecto-desc">Cálculo de fuerzas de impacto dinámico para tuberías SCH10/SCH40 a distintos diámetros y alturas de caída. Aplicación del método de Housner con análisis comparativo de schedules, reporte CSV automatizado y gráficas de resultados generadas con Python.</p>
+          <div class="kpis">
+            <span class="kpi">Método Housner implementado</span>
+            <span class="kpi">SCH10 vs SCH40 comparados</span>
+            <span class="kpi">Código Python entregable</span>
+          </div>
+          <p style="margin-top:1rem;font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">Análisis de metodología desarrollado como capacidad técnica interna. El cliente no ejecutó el proyecto.</p>
+        </div>
+      </article>
+
+      <!-- SVG eliminado -->
+      <svg viewBox="0 0 0 0" xmlns="http://www.w3.org/2000/svg" style="display:none;" role="img" aria-label="">
           <defs>
             <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
               <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/>
@@ -943,9 +981,8 @@
 
           <!-- Línea separadora inferior -->
           <line x1="15" y1="232" x2="805" y2="232" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-          <text x="15" y="248" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.4)">Wasaff Consulting · Leycero SpA / Papeles Cordillera (CMPC) · 2023–2024</text>
+          <text x="15" y="248" font-family="JetBrains Mono, monospace" font-size="7.5" fill="rgba(161,161,170,0.4)">Wasaff Consulting · Leycero SpA · Industria pulp · 2023–2024</text>
         </svg>
-      </div>
 
     </div>
   </div>
@@ -956,7 +993,7 @@
   <div class="container">
     <div class="quien-grid">
       <div class="person-card fi">
-        <div class="avatar"><img src="felipe.png" alt="Felipe Wasaff" style="width:100%;height:100%;object-fit:cover;"></div>
+        <div class="avatar"><img src="felipe-profesional.png" alt="Felipe Wasaff" style="width:100%;height:100%;object-fit:cover;object-position:center top;"></div>
         <h3 class="person-name">Felipe Wasaff</h3>
         <p class="person-role">Físico Computacional<br>Magíster (c) Simulación Computacional, PUCV</p>
         <div class="chips">
@@ -980,7 +1017,7 @@
         <blockquote class="cita fi">
           «La diferencia entre un paper académico y una herramienta industrial es su capacidad de reducir el riesgo y ahorrar costos en terreno.»
         </blockquote>
-        <p class="fi">Hablo ambos idiomas. Como <strong>Físico egresado de la Universidad de Chile</strong>, garantizo que las matemáticas detrás de su proyecto no tengan fisuras. Como consultor para empresas (CMPC, Synergy), sé que ese rigor debe traducirse en informes accionables que aprueben presupuestos.</p>
+        <p class="fi">Hablo ambos idiomas. Como <strong>Físico egresado de la Universidad de Chile</strong>, garantizo que las matemáticas detrás de su proyecto no tengan fisuras. Como consultor industrial, sé que ese rigor debe traducirse en informes accionables que aprueben presupuestos.</p>
         <p class="fi">Actualmente soy Coordinador de Laboratorios en la U. de Chile e investigador activo (artículo en revisión en <em>Physica B</em>, 2025). Mis +6 años en docencia técnica en INACAP me permiten explicar la complejidad matemática de manera clara a jefes de turno, mecánicos de planta y gerentes de finanzas por igual.</p>
         
         <div class="timeline fi">
@@ -990,7 +1027,7 @@
           </div>
           <div class="tl-entry">
             <div class="tl-year"><span class="tl-dot"></span>2023 – 2024</div>
-            <div class="tl-rol">Ingeniero de Simulación y Modelado Térmico<small>Leycero SpA / Proyectos CMPC</small></div>
+            <div class="tl-rol">Ingeniero de Simulación y Modelado Térmico<small>Leycero SpA</small></div>
           </div>
           <div class="tl-entry">
             <div class="tl-year"><span class="tl-dot"></span>2018 – 2024</div>
@@ -1080,15 +1117,13 @@
     });
   });
 
-  // Blur y Sombra en Navbar al hacer scroll
+  // Sombra en Navbar al hacer scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      navbar.style.background = 'rgba(5, 5, 5, 0.95)';
-      navbar.style.borderBottom = '1px solid rgba(59, 130, 246, 0.2)';
+      navbar.style.boxShadow = '0 2px 12px rgba(0,0,0,0.10)';
     } else {
-      navbar.style.background = 'rgba(5, 5, 5, 0.85)';
-      navbar.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+      navbar.style.boxShadow = '0 1px 0 rgba(0,0,0,0.06)';
     }
   }, { passive: true });
 
