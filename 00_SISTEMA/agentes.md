@@ -14,13 +14,28 @@
 | 7 | Director de Conocimiento | `06_CONOCIMIENTO/` | ACTIVO | Metodologías, scripts, I+D | 2026-03-16 |
 | 8 | Director de Comunicaciones | `07_COMUNICACIONES/` | ACTIVO | Web, LinkedIn, marca | 2026-03-16 |
 
-## Cómo activar un agente
-1. Abrir el `README.md` de la carpeta del agente
-2. Pegar su contenido como mensaje inicial en una nueva conversación Claude
-3. Proporcionar el contexto específico de la tarea
-4. El agente ya conoce sus reglas y archivos
+## Cómo activar un agente (método actualizado)
+
+Cada agente tiene un archivo de activación en `00_SISTEMA/agentes/` con instrucciones exactas de qué leer y cómo comportarse. El flujo es:
+
+1. Abrir una sesión de Claude Code en este repositorio
+2. Decir: *"Actúa como [nombre], lee tu archivo en 00_SISTEMA/agentes/[archivo].md"*
+3. Claude lee el archivo, carga el contexto referenciado, y opera como ese agente
+
+| Agente | Nombre | Archivo de activación |
+|--------|--------|-----------------------|
+| Orquestador | Director | `00_SISTEMA/agentes/orquestador.md` |
+| Director Comercial | Adrián | `00_SISTEMA/agentes/comercial.md` |
+| Asesor Legal | Catalina | `00_SISTEMA/agentes/legal.md` |
+| Director Financiero | Sofía | `00_SISTEMA/agentes/finanzas.md` |
+| Director de Proyectos | Martín | `00_SISTEMA/agentes/proyectos.md` |
+| Director de Comunicaciones | Valentina | `00_SISTEMA/agentes/marketing.md` |
+| Director de Conocimiento / I+D | Leonardo | `00_SISTEMA/agentes/ixd.md` |
+
+Los READMEs de cada carpeta siguen siendo válidos como referencia de rol — los archivos en `agentes/` los complementan con instrucciones de activación, criterios de escalación y lista priorizada de archivos a leer.
 
 ## Notas de operación
-- Los agentes no se comunican directamente entre sí — el Director es el intermediario
-- Cuando un agente necesita información de otro departamento, el Director la obtiene y la provee
-- Cada agente debe limitarse estrictamente a su área de responsabilidad
+- Los agentes no se comunican directamente entre sí — el Orquestador es el intermediario
+- El Orquestador solo interrumpe a Felipe según los criterios en `agentes/orquestador.md`
+- Cada agente se limita estrictamente a su área de responsabilidad
+- *Última actualización: 2026-04-11*
