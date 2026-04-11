@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import './globals.css';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+import Navbar        from '@/components/layout/Navbar';
+import Footer        from '@/components/layout/Footer';
+import StickyContact from '@/components/layout/StickyContact';
 
 const GA_ID = 'G-6DPM8LHP43';
 
@@ -150,6 +151,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <StickyContact />
       </body>
     </html>
   );
