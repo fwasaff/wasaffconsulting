@@ -1,8 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -19,6 +21,11 @@ export default function Navbar() {
     { href: '#quien',           label: 'Director' },
     { href: '#blog',            label: 'Insights' },
   ];
+
+  const resolveHref = (href: string) => {
+    if (href.startsWith('#') && pathname !== '/') return '/' + href;
+    return href;
+  };
 
   return (
     <nav
@@ -51,7 +58,7 @@ export default function Navbar() {
           {links.map((l) => (
             <li key={l.href}>
               <Link
-                href={l.href}
+                href={resolveHref(l.href)}
                 style={{
                   fontSize: '0.85rem',
                   fontWeight: 400,
@@ -82,7 +89,10 @@ export default function Navbar() {
         <button
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Abrir Menú"
+          aria-label={mobileOpen ? 'Cerrar Menú' : 'Abrir Menú'}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
+          type="button"
         >
           {[0, 1, 2].map((i) => (
             <span
@@ -102,13 +112,14 @@ export default function Navbar() {
       {/* Mobile menu */}
       {mobileOpen && (
         <div
+          id="mobile-menu"
           className="md:hidden flex flex-col"
           style={{ borderTop: '1px solid var(--border)', background: '#ffffff' }}
         >
           {links.map((l) => (
             <Link
               key={l.href}
-              href={l.href}
+              href={resolveHref(l.href)}
               style={{
                 padding: '1rem 2rem',
                 borderBottom: '1px solid var(--border)',

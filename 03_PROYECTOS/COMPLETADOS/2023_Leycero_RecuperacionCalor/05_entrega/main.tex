@@ -1,332 +1,578 @@
 %-------------------------------------------------
-% PREÁMBULO
+% Wasaff Consulting — WC-2023-001
+% Sistema de Recuperación de Calor Residual en Compresores
+% Cliente: Leycero SpA / Papeles Cordillera S.A. (Grupo CMPC)
+% Elaborado: Felipe Wasaff (Wasaff Consulting)
+% Colaboración técnica: Nilton Martínez (Leycero SpA)
 %-------------------------------------------------
 
-% Documento propiedad de LEYCERO SpA.
-% Trabajo realizado por Nilton Martinez y Felipe González.
-% Creado para Análisis termodinámico en Papelera Cordillera.
+\documentclass[11pt,a4paper]{article}
 
-\documentclass[11pt,a4paper]{article}  % Define la clase del documento como "article" con tamaño de fuente 11pt y papel A4.
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage[left=1.5in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{xcolor}
+\usepackage{siunitx}
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf}
+\usepackage[nottoc]{tocbibind}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{tocloft}
+\usepackage{array}
+\usepackage{colortbl}
 
-% Paquetes
-\usepackage[utf8]{inputenc}  % Codificación de entrada para caracteres especiales (UTF-8).
-\usepackage[spanish]{babel}  % Configuración para el idioma español.
-\usepackage{amsmath, amssymb, amsthm}  % Paquetes matemáticos y teoremas.
-\usepackage{graphicx}  % Para incluir imágenes en el documento.
-\usepackage{listings}  % Para incluir código fuente.
-\usepackage{booktabs}  % Para crear tablas profesionales.
-\usepackage{tabularx}  % Mejoras para tablas.
-\usepackage{makecell}  % Permite celdas en tablas con formato especial.
-\usepackage{multirow}  % Permite combinar filas en tablas.
-\usepackage{hyperref}  % Habilita hipervínculos y referencias cruzadas.
-\usepackage[left=1.5in, right=1in, top=1in, bottom=1in]{geometry}  % Configuración de márgenes de la página.
-\usepackage{xcolor}  % Permite el uso de colores en el documento.
-\usepackage{siunitx}  % Formateo de unidades y números.
-\usepackage{caption}  % Configuración personalizada para los títulos de las tablas y figuras.
-\captionsetup{font=it}  % Configura el formato de los títulos de tablas y figuras.
-\usepackage[nottoc]{tocbibind}  % Configura la inclusión de la bibliografía en el índice.
-\usepackage{fancyhdr}  % Personaliza los encabezados y pies de página.
-\usepackage{enumitem}  % Permite personalizar las listas.
-\usepackage{tocloft}  % Personaliza el formato del índice.
-\usepackage{tikz}
-\usetikzlibrary{shapes,arrows.meta, positioning, patterns}
-\tikzset{
-    % Definición de estilos para P&ID
-    compresor/.style = {draw, rectangle, minimum size=1cm, label=below:Compresor},
-    intercambiador/.style = {draw, trapezium, trapezium stretches=true, minimum size=1.5cm, label=below:Intercambiador},
-    bomba/.style = {draw, circle, minimum size=1cm, label=below:Bomba},
-    acumulador/.style = {draw, cylinder, shape aspect=2, minimum size=2cm, label=below:Acumulador},
-    tuberia/.style = {thick},
+\definecolor{navyblue}{RGB}{5,28,44}
+\definecolor{lightgray}{RGB}{244,244,240}
+
+\setlist[itemize,1]{label=$\bullet$}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Recuperación de Calor en Compresores — Papeles Cordillera S.A.}
+\fancyhead[R]{\small Wasaff Consulting}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\title{%
+  \textbf{Sistema de Recuperación de Calor Residual en Compresores}\\[0.5em]
+  \large Memoria de Cálculo Técnica — WC-2023-001
 }
-
-% Redefinir el símbolo estándar para itemize
-\setlist[itemize,1]{label=$\bullet$}  % Cambia el símbolo de la lista itemize a un bullet personalizado.
-
-% Encabezados y pies de página
-\pagestyle{fancy}  % Establece un estilo de página personalizado.
-\fancyhf{}  % Limpia los encabezados y pies de página existentes.
-\fancyhead[L]{Recuperación de Calor en Compresores}  % Encabezado izquierdo.
-\fancyhead[R]{Leycero SpA}  % Encabezado derecho.
-\fancyfoot[C]{\thepage}  % Número de página en el centro del pie de página.
-\renewcommand{\headrulewidth}{0.4pt}  % Grosor de la línea de encabezado.
-\renewcommand{\footrulewidth}{0.4pt}  % Grosor de la línea de pie de página.
-
-% Información del documento
-\title{Sistema de recuperación de calor}  % Título del documento.
-\author{Ingeniero a cargo: Nilton Martínez}  % Autor del documento.
-\date{Fecha de entrega: \today}  % Fecha del documento.
-
-\renewcommand{\cfttabpresnum}{Tabla\ }  % Configura la etiqueta "Tabla" en el índice de tablas.
-\renewcommand{\cfttabaftersnum}{.}  % Agrega un punto después del número de tabla en el índice.
-\newlength{\mylen}  % Define una longitud personalizada.
-\settowidth{\mylen}{\cfttabpresnum\cfttabaftersnum}  % Establece la longitud de la etiqueta de tabla.
-\addtolength{\cfttabnumwidth}{\mylen}  % Añade la longitud personalizada a la anchura del número de tabla en el índice.
-
-\addto\captionsspanish{  % Configuración personalizada para el idioma español.
-  \renewcommand{\tablename}{Tabla}  % Cambia el nombre de las tablas a "Tabla".
-  \renewcommand{\listtablename}{Índice de Tablas}  % Cambia el nombre del índice de tablas a "Índice de Tablas".
+\author{%
+  Felipe Wasaff\\
+  \small Wasaff Consulting\\[0.3em]
+  \small En colaboración con Nilton Martínez (Leycero SpA)
 }
+\date{Planta Puente Alto · Papeles Cordillera S.A. · Grupo CMPC}
+
+\renewcommand{\cfttabpresnum}{Tabla\ }
+\renewcommand{\cfttabaftersnum}{.}
+\newlength{\mylen}
+\settowidth{\mylen}{\cfttabpresnum\cfttabaftersnum}
+\addtolength{\cfttabnumwidth}{\mylen}
+
+\newcommand{\dato}[2]{\textbf{#1} & #2 \\}
 
 %-------------------------------------------------
-% DOCUMENTO
-%-------------------------------------------------
-
-
 \begin{document}
 
-% 1. Portada
+%----- Portada -----
 \begin{titlepage}
 \centering
-\includegraphics[scale=0.2]{img/logo}\\ % Si tienes un logo de la empresa Leycero SpA, puedes agregarlo aquí.
-\vspace*{2cm}
-{\LARGE \bfseries Aprovechamiento de Recursos Térmicos: Diseño de un Sistema de Recuperación de Calor en Compresores}\\[1cm]
+\vspace*{1.5cm}
+{\Large\bfseries\color{navyblue}
+Aprovechamiento de Recursos Térmicos\\[0.3em]
+Sistema de Recuperación de Calor Residual\\[0.3em]
+en Compresores de Aire Comprimido}\\[1.2cm]
 
-Proyecto realizado por:\\[0.4cm]
-{\large Leycero SpA}\\[0.6cm]
-Para la implementación en:\\[0.4cm]
-{\large Papeles Cordillera S.A.}\\[0.6cm]
-En colaboración con:\\[0.4cm]
-{\large Kaeser Compresores de Chile SpA}\\[1cm]
+\begin{tabular}{ll}
+\dato{Cliente:}{Leycero SpA para Papeles Cordillera S.A. (Grupo CMPC)}
+\dato{Ubicación:}{Planta Puente Alto, Región Metropolitana}
+\dato{Equipo Kaeser:}{6 compresores rotatorios de tornillo}
+\dato{N.º de proyecto:}{WC-2023-001}
+\dato{Revisión:}{1.0 — Entrega final}
+\end{tabular}
 
-Autores:\\[0.4cm]
-{\large Felipe González}\\
-{\small Licenciado en Ciencias con mención en Física, Universidad de Chile}\\[0.4cm]
+\vspace{1cm}
+\rule{0.8\textwidth}{0.4pt}
+\vspace{0.8cm}
 
-{\large Nilton Martínez}\\
-{\small Ingeniero en Refrigeración y Climatización, INACAP}\\
-{\small Ingeniero en Automatización y Control Industrial, INACAP}\\[1cm]
-
-
-Contacto:\\[0.4cm]
-{\small niltonmartinez@gmail.com}\\ % Ajusta este correo al correo real que deseas usar.
-
+\begin{tabular}{ll}
+\dato{Análisis y cálculos:}{Felipe Wasaff — Wasaff Consulting}
+\dato{Coordinación de proyecto:}{Nilton Martínez — Leycero SpA}
+\dato{Colaboración técnica:}{Kaeser Compresores de Chile SpA}
+\end{tabular}
 
 \vfill
-Fecha de entrega: \today
+{\small Fecha: diciembre de 2023}
 \end{titlepage}
 
-% 2. Índice
+%----- Índice -----
 \tableofcontents
+\listoftables
 \newpage
 
-% 1) Ingeniería del Proyecto de Recuperación de Calor
-\section{Ingeniería del Proyecto de Recuperación de Calor}
+%-------------------------------------------------
+\section{Descripción del Proyecto}
+%-------------------------------------------------
 
-\subsection{Descripción General del Proyecto}
-El proyecto consiste en la implementación de un sistema avanzado de recuperación de calor en la planta de Papeles Cordillera S.A. Su objetivo principal es aprovechar el calor residual generado por los compresores de aire utilizados en el proceso de producción de papel, convirtiéndolo en una fuente de energía secundaria para otros procesos industriales.
+\subsection{Contexto}
 
-\subsection{Justificación Técnica y Económica del Sistema de Recuperación de Calor}
-Técnicamente, el sistema promete mejorar la eficiencia energética de la planta reduciendo el consumo de energía primaria. Económicamente, se espera que la reducción en el consumo de energía resulte en un ahorro significativo en los costos operativos, con un período de retorno de inversión atractivo. La recuperación de calor también contribuirá a reducir las emisiones de gases de efecto invernadero, alineándose con las políticas de sostenibilidad de la empresa.
+La planta de Papeles Cordillera S.A. opera una sala de máquinas con seis compresores de
+tornillo rotatorio marca Kaeser, cuya función es abastecer aire comprimido a los procesos
+de producción de papel. Durante la compresión, aproximadamente el 80\,\% de la energía
+eléctrica consumida se convierte en calor residual, disipado históricamente al ambiente
+mediante ventilación forzada y circuitos de agua de enfriamiento.
 
-\subsection{Descripción del Proceso Industrial}
-El proceso industrial en la planta de Papeles Cordillera S.A. involucra el uso intensivo de compresores de aire para diversas operaciones en la producción de papel. Estos compresores generan una gran cantidad de calor residual, que hasta ahora no se ha aprovechado eficientemente. El sistema propuesto capturará este calor residual para su uso en otros procesos de la planta, como el calentamiento de agua o el tratamiento de materiales.
+El presente proyecto diseña y dimensiona un sistema que recupera ese calor residual y lo
+entrega a un circuito de agua industrial, disponible para procesos de la planta que
+requieran calor a baja temperatura (calentamiento de agua de proceso, calefacción de
+espacios industriales, secado, etc.).
 
-\subsection{Análisis de Viabilidad Técnica y Ambiental}
-El análisis de viabilidad técnica indica que el sistema de recuperación de calor se puede integrar con éxito en la infraestructura existente sin interrumpir las operaciones actuales. Desde una perspectiva ambiental, el proyecto está en consonancia con las tendencias globales de reducción de la huella de carbono y la eficiencia energética. Se espera que el sistema no solo cumpla con las normativas ambientales vigentes, sino que también establezca un precedente para prácticas industriales más sostenibles.
+\subsection{Objetivo técnico}
 
+Dimensionar el circuito hidráulico aislado (tuberías, bomba y acumuladores) que permite
+transferir el calor de los intercambiadores integrados en los compresores Kaeser hacia
+los puntos de uso definidos por el cliente, garantizando:
 
-% 2) Cálculos de Diseño
+\begin{itemize}
+  \item Temperatura de suministro: \SI{26}{\celsius} (máximo aprovechable con
+        agua industrial de entrada a \SI{6}{\celsius})
+  \item Caudal nominal: \SI{27.2}{\cubic\metre\per\hour} (operación normal)
+  \item Caudal máximo: \SI{52.2}{\cubic\metre\per\hour} (todos los compresores activos)
+  \item Autonomía térmica: $\geq\SI{30}{\minute}$ frente a paro inesperado de compresores
+\end{itemize}
+
+\subsection{Configuración del parque de compresores}
+
+La Tabla~\ref{tab:compresores} resume los parámetros relevantes de cada unidad
+Kaeser para el análisis de recuperación. La columna \emph{Calor recuperable} corresponde
+al valor nominal indicado en la ficha técnica del fabricante al 80\,\% de eficiencia de
+recuperación.
+
+\begin{table}[h!]
+\centering
+\caption{Compresores Kaeser — parámetros de recuperación}
+\label{tab:compresores}
+\begin{tabular}{@{}llrrrl@{}}
+\toprule
+\textbf{ID} & \textbf{Modelo} & \textbf{P motor} & \textbf{Calor recup.} & \textbf{$\eta$} & \textbf{Activo (normal)} \\
+            &                 & \si{[\kilo\watt]}  & \si{[\kilo\watt]}       &                 &                        \\
+\midrule
+C1 & FSD 575  & 315 & 252 & 0{,}80 & Sí \\
+C2 & FSD 575  & 315 & 252 & 0{,}80 & Sí \\
+C3 & FSD 575  & 315 & 252 & 0{,}80 & No \\
+C4 & DSDX 305 & 160 & 128 & 0{,}80 & Sí \\
+C5 & ESD 445  & 250 & 200 & 0{,}80 & No \\
+C6 & DSDX 305 & 160 & 128 & 0{,}80 & No \\
+\midrule
+\multicolumn{2}{@{}l}{\textbf{Total (normal / máximo)}} &
+  \multicolumn{1}{r}{790 / 1.515} &
+  \multicolumn{1}{r}{632 / 1.212} & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Operación normal (Punto~3 según datos operacionales CMPC): compresores C1, C2 y C4
+activos, demanda \SI{131}{\cubic\metre\per\minute} de aire comprimido, potencia térmica
+recuperable total \SI{632}{\kilo\watt}.
+
+%-------------------------------------------------
 \section{Cálculos de Diseño}
+%-------------------------------------------------
 
-\subsection{Intercambiador de Calor}
-\subsubsection{Selección del Tipo de Intercambiador de Calor}
-% Texto sobre la selección del tipo de intercambiador...
+%----- 2.1 Análisis térmico -----
+\subsection{Análisis Térmico — Método $\varepsilon$-NTU}
 
-\subsubsection{Cálculos Térmicos}
-% Texto sobre los cálculos térmicos...
+\subsubsection{Fundamento del método}
 
-\subsubsection{Selección de Materiales y Dimensionamiento}
-% Texto sobre la selección de materiales y dimensionamiento...
+El método de Efectividad--Número de Unidades de Transferencia ($\varepsilon$-NTU) permite
+determinar el desempeño de un intercambiador a partir de sus caudales y temperaturas de
+entrada, sin necesidad de iterar sobre la temperatura media logarítmica.
 
-\subsection{Bomba de Agua}
-\subsubsection{Cálculo del Caudal y la Presión Necesaria}
-% Texto sobre el cálculo del caudal y la presión...
+La efectividad se define como:
+\begin{equation}
+  \varepsilon = \frac{Q_{\text{real}}}{Q_{\text{máx}}} = \frac{Q_{\text{real}}}{C_{\min}(T_{h,i} - T_{c,i})}
+  \label{eq:epsilon}
+\end{equation}
 
-\subsubsection{Selección de la Bomba}
-% Texto sobre la selección de la bomba...
+donde $C_{\min} = \min(\dot{m}_h c_{p,h},\; \dot{m}_c c_{p,c})$ es la menor capacidad
+calorífica de los dos fluidos.
 
-\subsection{Tuberías}
-\subsubsection{Cálculo del Diámetro}
-% Texto sobre el cálculo del diámetro...
+Para intercambiadores de flujo contrario (configuración de los módulos Kaeser), la
+relación entre $\varepsilon$ y NTU es:
+\begin{equation}
+  \varepsilon = \frac{1 - \exp\!\bigl[-\mathrm{NTU}(1 - C_r)\bigr]}
+                     {1 - C_r\exp\!\bigl[-\mathrm{NTU}(1 - C_r)\bigr]}
+  \label{eq:eps_ntu}
+\end{equation}
 
-\subsubsection{Selección del Material y Espesor}
-% Texto sobre la selección del material y espesor...
+con $C_r = C_{\min}/C_{\max}$ y $\mathrm{NTU} = UA / C_{\min}$.
 
-\subsection{Caídas de Presión}
-\subsubsection{Cálculo de Pérdidas por Fricción y Accesorios}
-% Texto sobre el cálculo de pérdidas por fricción y accesorios...
+El producto global $UA$ [\si{\watt\per\kelvin}] resume la resistencia térmica total del
+intercambiador y sirve como criterio de diseño para selección de equipo.
 
-\subsubsection{Análisis de Puntos Críticos en la Red de Tuberías}
-% Texto sobre el análisis de puntos críticos...
-
-% 3) Lógica de Funcionamiento y Operación del Sistema
-\section{Lógica de Funcionamiento y Operación del Sistema}
-
-La planta de Papeles Cordillera S.A. cuenta con un sistema integral de compresores que incluye tres compresores FSD 575 (cada uno con una potencia nominal de 315 kW y un rendimiento térmico máximo de 246 kW), dos compresores DSDX 305 (160 kW y 130 kW de rendimiento térmico cada uno), y un compresor ESD 445 (250 kW de potencia y 196 kW de rendimiento térmico). Estos compresores están equipados con sistemas de recuperación de calor, optimizados para operar bajo diversas demandas de aire comprimido.\\
-
-En condiciones normales (marcadas como punto 3 en los datos técnicos), los compresores 1, 2 y 4 operan para satisfacer una demanda de 131 m³/min, generando un total de 622 kW de rendimiento térmico. El sistema de recuperación de calor utiliza un enfoque de contracorriente para maximizar la eficiencia de la transferencia térmica. El fluido térmico, circulando a un caudal total aproximado de 3293 m³/h, es calentado por el calor residual de los compresores, con una caída de presión de aproximadamente 0.25 a 0.4 bar, dependiendo del compresor específico.\\
-
-El control automatizado del sistema se centra en mantener la temperatura óptima del fluido y la presión adecuada en el circuito. Los sensores monitorean continuamente estas variables, ajustando el flujo y la temperatura según sea necesario. En caso de desviaciones, como una caída de presión por debajo de 3.7 bar o un aumento de temperatura por encima de los parámetros establecidos, el sistema activa protocolos de seguridad, incluyendo la reducción del flujo o la parada total de los compresores.\\
-
-El mantenimiento preventivo del sistema se lleva a cabo semestralmente, enfocándose en la limpieza de intercambiadores de calor para evitar la acumulación de residuos, la inspección de tuberías y válvulas, y la verificación de la funcionalidad de los sensores y actuadores. Este mantenimiento garantiza la eficiencia a largo plazo y la seguridad operativa del sistema de recuperación de calor.
-
-
-% 4) Esquemas y Planos
-\section{Esquemas y Planos}
-
-\subsection{Planos Detallados del Sistema de Recuperación de Calor}
-% Texto y posibles imágenes de los planos...
-
-\subsection{Diagramas de Flujo del Proceso}
-% Texto y diagramas de flujo...
-
-\subsection{Esquemas de Instalación de Equipos y Tuberías}
-% Texto y esquemas de instalación...
-
-% 5) Recomendaciones de Proveedores
-\section{Recomendaciones de Proveedores}
-
-\subsection{Lista de Proveedores Potenciales}
-% Lista de proveedores potenciales...
-
-\subsection{Evaluación de Proveedores}
-% Texto sobre la evaluación de proveedores...
-
-% 6) Bases Técnicas para Poder Licitar el Proyecto
-\section{Bases Técnicas para Poder Licitar el Proyecto}
-
-\subsection{Especificaciones Técnicas Detalladas de Todos los Componentes}
-Las especificaciones técnicas detalladas para cada componente del sistema de recuperación de calor se presentan a continuación. Estas especificaciones son cruciales para garantizar el cumplimiento de los estándares de rendimiento y eficiencia:
+\subsubsection{Supuestos adoptados}
 
 \begin{itemize}
-    \item \textbf{Compresores:}
-    \begin{itemize}
-        \item Capacidad mínima: [X kW].
-        \item Eficiencia de recuperación de calor: [Y \%].
-        \item Temperatura de operación: [T°C] a [U°C].
-        \item Rendimiento térmico: [V kW].
-    \end{itemize}
-    
-    \item \textbf{Intercambiadores de Calor:}
-    \begin{itemize}
-        \item Tipo: (Por ejemplo, de placas, tubulares).
-        \item Capacidad de transferencia de calor: [W kW].
-        \item Rango de $\Delta T$: [B°C].
-        \item Material: (Por ejemplo, acero inoxidable, cobre).
-    \end{itemize}
-    
-    \item \textbf{Bombas de Agua:}
-    \begin{itemize}
-        \item Caudal: [Z m³/h].
-        \item Presión máxima: [A bar].
-        \item Eficiencia: [C \%].
-        \item Tipo de bomba: (Por ejemplo, centrífuga, de desplazamiento positivo).
-    \end{itemize}
-    
-    \item \textbf{Tuberías:}
-    \begin{itemize}
-        \item Diámetro: [D mm].
-        \item Material: (Por ejemplo, PVC, acero).
-        \item Presión de trabajo: [E bar].
-        \item Longitud total: [F metros].
-    \end{itemize}
-    
-    \item \textbf{Sistemas de Control:}
-    \begin{itemize}
-        \item Tipo de controlador: (Por ejemplo, PLC, DCS).
-        \item Sensores: (Temperatura, presión, flujo).
-        \item Interfaces de usuario: (Por ejemplo, HMI, sistemas remotos).
-        \item Protocolos de comunicación: (Por ejemplo, Modbus, Ethernet).
-    \end{itemize}
+  \item Temperatura de entrada agua caliente (lado Kaeser): $T_{h,i} = \SI{60}{\celsius}$
+        — \textbf{valor estimado}; verificar con ficha técnica o medición directa.
+        Rango típico para compresores FSD/DSDX: 55–70\,°C.
+  \item Temperatura de salida agua caliente: $T_{h,o} = \SI{45}{\celsius}$ — controlada
+        internamente por el sistema Kaeser.
+  \item Temperatura entrada agua industrial fría: $T_{c,i} = \SI{6}{\celsius}$.
+  \item Salto térmico en el circuito frío: $\Delta T_c = \SI{20}{\kelvin}$, por lo que
+        $T_{c,o} = \SI{26}{\celsius}$.
+  \item Propiedades del agua evaluadas a temperatura media de cada corriente.
 \end{itemize}
 
-Estas especificaciones deben ser utilizadas como base para la evaluación de ofertas, asegurando que todos los componentes cumplan con los requisitos técnicos del proyecto.
+\subsubsection{Resultados por compresor}
+
+La Tabla~\ref{tab:entu} presenta los resultados del análisis $\varepsilon$-NTU
+para cada unidad en operación normal y máxima.
+
+\begin{table}[h!]
+\centering
+\caption{Análisis $\varepsilon$-NTU por compresor Kaeser}
+\label{tab:entu}
+\begin{tabular}{@{}lllrrrrrr@{}}
+\toprule
+\textbf{ID} & \textbf{Modelo} & \textbf{Modo} &
+  $Q_{\text{nom}}$ & $Q_{\text{real}}$ &
+  $T_{c,o}$ & $\varepsilon$ & NTU & $UA$ \\
+& & & \si{[kW]} & \si{[kW]} & \si{[\celsius]} & & & \si{[W/K]} \\
+\midrule
+C1 & FSD 575  & Normal/Máx & 252 & 201{,}6 & 26{,}0 & 0{,}370 & 0{,}549 & 5.532 \\
+C2 & FSD 575  & Normal/Máx & 252 & 201{,}6 & 26{,}0 & 0{,}370 & 0{,}549 & 5.532 \\
+C3 & FSD 575  & Máx.       & 252 & 201{,}6 & 26{,}0 & 0{,}370 & 0{,}549 & 5.532 \\
+C4 & DSDX 305 & Normal/Máx & 128 & 102{,}4 & 26{,}0 & 0{,}370 & 0{,}549 & 2.810 \\
+C5 & ESD 445  & Máx.       & 200 & 160{,}0 & 26{,}0 & 0{,}370 & 0{,}549 & 4.390 \\
+C6 & DSDX 305 & Máx.       & 128 & 102{,}4 & 26{,}0 & 0{,}370 & 0{,}549 & 2.810 \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Total — operación normal}} &
+  632 & \textbf{505{,}6} & & & & \textbf{13.874} \\
+\multicolumn{3}{@{}l}{\textbf{Total — operación máxima}} &
+  1.212 & \textbf{969{,}6} & & & & \textbf{26.606} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El $UA$ total de \SI{13874}{\watt\per\kelvin} en operación normal es el parámetro de
+diseño que debe satisfacer el conjunto de intercambiadores instalados.
 
 
-\subsection{Criterios de Selección y Evaluación de Ofertas}
-Los criterios para la selección y evaluación de ofertas para el sistema de recuperación de calor se basan en un análisis integral que incluye varios factores clave:
+%----- 2.2 Red hidráulica -----
+\subsection{Red Hidráulica}
 
+\subsubsection{Metodología}
+
+El cálculo de la red de distribución sigue el método de Darcy-Weisbach para la pérdida de
+carga por fricción:
+
+\begin{equation}
+  h_f = f \cdot \frac{L}{D} \cdot \frac{v^2}{2g}
+  \label{eq:dw}
+\end{equation}
+
+donde $f$ es el factor de fricción de Darcy determinado mediante la ecuación implícita de
+Colebrook-White (resuelta iterativamente con arranque Swamee-Jain):
+
+\begin{equation}
+  \frac{1}{\sqrt{f}} = -2\log_{10}\!\left(\frac{\varepsilon}{3{,}7\,D} +
+  \frac{2{,}51}{Re\sqrt{f}}\right)
+  \label{eq:cw}
+\end{equation}
+
+Las propiedades del agua se evalúan a \SI{16}{\celsius} (temperatura media del circuito).
+Las tuberías son de acero carbono cédula~40 según ASME B36.10M, con rugosidad absoluta
+$\varepsilon = \SI{4.6e-5}{\metre}$ (acero comercial, ASHRAE Handbook).
+
+\subsubsection{Topología de la red}
+
+La red consta de 11 tramos:
 \begin{itemize}
-    \item \textbf{Capacidad Técnica:}
-    \begin{itemize}
-        \item Cumplimiento de las especificaciones técnicas detalladas.
-        \item Experiencia previa y referencias de proyectos similares.
-        \item Calidad y fiabilidad de los componentes ofertados.
-    \end{itemize}
-
-    \item \textbf{Costo Total de Propiedad:}
-    \begin{itemize}
-        \item Análisis del precio de compra inicial.
-        \item Estimación de costos operativos a lo largo del ciclo de vida.
-        \item Costos de mantenimiento y posibles repuestos.
-    \end{itemize}
-
-    \item \textbf{Eficiencia Energética:}
-    \begin{itemize}
-        \item Rendimiento energético de los componentes.
-        \item Contribución a la reducción del consumo de energía de la planta.
-        \item Impacto en la huella de carbono de las operaciones.
-    \end{itemize}
-
-    \item \textbf{Cumplimiento de Estándares Ambientales:}
-    \begin{itemize}
-        \item Adherencia a normativas ambientales locales e internacionales.
-        \item Soluciones sostenibles y ecoeficientes.
-        \item Estrategias para la minimización de impactos negativos en el entorno.
-    \end{itemize}
-
-    \item \textbf{Requisitos Legales y de Seguridad:}
-    \begin{itemize}
-        \item Cumplimiento de todas las regulaciones y leyes aplicables.
-        \item Garantías de seguridad en la operación y mantenimiento del sistema.
-        \item Planes de contingencia y protocolos de seguridad.
-    \end{itemize}
+  \item T1–T6: ramales individuales de cada compresor al colector de impulsión, DN65 (2½'')
+  \item T7–T8: colectores de bloque (C1-C2-C3 y C4-C5-C6), DN100 (4'')
+  \item T9: colector de sala hacia sala de acumuladores, DN100 (4'')
+  \item T10: retorno desde acumuladores a bomba, DN100 (4'')
+  \item T11: salida de bomba hacia distribución, DN100 (4'')
 \end{itemize}
 
-Estos criterios asegurarán que las ofertas seleccionadas no solo cumplan con las necesidades técnicas del proyecto, sino que también ofrezcan la mejor relación costo-beneficio, manteniendo el compromiso con la sostenibilidad y
+El caudal por ramal se determina mediante balance energético
+$\dot{Q} = \dot{m}\,c_p\,\Delta T$, con $\Delta T = \SI{20}{\kelvin}$.
+
+\subsubsection{Resultados — operación normal (C1, C2, C4)}
+
+\begin{table}[h!]
+\centering
+\caption{Red hidráulica — modo operación normal ($Q_{\text{total}} = \SI{27.2}{\cubic\metre\per\hour}$)}
+\label{tab:hidro_normal}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+\textbf{Tramo} & \textbf{DN} &
+  $L$ & $Q$ & $v$ & $Re$ & $f$ & $h_f$ \\
+& & \si{[m]} & \si{[m^3/h]} & \si{[m/s]} & & & \si{[mca]} \\
+\midrule
+T1 — C1 $\to$ colector  & DN65 (2½'') &  8{,}0 & 10{,}86 & 0{,}98 &  55.257 & 0{,}0229 & 0{,}142 \\
+T2 — C2 $\to$ colector  & DN65 (2½'') &  8{,}0 & 10{,}86 & 0{,}98 &  55.257 & 0{,}0229 & 0{,}142 \\
+T3 — C3 $\to$ colector  & DN65 (2½'') &  8{,}0 &  0{,}00 & 0{,}00 &       0 & —        & 0{,}000 \\
+T4 — C4 $\to$ colector  & DN65 (2½'') &  8{,}0 &  5{,}52 & 0{,}50 &  28.067 & 0{,}0257 & 0{,}041 \\
+T5 — C5 $\to$ colector  & DN65 (2½'') &  8{,}0 &  0{,}00 & 0{,}00 &       0 & —        & 0{,}000 \\
+T6 — C6 $\to$ colector  & DN65 (2½'') &  8{,}0 &  0{,}00 & 0{,}00 &       0 & —        & 0{,}000 \\
+T7 — Colector C1-C2-C3  & DN100 (4'') & 12{,}0 & 21{,}72 & 0{,}73 &  67.775 & 0{,}0213 & 0{,}069 \\
+T8 — Colector C4-C5-C6  & DN100 (4'') & 12{,}0 &  5{,}52 & 0{,}19 &  17.213 & 0{,}0278 & 0{,}006 \\
+T9 — Sala $\to$ acumul. & DN100 (4'') & 20{,}0 & 27{,}23 & 0{,}92 &  84.987 & 0{,}0206 & 0{,}174 \\
+T10 — Acumul. $\to$ bomba & DN100 (4'') & 15{,}0 & 27{,}23 & 0{,}92 & 84.987 & 0{,}0206 & 0{,}131 \\
+T11 — Bomba $\to$ distrib. & DN100 (4'') & 8{,}0 & 27{,}23 & 0{,}92 & 84.987 & 0{,}0206 & 0{,}070 \\
+\midrule
+\multicolumn{7}{@{}l}{\textbf{Pérdida total de la red}} & \textbf{0{,}77} \\
+\multicolumn{7}{@{}l}{\textbf{Caída de presión total}} & \textbf{\SI{7.6}{\kilo\pascal}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Resultados — operación máxima (6 compresores)}
+
+\begin{table}[h!]
+\centering
+\caption{Red hidráulica — modo máximo ($Q_{\text{total}} = \SI{52.2}{\cubic\metre\per\hour}$)}
+\label{tab:hidro_max}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+\textbf{Tramo} & \textbf{DN} &
+  $L$ & $Q$ & $v$ & $Re$ & $f$ & $h_f$ \\
+& & \si{[m]} & \si{[m^3/h]} & \si{[m/s]} & & & \si{[mca]} \\
+\midrule
+T1 — C1 $\to$ colector  & DN65 (2½'') &  8{,}0 & 10{,}86 & 0{,}98 &  55.257 & 0{,}0229 & 0{,}142 \\
+T2 — C2 $\to$ colector  & DN65 (2½'') &  8{,}0 & 10{,}86 & 0{,}98 &  55.257 & 0{,}0229 & 0{,}142 \\
+T3 — C3 $\to$ colector  & DN65 (2½'') &  8{,}0 & 10{,}86 & 0{,}98 &  55.257 & 0{,}0229 & 0{,}142 \\
+T4 — C4 $\to$ colector  & DN65 (2½'') &  8{,}0 &  5{,}52 & 0{,}50 &  28.067 & 0{,}0257 & 0{,}041 \\
+T5 — C5 $\to$ colector  & DN65 (2½'') &  8{,}0 &  8{,}62 & 0{,}77 &  43.855 & 0{,}0238 & 0{,}093 \\
+T6 — C6 $\to$ colector  & DN65 (2½'') &  8{,}0 &  5{,}52 & 0{,}50 &  28.067 & 0{,}0257 & 0{,}041 \\
+T7 — Colector C1-C2-C3  & DN100 (4'') & 12{,}0 & 32{,}57 & 1{,}10 & 101.662 & 0{,}0201 & 0{,}146 \\
+T8 — Colector C4-C5-C6  & DN100 (4'') & 12{,}0 & 19{,}65 & 0{,}66 &  61.320 & 0{,}0216 & 0{,}057 \\
+T9 — Sala $\to$ acumul. & DN100 (4'') & 20{,}0 & 52{,}22 & 1{,}77 & 162.982 & 0{,}0190 & 0{,}589 \\
+T10 — Acumul. $\to$ bomba & DN100 (4'') & 15{,}0 & 52{,}22 & 1{,}77 & 162.982 & 0{,}0190 & 0{,}442 \\
+T11 — Bomba $\to$ distrib. & DN100 (4'') & 8{,}0 & 52{,}22 & 1{,}77 & 162.982 & 0{,}0190 & 0{,}236 \\
+\midrule
+\multicolumn{7}{@{}l}{\textbf{Pérdida total de la red}} & \textbf{2{,}07} \\
+\multicolumn{7}{@{}l}{\textbf{Caída de presión total}} & \textbf{\SI{20.3}{\kilo\pascal}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Tramo crítico:} T9 (colector sala $\to$ acumuladores), con la mayor pérdida
+individual en ambos modos de operación. Es el tramo determinante para el dimensionamiento
+de la bomba.
 
 
-\subsection{Plan de Ejecución y Cronograma del Proyecto}
-El plan de ejecución del proyecto de recuperación de calor está diseñado para completarse en un período de [C meses], con las siguientes fases y hitos clave:
+%----- 2.3 Acumulador -----
+\subsection{Verificación del Acumulador Térmico}
+
+\subsubsection{Principio de diseño}
+
+El sistema dispone de acumuladores de \SI{10000}{\litre} + \SI{5000}{\litre} = \SI{15000}{\litre}
+de agua caliente. Su función es proveer inercia térmica durante paros planificados o
+inesperados de los compresores. La energía almacenada es:
+
+\begin{equation}
+  E = \rho \cdot V \cdot c_p \cdot \Delta T_{\text{swing}}
+  \label{eq:acum}
+\end{equation}
+
+con $\Delta T_{\text{swing}} = T_{\text{carga}} - T_{\text{descarga}}$.
+
+\subsubsection{Resultados}
+
+\begin{table}[h!]
+\centering
+\caption{Verificación del acumulador térmico (\SI{15000}{\litre})}
+\label{tab:acumulador}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Volumen instalado & \SI{15000}{\litre} \\
+Temperatura de carga ($T_{\text{carga}}$) & \SI{26}{\celsius} \\
+Temperatura de descarga útil ($T_{\text{desc}}$) & \SI{15}{\celsius} \\
+$\Delta T_{\text{swing}}$ aprovechable & \SI{11}{\kelvin} \\
+Densidad agua a \SI{20.5}{\celsius} & \SI{998.1}{\kilogram\per\cubic\metre} \\
+Calor específico & \SI{4160}{\joule\per\kilogram\per\kelvin} \\
+\textbf{Energía útil almacenada} & \textbf{\SI{190.3}{\kilo\watt\hour}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\caption{Autonomía térmica del acumulador por escenario de demanda}
+\label{tab:autonomia}
+\begin{tabular}{@{}lrrl@{}}
+\toprule
+\textbf{Escenario} & \textbf{$Q$ demanda} & \textbf{Autonomía} & \textbf{Veredicto} \\
+\midrule
+Demanda normal (C1+C2+C4 activos) & \SI{201.6}{\kilo\watt} & \SI{57}{\minute} & Aceptable \\
+Demanda mínima (calefacción base)  & \SI{100.0}{\kilo\watt} & \SI{114}{\minute} & Adecuado \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El acumulador de \SI{15}{\cubic\metre} provee \textbf{57 minutos} de autonomía frente a
+la demanda normal. Esto es suficiente para paros de mantenimiento programados. Si el
+proceso requiere continuidad superior a \SI{60}{\minute} sin compresores, se recomienda
+evaluar la ampliación del volumen a \SI{20}{\cubic\metre}.
+
+
+%----- 2.4 Bomba -----
+\subsection{Selección de la Bomba de Circulación}
+
+La bomba se dimensiona para el modo de operación máxima, que determina el punto crítico:
+
+\begin{table}[h!]
+\centering
+\caption{Punto de operación — bomba centrífuga de circulación}
+\label{tab:bomba}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Caudal de diseño ($Q_{\max}$) & \SI{52.2}{\cubic\metre\per\hour} \\
+Pérdida de carga de la red & \SI{2.07}{mca} \\
+Altura manométrica con margen 15\,\% & \SI{2.38}{mca} \\
+Potencia hidráulica & \SI{0.33}{\kilo\watt} \\
+Eficiencia de bomba asumida ($\eta_b$) & 70\,\% \\
+\textbf{Potencia eléctrica requerida} & \textbf{\SI{0.48}{\kilo\watt}} \\
+Motor IEC recomendado & $\geq \SI{0.55}{\kilo\watt}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Tipo de bomba:} centrífuga de simple etapa, acoplamiento directo, cuerpo de
+fundición o acero inoxidable. La baja pérdida de carga de la red (\SI{2.07}{mca}) permite
+el uso de bombas de baja presión diferencial, de amplia disponibilidad comercial y bajo
+costo de mantenimiento.
+
+\textbf{Referencia de catálogo sugerida:} Grundfos TP/TPE \SI{50}{\milli\metre}–
+\SI{65}{\milli\metre}, serie hidráulica con $H_{\max} \approx 10$\,mca; o equivalente
+Wilo, DAB o Armstrong de la misma familia. Confirmar selección exacta con curva $H$-$Q$
+del proveedor.
+
+
+%-------------------------------------------------
+\section{Lógica de Funcionamiento del Sistema}
+%-------------------------------------------------
+
+\subsection{Descripción del circuito}
+
+El sistema opera como un circuito hidráulico aislado de agua caliente:
 
 \begin{enumerate}
-    \item \textbf{Fase de Planificación:}
-    \begin{itemize}
-        \item Duración: [1 mes].
-        \item Actividades: Definición de alcance, selección de proveedores, y preparación de contratos.
-        \item Fecha de finalización: [Fecha].
-    \end{itemize}
-
-    \item \textbf{Adquisición de Componentes:}
-    \begin{itemize}
-        \item Duración: [2 meses].
-        \item Actividades: Pedido y recepción de compresores, intercambiadores de calor, bombas y tuberías.
-        \item Fecha de finalización: [Fecha].
-    \end{itemize}
-
-    \item \textbf{Fase de Instalación:}
-    \begin{itemize}
-        \item Duración: [3 meses].
-        \item Actividades: Montaje de equipos, instalación de tuberías y conexión de sistemas de control.
-        \item Fecha de finalización: [Fecha].
-    \end{itemize}
-
-    \item \textbf{Pruebas y Ajustes:}
-    \begin{itemize}
-        \item Duración: [1 mes].
-        \item Actividades: Pruebas de funcionamiento, ajustes de sistemas y capacitación del personal.
-        \item Fecha de finalización: [Fecha].
-    \end{itemize}
-
-    \item \textbf{Puesta en Marcha:}
-    \begin{itemize}
-        \item Duración: [1 mes].
-        \item Actividades: Inicio de operaciones, monitoreo inicial y optimización del sistema.
-        \item Fecha de finalización: [Fecha].
-    \end{itemize}
+  \item El compresor genera calor residual que calienta su circuito interno de refrigeración.
+  \item El módulo de recuperación Kaeser transfiere ese calor a un fluido intermedio mediante
+        su intercambiador de placas integrado, entregando agua a $\approx\SI{60}{\celsius}$.
+  \item El fluido caliente circula por los ramales DN65 hacia el colector de impulsión.
+  \item El colector DN100 conduce el fluido hacia los acumuladores (\SI{15}{\cubic\metre}).
+  \item La bomba centrífuga (\SI{52}{\cubic\metre\per\hour}, \SI{2.4}{mca}) mantiene la
+        circulación continua hacia los puntos de uso del proceso.
+  \item El fluido retorna enfriado ($\approx\SI{6}{\celsius}$) a los intercambiadores de
+        los compresores, completando el ciclo.
 \end{enumerate}
 
-Cada fase del proyecto será supervisada regularmente, con informes de progreso para garantizar que se cumplan los hitos y plazos establecidos. La coordinación efectiva entre los equipos y la gestión proactiva serán esenciales para el éxito del proyecto.
+\subsection{Modos de operación}
 
+\begin{description}
+  \item[Modo normal (Punto 3):] C1 + C2 + C4 activos. Caudal \SI{27.2}{\cubic\metre\per\hour},
+    $Q_{\text{recuperado}} = \SI{505.6}{\kilo\watt}$. Temperatura suministro \SI{26}{\celsius}.
+
+  \item[Modo máximo:] Los 6 compresores activos. Caudal \SI{52.2}{\cubic\metre\per\hour},
+    $Q_{\text{recuperado}} = \SI{969.6}{\kilo\watt}$.
+
+  \item[Modo paro de compresores:] Los acumuladores sostienen la demanda hasta
+    \SI{57}{\minute} (frente a carga normal) sin intervención.
+\end{description}
+
+\subsection{Variables de control}
+
+\begin{itemize}
+  \item \textbf{Temperatura de suministro} $T_{c,o}$: sensor PT100 en colector de salida
+        hacia proceso. Rango operacional: 20–30\,°C.
+  \item \textbf{Presión diferencial}: manómetros en aspiración e impulsión de bomba.
+        Alarma si $\Delta P < \SI{0.1}{\bar}$ (posible cavitación o pérdida de flujo).
+  \item \textbf{Temperatura de acumuladores}: sonda superior e inferior. Si
+        $T_{\text{sup}} < \SI{18}{\celsius}$, el sistema prioriza carga de acumuladores
+        antes de suministrar al proceso.
+\end{itemize}
+
+
+%-------------------------------------------------
+\section{Conclusiones}
+%-------------------------------------------------
+
+\begin{enumerate}
+  \item \textbf{Potencial de recuperación:} El parque de compresores puede entregar hasta
+    \SI{970}{\kilo\watt} de calor útil en operación plena, equivalente a
+    $970 \times 8760 \times 0{,}6 \approx 5{,}1\,\text{GWh/año}$
+    (factor de carga estimado 60\,\%). En operación normal, la recuperación es de
+    \SI{505.6}{\kilo\watt}.
+
+  \item \textbf{Red hidráulica correctamente dimensionada:} Las pérdidas de carga son
+    bajas (\SI{7.6}{\kilo\pascal} en modo normal, \SI{20.3}{\kilo\pascal} en máximo),
+    lo que confirma que los diámetros DN65 y DN100 seleccionados son apropiados y las
+    velocidades están dentro del rango 0{,}5–1{,}8\,m/s, minimizando ruido y erosión.
+
+  \item \textbf{Bomba de bajo consumo:} La baja presión diferencial de la red permite
+    una bomba de \SI{0.55}{\kilo\watt}, representando un consumo auxiliar marginal
+    frente a los \SI{505}{\kilo\watt} recuperados.
+
+  \item \textbf{Acumulador suficiente para paros cortos:} Los \SI{15}{\cubic\metre}
+    instalados proveen \SI{57}{\minute} de autonomía, adecuado para mantenimiento
+    programado. Si el proceso requiere continuidad $>\SI{1}{\hour}$, se recomienda
+    ampliar a \SI{20}{\cubic\metre} (+\SI{5000}{\litre}).
+
+  \item \textbf{Dato pendiente de verificación:} La temperatura de entrada del agua
+    caliente lado Kaeser ($T_{h,i}$) fue asumida en \SI{60}{\celsius}. Este valor
+    afecta directamente el $UA$ requerido. Se recomienda medir con termopar en la
+    línea de salida del módulo de recuperación de cada compresor y ajustar el análisis
+    $\varepsilon$-NTU antes de la selección definitiva de equipos.
+\end{enumerate}
+
+
+%-------------------------------------------------
+\section{Anexos}
+%-------------------------------------------------
+
+\subsection{Propiedades termofísicas del agua utilizadas}
+
+Todas las propiedades se calculan mediante correlaciones validadas:
+\begin{itemize}
+  \item \textbf{Densidad}: fórmula de Kell (1975) con denominador, error $< 0{,}003$\,kg/m³ en 0–100\,°C.
+  \item \textbf{Viscosidad dinámica}: ecuación de Vogel-Fulcher-Tammann,
+        $\mu = 2{,}414 \times 10^{-5} \times 10^{247{,}8\,/\,(T_K - 140)}$ [\si{\pascal\second}].
+  \item \textbf{Calor específico}: correlación polinómica ajustada a datos NIST.
+  \item \textbf{Conductividad térmica}: correlación ASHRAE Handbook of Fundamentals.
+\end{itemize}
+
+\begin{table}[h!]
+\centering
+\caption{Propiedades del agua a temperaturas relevantes del proyecto}
+\label{tab:propiedades}
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$T$ [\si{\celsius}] & $\rho$ [\si{\kilogram\per\cubic\metre}] &
+  $\mu$ [\si{\milli\pascal\second}] & $c_p$ [\si{\joule\per\kilogram\per\kelvin}] &
+  $k$ [\si{\watt\per\metre\per\kelvin}] \\
+\midrule
+ 6 & 999{,}9 & 1{,}472 & 4.211 & 0{,}576 \\
+11 & 999{,}6 & 1{,}266 & 4.206 & 0{,}586 \\
+16 & 998{,}9 & 1{,}101 & 4.199 & 0{,}595 \\
+26 & 996{,}8 & 0{,}851 & 4.182 & 0{,}612 \\
+45 & 990{,}2 & 0{,}596 & 4.181 & 0{,}637 \\
+60 & 983{,}2 & 0{,}467 & 4.184 & 0{,}653 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Código de cálculo}
+
+Los cálculos de esta memoria fueron realizados con Python~3 y los módulos:
+\begin{itemize}
+  \item \texttt{fluido.py} — propiedades termofísicas del agua
+  \item \texttt{tuberia.py} — clase de tramo hidráulico con dimensiones ASME
+  \item \texttt{calculos\_hidraulicos.py} — Reynolds, Colebrook-White, Darcy-Weisbach
+  \item \texttt{intercambiador.py} — análisis $\varepsilon$-NTU
+  \item \texttt{acumulador.py} — verificación de autonomía térmica
+  \item \texttt{main.py} — integrador
+\end{itemize}
+
+El código fuente completo y documentado se entrega junto con esta memoria como parte del
+paquete de entrega del proyecto WC-2023-001.
 
 \end{document}

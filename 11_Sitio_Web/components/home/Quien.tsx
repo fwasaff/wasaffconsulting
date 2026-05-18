@@ -1,6 +1,7 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useFadeIn } from '@/lib/useFadeIn';
 
 const competencias = [
   'Python / SciPy', 'LAMMPS / LPMD', 'Bash / Linux HPC',
@@ -29,23 +30,7 @@ const timeline = [
 ];
 
 export default function Quien() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.fade-in-item');
-    if (!items) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.08, rootMargin: '0px 0px -50px 0px' }
-    );
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 80}ms`;
-      io.observe(item);
-    });
-    return () => io.disconnect();
-  }, []);
+  const ref = useFadeIn<HTMLElement>({ threshold: 0.08, rootMargin: '0px 0px -50px 0px', staggerMs: 80 });
 
   return (
     <section
@@ -62,9 +47,11 @@ export default function Quien() {
             className="fade-in-item self-start lg:sticky lg:top-28 p-8"
             style={{ background: 'var(--panel)', border: '1px solid var(--border)', borderRadius: '2px' }}
           >
-            <img
+            <Image
               src="/felipe.png"
               alt="Felipe Wasaff — Fundador y Director de Wasaff Consulting"
+              width={300}
+              height={300}
               draggable={false}
               onContextMenu={(e) => e.preventDefault()}
               style={{
@@ -227,14 +214,13 @@ export default function Quien() {
               {timeline.map((t, i) => (
                 <div
                   key={t.years}
-                  className="grid gap-6 py-5"
+                  className="grid gap-2 py-5 md:grid-cols-[160px_1fr] md:gap-6"
                   style={{
-                    gridTemplateColumns: '160px 1fr',
                     borderBottom: i < timeline.length - 1 ? '1px solid var(--border)' : 'none',
                   }}
                 >
                   <div
-                    className="flex items-start gap-2 mt-0.5"
+                    className="flex items-center gap-2 md:items-start md:mt-0.5"
                     style={{ fontFamily: 'var(--font-mono)', fontSize: '0.72rem', color: 'var(--blue)' }}
                   >
                     <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full" style={{ background: 'var(--blue)' }} />

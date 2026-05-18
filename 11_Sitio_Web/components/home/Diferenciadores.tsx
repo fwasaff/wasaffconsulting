@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useFadeIn } from '@/lib/useFadeIn';
+import { trackEvent } from '@/lib/gtag';
 
 const filas = [
   {
@@ -40,23 +41,7 @@ const filas = [
 ];
 
 export default function Diferenciadores() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.fade-in-item');
-    if (!items) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.06, rootMargin: '0px 0px -50px 0px' }
-    );
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 60}ms`;
-      io.observe(item);
-    });
-    return () => io.disconnect();
-  }, []);
+  const ref = useFadeIn<HTMLElement>({ threshold: 0.06, rootMargin: '0px 0px -50px 0px', staggerMs: 60 });
 
   return (
     <section
@@ -215,6 +200,7 @@ export default function Diferenciadores() {
           <button
             className="btn-ghost-dark"
             onClick={() => {
+              trackEvent('calendly_click', { location: 'diferenciadores' });
               if (typeof window !== 'undefined' && (window as any).Calendly) {
                 (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/fegonzalezw/30min' });
               }

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Fuentes cargadas vía next/font/google en layout.tsx para optimizar LCP */
 
 :root {
   --font-inter:  'Inter', sans-serif;
@@ -99,14 +99,6 @@
     border-color: rgba(255, 255, 255, 0.6);
   }
 
-  .btn-ghost {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium text-sm
-           transition-all duration-200;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .btn-ghost:hover { border-color: var(--border-hover); }
-
   /* Label mono (etiqueta de sección) */
   .label-mono {
     font-family: var(--font-mono);
@@ -153,6 +145,15 @@
   .fade-in-item.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* Fallback cuando JS está deshabilitado */
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in-item {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
   }
 
   /* Status dot verde */

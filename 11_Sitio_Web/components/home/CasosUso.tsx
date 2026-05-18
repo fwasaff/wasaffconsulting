@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useFadeIn } from '@/lib/useFadeIn';
 
 const casos = [
   {
@@ -29,23 +30,7 @@ const casos = [
 ];
 
 export default function CasosUso() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.fade-in-item');
-    if (!items) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 80}ms`;
-      io.observe(item);
-    });
-    return () => io.disconnect();
-  }, []);
+  const ref = useFadeIn<HTMLElement>({ threshold: 0.1, rootMargin: '0px 0px -50px 0px', staggerMs: 80 });
 
   return (
     <section
@@ -59,9 +44,11 @@ export default function CasosUso() {
           className="fade-in-item overflow-hidden mb-14"
           style={{ borderRadius: '2px', border: '1px solid var(--border)' }}
         >
-          <img
+          <Image
             src="/planta.png"
             alt="Planta industrial de manufactura"
+            width={1200}
+            height={260}
             draggable={false}
             onContextMenu={(e) => e.preventDefault()}
             style={{ width: '100%', height: '260px', objectFit: 'cover', display: 'block', objectPosition: 'center 40%', userSelect: 'none' }}

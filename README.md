@@ -32,6 +32,7 @@ Cada agente tiene un archivo de activación en `00_SISTEMA/agentes/`. Decirle a 
 | **Martín** | Proyectos — estructura, hitos, calidad | `agentes/proyectos.md` |
 | **Valentina** | Marketing — LinkedIn, web, contenidos | `agentes/marketing.md` |
 | **Leonardo** | I+D — metodologías, scripts, conocimiento | `agentes/ixd.md` |
+| **Rodrigo** | Técnico — código Python, LaTeX, estructura de proyecto | `agentes/tecnico.md` |
 
 ### Cuándo interrumpir a Felipe (criterios del Orquestador)
 Solo cuando:

@@ -1,4 +1,67 @@
-.vercel
+# Secretos y credenciales
+*.p12
+*.pem
+*.key
+config.json
+.env
 .env*.local
+**/apis_sii/config.json
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.swp
+__pycache__/
+*.pyc
+
+# Datos sensibles de clientes
+**/comunicaciones/*.eml
+**/datos_personales/
+
+# Archivos grandes de simulación
+*.lammps
+*.dump
+*.xyz
+log.lammps
+*.stl
+*.foam
+
+# Entornos Python instalados
+.venv/
+venv/
+env/
+site-packages/
+dist-packages/
+share/jupyter/
+lib/python*/
+bin/python*
+*.egg-info/
+my_jupyter_projects/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Archivos de Office temporales
+~$*
+
+# Vercel y Node
+.vercel
 node_modules/
 .next/
+tsconfig.tsbuildinfo
+
+# Carpetas del sistema de operaciones (viven en el directorio padre)
+00_SISTEMA/
+01_DIRECCION/
+02_COMERCIAL/
+03_PROYECTOS/
+04_FINANZAS/
+05_LEGAL/
+06_CONOCIMIENTO/
+07_COMUNICACIONES/
+08_Formato/
+09_Bootcamp/
+10_INBOX/
+10_Libro/
+arbol.txt

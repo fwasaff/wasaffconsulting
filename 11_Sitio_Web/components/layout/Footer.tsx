@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { trackEvent } from '@/lib/gtag';
 
 const columnas = {
   servicios: [
@@ -24,17 +24,6 @@ const columnas = {
 };
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [suscrito, setSuscrito] = useState(false);
-
-  const handleNewsletter = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email.includes('@')) {
-      setSuscrito(true);
-      setEmail('');
-    }
-  };
-
   return (
     <footer style={{ background: 'var(--dark)', borderTop: '1px solid var(--dark-border)' }}>
       {/* Newsletter banner */}
@@ -58,51 +47,13 @@ export default function Footer() {
                 Análisis técnico de eficiencia energética industrial
               </p>
             </div>
-            {suscrito ? (
-              <div
-                style={{
-                  padding: '0.6rem 1.2rem',
-                  background: 'rgba(10,122,101,0.15)',
-                  border: '1px solid rgba(10,122,101,0.3)',
-                  borderRadius: '2px',
-                  fontSize: '0.85rem',
-                  color: '#6ee7b7',
-                  fontFamily: 'var(--font-mono)',
-                }}
-              >
-                ✓ Suscrito correctamente
-              </div>
-            ) : (
-              <form
-                onSubmit={handleNewsletter}
-                className="flex gap-2 w-full sm:w-auto"
-              >
-                <input
-                  type="email"
-                  placeholder="su-email@empresa.cl"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  style={{
-                    padding: '0.6rem 0.9rem',
-                    background: 'rgba(255,255,255,0.07)',
-                    border: '1px solid var(--dark-border)',
-                    borderRadius: '2px',
-                    fontSize: '0.88rem',
-                    color: 'var(--dark-text)',
-                    outline: 'none',
-                    minWidth: '220px',
-                  }}
-                />
-                <button
-                  type="submit"
-                  className="btn-solid"
-                  style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem', whiteSpace: 'nowrap' }}
-                >
-                  Suscribirse
-                </button>
-              </form>
-            )}
+            <Link
+              href="#contacto"
+              className="btn-solid"
+              style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem', whiteSpace: 'nowrap' }}
+            >
+              Suscribirse al newsletter →
+            </Link>
           </div>
         </div>
       </div>
@@ -143,18 +94,20 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-2">
               <a
-                href="mailto:felipe.wasaff@uchile.cl"
+                href="mailto:felipe@wasaffconsulting.cl"
+                onClick={() => trackEvent('contact_email_click', { location: 'footer' })}
                 style={{ fontSize: '0.85rem', color: 'var(--dark-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
               >
                 <span style={{ color: 'var(--dark-muted)' }}>✉</span>
-                felipe.wasaff@uchile.cl
+                felipe@wasaffconsulting.cl
               </a>
               <a
-                href="tel:+56946125682"
+                href="tel:+56920150897"
+                onClick={() => trackEvent('contact_phone_click', { location: 'footer' })}
                 style={{ fontSize: '0.85rem', color: 'var(--dark-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
               >
                 <span style={{ color: 'var(--dark-muted)' }}>✆</span>
-                +56 9 4612 5682
+                +56 9 2015 0897
               </a>
               <Link
                 href="https://www.linkedin.com/in/felipewasaff"

@@ -1,0 +1,140 @@
+%-------------------------------------------------
+% Wasaff Consulting — WC-2023-001
+% Informe Ejecutivo — Sistema de Recuperación de Calor
+% Papeles Cordillera S.A. / Planta Puente Alto
+% Máximo 2 páginas. Sin ecuaciones. Orientado a decisión de inversión.
+%-------------------------------------------------
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{siunitx}
+\usepackage{array}
+\usepackage{parskip}
+
+\definecolor{navyblue}{RGB}{5,28,44}
+\definecolor{electricblue}{RGB}{34,81,255}
+\definecolor{lightgray}{RGB}{244,244,240}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{navyblue}\textbf{Wasaff Consulting} — Resumen Ejecutivo}
+\fancyhead[R]{\small WC-2023-001}
+\fancyfoot[C]{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\setlength{\parskip}{6pt}
+
+%-------------------------------------------------
+\begin{document}
+
+%--- Encabezado ---
+\begin{center}
+  {\Large\bfseries\color{navyblue}
+    Sistema de Recuperación de Calor Residual\\[0.3em]
+    en Compresores de Aire Comprimido}\\[0.5em]
+  {\large Planta Puente Alto · Papeles Cordillera S.A. · Grupo CMPC}\\[0.3em]
+  {\small Elaborado por Wasaff Consulting para Leycero SpA · Diciembre 2023}
+\end{center}
+
+\noindent\rule{\textwidth}{1pt}
+
+%--- Resumen en 5 líneas ---
+\textbf{\color{navyblue}Situación:} Los seis compresores Kaeser de la sala de máquinas
+disipan al ambiente hasta \textbf{1.212\,kW} de calor residual — energía que hoy no
+genera valor. En operación normal (tres compresores activos), la pérdida es de
+\textbf{632\,kW continuos}.
+
+\textbf{\color{navyblue}Solución:} Un circuito hidráulico aislado, con bomba de circulación y
+acumuladores, captura ese calor y entrega agua a \textbf{26\,°C} disponible para procesos
+que hoy consumen energía primaria (vapor, gas, electricidad).
+
+\textbf{\color{navyblue}Inversión adicional requerida:} Los módulos de recuperación Kaeser
+ya están instalados en cada compresor. La obra nueva consiste únicamente en tuberías DN65/DN100,
+una bomba de \textbf{0{,}55\,kW} y la instrumentación de control.
+
+\noindent\rule{\textwidth}{0.4pt}
+
+%--- Tabla de resultados clave ---
+\begin{center}
+\textbf{\color{navyblue}Resultados técnicos clave}
+\end{center}
+
+\begin{tabular}{@{}>{\bfseries}p{7.5cm}r@{}}
+\toprule
+Parámetro & Valor \\
+\midrule
+Calor recuperado — operación normal (C1+C2+C4) & 505\,kW \\
+Calor recuperado — operación máxima (6 compresores) & 970\,kW \\
+Temperatura de suministro agua caliente & 26\,°C \\
+Temperatura entrada agua industrial fría & 6\,°C \\
+Caudal circuito aislado — normal / máximo & 27\,m³/h · 52\,m³/h \\
+Pérdida de carga total de la red hidráulica & 7{,}6\,kPa (normal) \\
+Bomba de circulación requerida & 52\,m³/h · 2{,}4\,mca · 0{,}55\,kW \\
+Volumen de acumulación instalado & 15.000\,L (10.000 + 5.000) \\
+Autonomía térmica frente a paro de compresores & 57\,min \\
+Tuberías de distribución & DN65 (ramales) + DN100 (colector) \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4cm}
+
+%--- Estimación de ahorro ---
+\begin{center}
+\textbf{\color{navyblue}Estimación de ahorro energético anual}
+\end{center}
+
+El calor recuperado reemplaza energía primaria que hoy el proceso consume. Estimando un
+factor de carga de \textbf{60\,\%} anual y operación normal de 505\,kW:
+
+\begin{tabular}{@{}>{\bfseries}p{8cm}r@{}}
+\toprule
+Concepto & Valor \\
+\midrule
+Energía térmica recuperada por año & 2.660\,MWh/año \\
+Equivalente en gas natural (PCS 10\,kWh/m³) & 266.000\,m³\,GN/año \\
+Ahorro estimado a \$350/m³\,GN & \$93.000.000\,CLP/año \\
+\textit{(o bien, como ahorro en electricidad de calefacción eléctrica)} & \\
+Equivalente eléctrico a \$120/kWh & \$319.000.000\,CLP/año \\
+\bottomrule
+\end{tabular}
+
+{\small\color{gray}
+  \textit{Nota: los precios de energía deben verificarse con los valores contractuales
+  vigentes de Papeles Cordillera S.A. Los ahorros reales dependen del proceso destino del calor.}
+}
+
+\vspace{0.4cm}
+
+%--- Próximos pasos ---
+\begin{center}
+\textbf{\color{navyblue}Próximos pasos recomendados}
+\end{center}
+
+\begin{enumerate}
+  \item \textbf{Verificar $T_{\text{hot,in}}$:} medir con termopar la temperatura del agua
+    en la salida del módulo de recuperación de cada compresor. Este dato ajustará el análisis
+    térmico y confirmará el $UA$ requerido a los intercambiadores.
+  \item \textbf{Identificar proceso destino:} cuantificar cuántos kW de calor a 26\,°C
+    puede absorber el proceso y en qué horario. Esto define el \% de aprovechamiento real.
+  \item \textbf{Ingeniería de detalle:} levantar isométrico de tuberías, definir accesorios
+    (válvulas, filtros, expansión), cotizar bomba y automatización.
+  \item \textbf{Evaluar ampliación del acumulador:} si el proceso requiere autonomía superior
+    a 60\,min, aumentar de 15.000\,L a 20.000\,L (+\,5.000\,L).
+\end{enumerate}
+
+\noindent\rule{\textwidth}{1pt}
+{\small\color{gray}
+  Documento elaborado por Wasaff Consulting (WC-2023-001). Memoria de cálculo técnica
+  completa disponible en documento adjunto. Código Python de cálculo entregado en
+  repositorio del proyecto.
+}
+
+\end{document}

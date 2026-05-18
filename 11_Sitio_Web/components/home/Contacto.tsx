@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useFadeIn } from '@/lib/useFadeIn';
+import { trackEvent } from '@/lib/gtag';
 
 const infoRows = [
   { key: 'Sede',               val: 'Santiago, Chile' },
@@ -11,23 +12,7 @@ const infoRows = [
 ];
 
 export default function Contacto() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.fade-in-item');
-    if (!items) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 80}ms`;
-      io.observe(item);
-    });
-    return () => io.disconnect();
-  }, []);
+  const ref = useFadeIn<HTMLElement>({ threshold: 0.1, rootMargin: '0px 0px -50px 0px', staggerMs: 80 });
 
   return (
     <section
@@ -92,6 +77,7 @@ export default function Contacto() {
                 className="btn-solid w-full justify-center"
                 style={{ width: '100%', justifyContent: 'center' }}
                 onClick={() => {
+                  trackEvent('calendly_click', { location: 'contacto' });
                   if (typeof window !== 'undefined' && (window as any).Calendly) {
                     (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/fegonzalezw/30min' });
                   }
@@ -103,9 +89,10 @@ export default function Contacto() {
 
             <div className="flex flex-col gap-3 fade-in-item">
               <Link
-                href="mailto:felipe.wasaff@uchile.cl"
+                href="mailto:felipe@wasaffconsulting.cl"
                 className="flex items-center gap-5 p-5 transition-all duration-200"
                 style={{ background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '2px' }}
+                onClick={() => trackEvent('contact_email_click')}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = 'var(--blue)';
                   (e.currentTarget as HTMLElement).style.transform = 'translateX(4px)';
@@ -126,15 +113,16 @@ export default function Contacto() {
                     Correo · Dirección General
                   </span>
                   <span style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text)' }}>
-                    felipe.wasaff@uchile.cl
+                    felipe@wasaffconsulting.cl
                   </span>
                 </div>
               </Link>
 
               <Link
-                href="tel:+56946125682"
+                href="tel:+56920150897"
                 className="flex items-center gap-5 p-5 transition-all duration-200"
                 style={{ background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: '2px' }}
+                onClick={() => trackEvent('contact_phone_click')}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = 'var(--blue)';
                   (e.currentTarget as HTMLElement).style.transform = 'translateX(4px)';
@@ -155,7 +143,7 @@ export default function Contacto() {
                     Teléfono · Horario Hábil
                   </span>
                   <span style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text)' }}>
-                    +56 9 4612 5682
+                    +56 9 2015 0897
                   </span>
                 </div>
               </Link>

@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useFadeIn } from '@/lib/useFadeIn';
 
 type BadgeColor = 'gold' | 'red' | 'blue';
 
@@ -54,23 +55,7 @@ const badgeStyles: Record<BadgeColor, { bg: string; color: string; border: strin
 };
 
 export default function Proyectos() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.fade-in-item');
-    if (!items) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.06, rootMargin: '0px 0px -50px 0px' }
-    );
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 100}ms`;
-      io.observe(item);
-    });
-    return () => io.disconnect();
-  }, []);
+  const ref = useFadeIn<HTMLElement>({ threshold: 0.06, rootMargin: '0px 0px -50px 0px', staggerMs: 100 });
 
   return (
     <section
@@ -105,9 +90,11 @@ export default function Proyectos() {
                 {/* Imagen de cabecera */}
                 {p.image && (
                   <div style={{ borderBottom: '1px solid var(--border)' }}>
-                    <img
+                    <Image
                       src={p.image.src}
                       alt={p.image.alt}
+                      width={800}
+                      height={220}
                       draggable={false}
                       onContextMenu={(e) => e.preventDefault()}
                       style={{ width: '100%', height: '220px', objectFit: 'cover', display: 'block', userSelect: 'none' }}

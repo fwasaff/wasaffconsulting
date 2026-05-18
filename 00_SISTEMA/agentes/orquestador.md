@@ -64,6 +64,13 @@ Felipe está cursando un magíster (PUCV, Simulación Computacional). Su tiempo 
 | Nuevo proyecto, hitos, entregables | Martín | `agentes/proyectos.md` |
 | LinkedIn, web, contenidos | Valentina | `agentes/marketing.md` |
 | Documentar metodología, scripts | Leonardo | `agentes/ixd.md` |
+| Esqueleto Python + LaTeX de proyecto nuevo | Rodrigo | `agentes/tecnico.md` |
+| Revisar módulo de código antes de entregar | Rodrigo | `agentes/tecnico.md` |
+| Preparar paquete de entrega al cliente | Rodrigo | `agentes/tecnico.md` |
+| Revisar OKRs, evaluar decisión estratégica, nueva línea de servicio | Isabel | `agentes/estrategia.md` |
+| Buscar licitaciones, convocatorias CORFO/ANID, mapa de empresas objetivo | Tomás | `agentes/inteligencia.md` |
+| Validar entregable técnico antes de enviar al cliente | Camila | `agentes/qa.md` |
+| Gestionar contactos académicos, pipeline de talento, alianzas, IP | Andrés | `agentes/alianzas.md` |
 
 ---
 

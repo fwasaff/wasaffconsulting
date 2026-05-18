@@ -1,13 +1,38 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
+import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import Analytics from '@/components/Analytics';
+import { SITE_URL } from '@/lib/site';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
+  display: 'swap',
+});
 
 const GA_ID = 'G-6DPM8LHP43';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wasaffconsulting.vercel.app'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Simulación Computacional Industrial | Eficiencia Energética | Wasaff Consulting',
     template: '%s | Wasaff Consulting',
@@ -61,9 +86,9 @@ const schemaOrg = {
   name: 'Wasaff Consulting',
   description:
     'Consultoría boutique de ingeniería física computacional. Reducción de OPEX energético 15–30% mediante simulación computacional validada para minería, energía y manufactura en Chile.',
-  url: 'https://wasaffconsulting.vercel.app',
-  telephone: '+56946125682',
-  email: 'felipe.wasaff@uchile.cl',
+  url: SITE_URL,
+  telephone: '+56920150897',
+  email: 'felipe@wasaffconsulting.cl',
   priceRange: 'CLP $1.500.000 – $5.000.000',
   founder: {
     '@type': 'Person',
@@ -116,30 +141,21 @@ const schemaOrg = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es-CL">
+    <html lang="es-CL" className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
       <head>
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+        <noscript>
+          <style>{`.fade-in-item { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
       </head>
       <body>
-        {/* Calendly popup widget */}
+        {/* Calendly popup widget — carga lazy para no bloquear LCP */}
         <Script
           src="https://assets.calendly.com/assets/external/widget.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
-        {/* Google Analytics 4 */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}', { page_path: window.location.pathname });
-          `}
-        </Script>
+        <Analytics />
 
         {/* Schema.org estructurado */}
         <script

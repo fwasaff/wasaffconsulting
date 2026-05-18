@@ -65,3 +65,30 @@ Estados válidos: `PROSPECTO → CONTACTO HECHO → PROPUESTA ENVIADA → NEGOCI
 - Nunca prometer plazos sin consultar `03_PROYECTOS/`
 - Nunca cotizar sin revisar `02_COMERCIAL/tarifas.md`
 - Propuestas > $5M requieren aprobación de Felipe antes de enviar
+
+---
+
+## Regla: contactos personales con necesidad puntual
+
+**Señales de alerta:** el contacto es exalumno, amigo, conocido de Felipe + la necesidad es para uso personal (charla, presentación, tesis) + deadline < 2 semanas.
+
+**Por qué:** Enviar propuesta formal a alguien con necesidad personal genera fricción y distancia. El problema real es más pequeño que el producto estándar. El riesgo es perder la relación Y el negocio.
+
+**Regla:** NO enviar propuesta formal. Hacer llamada de 20 minutos primero.
+
+Preguntas clave en la llamada:
+- ¿Para qué exactamente lo necesitas? (charla, proceso interno, cliente externo)
+- ¿Cuántas personas van a ver esto?
+- ¿Tienes presupuesto definido?
+
+Según la respuesta, ofrecer una de estas tres opciones:
+
+| Situación | Producto | Precio |
+|-----------|---------|--------|
+| Uso personal, sin presupuesto | Nota técnica (1 pág. + 1-2 gráficos) | $80.000–$150.000 |
+| Uso interno empresa, budget pequeño | Reporte ejecutivo (sin informe formal) | $200.000–$400.000 |
+| Uso ante clientes o reguladores | Propuesta técnica formal estándar | Tarifa normal |
+
+**El contacto personal es la puerta, no el cliente final.** Si la empresa del contacto es relevante (>50 empleados, industria objetivo), ayudarlo bien y pedir referido al tomador de decisiones técnicas.
+
+*Aprendizaje de caso real: Synergy SpA 2024 — propuesta formal enviada a exalumno con necesidad de charla en 1 semana. No respondió.*

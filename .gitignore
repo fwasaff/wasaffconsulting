@@ -49,3 +49,27 @@ my_jupyter_projects/
 .vercel
 node_modules/
 .next/
+tsconfig.tsbuildinfo
+
+# LaTeX temporales
+*.aux
+*.log
+*.out
+*.toc
+*.lot
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.run.xml
+*.synctex.gz
+*.bbl-SAVE-ERROR
+*.bcf
+*.nav
+*.snm
+
+# Configuraciones locales IDE/Claude
+**/.claude/settings.local.json
+
+# Dumps de árbol
+arbol.txt

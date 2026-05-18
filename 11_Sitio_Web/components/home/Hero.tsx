@@ -1,25 +1,10 @@
 'use client';
+import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useFadeIn } from '@/lib/useFadeIn';
 
 export default function Hero() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.fade-in-item');
-    if (!items) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.1 }
-    );
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 80}ms`;
-      io.observe(item);
-    });
-    return () => io.disconnect();
-  }, []);
+  const ref = useFadeIn<HTMLElement>({ threshold: 0.1, staggerMs: 80 });
 
   return (
     <section
@@ -101,12 +86,15 @@ export default function Hero() {
             className="fade-in-item overflow-hidden relative"
             style={{ border: '1px solid var(--dark-border)', borderRadius: '2px' }}
           >
-            <img
+            <Image
               src="/tuberias.png"
               alt="Red de tuberías industriales con válvulas y manómetros"
+              width={800}
+              height={420}
+              priority
               draggable={false}
               onContextMenu={(e) => e.preventDefault()}
-              style={{ width: '100%', display: 'block', height: '420px', objectFit: 'cover', objectPosition: 'center', userSelect: 'none' }}
+              style={{ width: '100%', height: '420px', objectFit: 'cover', objectPosition: 'center', userSelect: 'none', display: 'block' }}
             />
             {/* KPI overlay */}
             <div

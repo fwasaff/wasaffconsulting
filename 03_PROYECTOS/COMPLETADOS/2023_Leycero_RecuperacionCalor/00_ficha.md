@@ -36,11 +36,25 @@ $1.000.000 CLP recibido vía Leycero SpA (informal, sin boleta de honorarios).
 python/       ← scripts de cálculo específicos del caso
 ```
 
-## Scripts reutilizables
-Copiados a `06_CONOCIMIENTO/scripts_reutilizables/python/hidraulica/`:
-- `calculos_hidraulicos.py`
-- `fluido.py`
-- `tuberia.py`
+## Scripts reutilizables (actualizado 2026-03-31)
+`06_CONOCIMIENTO/scripts_reutilizables/python/hidraulica/`:
+- `fluido.py` — propiedades agua (Kell + Vogel + cp + k + Pr) [corregido]
+- `tuberia.py` — clase tubería Sch40/80 DN1"–6" [corregido]
+- `calculos_hidraulicos.py` — Reynolds, Colebrook-White, Darcy-Weisbach [corregido]
+
+`06_CONOCIMIENTO/scripts_reutilizables/python/termico/`:
+- `intercambiador.py` — análisis ε-NTU counter-flow [nuevo]
+- `acumulador.py` — verificación autonomía térmica [nuevo]
+
+## Entregables finalizados (formalización 2026-03-31)
+- `05_entrega/main.pdf` — Memoria de cálculo técnica, 9 páginas
+- `05_entrega/informe-ejecutivo.pdf` — Informe ejecutivo 2 páginas (para gerencia CMPC)
+- `WC-2023-001_EntregaFinal/` — Paquete listo para compartir
+
+## Dato faltante crítico
+`T_hot_in` asumida en 60°C. Verificar con ficha técnica Kaeser o medición directa.
+Afecta el UA calculado y la selección definitiva de los intercambiadores.
 
 ## Notas
-Primer trabajo de consultoría. Sin empresa formal constituida. Sirve como caso de portafolio y base metodológica para futuros proyectos de eficiencia energética industrial. Ver metodología documentada en `06_CONOCIMIENTO/metodologias/analisis_termico.md`.
+Primer trabajo de consultoría. Sin empresa formal constituida al momento de ejecución (2023).
+Formalizado como caso de portafolio Wasaff Consulting en marzo 2026.

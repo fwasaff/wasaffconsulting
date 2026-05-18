@@ -1,0 +1,295 @@
+\documentclass[12pt, letterpaper]{article}
+
+% ─── Paquetes ────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+  \geometry{margin=2.5cm}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{graphicx}
+  \graphicspath{{../03_figuras/}}
+\usepackage{amsmath, amssymb}
+\usepackage{siunitx}
+  \sisetup{locale=ES, output-decimal-marker={,}}
+\usepackage{hyperref}
+  \hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+% ─── Estilo de código Python ──────────────────────────────────────────────────
+\definecolor{codeblue}{rgb}{0.13,0.29,0.53}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegreen}{rgb}{0.0,0.5,0.0}
+\lstdefinestyle{python}{
+  language=Python,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{codeblue}\bfseries,
+  commentstyle=\color{codegray}\itshape,
+  stringstyle=\color{codegreen},
+  numbers=left, numberstyle=\tiny\color{codegray},
+  breaklines=true, frame=single,
+  showstringspaces=false,
+}
+
+% ─── Encabezado y pie de página ───────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small WASAFF Consulting — Informe Técnico Confidencial}
+\rhead{\small Kaeser / CMPC Puente Alto}
+\cfoot{\thepage}
+
+% ─── Metadatos ────────────────────────────────────────────────────────────────
+\title{
+  \vspace{-1cm}
+  {\large \textbf{WASAFF Consulting}} \\[0.3cm]
+  {\LARGE Modelo Matemático: Sistema de Recuperación de Calor} \\[0.2cm]
+  {\large Sala de Compresores Kaeser --- Papeles Cordillera (CMPC Puente Alto)}
+}
+\author{
+  Felipe Wasaff, Director Técnico \\
+  \small \texttt{felipe@wasaffconsulting.com}
+}
+\date{Abril 2026}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\vspace{0.5cm}
+\begin{center}
+  \small
+  \textbf{Confidencial} --- Este documento es de uso exclusivo de
+  Kaeser Compresores de Chile SpA y Papeles Cordillera S.A. (CMPC).
+  Prohibida su reproducción o distribución sin autorización escrita de WASAFF Consulting.
+\end{center}
+
+\tableofcontents
+\newpage
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Resumen Ejecutivo}
+% Máximo 1 página. Escribir al final, cuando todos los resultados estén listos.
+% Incluir: problema planteado, metodología en 2 líneas, resultado principal,
+%          recomendación clave, valor de la recuperación en kW y en \$/año estimado.
+
+\textit{[Completar al cierre del proyecto]}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Antecedentes y Datos del Sistema}
+
+\subsection{Descripción del sistema}
+
+La planta Papeles Cordillera (CMPC Puente Alto) opera una sala de compresores
+Kaeser de tornillo rotatorio con capacidad de recuperar calor residual para
+transferirlo al circuito de agua industrial. Los dos circuitos deben permanecer
+hidráulicamente aislados.
+
+\subsection{Compresores instalados}
+
+\begin{table}[H]
+  \centering
+  \caption{Parámetros térmicos e hidráulicos de compresores (fuente: datasheets Kaeser)}
+  \label{tab:compresores}
+  \begin{tabular}{lccccc}
+    \toprule
+    Modelo & Cant. & $P_\text{nom}$ (kW) & $\dot{Q}$ (kW) &
+    $\dot{V}$ a $\Delta T=\SI{25}{\kelvin}$ (m³/h) & $\Delta P$ (bar) \\
+    \midrule
+    FSD575  & 3 & 315 & 246 & 8{,}61 & 0{,}40 \\
+    DSDX305 & 2 & 160 & 130 & 4{,}50 & 0{,}25 \\
+    ESD445  & 1 & 250 & 196 & 6{,}71 & 0{,}40 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\noindent\textbf{Nota operacional:} El compresor FSD575 N°3 opera como 100\% de respaldo;
+no funciona simultáneamente con FSD575 N°1 o N°2.
+
+\subsection{Escenarios de operación}
+
+\begin{table}[H]
+  \centering
+  \caption{Escenarios de operación del sistema}
+  \label{tab:escenarios}
+  \begin{tabular}{lccc}
+    \toprule
+    Escenario & Compresores activos & $\dot{Q}_\text{total}$ (kW) & $\dot{V}_\text{total}$ (m³/h) \\
+    \midrule
+    Normal (80\% del tiempo) & FSD575×2 + DSDX305 (1-2-4) & 622 & 21{,}72 \\
+    Mínimo & \textit{por confirmar} & --- & --- \\
+    Máximo & \textit{por confirmar} & --- & --- \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Agua industrial CMPC (circuito secundario)}
+
+\begin{table}[H]
+  \centering
+  \caption{Parámetros del circuito de agua industrial CMPC}
+  \label{tab:agua_cmpc}
+  \begin{tabular}{lcc}
+    \toprule
+    Parámetro & Mínimo & Máximo \\
+    \midrule
+    Temperatura (\si{\degreeCelsius}) & 6 & 16 \\
+    Presión (bar) & 3{,}7 & 4{,}2 \\
+    Caudal (m³/h) & 27 & 50 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Alcance y Supuestos}
+
+\subsection{Lo que se modela}
+\begin{itemize}
+  \item Análisis $\varepsilon$-NTU del intercambiador de aislamiento hidráulico
+  \item Selección y dimensionamiento del intercambiador de placas
+  \item Red hidráulica completa (Darcy-Weisbach + Colebrook-White iterativo)
+  \item Dimensionamiento de bomba de circulación
+  \item Dimensionamiento de acumulador hidráulico
+  \item Verificación de tres escenarios: mínimo, normal y máximo
+\end{itemize}
+
+\subsection{Fuera de alcance}
+\begin{itemize}
+  \item Diseño estructural de soportes y obra civil
+  \item Selección de proveedor específico de equipos
+  \item Especificación de instrumentación y control
+  \item Visita a terreno (cotizable por separado)
+\end{itemize}
+
+\subsection{Supuestos principales}
+\begin{itemize}
+  \item Fluido de trabajo: agua líquida en ambos circuitos
+  \item Propiedades termofísicas del agua según correlaciones ASHRAE 2021
+        (rango válido \SI{0}{\degreeCelsius}--\SI{100}{\degreeCelsius})
+  \item Flujo en régimen permanente para cada escenario de operación
+  \item Intercambiador modelado como contracorriente puro
+  \item Pérdidas de calor al ambiente despreciables (sistema aislado)
+  \item \textit{[TODO: Felipe --- agregar supuestos de geometría de tuberías
+        una vez disponible el layout]}
+\end{itemize}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Metodología}
+
+\subsection{Análisis \texorpdfstring{$\varepsilon$}{ε}-NTU del intercambiador}
+
+El método $\varepsilon$-NTU relaciona la efectividad del intercambiador con el
+número de unidades de transferencia sin requerir conocer las temperaturas de salida
+de antemano \cite{incropera2011}.
+
+\begin{equation}
+  \varepsilon = \frac{\dot{Q}}{\dot{Q}_\text{max}}
+  \qquad \text{donde} \qquad
+  \dot{Q}_\text{max} = C_\text{min}(T_{h,\text{in}} - T_{c,\text{in}})
+  \label{eq:efectividad}
+\end{equation}
+
+Para un intercambiador a contracorriente con $C_r = C_\text{min}/C_\text{max} \neq 1$:
+
+\begin{equation}
+  \text{NTU} = \frac{\ln\!\left[\dfrac{\varepsilon - 1}{\varepsilon C_r - 1}\right]}{C_r - 1}
+  \label{eq:NTU_contracorriente}
+\end{equation}
+
+El producto $UA$ se obtiene como:
+\begin{equation}
+  UA = \text{NTU} \cdot C_\text{min}
+  \label{eq:UA}
+\end{equation}
+
+\subsection{Red hidráulica: Darcy-Weisbach + Colebrook-White}
+
+La pérdida de carga en cada tramo se calcula con:
+
+\begin{equation}
+  \Delta P = f \cdot \frac{L}{D} \cdot \frac{\rho v^2}{2}
+  \label{eq:darcy_weisbach}
+\end{equation}
+
+donde el factor de fricción $f$ en régimen turbulento se obtiene resolviendo
+iterativamente la ecuación de Colebrook-White \cite{white2011}:
+
+\begin{equation}
+  \frac{1}{\sqrt{f}} = -2\log_{10}\!\left(\frac{\varepsilon_r}{3{,}7\,D} +
+  \frac{2{,}51}{Re\sqrt{f}}\right)
+  \label{eq:colebrook}
+\end{equation}
+
+La iteración se resuelve por Newton-Raphson con criterio de convergencia
+$|f_{k+1} - f_k| < 10^{-8}$.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Resultados}
+% Completar con tablas y figuras generadas por resultados.py
+
+\subsection{Intercambiador de aislamiento}
+
+\textit{[Tabla de resultados ε-NTU por escenario --- generada por \texttt{resultados.py}]}
+
+\subsection{Red hidráulica}
+
+\textit{[Tabla de pérdidas por tramo y ΔP total --- generada por \texttt{resultados.py}]}
+
+\subsection{Bomba de circulación}
+
+\textit{[Punto de operación requerido y recomendación de configuración]}
+
+\subsection{Acumulador}
+
+\textit{[Volumen y presiones de diseño]}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Análisis y Discusión}
+
+\textit{[Completar al cierre del proyecto]}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Conclusiones y Recomendaciones}
+
+\textit{[Completar al cierre del proyecto]}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{thebibliography}{9}
+
+\bibitem{incropera2011}
+  Incropera, F.P., DeWitt, D.P., Bergman, T.L., Lavine, A.S.
+  \textit{Fundamentals of Heat and Mass Transfer}, 7\textsuperscript{a} ed.
+  John Wiley \& Sons, 2011.
+
+\bibitem{white2011}
+  White, F.M.
+  \textit{Fluid Mechanics}, 8\textsuperscript{a} ed.
+  McGraw-Hill, 2011.
+
+\bibitem{ashrae2021}
+  ASHRAE.
+  \textit{ASHRAE Handbook --- Fundamentals}.
+  American Society of Heating, Refrigerating and
+  Air-Conditioning Engineers, 2021.
+
+\end{thebibliography}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\appendix
+
+\section{Código Python --- \texttt{main.py}}
+\lstinputlisting[style=python, caption={main.py --- punto de entrada}]
+  {../02_analisis/main.py}
+
+\section{Memoria de cálculo --- Red hidráulica}
+% Desarrollar aquí los cálculos de un tramo representativo a mano
+% para validar el código.
+
+\end{document}

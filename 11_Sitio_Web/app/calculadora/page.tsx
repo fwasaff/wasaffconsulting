@@ -1,9 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Link from 'next/link';
+import { trackEvent } from '@/lib/gtag';
 
 const schema = z.object({
   consumo: z.string().min(1, 'Ingrese su consumo mensual en kWh'),
@@ -52,6 +54,9 @@ export default function CalculadoraPage() {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
+  const baseId = useId();
+  const errId = (name: string) => `${baseId}-${name}-error`;
+
   const consumo = watch('consumo');
   const tarifa  = watch('tarifa');
 
@@ -78,6 +83,11 @@ export default function CalculadoraPage() {
       });
       if (!res.ok) throw new Error('Error al enviar');
       setEnviado(true);
+      trackEvent('calculadora_submit', {
+        industria: data.industria,
+        consumo_kwh: consumoNum,
+        ahorro_estimado: calc.ahorroAnual,
+      });
     } catch {
       setErrorEnvio('No pudimos registrar sus datos. Por favor contáctenos directamente.');
     } finally {
@@ -87,24 +97,10 @@ export default function CalculadoraPage() {
 
   return (
     <main className="min-h-screen pt-16" style={{ background: 'var(--bg)' }}>
+      <Breadcrumbs items={[{ label: 'Calculadora de ahorro' }]} />
       {/* Header */}
       <div style={{ background: 'var(--dark)', borderBottom: '1px solid var(--dark-border)' }}>
         <div className="container-w py-16">
-          <Link
-            href="/"
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.72rem',
-              color: 'var(--dark-muted)',
-              textDecoration: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              marginBottom: '1.5rem',
-            }}
-          >
-            ← Volver al inicio
-          </Link>
           <span
             style={{
               display: 'block',
@@ -166,6 +162,8 @@ export default function CalculadoraPage() {
                     type="number"
                     placeholder="Ej: 150000"
                     {...register('consumo')}
+                    aria-invalid={!!errors.consumo}
+                    aria-describedby={errors.consumo ? errId('consumo') : undefined}
                     style={{
                       padding: '0.65rem 0.9rem',
                       border: errors.consumo ? '1px solid var(--red)' : '1px solid var(--border)',
@@ -178,7 +176,7 @@ export default function CalculadoraPage() {
                     }}
                   />
                   {errors.consumo && (
-                    <span style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.consumo.message}</span>
+                    <span id={errId('consumo')} role="alert" style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.consumo.message}</span>
                   )}
                   <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Revise su última boleta de electricidad</span>
                 </div>
@@ -191,6 +189,8 @@ export default function CalculadoraPage() {
                     type="number"
                     placeholder="Ej: 120"
                     {...register('tarifa')}
+                    aria-invalid={!!errors.tarifa}
+                    aria-describedby={errors.tarifa ? errId('tarifa') : undefined}
                     style={{
                       padding: '0.65rem 0.9rem',
                       border: errors.tarifa ? '1px solid var(--red)' : '1px solid var(--border)',
@@ -203,7 +203,7 @@ export default function CalculadoraPage() {
                     }}
                   />
                   {errors.tarifa && (
-                    <span style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.tarifa.message}</span>
+                    <span id={errId('tarifa')} role="alert" style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.tarifa.message}</span>
                   )}
                   <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>CLP por kWh (BT4, AT4, etc.)</span>
                 </div>
@@ -214,6 +214,8 @@ export default function CalculadoraPage() {
                   </label>
                   <select
                     {...register('industria')}
+                    aria-invalid={!!errors.industria}
+                    aria-describedby={errors.industria ? errId('industria') : undefined}
                     style={{
                       padding: '0.65rem 0.9rem',
                       border: errors.industria ? '1px solid var(--red)' : '1px solid var(--border)',
@@ -235,7 +237,7 @@ export default function CalculadoraPage() {
                     <option value="otra">Otra</option>
                   </select>
                   {errors.industria && (
-                    <span style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.industria.message}</span>
+                    <span id={errId('industria')} role="alert" style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.industria.message}</span>
                   )}
                 </div>
               </div>
@@ -264,28 +266,33 @@ export default function CalculadoraPage() {
                   { name: 'empresa' as const, label: 'Empresa',            placeholder: 'Minera XYZ S.A.' },
                   { name: 'cargo' as const,   label: 'Cargo',              placeholder: 'Jefe de Planta' },
                   { name: 'telefono' as const,label: 'Teléfono',           placeholder: '+56 9 1234 5678' },
-                ].map((f) => (
-                  <div key={f.name} className="flex flex-col gap-1.5">
-                    <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text)' }}>{f.label}</label>
-                    <input
-                      type="text"
-                      placeholder={f.placeholder}
-                      {...register(f.name)}
-                      style={{
-                        padding: '0.65rem 0.9rem',
-                        border: errors[f.name] ? '1px solid var(--red)' : '1px solid var(--border)',
-                        borderRadius: '2px',
-                        fontSize: '0.95rem',
-                        color: 'var(--text)',
-                        background: 'var(--bg)',
-                        outline: 'none',
-                      }}
-                    />
-                    {errors[f.name] && (
-                      <span style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{(errors[f.name] as { message?: string })?.message}</span>
-                    )}
-                  </div>
-                ))}
+                ].map((f) => {
+                  const hasError = !!errors[f.name];
+                  return (
+                    <div key={f.name} className="flex flex-col gap-1.5">
+                      <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text)' }}>{f.label}</label>
+                      <input
+                        type="text"
+                        placeholder={f.placeholder}
+                        {...register(f.name)}
+                        aria-invalid={hasError}
+                        aria-describedby={hasError ? errId(f.name) : undefined}
+                        style={{
+                          padding: '0.65rem 0.9rem',
+                          border: hasError ? '1px solid var(--red)' : '1px solid var(--border)',
+                          borderRadius: '2px',
+                          fontSize: '0.95rem',
+                          color: 'var(--text)',
+                          background: 'var(--bg)',
+                          outline: 'none',
+                        }}
+                      />
+                      {hasError && (
+                        <span id={errId(f.name)} role="alert" style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{(errors[f.name] as { message?: string })?.message}</span>
+                      )}
+                    </div>
+                  );
+                })}
 
                 <div className="flex flex-col gap-1.5 sm:col-span-2">
                   <label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text)' }}>Email corporativo</label>
@@ -293,6 +300,8 @@ export default function CalculadoraPage() {
                     type="email"
                     placeholder="juan@empresa.cl"
                     {...register('email')}
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? errId('email') : undefined}
                     style={{
                       padding: '0.65rem 0.9rem',
                       border: errors.email ? '1px solid var(--red)' : '1px solid var(--border)',
@@ -304,7 +313,7 @@ export default function CalculadoraPage() {
                     }}
                   />
                   {errors.email && (
-                    <span style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.email.message}</span>
+                    <span id={errId('email')} role="alert" style={{ fontSize: '0.78rem', color: 'var(--red)' }}>{errors.email.message}</span>
                   )}
                 </div>
               </div>
@@ -384,6 +393,7 @@ export default function CalculadoraPage() {
                     className="btn-solid w-full justify-center"
                     style={{ justifyContent: 'center' }}
                     onClick={() => {
+                      trackEvent('calendly_click', { location: 'calculadora_resultado' });
                       if (typeof window !== 'undefined' && (window as any).Calendly) {
                         (window as any).Calendly.initPopupWidget({ url: 'https://calendly.com/fegonzalezw/30min' });
                       }

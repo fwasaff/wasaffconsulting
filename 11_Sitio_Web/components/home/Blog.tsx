@@ -1,54 +1,10 @@
 'use client';
-import { useEffect, useRef } from 'react';
-
-const articulos = [
-  {
-    numero: '01',
-    categoria: 'Guía Técnica',
-    tiempo: '8 min lectura',
-    titulo: 'Cómo calcular el ROI de un proyecto de recuperación de calor residual',
-    extracto: 'La mayoría de los gerentes de planta subestiman el potencial de recuperación energética de sus compresores. En este artículo explicamos la metodología ε-NTU paso a paso y cómo traducir kW recuperados a millones en ahorro anual.',
-    temas: ['Termodinámica', 'ROI Energético', 'OPEX'],
-    destacado: true,
-  },
-  {
-    numero: '02',
-    categoria: 'Análisis Comparativo',
-    tiempo: '6 min lectura',
-    titulo: 'Simulación computacional vs ensayos físicos: cuándo usar cada una',
-    extracto: 'Un ensayo físico cuesta 10x más que una simulación bien calibrada. Pero no toda simulación es válida sin datos de calibración. Explicamos cuándo la simulación ahorra dinero y cuándo el ensayo físico es irremplazable.',
-    temas: ['Simulación', 'Ensayos', 'Decisión de ingeniería'],
-    destacado: false,
-  },
-  {
-    numero: '03',
-    categoria: 'Case Study',
-    tiempo: '5 min lectura',
-    titulo: 'Cómo redujimos el OPEX energético en 23% en planta manufacturera',
-    extracto: 'Detalle técnico del proyecto de recuperación de calor de 505 kW: qué encontramos en la auditoría inicial, qué modelo construimos, qué resultados obtuvo el cliente y en qué tiempo recuperó la inversión.',
-    temas: ['Caso Real', 'Manufactura', '505 kW'],
-    destacado: false,
-  },
-];
+import Link from 'next/link';
+import { useFadeIn } from '@/lib/useFadeIn';
+import { articulos } from '@/lib/blog';
 
 export default function Blog() {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const items = ref.current?.querySelectorAll('.fade-in-item');
-    if (!items) return;
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
-      }),
-      { threshold: 0.06, rootMargin: '0px 0px -50px 0px' }
-    );
-    items.forEach((item, i) => {
-      (item as HTMLElement).style.transitionDelay = `${i * 80}ms`;
-      io.observe(item);
-    });
-    return () => io.disconnect();
-  }, []);
+  const ref = useFadeIn<HTMLElement>({ threshold: 0.06, rootMargin: '0px 0px -50px 0px', staggerMs: 80 });
 
   return (
     <section
@@ -183,21 +139,14 @@ export default function Blog() {
                 {a.temas.map((t) => <span key={t} className="tag">{t}</span>)}
               </div>
 
-              {/* Proximamente */}
-              <div
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  color: 'var(--muted)',
-                  padding: '0.4rem 0.75rem',
-                  background: 'var(--panel)',
-                  border: '1px solid var(--border)',
-                  borderRadius: '2px',
-                  textAlign: 'center',
-                }}
+              {/* Link al artículo */}
+              <Link
+                href={`/blog/${a.slug}`}
+                className="btn-ghost"
+                style={{ fontSize: '0.82rem', padding: '0.55rem 1rem', textAlign: 'center', justifyContent: 'center' }}
               >
-                Publicación próxima · Suscríbase para ser notificado
-              </div>
+                Leer artículo →
+              </Link>
             </article>
           ))}
         </div>
@@ -226,34 +175,15 @@ export default function Blog() {
             Sin spam. Solo cuando hay contenido técnico relevante para gerentes de planta,
             ingenieros y directores de operaciones en minería, manufactura y energía.
           </p>
-          <form
-            className="flex flex-col sm:flex-row gap-3 w-full max-w-md"
-            onSubmit={(e) => { e.preventDefault(); }}
+          <a
+            href="#contacto"
+            className="btn-solid"
+            style={{ fontSize: '0.88rem' }}
           >
-            <input
-              type="email"
-              placeholder="su-email@empresa.cl"
-              style={{
-                flex: 1,
-                padding: '0.65rem 0.9rem',
-                border: '1px solid var(--border)',
-                borderRadius: '2px',
-                fontSize: '0.9rem',
-                color: 'var(--text)',
-                background: 'var(--bg)',
-                outline: 'none',
-              }}
-            />
-            <button
-              type="submit"
-              className="btn-solid"
-              style={{ whiteSpace: 'nowrap', fontSize: '0.88rem' }}
-            >
-              Suscribirse
-            </button>
-          </form>
+            Suscribirse al newsletter →
+          </a>
           <p style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>
-            Sin compromiso · Baja en cualquier momento
+            Próximamente · Déjenos su correo en contacto para ser notificado
           </p>
         </div>
       </div>

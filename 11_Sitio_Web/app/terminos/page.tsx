@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Términos de Servicio',
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const SECCION = {
-  titulo: { fontFamily: 'var(--font-mono)', fontSize: '0.65rem', textTransform: 'uppercase' as const, letterSpacing: '0.1em', color: 'var(--accent)', marginBottom: '0.5rem' },
+  titulo: { fontFamily: 'var(--font-mono)', fontSize: '0.65rem', textTransform: 'uppercase' as const, letterSpacing: '0.1em', color: 'var(--blue)', marginBottom: '0.5rem' },
   h2: { fontFamily: 'var(--font-serif)', fontStyle: 'italic' as const, fontSize: '1.15rem', fontWeight: 500, marginBottom: '0.75rem', color: 'var(--text)' },
   p: { fontSize: '0.9rem', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '0.75rem' },
   li: { fontSize: '0.9rem', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '0.35rem' },
@@ -17,6 +18,7 @@ export default function TerminosServicio() {
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh', paddingTop: '6rem', paddingBottom: '5rem' }}>
       <div className="container-w" style={{ maxWidth: '740px' }}>
+        <Breadcrumbs items={[{ label: 'Legal', href: '#' }, { label: 'Términos de servicio' }]} />
 
         {/* Encabezado */}
         <p style={SECCION.titulo}>Legal · Contratación</p>
@@ -41,10 +43,10 @@ export default function TerminosServicio() {
           </p>
           <p style={SECCION.p}>
             Contacto:{' '}
-            <a href="mailto:felipe.wasaff@uchile.cl" style={{ color: 'var(--accent)' }}>
-              felipe.wasaff@uchile.cl
+            <a href="mailto:felipe@wasaffconsulting.cl" style={{ color: 'var(--blue)' }}>
+              felipe@wasaffconsulting.cl
             </a>{' '}
-            · +56 9 4612 5682
+            · +56 9 2015 0897
           </p>
           <p style={SECCION.p}>
             RUT disponible a solicitud del contratante para efectos de facturación. NDA disponible
