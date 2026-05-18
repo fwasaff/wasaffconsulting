@@ -1,92 +1,68 @@
-\chapter{Notación y Operaciones de Cálculo Tensorial}
-\label{app:calculus}
+\chapter{Análisis Numérico y Fundamentos del FEM}
+\label{app:calculo}
 
-Este apéndice sirve como una referencia rápida para la notación y las operaciones de cálculo vectorial y tensorial utilizadas a lo largo de este libro. El objetivo es proporcionar definiciones concisas y recordar la intuición física detrás de los operadores fundamentales.
-
-%==================================================================================
-\section{\texorpdfstring{El Operador Nabla ($\nabla$)}{El Operador Nabla (nabla)}}
-%==================================================================================
-El pilar de todo el cálculo vectorial es el operador diferencial vectorial \textbf{nabla} (o del), denotado por $\nabla$. En coordenadas cartesianas $(x, y, z)$, se define como:
-\begin{equation}
-    \nabla \equiv \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z} \right)
-\end{equation}
-Este operador no tiene valor por sí mismo; adquiere significado cuando actúa sobre un campo escalar, vectorial o tensorial.
+Este apéndice recoge los conceptos de análisis numérico y teoría de la aproximación que sustentan la confiabilidad de las simulaciones presentadas en el libro. Su objetivo es proporcionar al lector ingeniero las herramientas necesarias para interpretar errores, estimar convergencia y comprender las decisiones de discretización tomadas en cada capítulo.
 
 %==================================================================================
-\section{Operaciones Fundamentales}
+\section{Análisis del Error}
 %==================================================================================
 
-%----------------------------------------------------------------------------------
-\subsection{\texorpdfstring{Operaciones sobre Campos Escalares ($s$)}{Operaciones sobre Campos Escalares (s)}}
-%----------------------------------------------------------------------------------
-\paragraph{\texorpdfstring{Gradiente ($\nabla s$)}{Gradiente (nabla s)}}
-El gradiente de un campo escalar $s$ es un campo vectorial que apunta en la dirección del máximo incremento de $s$. Su magnitud es la tasa de dicho incremento.
-\begin{equation}
-    \text{grad}(s) = \nabla s = \left( \frac{\partial s}{\partial x}, \frac{\partial s}{\partial y}, \frac{\partial s}{\partial z} \right)
-\end{equation}
-\textit{Intuición Física:} Si $s$ es la temperatura de una placa, $\nabla s$ en un punto apunta hacia la dirección en la que la placa se calienta más rápidamente.
+La validez de cualquier resultado numérico depende de cuantificar la distancia entre la solución exacta $u$ y su aproximación computacional $u_h$. Se definen dos medidas fundamentales:
 
-%----------------------------------------------------------------------------------
-\subsection{\texorpdfstring{Operaciones sobre Campos Vectoriales ($\bm{v}$)}{Operaciones sobre Campos Vectoriales (v)}}
-%----------------------------------------------------------------------------------
-\paragraph{\texorpdfstring{Divergencia ($\nabla \cdot \bm{v}$)}{Divergencia (nabla . v)}}
-La divergencia de un campo vectorial $\bm{v}$ es un campo escalar que mide la tasa a la que un ``flujo'' emana de un punto.
-\begin{equation}
-    \text{div}(\bm{v}) = \nabla \cdot \bm{v} = \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z}
-\end{equation}
-\textit{Intuición Física:} Una divergencia positiva significa que el punto es una fuente (ej. una fuente de calor). Una divergencia negativa significa que es un sumidero. Una divergencia cero (como en la ecuación de incompresibilidad, $\nabla \cdot \bm{u} = 0$) significa que el fluido no se crea ni se destruye.
+\begin{definicion}[Error absoluto y relativo]
+    Sea $x \in \R$ un valor exacto y $\tilde{x} \in \R$ su aproximación numérica. El \textbf{error absoluto} se define como:
+    \begin{equation}
+        e_{\text{abs}} = |x - \tilde{x}|.
+    \end{equation}
+    Si $x \neq 0$, el \textbf{error relativo} se define como:
+    \begin{equation}
+        e_{\text{rel}} = \frac{|x - \tilde{x}|}{|x|}.
+    \end{equation}
+\end{definicion}
 
-\paragraph{\texorpdfstring{Gradiente de un Vector ($\nabla\bm{v}$)}{Gradiente de un Vector (nabla v)}}
-El gradiente de un campo vectorial $\bm{v}$ es un campo tensorial de segundo orden que describe cómo cambia el vector en el espacio.
-\begin{equation}
-    \nabla\bm{v} = 
-    \begin{pmatrix}
-        \frac{\partial v_x}{\partial x} & \frac{\partial v_x}{\partial y} & \frac{\partial v_x}{\partial z} \\
-        \frac{\partial v_y}{\partial x} & \frac{\partial v_y}{\partial y} & \frac{\partial v_y}{\partial z} \\
-        \frac{\partial v_z}{\partial x} & \frac{\partial v_z}{\partial y} & \frac{\partial v_z}{\partial z}
-    \end{pmatrix}
-\end{equation}
-Su parte simétrica es el tensor de deformación, $\bm{\varepsilon} = \frac{1}{2}(\nabla\bm{v} + (\nabla\bm{v})^T)$.
+En el contexto del Método de Elementos Finitos, el error se mide en normas funcionales sobre los espacios de Sobolev. Para una función $v$ definida sobre $\Omega$, las normas vectoriales de referencia son:
+\begin{align}
+    \norm{v}_{\ell_1} &= \sum_{i=1}^{n} |v_i|, \\
+    \norm{v}_{\ell_2} &= \left( \sum_{i=1}^{n} |v_i|^2 \right)^{1/2}, \\
+    \norm{v}_{\ell_\infty} &= \max_{1 \leq i \leq n} |v_i|.
+\end{align}
 
-%----------------------------------------------------------------------------------
-\subsection{\texorpdfstring{Operaciones sobre Campos Tensoriales ($\bm{\sigma}$)}{Operaciones sobre Campos Tensoriales (sigma)}}
-%----------------------------------------------------------------------------------
-\paragraph{\texorpdfstring{Divergencia de un Tensor ($\nabla \cdot \bm{\sigma}$)}{Divergencia de un Tensor (nabla . sigma)}}
-La divergencia de un campo tensorial de segundo orden $\bm{\sigma}$ es un campo vectorial. Es fundamental en la mecánica de medios continuos.
-\begin{equation}
-    \nabla \cdot \bm{\sigma} = \left( \frac{\partial \sigma_{xx}}{\partial x} + \frac{\partial \sigma_{xy}}{\partial y} + \frac{\partial \sigma_{xz}}{\partial z}, \dots \right)
-\end{equation}
-\textit{Intuición Física:} Representa la fuerza neta por unidad de volumen debida a la variación espacial de los esfuerzos. En equilibrio, $\nabla \cdot \bm{\sigma} = \bm{0}$ significa que las fuerzas internas están balanceadas.
+Para matrices $A \in \R^{n \times n}$, la norma inducida asociada a $\norm{\cdot}_{\ell_p}$ se define como $\norm{A}_p = \sup_{v \neq 0} \norm{Av}_p / \norm{v}_p$.
+
+\begin{notatecnica}
+En el problema de la tubería del Capítulo~1, la elección de \texttt{mesh\_size=0.005} no es arbitraria. Para elementos Lagrange P2, la teoría del FEM garantiza convergencia de orden $\mathcal{O}(h^3)$ en la norma $L^2$ para problemas elípticos con solución suficientemente regular. Reducir $h$ por un factor de 2 disminuye el error en $L^2$ aproximadamente por un factor de 8, aunque el coste computacional crece como $\mathcal{O}(h^{-2})$ en 2D.
+\end{notatecnica}
 
 %==================================================================================
-\section{Teoremas Integrales Clave}
+\section{Condición del Problema}
 %==================================================================================
 
-%----------------------------------------------------------------------------------
-\subsection{El Teorema de la Divergencia (Gauss)}
-%----------------------------------------------------------------------------------
-Este es el teorema más importante del cálculo vectorial. Relaciona la integral de la divergencia de un campo vectorial $\bm{v}$ sobre un volumen $\Omega$ con la integral del flujo de ese campo a través de la frontera cerrada $\partial\Omega$.
-\begin{equation}
-    \int_{\Omega} (\nabla \cdot \bm{v}) \, dV = \int_{\partial\Omega} (\bm{v} \cdot \bm{n}) \, dS
-    \label{eq:div-theorem}
-\end{equation}
-donde $\bm{n}$ es el vector normal unitario exterior a la frontera.
-\textit{Intuición Física:} La cantidad neta de ``algo'' que se genera dentro de un volumen (lado izquierdo) debe ser igual a la cantidad neta de ese ``algo'' que fluye hacia afuera a través de su frontera (lado derecho). Es la base de todas las leyes de conservación.
+La sensibilidad de la solución de un sistema lineal $A\bm{x} = \bm{b}$ ante perturbaciones en los datos viene cuantificada por el \textbf{número de condición} de la matriz.
 
-%----------------------------------------------------------------------------------
-\subsection{Integración por Partes (Primera Identidad de Green)}
-%----------------------------------------------------------------------------------
-Esta es la herramienta que constituye el ``truco mágico del FEM'' y que nos permite derivar la forma débil. Se obtiene directamente del teorema de la divergencia al elegir un campo vectorial específico, $\bm{v} = s \nabla w$, donde $s$ y $w$ son campos escalares.
+\begin{definicion}[Número de condición]
+    Sea $A \in \R^{n \times n}$ una matriz invertible. El número de condición respecto a una norma matricial $\norm{\cdot}$ se define como:
+    \begin{equation}
+        \kappa(A) = \norm{A} \, \norm{A^{-1}}.
+    \end{equation}
+    En particular, para la norma espectral $\norm{\cdot}_2$, se tiene $\kappa_2(A) = \sigma_{\max} / \sigma_{\min}$, donde $\sigma$ denota los valores singulares de $A$.
+\end{definicion}
+
+Si $\kappa(A) \gg 1$, pequeñas perturbaciones en $\bm{b}$ o en $A$ pueden inducir cambios arbitrariamente grandes en $\bm{x}$. En tales casos, el problema se dice \textbf{mal condicionado} (ill-conditioned).
+
+En el caso industrial de la tubería de concentrado, el contraste de conductividades térmicas entre el acero y el concentrado es:
 \begin{equation}
-    \int_{\Omega} (s \nabla^2 w + \nabla s \cdot \nabla w) \, dV = \int_{\partial\Omega} s (\nabla w \cdot \bm{n}) \, dS
+    \frac{k_{\text{acero}}}{k_{\text{conc}}} = \frac{45.0}{2.0} = 22.5.
 \end{equation}
-Reordenando, obtenemos la forma que usamos repetidamente en este libro para mover una derivada de una función a otra:
-\begin{equation}
-    \int_{\Omega} s \nabla^2 w \, dV = \int_{\partial\Omega} s (\nabla w \cdot \bm{n}) \, dS - \int_{\Omega} \nabla s \cdot \nabla w \, dV
-    \label{eq:green-first}
-\end{equation}
-Una versión más general para un campo vectorial $\bm{v}$ y un campo tensorial $\bm{\sigma}$ es:
-\begin{equation}
-    \int_{\Omega} (\nabla \cdot \bm{\sigma}) \cdot \bm{v} \, dV = \int_{\partial\Omega} (\bm{\sigma} \cdot \bm{n}) \cdot \bm{v} \, dS - \int_{\Omega} \bm{\sigma} : \nabla\bm{v} \, dV
-\end{equation}
-Esta última forma es la que se utiliza en la derivación de la forma débil de la mecánica de sólidos.
+Este salto de coeficientes introduce heterogeneidad en la matriz de rigidez, pero en un problema bidimensional con mallas moderadas no genera un mal condicionamiento severo que impida la resolución directa. No obstante, en geometrías 3D industriales con millones de grados de libertad y contrastes de material de dos órdenes de magnitud, el uso de un \textbf{precondicionador} (por ejemplo, AMG o ILU) se vuelve imprescindible para mantener la eficiencia del solver iterativo.
+
+%==================================================================================
+\section{Cuadratura Gaussiana}
+%==================================================================================
+
+En la implementación computacional del FEM, las integrales de la forma débil no se evalúan analíticamente, sino que se aproximan mediante \textbf{cuadratura numérica}. En FEniCSx, el operador \texttt{ufl.dx} desencadena automáticamente una regla de cuadratura adaptada al espacio de elementos finitos seleccionado.
+
+Para elementos Lagrange P2 en 2D, los términos de rigidez involucran productos de gradientes de funciones cuadráticas, lo que da lugar a integrandos polinomiales de grado hasta 4 en cada dirección. La \textbf{cuadratura de Gauss-Legendre} con 3 puntos por dirección integra exactamente polinomios de grado hasta 5, lo cual resulta \textbf{suficiente} para garantizar que el error de cuadratura no domine sobre el error de discretización del método.
+
+\begin{notatecnica}
+El usuario avanzado puede sobrescribir la regla de cuadratura en FEniCSx mediante \texttt{ufl.dx(metadata=\{\ldots\})} si requiere integración exacta de términos no polinomiales (por ejemplo, funciones de material definidas tabularmente) o si desea reducir el coste computacional mediante cuadratura reducida en problemas no lineales.
+\end{notatecnica}

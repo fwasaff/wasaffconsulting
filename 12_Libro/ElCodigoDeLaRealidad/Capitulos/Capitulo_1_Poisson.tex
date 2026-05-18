@@ -144,11 +144,61 @@ Esta es una formulación elegante, pero su resolución analítica solo es posibl
 
 
 %==================================================================================
+%----------------------------------------------------------------------------------
+\subsection{La Forma D\'ebil Variacional}
+\label{subsec:poisson-weak-form}
+%----------------------------------------------------------------------------------
+
+Para obtener una formulaci\'on computacionalmente viable, transformamos la forma fuerte del problema de contorno en su \textbf{forma d\'ebil} o variacional. Este procedimiento es el fundamento del M\'etodo de Elementos Finitos (FEM), ya que relaja los requisitos de regularidad sobre la soluci\'on y permite trabajar con espacios de funciones adecuados para la discretizaci\'on num\'erica.
+
+Partimos de la ecuaci\'on gobernante en forma fuerte:
+\begin{equation}
+    -\nabla \cdot (k \nabla T) = f \quad \text{en } \Omega.
+    \label{eq:poisson-strong-weak}
+\end{equation}
+
+Sea $v \in \Hunocero$ una \textbf{función test} (o de prueba) que se anula en la frontera de Dirichlet $\partial\Omega_D$. Multiplicamos la Ecuaci\'on~\eqref{eq:poisson-strong-weak} por $v$ e integramos sobre el dominio $\Omega$:
+\begin{equation}
+    -\int_\Omega \bigl[\nabla \cdot (k \nabla T)\bigr] v \, \diff x = \int_\Omega f v \, \diff x.
+    \label{eq:weak-step1}
+\end{equation}
+
+Aplicamos integraci\'on por partes (primera identidad de Green) al t\'ermino de la izquierda. Recordando que $\nabla \cdot (v \, k \nabla T) = [\nabla \cdot (k \nabla T)] v + k \nabla T \cdot \nabla v$, obtenemos:
+\begin{equation}
+    \int_\Omega k \nabla T \cdot \nabla v \, \diff x - \int_{\partial\Omega} (k \nabla T \cdot \bm{n}) v \, \diff S = \int_\Omega f v \, \diff x.
+\end{equation}
+
+Dado que $v = 0$ sobre $\partial\Omega_D$ y el flujo de calor normal sobre $\partial\Omega_N$ viene dado por la condici\'on de Neumann $-k \nabla T \cdot \bm{n} = g$, la integral de frontera se reduce a:
+\begin{equation}
+    -\int_{\partial\Omega_N} (k \nabla T \cdot \bm{n}) v \, \diff S = \int_{\partial\Omega_N} g v \, \diff S.
+\end{equation}
+
+Reuniendo los t\'erminos, llegamos a la \textbf{forma d\'ebil variacional} del problema de Poisson:
+\begin{equation}
+    \int_\Omega k \nabla T \cdot \nabla v \, \diff x = \int_\Omega f v \, \diff x + \int_{\partial\Omega_N} g v \, \diff S, \qquad \forall v \in \Hunocero.
+    \label{eq:forma_debil_poisson}
+\end{equation}
+
+Es conveniente introducir la notaci\'on operacional habitual en an\'alisis funcional. Definimos la \textbf{forma bilineal} $a: \Huno \times \Huno \to \R$ y el \textbf{funcional lineal} $L: \Hunocero \to \R$ mediante:
+\begin{align}
+    a(T, v) &\coloneqq \int_\Omega k \nabla T \cdot \nabla v \, \diff x, \\
+    L(v) &\coloneqq \int_\Omega f v \, \diff x + \int_{\partial\Omega_N} g v \, \diff S.
+\end{align}
+
+Con esta notaci\'on, la forma d\'ebil se escribe de manera compacta como:
+\begin{equation}
+    \text{Encontrar } T \in V \text{ tal que } \quad a(T, v) = L(v), \quad \forall v \in \hat{V},
+\end{equation}
+donde $V = \{ T \in \Huno \mid T|_{\partial\Omega_D} = T_D \}$ es el espacio de funciones de ensayo que satisfacen la condici\'on de Dirichlet, y $\hat{V} = \Hunocero$ es el espacio de funciones test que se anulan en $\partial\Omega_D$.
+
+Esta formulaci\'on exige \'unicamente que $T$ y $v$ posean derivadas d\'ebiles de primer orden en $\Ldos$, lo cual es considerablemente menos restrictivo que la condici\'on $T \in C^2(\Omega)$ de la forma fuerte. Es precisamente esta flexibilidad la que hace posible la construcci\'on de espacios de elementos finitos de dimensi\'on finita.
+
+
 \section{De la Teoría a la Práctica: Implementación en \fenics}
 \label{sec:poisson-fenics}
 %==================================================================================
 
-Habiendo establecido el marco variacional en la Ecuación~\eqref{eq:weak-form}, estamos equipados para traducir esta formulación matemática abstracta en un modelo computacional. Ahora aplicaremos esta poderosa herramienta para analizar un problema de gran relevancia en la industria minera chilena: el riesgo de solidificación del concentrado de cobre en tuberías de transporte.
+Habiendo establecido el marco variacional en la Ecuación~\cref{eq:forma_debil_poisson}, estamos equipados para traducir esta formulación matemática abstracta en un modelo computacional. Ahora aplicaremos esta poderosa herramienta para analizar un problema de gran relevancia en la industria minera chilena: el riesgo de solidificación del concentrado de cobre en tuberías de transporte.
 
 %----------------------------------------------------------------------------------
 \subsection{Caso de Estudio: Solidificación en Tuberías de Concentrado}

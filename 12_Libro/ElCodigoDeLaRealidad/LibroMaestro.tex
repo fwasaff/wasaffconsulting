@@ -4,12 +4,19 @@
 % AUTOR:      Felipe Wasaff
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Usamos la clase KOMA-Script (scrbook) por su excelente tipografía y flexibilidad.
-% Es una alternativa moderna a la clase 'book' estándar.
-\documentclass[11pt, a4paper, spanish, twoside]{scrbook}
+\documentclass[
+    11pt,
+    a4paper,
+    spanish,
+    twoside,
+    openright,
+    cleardoublepage=empty,
+    numbers=noenddot,
+    bibliography=totoc,
+    index=totoc
+]{scrbook}
 
 % --- PREÁMBULO MAESTRO ---
-% Carga todas las configuraciones, paquetes y comandos personalizados del libro.
 \input{Config/WASAFF_Preamble.tex}
 
 % ===================================================================================
@@ -18,9 +25,38 @@
 \begin{document}
 
 % --- PARTES PRELIMINARES ---
-% 'frontmatter' usa números de página romanos para el prólogo, índice, etc.
 \frontmatter
-\maketitle
+
+% Portada manual
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\color{wasaff-black}\rule{\textwidth}{1.5pt}}
+    \vspace{1.5cm}
+    
+    {\Huge\bfseries\color{wasaff-black} El Código de la Realidad}
+    
+    \vspace{0.8cm}
+    {\Large\color{wasaff-darkgray}
+    Simulación Multifísica desde los Primeros Principios\\
+    para la Ingeniería Industrial}
+    
+    \vspace{1.5cm}
+    {\color{wasaff-black}\rule{\textwidth}{1.5pt}}
+    
+    \vfill
+    
+    {\large\color{wasaff-darkgray} Felipe Wasaff}
+    
+    \vspace{0.5cm}
+    {\normalsize\color{wasaff-midgray} Wasaff Consulting}
+    
+    \vspace{1cm}
+    {\normalsize\color{wasaff-midgray} \today}
+    
+    \vspace{2cm}
+\end{titlepage}
+
 \cleardoublepage
 \input{Preliminares/Dedicatoria.tex}
 \cleardoublepage
@@ -35,8 +71,8 @@
 \cleardoublepage
 
 % --- CUERPO PRINCIPAL DEL LIBRO ---
-% 'mainmatter' reinicia la numeración de página a arábiga (1, 2, 3...).
 \mainmatter
+\pagestyle{scrheadings}
 
 % ===================================================================================
 % PARTE I: FUNDAMENTOS - MODELANDO UNA FÍSICA A LA VEZ
@@ -68,18 +104,17 @@
 % ===================================================================================
 % APÉNDICES Y BIBLIOGRAFÍA
 % ===================================================================================
-% 'appendix' cambia la numeración de capítulos a letras (A, B, C...).
 \appendix
 \part*{Apéndices}
 \addcontentsline{toc}{part}{Apéndices}
 
-%\input{Apendices/Apendice_A_Calculo.tex}
-%\input{Apendices/Apendice_B_FEniCS.tex}
+\input{Apendices/Apendice_A_Calculo.tex}
+\input{Apendices/Apendice_B_FEniCS.tex}
 %\input{Apendices/Apendice_C_Instalacion.tex}
 %\input{Apendices/Apendice_D_Verificacion_Validacion.tex}
 \cleardoublepage
 
 % --- BIBLIOGRAFÍA ---
-\printbibliography
+\printbibliography[heading=bibintoc,title={Referencias}]
 
 \end{document}

@@ -1,76 +1,259 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % PREÁMBULO MAESTRO PARA "EL CÓDIGO DE LA REALIDAD"
 % WASAFF CONSULTING
+% Estilo: Profesional, minimalista, escala de grises
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% --- CONFIGURACIONES ESENCIALES ---
-\usepackage[utf8]{inputenc}   % Acentos y caracteres en español
-\usepackage[T1]{fontenc}      % Codificación de fuentes moderna
-\usepackage[spanish,es-noshorthands]{babel} % Soporte para español
-\usepackage{lmodern}          % Fuente Latin Modern (mejora de Computer Modern)
+% ==================================================================================
+% 1. CODIFICACIÓN E IDIOMA
+% ==================================================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-lcroman,es-tabla]{babel}
+\deactivatetilden
 
-% --- GEOMETRÍA Y DISEÑO DE PÁGINA ---
-% Márgenes definidos para una buena legibilidad en A4
-\usepackage[a4paper, top=2.5cm, bottom=3cm, left=2.5cm, right=2.5cm]{geometry}
+% ==================================================================================
+% 2. TIPOGRAFÍA
+% ==================================================================================
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{ellipsis}
+\usepackage{setspace}
+\setstretch{1.15}
 
-% --- PAQUETES MATEMÁTICOS ---
-\usepackage{amsmath}          % El paquete principal de la AMS para matemáticas
-\usepackage{amsfonts}         % Fuentes matemáticas
-\usepackage{amssymb}          % Símbolos matemáticos
-\usepackage{mathtools}        % Extensiones y correcciones para amsmath
-\usepackage{bm}               % Para poner símbolos matemáticos en negrita (vectores, etc.)
+% Configuración de fuentes KOMA-Script
+\setkomafont{disposition}{\normalcolor\bfseries}
+\addtokomafont{chapter}{\Huge}
+\addtokomafont{section}{\Large}
+\addtokomafont{subsection}{\large}
+\addtokomafont{subsubsection}{\normalsize}
 
-% --- TIPOGRAFÍA Y ESTILO ---
-\usepackage{microtype}        % Mejora la justificación y el espaciado entre caracteres
-\usepackage{graphicx}         % Para incluir imágenes
-\usepackage{booktabs}         % Para tablas de calidad profesional
-\usepackage{xcolor}           % Para definir y usar colores
-\usepackage{lipsum}           % Para generar texto de relleno (lorem ipsum)
-\usepackage{csquotes}         % Para comillas inteligentes y compatibilidad con biblatex
+% ==================================================================================
+% 3. GEOMETRÍA DE PÁGINA
+% ==================================================================================
+\usepackage[
+    top=2.8cm,
+    bottom=2.5cm,
+    inner=3.0cm,
+    outer=2.2cm,
+    headheight=14pt,
+    headsep=0.8cm,
+    footskip=1.2cm
+]{geometry}
 
-% Paquetes adicionales necesarios
-\usepackage{tcolorbox}
-\tcbuselibrary{skins, breakable}
-\usepackage{tikz}
-\usetikzlibrary{shapes, arrows, positioning, calc}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
+% ==================================================================================
+% 4. PALETA DE COLORES (escala de grises)
+% ==================================================================================
+\usepackage{xcolor}
+\definecolor{wasaff-black}{gray}{0.10}
+\definecolor{wasaff-darkgray}{gray}{0.25}
+\definecolor{wasaff-midgray}{gray}{0.50}
+\definecolor{wasaff-lightgray}{gray}{0.85}
+\definecolor{wasaff-silver}{gray}{0.95}
+\definecolor{wasaff-accent}{gray}{0.35}
 
-% --- CÓDIGO FUENTE ---
-% Minted es el estándar de oro para código con sintaxis coloreada.
-% ¡IMPORTANTE! Requiere compilar con la opción -shell-escape
-% Ejemplo: latexmk -pdf -shell-escape LibroMaestro.tex
-\usepackage{minted}
+% ==================================================================================
+% 5. MATEMÁTICAS
+% ==================================================================================
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
 
-% --- BIBLIOGRAFÍA ---
-% Usamos biblatex y biber, el sistema moderno y más flexible.
-\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
-\addbibresource{Bibliografia/BibliografiaMaestra.bib} % Apunta a nuestro archivo .bib
+% Teoremas y entornos
+\theoremstyle{definition}
+\newtheorem{definicion}{Definición}[chapter]
+\newtheorem{teorema}{Teorema}[chapter]
+\newtheorem{lema}{Lema}[chapter]
+\newtheorem{proposicion}{Proposición}[chapter]
+\theoremstyle{remark}
+\newtheorem{observacion}{Observación}[chapter]
 
-% --- ENLACES Y REFERENCIAS ---
-% hyperref debe ser uno de los últimos paquetes en cargarse.
-\usepackage{hyperref}
-\hypersetup{
-    colorlinks=true,
-    linkcolor=blue,        % Color para enlaces internos (índice, citas)
-    citecolor=green,       % Color para citas bibliográficas
-    filecolor=magenta,
-    urlcolor=cyan,         % Color para URLs
-    pdftitle={El Código de la Realidad},
-    pdfauthor={Felipe Wasaff},
-    bookmarks=true,
-    pdfpagemode=FullScreen,
+% ==================================================================================
+% 6. GRÁFICOS, TABLAS Y FLOTANTES
+% ==================================================================================
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{float}
+
+% ==================================================================================
+% 7. LISTADOS DE CÓDIGO (listings)
+% ==================================================================================
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listado de Código}
+\renewcommand{\lstlistlistingname}{Índice de Listados de Código}
+
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{wasaff-black},
+    commentstyle=\itshape\color{wasaff-midgray},
+    stringstyle=\color{wasaff-darkgray},
+    backgroundcolor=\color{wasaff-silver},
+    frame=single,
+    rulecolor=\color{wasaff-lightgray},
+    framerule=0.4pt,
+    numbers=left,
+    numberstyle=\tiny\color{wasaff-midgray},
+    numbersep=8pt,
+    tabsize=4,
+    showstringspaces=false,
+    breaklines=true,
+    breakatwhitespace=true,
+    literate=
+        {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+        {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+        {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1
+        {¿}{{?`}}1 {¡}{{!`}}1
 }
 
-% --- INFORMACIÓN DEL TÍTULO ---
-% Este bloque es el que soluciona el error "! LaTeX Error: No \title given."
-\title{El Código de la Realidad \\ \large Simulación Multifísica desde los Primeros Principios para la Ingeniería Industrial}
-\author{Felipe Wasaff \\ Wasaff Consulting}
-\date{\today}
+\lstnewenvironment{codigo}[1][]{%
+    \lstset{#1}%
+}{}
 
-% --- COMANDOS PERSONALIZADOS Y NUEVOS ENTORNOS ---
-\usepackage{newfloat} % Para crear nuevos tipos de flotantes
-% Aquí está la corrección: cambiamos 'listing' por 'codelisting'
-\DeclareFloatingEnvironment[fileext=lol, listname={Índice de Listados de Código}, name=Listado de Código, within=chapter]{codelisting}
+% ==================================================================================
+% 8. RECUADROS (tcolorbox)
+% ==================================================================================
+\usepackage[skins,breakable]{tcolorbox}
 
+\newtcolorbox{notatecnica}{
+    colback=wasaff-silver,
+    colframe=wasaff-lightgray,
+    fonttitle=\bfseries\sffamily\small,
+    title={Nota Técnica},
+    attach boxed title to top left={yshift=-2mm,xshift=5mm},
+    boxed title style={colback=wasaff-silver,colframe=wasaff-lightgray},
+    breakable
+}
+
+\newtcolorbox{industrial}{
+    colback=white,
+    colframe=wasaff-midgray,
+    fonttitle=\bfseries\color{white},
+    coltitle=white,
+    colbacktitle=wasaff-midgray,
+    title={Contexto Industrial},
+    attach boxed title to top left={yshift=-2mm,xshift=5mm},
+    boxed title style={colback=wasaff-midgray,colframe=wasaff-midgray},
+    breakable
+}
+
+% ==================================================================================
+% 9. MINTED (compatibilidad con capítulos existentes)
+% ==================================================================================
+\usepackage{minted}
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[
+    fileext=lol,
+    listname={Índice de Listados de Código},
+    name=Listado de Código,
+    within=chapter
+]{codelisting}
+
+% ==================================================================================
+% 10. BIBLIOGRAFÍA
+% ==================================================================================
+\usepackage[
+    backend=biber,
+    style=numeric-comp,
+    sorting=nyt,
+    maxbibnames=6,
+    minbibnames=3,
+    maxcitenames=2,
+    giveninits=true,
+    terseinits=true,
+    doi=true,
+    url=false,
+    eprint=false,
+    isbn=false
+]{biblatex}
+\addbibresource{Bibliografia/BibliografiaMaestra.bib}
+
+% ==================================================================================
+% 11. HIPERVÍNCULOS
+% ==================================================================================
+\usepackage[
+    colorlinks=true,
+    linkcolor=wasaff-darkgray,
+    citecolor=wasaff-darkgray,
+    urlcolor=wasaff-midgray,
+    bookmarksopen=true,
+    bookmarksopenlevel=1,
+    pdftitle={El Código de la Realidad: Simulación Multifísica desde los Primeros Principios para la Ingeniería Industrial},
+    pdfauthor={Felipe Wasaff},
+    pdfsubject={Simulación Computacional por Elementos Finitos para Ingeniería Industrial},
+    pdfkeywords={FEM, FEniCS, Multifísica, Simulación, Elementos Finitos, Ingeniería Industrial},
+    pdfcreator={LuaLaTeX + KOMA-Script},
+    pdfproducer={Wasaff Consulting}
+]{hyperref}
+
+% ==================================================================================
+% 12. REFERENCIAS INTELIGENTES
+% ==================================================================================
+\usepackage[spanish]{cleveref}
+\crefname{lstlisting}{listado}{listados}
+\Crefname{lstlisting}{Listado}{Listados}
+\crefname{codelisting}{listado}{listados}
+\Crefname{codelisting}{Listado}{Listados}
+\crefname{equation}{ecuación}{ecuaciones}
+\Crefname{equation}{Ecuación}{Ecuaciones}
+\crefname{figure}{figura}{figuras}
+\Crefname{figure}{Figura}{Figuras}
+\crefname{table}{tabla}{tablas}
+\Crefname{table}{Tabla}{Tablas}
+\crefname{chapter}{capítulo}{capítulos}
+\Crefname{chapter}{Capítulo}{Capítulos}
+\crefname{section}{sección}{secciones}
+\Crefname{section}{Sección}{Secciones}
+
+% ==================================================================================
+% 13. ENCABEZADOS Y PIES DE PÁGINA
+% ==================================================================================
+\usepackage[automark]{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\lehead{\leftmark}
+\rohead{\rightmark}
+\lefoot{\pagemark}
+\rofoot{\pagemark}
+\renewcommand*{\chapterpagestyle}{plain}
+
+% ==================================================================================
+% 14. COMANDOS PERSONALIZADOS
+% ==================================================================================
 \newcommand{\fenics}{\textsc{FEniCS}}
+
+% Conjuntos numéricos
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+
+% Operadores diferenciales
+\newcommand{\diff}{\mathop{}\!\mathrm{d}}
+\newcommand{\grad}{\nabla}
+\newcommand{\divg}{\nabla\cdot}
+\newcommand{\laplacian}{\nabla^2}
+
+% Vectores y normas
+\newcommand{\vc}[1]{\bm{#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\inner}[2]{\left\langle#1,#2\right\rangle}
+
+% Subíndices y símbolos
+\newcommand{\ped}[1]{_{\text{#1}}}
+\newcommand{\celsius}{^{\circ}\text{C}}
+
+% Espacios de Sobolev
+\newcommand{\Huno}{H^1(\Omega)}
+\newcommand{\Hunocero}{H^1_0(\Omega)}
+\newcommand{\Ldos}{L^2(\Omega)}
+
+% ==================================================================================
+% 15. UTILIDADES FINALES
+% ==================================================================================
+\usepackage{csquotes}
+\usepackage{lipsum}

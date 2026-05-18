@@ -70,6 +70,10 @@ Denotando \(T^n(\bm{x}) \equiv T(\bm{x}, t^n)\), la Ecuación del Calor evaluada
 \]
 Esta estrategia se conoce como \textbf{semi-discretización en el tiempo}. Hemos transformado un problema de evolución parabólico en una secuencia de problemas estacionarios acoplados, donde la solución en el tiempo \(t^{n-1}\) actúa como una fuente para el problema en \(t^n\)\footnote{Elegimos el método de Euler \textit{implícito} (evaluando los términos espaciales en el tiempo \(n\)) porque es incondicionalmente estable para la Ecuación del Calor, permitiendo pasos de tiempo \(\Delta t\) más grandes sin que la solución numérica diverja. Un método explícito tendría restricciones severas sobre \(\Delta t\).}.
 
+\begin{notatecnica}
+El método de Euler implícito es A-estable y suficiente para este problema lineal. Sin embargo, para el cambio de fase no lineal del Capítulo~5 se preferirá el esquema BDF(2), que ofrece orden $\mathcal{O}(\Delta t^2)$ sin sacrificar estabilidad incondicional.
+\end{notatecnica}
+
 \subsubsection{La Formulación Variacional Semi-Discretizada}
 Ahora, para cada paso de tiempo \(n\), tenemos un problema estacionario análogo al del Capítulo~\ref{chap:poisson}. Reordenando los términos:
 \[
