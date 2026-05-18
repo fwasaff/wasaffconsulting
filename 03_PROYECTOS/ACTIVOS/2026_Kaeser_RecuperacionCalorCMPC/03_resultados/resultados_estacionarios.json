@@ -1,0 +1,79 @@
+{
+  "minimo": {
+    "Q_total_kW": 442,
+    "caudal_total_m3h": 15.32,
+    "area_intercambiador_m2": 40.50228779366232,
+    "epsilon": 0.85,
+    "T_hot_out_C": 18.35000000000001,
+    "T_cold_out_C": 44.81719329033464,
+    "dP_red_mca": 1.371296411191996,
+    "potencia_bomba_kW": 0.20642088320778065,
+    "autonomia_acumulador_min": 0.7880844645550529
+  },
+  "normal_A": {
+    "Q_total_kW": 622,
+    "caudal_total_m3h": 21.72,
+    "area_intercambiador_m2": 40.50228779366232,
+    "epsilon": 0.8499999999999998,
+    "T_hot_out_C": 18.35000000000001,
+    "T_cold_out_C": 44.81719329033465,
+    "dP_red_mca": 2.6666802070970177,
+    "potencia_bomba_kW": 0.4051033087455951,
+    "autonomia_acumulador_min": 0.560021436227224
+  },
+  "normal_B": {
+    "Q_total_kW": 622,
+    "caudal_total_m3h": 21.72,
+    "area_intercambiador_m2": 40.50228779366232,
+    "epsilon": 0.8499999999999998,
+    "T_hot_out_C": 18.35000000000001,
+    "T_cold_out_C": 44.81719329033465,
+    "dP_red_mca": 2.6666802070970177,
+    "potencia_bomba_kW": 0.4051033087455951,
+    "autonomia_acumulador_min": 0.560021436227224
+  },
+  "normal_C": {
+    "Q_total_kW": 622,
+    "caudal_total_m3h": 21.72,
+    "area_intercambiador_m2": 40.50228779366232,
+    "epsilon": 0.8499999999999998,
+    "T_hot_out_C": 18.35000000000001,
+    "T_cold_out_C": 44.81719329033465,
+    "dP_red_mca": 2.6666802070970177,
+    "potencia_bomba_kW": 0.4051033087455951,
+    "autonomia_acumulador_min": 0.560021436227224
+  },
+  "alto_A": {
+    "Q_total_kW": 688,
+    "caudal_total_m3h": 23.93,
+    "area_intercambiador_m2": 40.50228779366232,
+    "epsilon": 0.8500000000000001,
+    "T_hot_out_C": 18.349999999999994,
+    "T_cold_out_C": 44.81719329033465,
+    "dP_red_mca": 3.2102586167009233,
+    "potencia_bomba_kW": 0.4983103498282868,
+    "autonomia_acumulador_min": 0.5062984496124031
+  },
+  "alto_B": {
+    "Q_total_kW": 752,
+    "caudal_total_m3h": 26.22,
+    "area_intercambiador_m2": 40.50228779366232,
+    "epsilon": 0.8500000000000001,
+    "T_hot_out_C": 18.349999999999994,
+    "T_cold_out_C": 44.81719329033464,
+    "dP_red_mca": 3.8254297286115144,
+    "potencia_bomba_kW": 0.610461927378495,
+    "autonomia_acumulador_min": 0.463209219858156
+  },
+  "maximo": {
+    "Q_total_kW": 948,
+    "caudal_total_m3h": 32.93,
+    "area_intercambiador_m2": 40.50228779366232,
+    "epsilon": 0.8500000000000001,
+    "T_hot_out_C": 18.35,
+    "T_cold_out_C": 44.81719329033464,
+    "dP_red_mca": 5.931327449310982,
+    "potencia_bomba_kW": 1.0438438562468901,
+    "autonomia_acumulador_min": 0.3674402250351617
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "proyecto": {
+    "id": "2026_Kaeser_RecuperacionCalorCMPC",
+    "cliente_directo": "Kaeser Compresores de Chile SpA",
+    "cliente_final": "Papeles Cordillera S.A. (CMPC Puente Alto)",
+    "ubicacion": "Planta CMPC Puente Alto, Santiago, Chile",
+    "fecha": "2026-05-18",
+    "director_tecnico": "Felipe Wasaff"
+  },
+  "fluido_proceso": {
+    "tipo": "aceite_compresor",
+    "T_hot_in_assumed_C": 60,
+    "nota": "Temperatura asumida de ficha t\u00e9cnica. Validar con medici\u00f3n de campo."
+  },
+  "fluido_agua_industrial": {
+    "tipo": "agua_industrial_CMPC",
+    "T_cold_in_min_C": 6,
+    "T_cold_in_max_C": 16,
+    "T_cold_in_nominal_C": 11,
+    "presion_min_bar": 3.7,
+    "presion_max_bar": 4.2,
+    "caudal_min_m3h": 27,
+    "caudal_max_m3h": 50,
+    "nota": "Datos proporcionados por CMPC. Calidad del agua no especificada."
+  },
+  "compresores": [
+    {
+      "numero": 1,
+      "modelo": "FSD575",
+      "potencia_nominal_kW": 315,
+      "rendimiento_termico_kW": 246,
+      "caudal_agua_deltaT25K_m3h": 8.61,
+      "caida_presion_bar": 0.4,
+      "es_respaldo": false
+    },
+    {
+      "numero": 2,
+      "modelo": "FSD575",
+      "potencia_nominal_kW": 315,
+      "rendimiento_termico_kW": 246,
+      "caudal_agua_deltaT25K_m3h": 8.61,
+      "caida_presion_bar": 0.4,
+      "es_respaldo": false
+    },
+    {
+      "numero": 3,
+      "modelo": "FSD575",
+      "potencia_nominal_kW": 315,
+      "rendimiento_termico_kW": 246,
+      "caudal_agua_deltaT25K_m3h": 8.61,
+      "caida_presion_bar": 0.4,
+      "es_respaldo": true
+    },
+    {
+      "numero": 4,
+      "modelo": "DSDX305",
+      "potencia_nominal_kW": 160,
+      "rendimiento_termico_kW": 130,
+      "caudal_agua_deltaT25K_m3h": 4.5,
+      "caida_presion_bar": 0.25,
+      "es_respaldo": false
+    },
+    {
+      "numero": 5,
+      "modelo": "DSDX305",
+      "potencia_nominal_kW": 160,
+      "rendimiento_termico_kW": 130,
+      "caudal_agua_deltaT25K_m3h": 4.5,
+      "caida_presion_bar": 0.25,
+      "es_respaldo": false
+    },
+    {
+      "numero": 6,
+      "modelo": "ESD445",
+      "potencia_nominal_kW": 250,
+      "rendimiento_termico_kW": 196,
+      "caudal_agua_deltaT25K_m3h": 6.71,
+      "caida_presion_bar": 0.4,
+      "es_respaldo": false
+    }
+  ],
+  "escenarios_operacion": [
+    {
+      "nombre": "minimo",
+      "demanda_aire_m3min": 90,
+      "frecuencia_porcentaje": 2,
+      "equipos_operando": [
+        1,
+        6
+      ],
+      "Q_total_kW": 442,
+      "caudal_total_m3h": 15.32
+    },
+    {
+      "nombre": "normal_A",
+      "demanda_aire_m3min": 130,
+      "frecuencia_porcentaje": 1,
+      "equipos_operando": [
+        1,
+        2,
+        4
+      ],
+      "Q_total_kW": 622,
+      "caudal_total_m3h": 21.72
+    },
+    {
+      "nombre": "normal_B",
+      "demanda_aire_m3min": 131,
+      "frecuencia_porcentaje": 80,
+      "equipos_operando": [
+        1,
+        2,
+        4
+      ],
+      "Q_total_kW": 622,
+      "caudal_total_m3h": 21.72
+    },
+    {
+      "nombre": "normal_C",
+      "demanda_aire_m3min": 140,
+      "frecuencia_porcentaje": 1,
+      "equipos_operando": [
+        1,
+        2,
+        4
+      ],
+      "Q_total_kW": 622,
+      "caudal_total_m3h": 21.72
+    },
+    {
+      "nombre": "alto_A",
+      "demanda_aire_m3min": 150,
+      "frecuencia_porcentaje": 1,
+      "equipos_operando": [
+        1,
+        2,
+        6
+      ],
+      "Q_total_kW": 688,
+      "caudal_total_m3h": 19.82
+    },
+    {
+      "nombre": "alto_B",
+      "demanda_aire_m3min": 174,
+      "frecuencia_porcentaje": 14,
+      "equipos_operando": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "Q_total_kW": 752,
+      "caudal_total_m3h": 26.22
+    },
+    {
+      "nombre": "maximo",
+      "demanda_aire_m3min": 218,
+      "frecuencia_porcentaje": 2,
+      "equipos_operando": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "Q_total_kW": 948,
+      "caudal_total_m3h": 32.93
+    }
+  ],
+  "intercambiador_aislamiento": {
+    "tipo": "placa_counterflow"
+  },
+  "red_hidraulica": {
+    "rugosidad_mm": 0.046,
+    "rugosidad_fuente": "acero_comercial_aspirado",
+    "tramos_principales": [
+      "colector_salida_compresores",
+      "intercambiador_aislamiento",
+      "bomba_circulacion",
+      "acumulador",
+      "retorno_CMPC"
+    ],
+    "nota": "Layout a confirmar seg\u00fan terreno. Piping a 3606 mm de altura."
+  }
+}

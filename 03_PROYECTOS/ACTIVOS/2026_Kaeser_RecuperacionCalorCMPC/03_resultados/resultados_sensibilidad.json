@@ -1,0 +1,23 @@
+{
+  "T_hot_in_C": {
+    "base": 60,
+    "low": 54.0,
+    "high": 66.0,
+    "Q_low_kW": 622,
+    "Q_high_kW": 622
+  },
+  "T_cold_in_C": {
+    "base": 11,
+    "low": 9.9,
+    "high": 12.100000000000001,
+    "Q_low_kW": 622,
+    "Q_high_kW": 622
+  },
+  "intercambiador.U_global": {
+    "base": 3000.0,
+    "low": 2700.0,
+    "high": 3300.0000000000005,
+    "Q_low_kW": 622,
+    "Q_high_kW": 622
+  }
+}

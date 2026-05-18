@@ -1,0 +1,4 @@
+Escenario,Q_inicial_kW,Q_final_kW,T_hot_est_C,tau_95_min
+Arranque desde frío,0,622,44.82,2.364729458917836
+Pérdida compresor,622,442,37.5,~8
+Arranque respaldo,442,948,55.0,~10
