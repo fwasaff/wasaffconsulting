@@ -1,0 +1,686 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{booktabs,longtable,multirow,array}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{siunitx}
+\usepackage{caption,subcaption}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{colortbl}
+\usepackage{float}
+
+% Colores corporativos
+\definecolor{wasaffblue}{RGB}{0,82,147}
+\definecolor{wasaffgray}{RGB}{100,100,100}
+\definecolor{wasafflight}{RGB}{230,240,250}
+\definecolor{accentgreen}{RGB}{34,139,34}
+
+% Encabezados
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{wasaffblue}{WASAFF Consulting — Propuesta Comercial}}
+\fancyhead[R]{\small\textcolor{wasaffblue}{CMPC/SSD — Kaeser}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Títulos
+\titleformat{\section}{\normalfont\Large\bfseries\color{wasaffblue}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{wasaffblue!80}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\color{wasaffgray}}{\thesubsubsection}{1em}{}
+
+% Listas
+\setlist[itemize]{leftmargin=1.5em,itemsep=0.3em}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0.3em}
+
+\begin{document}
+
+% ============================================================
+% PORTADA
+% ============================================================
+\begin{titlepage}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[wasaffblue] (current page.north west) rectangle ([yshift=-4cm]current page.north east);
+  \node[anchor=north west,xshift=2cm,yshift=-1cm] at (current page.north west) {\color{white}\Large\textbf{WASAFF CONSULTING}};
+  \node[anchor=north east,xshift=-2cm,yshift=-1cm] at (current page.north east) {\color{white}\large Propuesta Comercial};
+\end{tikzpicture}
+
+\vspace*{5cm}
+
+\begin{center}
+{\Huge\bfseries\textcolor{wasaffblue}{Sistema de Recuperación de Calor}}\\[0.4cm]
+{\Huge\bfseries\textcolor{wasaffblue}{del Aceite Lubricante de Compresores}}\\[0.4cm]
+{\LARGE\textcolor{wasaffgray}{CMPC Planta Santa Fe — Los Ángeles}}\\[1.5cm]
+
+\rule{0.6\textwidth}{1pt}\\[0.8cm]
+
+{\Large\textbf{Propuesta de Ingeniería de Detalle}}\\[0.3cm]
+{\large Nivel de Servicio: \textbf{Nivel 2 — Modelación Numérica Avanzada}}\\[0.3cm]
+{\large Modalidad: \textbf{Ejecución + Entrega de Informe Técnico}}\\[1.5cm]
+
+\begin{tabular}{rl}
+\textbf{Cliente:} & Kaeser Compresores Chile SpA / CMPC Planta Santa Fe \\[0.3em]
+\textbf{Consultor:} & WASAFF Consulting \\[0.3em]
+\textbf{Contacto:} & Felipe F. González P., Ingeniero Mecánico, MSc Candidate \\[0.3em]
+\textbf{Fecha:} & Mayo 2026 \\[0.3em]
+\textbf{Validez:} & 60 días corridos \\
+\end{tabular}
+
+\vfill
+
+\begin{tikzpicture}
+\draw[wasaffblue,thick,rounded corners] (0,0) rectangle (10,1.2);
+\node at (5,0.6) {\large\textbf{\textcolor{wasaffblue}{Inversión total: CLP \$\,354.000.000 + IVA (Nivel 2 Estándar)}}};
+\end{tikzpicture}
+
+\vspace{1cm}
+{\small Documento confidencial. Uso exclusivo del destinatario.}
+\end{center}
+\end{titlepage}
+
+% ============================================================
+% ÍNDICE
+% ============================================================
+\tableofcontents
+\newpage
+
+% ============================================================
+% 1. CARTA DE PRESENTACIÓN
+% ============================================================
+\section{Carta de Presentación}
+
+Estimados señores de \textbf{Kaeser Compresores Chile SpA} y \textbf{CMPC Planta Santa Fe}:
+
+Por medio de la presente, WASAFF Consulting tiene el agrado de presentar nuestra propuesta técnica y comercial para el desarrollo de la \textbf{Ingeniería de Detalle del Sistema de Recuperación de Calor del Aceite Lubricante de Compresores} en su planta de Los Ángeles.
+
+\subsection{Nuestra propuesta de valor}
+
+A diferencia de una propuesta convencional basada en catálogos y factores de seguridad empíricos, esta propuesta integra \textbf{modelación matemática avanzada de nivel de maestría}:
+
+\begin{itemize}
+  \item \textbf{Método $\varepsilon$-NTU} con propiedades termofísicas dependientes de temperatura para el dimensionamiento preciso del intercambiador.
+  \item \textbf{Dinámica transitoria} mediante integración Runge-Kutta de orden 4--5 (RK45), cuantificando el comportamiento del sistema ante arranques, paradas y fallas.
+  \item \textbf{Análisis de sensibilidad paramétrica} con tornado diagrams, identificando los parámetros críticos que impactan el dimensionamiento y el riesgo técnico.
+\end{itemize}
+
+Este enfoque permite dimensionar con \textbf{menor incertidumbre}, reducir el sobre-dimensionamiento innecesario y entregar al cliente un modelo computacional validado que puede evolucionar hacia un \textbf{gemelo digital} para monitoreo predictivo.
+
+\subsection{Experiencia relevante}
+
+WASAFF Consulting cuenta con experiencia directa en proyectos de recuperación de calor industrial. En 2023 ejecutamos un proyecto similar en CMPC con resultados exitosos, del cual hemos extraído lecciones aprendidas que potencian la calidad de esta entrega (ver \cref{sec:lecciones}).
+
+\vspace{1cm}
+
+\begin{flushright}
+\textit{Atentamente,}\\[0.5cm]
+\textbf{Felipe F. González P.}\\
+Ingeniero Mecánico, MSc Candidate\\
+Director Técnico, WASAFF Consulting\\
+\texttt{felipe@wasaff.cl}
+\end{flushright}
+
+\newpage
+
+% ============================================================
+% 2. RESUMEN TÉCNICO
+% ============================================================
+\section{Resumen Técnico del Sistema}
+
+\subsection{Descripción del sistema propuesto}
+
+El sistema consiste en una red hidráulica cerrada que extrae calor del aceite lubricante de los compresores de tornillo Kaeser y lo transfiere a agua de proceso mediante un intercambiador de calor de placas.
+
+\begin{table}[H]
+\centering
+\caption{Componentes principales del sistema}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Componente} & \textbf{Especificación} & \textbf{Nota} \\
+\midrule
+Intercambiador de calor & Placas soldadas, SS316L & Dimensionado por $\varepsilon$-NTU \\
+Bomba de recirculación & Centrífuga con VFD & Curva del fabricante integrada \\
+Acumulador térmico & Tanque aislado & Inercia térmica del sistema \\
+Red de tuberías & Acero al carbono SCH40 & Darcy-Weisbach + Colebrook \\
+Instrumentación & RTD 4-hilos, caudalímetros & Para calibración y control \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Flota de compresores}
+
+\begin{table}[H]
+\centering
+\caption{Equipos Kaeser en CMPC Santa Fe}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+\textbf{Modelo} & \textbf{Cant.} & \textbf{P [kW]} & \textbf{$\dot{V}_{\text{aceite}}$ [m$^3$/h]} & \textbf{$\Delta P$ [bar]} & \textbf{$T_{\text{aceite}}$ [$^\circ$C]} \\
+\midrule
+FSD 575 & 3 & 315 & 72 & 2.5 & 60 \\
+DSDX 305 & 2 & 160 & 48 & 2.5 & 60 \\
+ESD 445 & 1 & 250 & 60 & 2.5 & 60 \\
+\midrule
+\textbf{Total} & \textbf{6} & \textbf{1,885} & \textbf{---} & \textbf{---} & \textbf{---} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Resultados del análisis preliminar}
+
+Los siguientes resultados provienen del análisis computacional ejecutado como parte de esta propuesta:
+
+\begin{table}[H]
+\centering
+\caption{Resultados del análisis estacionario (escenario nominal)}
+\begin{tabular}{@{}lc@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Valor} \\
+\midrule
+Potencia térmica recuperable (nominal) & 622 kW \\
+Área de intercambiador requerida & 26.7 m$^2$ \\
+Caudal de agua de proceso & $\sim$8 m$^3$/h \\
+Caída de presión en red hidráulica & 2.67 m.c.a. \\
+Potencia de bomba & 0.41 kW \\
+Temperatura agua entrada/salida & 11$^\circ$C / 53.7$^\circ$C \\
+Temperatura aceite entrada/salida & 60$^\circ$C / 48.0$^\circ$C \\
+Tiempo de respuesta $\tau_{95\%}$ (arranque) & 2.4 minutos \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Nota crítica:} La temperatura de aceite de $60^\circ$C es un valor estimado del fabricante. La verificación in-situ de este parámetro es prioritaria y está incluida en el alcance de esta propuesta.
+
+\newpage
+
+% ============================================================
+% 3. ALCANCE DE SERVICIOS
+% ============================================================
+\section{Alcance de Servicios}
+\label{sec:alcance}
+
+\subsection{Nivel de servicio: Nivel 2 — Modelación Numérica Avanzada}
+
+Esta propuesta corresponde al \textbf{Nivel 2} de nuestra matriz de servicios tecnológicos, que integra capacidades de postgrado en modelación matemática y métodos numéricos avanzados.
+
+\begin{table}[H]
+\centering
+\caption{Matriz de niveles de servicio WASAFF}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Capacidad} & \textbf{Nivel 1} & \textbf{Nivel 2} & \textbf{Nivel 3} \\
+ & \textbf{(<$\$$3M)} & \textbf{($\$$3M--$\$$8M)} & \textbf{(>$\$$8M)} \\
+\midrule
+Cálculos Excel/Python básico & \checkmark & \checkmark & \checkmark \\
+Propiedades $T$-dependientes & --- & \checkmark & \checkmark \\
+ODEs (RK45, BDF) & --- & \checkmark & \checkmark \\
+Análisis de sensibilidad & --- & \checkmark & \checkmark \\
+FEM 2D (FEniCS) & --- & \checkmark* & \checkmark \\
+CFD 3D (OpenFOAM) & --- & --- & \checkmark \\
+Gemelo digital & --- & --- & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+*Validación FEniCS 2D incluida como entregable opcional en Nivel 2.
+
+\subsection{Entregables incluidos}
+
+\subsubsection{Módulo 1: Análisis Estacionario ($\varepsilon$-NTU + Darcy-Weisbach)}
+
+\begin{itemize}
+  \item Framework computacional orientado a objetos en Python.
+  \item Siete escenarios de operación (mínimo a máximo).
+  \item Dimensionamiento del intercambiador con propiedades termofísicas dependientes de temperatura.
+  \item Cálculo de red hidráulica con iteración Colebrook-White.
+  \item Curva del sistema y punto de operación de la bomba.
+  \item \textbf{Entregables:} Código fuente, JSON de resultados, CSV de escenarios, figuras comparativas.
+\end{itemize}
+
+\subsubsection{Módulo 2: Análisis Transitorio (RK45)}
+
+\begin{itemize}
+  \item Modelo de capacitancia térmica lumped.
+  \item Simulación de tres eventos: arranque en frío, pérdida de compresor, arranque de backup.
+  \item Cuantificación del tiempo de respuesta $\tau_{95\%}$.
+  \item \textbf{Entregables:} Código fuente, JSON/CSV de resultados, figuras de evolución temporal.
+\end{itemize}
+
+\subsubsection{Módulo 3: Análisis de Sensibilidad Paramétrica}
+
+\begin{itemize}
+  \item Barrido paramétrico $\pm 10\%$ sobre variables críticas.
+  \item Tornado diagrams de impacto.
+  \item Curvas de sensibilidad métrica vs. parámetro.
+  \item Ranking de incertidumbre y recomendaciones de mitigación.
+  \item \textbf{Entregables:} Código fuente, JSON/CSV de resultados, figuras de sensibilidad.
+\end{itemize}
+
+\subsubsection{Módulo 4: Informe Técnico y Ejecutivo}
+
+\begin{itemize}
+  \item Informe técnico completo en LaTeX/PDF ($\sim$20 páginas): marco teórico, metodología, resultados, validación, conclusiones, apéndices con código.
+  \item Informe ejecutivo en LaTeX/PDF (3 páginas): resumen para dirección con ROI.
+  \item \textbf{Entregables:} Archivos \texttt{.tex} y \texttt{.pdf}.
+\end{itemize}
+
+\subsubsection{Módulo 5: Verificación In-Situ (Opcional)}
+
+\begin{itemize}
+  \item Visita a planta para medición de temperaturas reales de aceite.
+  \item Calibración del modelo con datos de campo.
+  \item Actualización de resultados con datos verificados.
+\end{itemize}
+
+\subsection{Entregables \_NO\_ incluidos}
+
+\begin{itemize}
+  \item Modelo CFD 3D completo (reservado para Nivel 3).
+  \item Gemelo digital en tiempo real (reservado para Nivel 3).
+  \item Ingeniería de construcción (planos de isometría, soportes, civil).
+  \item Gestión de compra, instalación y puesta en marcha.
+\end{itemize}
+
+\newpage
+
+% ============================================================
+% 4. ESPECIFICACIONES TÉCNICAS
+% ============================================================
+\section{Especificaciones Técnicas del Sistema Propuesto}
+
+\subsection{Intercambiador de calor de placas}
+
+\begin{table}[H]
+\centering
+\caption{Especificación técnica del intercambiador}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Especificación} \\
+\midrule
+Tipo & Placas soldadas, contracorriente \\
+Material & Acero inoxidable AISI 316L \\
+Área de transferencia & 30--32 m$^2$ (incluye 15\% margen) \\
+Coeficiente global $U$ & $\geq$ 3,000 W/m$^2$K (diseño) \\
+Efectividad de diseño & $\varepsilon \geq$ 0.85 \\
+Presión máxima de trabajo & 10 bar \\
+Temperatura máxima & 150$^\circ$C \\
+Conexiones & Bridas ANSI 150# \\
+Sellado & Soldadura láser (sin juntas) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Bomba de recirculación}
+
+\begin{table}[H]
+\centering
+\caption{Especificación técnica de la bomba}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Especificación} \\
+\midrule
+Tipo & Centrífuga horizontal, acople directo \\
+Material & Cuerpo hierro fundido, impulsor bronce \\
+Caudal nominal & 8--12 m$^3$/h (rango operativo) \\
+Cabeza nominal & 5 m.c.a. (incluye margen) \\
+Potencia motor & 1.5 kW (sobredimensionado para arranque) \\
+Control & Variador de frecuencia (VFD) \\
+Sellos & Mecánicos, clase API 682 Plan 11 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Red hidráulica}
+
+\begin{table}[H]
+\centering
+\caption{Especificación de tuberías y accesorios}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Especificación} \\
+\midrule
+Material & Acero al carbono ASTM A53 Grado B \\
+Schedule & SCH 40 \\
+Diámetro nominal & 2'' (intercambiador--bomba--acumulador) \\
+Aislamiento & Espuma elastomérica 25 mm, recubierta \\
+Válvulas & Esfera de aislamiento, check, bypass \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Instrumentación y control}
+
+\begin{table}[H]
+\centering
+\caption{Instrumentación propuesta}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Tag} & \textbf{Instrumento} & \textbf{Función} \\
+\midrule
+TT-101 & RTD Pt100 4-hilos & Temp. aceite entrada IC \\
+TT-102 & RTD Pt100 4-hilos & Temp. aceite salida IC \\
+TT-103 & RTD Pt100 4-hilos & Temp. agua entrada IC \\
+TT-104 & RTD Pt100 4-hilos & Temp. agua salida IC \\
+FT-101 & Caudalímetro electromagnético & Caudal agua de proceso \\
+PI-101 & Transmisor de presión & Presión bomba descarga \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+% ============================================================
+% 5. INVERSIÓN Y CONDICIONES COMERCIALES
+% ============================================================
+\section{Inversión y Condiciones Comerciales}
+
+\subsection{Estructura de precios}
+
+\begin{table}[H]
+\centering
+\caption{Desglose de inversión Nivel 2 Estándar}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Concepto} & \textbf{HH} & \textbf{Valor CLP} \\
+\midrule
+\rowcolor{wasafflight}
+\multicolumn{3}{l}{\textbf{1. Ingeniería y Modelación}} \\
+Análisis estacionario ($\varepsilon$-NTU + hidráulica) & 40 & \$\,64.000.000 \\
+Análisis transitorio (RK45) & 24 & \$\,38.400.000 \\
+Análisis de sensibilidad paramétrica & 16 & \$\,25.600.000 \\
+Validación numérica (LMTD, Swamee-Jain) & 8 & \$\,12.800.000 \\
+\midrule
+\rowcolor{wasafflight}
+\multicolumn{3}{l}{\textbf{2. Documentación}} \\
+Informe técnico completo (LaTeX/PDF) & 24 & \$\,38.400.000 \\
+Informe ejecutivo (LaTeX/PDF) & 8 & \$\,12.800.000 \\
+Especificaciones técnicas para licitación & 16 & \$\,25.600.000 \\
+\midrule
+\rowcolor{wasafflight}
+\multicolumn{3}{l}{\textbf{3. Gestión y Coordinación}} \\
+Reuniones técnicas (4 reuniones de 2h) & 16 & \$\,25.600.000 \\
+Gestión de proyecto & 16 & \$\,25.600.000 \\
+Presentación de resultados al cliente & 8 & \$\,12.800.000 \\
+\midrule
+\rowcolor{wasafflight}
+\multicolumn{3}{l}{\textbf{4. Opcional: Verificación In-Situ}} \\
+Visita a planta + mediciones & 24 & \$\,38.400.000 \\
+Calibración del modelo con datos reales & 16 & \$\,25.600.000 \\
+\midrule
+\textbf{Subtotal Nivel 2 Estándar} & \textbf{176} & \textbf{\$\,354.000.000} \\
+\midrule
+\textbf{Opcional: Verificación In-Situ} & \textbf{40} & \textbf{\$\,64.000.000} \\
+\midrule
+\textbf{Total con opcional} & \textbf{216} & \textbf{\$\,418.000.000} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Tarifa horaria aplicada:} CLP \$\,160.000/hora (ingeniero senior, modelación avanzada).
+
+\subsection{Condiciones de pago}
+
+\begin{table}[H]
+\centering
+\caption{Condiciones de pago Nivel 2 Estándar}
+\begin{tabular}{@{}lcl@{}}
+\toprule
+\textbf{Hitos} & \textbf{\%} & \textbf{Monto CLP} \\
+\midrule
+Anticipo contra firma de contrato & 30\% & \$\,106.200.000 \\
+Entrega Módulos 1--2 (estacionario + transitorio) & 35\% & \$\,123.900.000 \\
+Entrega Módulo 3 (sensibilidad) + informes & 25\% & \$\,88.500.000 \\
+Cierre y presentación final & 10\% & \$\,35.400.000 \\
+\midrule
+\textbf{Total} & \textbf{100\%} & \textbf{\$\,354.000.000} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Notas comerciales}
+
+\begin{enumerate}
+  \item Los precios son en \textbf{pesos chilenos (CLP)}, valores \textbf{sin IVA}.
+  \item La tarifa horaria está indexada a UF. Al 18 de mayo de 2026: UF $\approx$ \$\,39.500. Tarifa = 4.05 UF/hora.
+  \item El alcance \textbf{no incluye} equipos físicos (intercambiador, bomba, tuberías). Solo ingeniería de detalle y modelación.
+  \item Las visitas a planta (opcional) asumen ubicación en \textbf{Los Ángeles, Región del Biobío}. Traslados fuera de esta zona se cotizan aparte.
+  \item Los entregables digitales se entregan en repositorio Git + archivos PDF/CSV/PNG.
+  \item Tiempo de respuesta a consultas del cliente: 48 horas hábiles.
+\end{enumerate}
+
+\newpage
+
+% ============================================================
+% 6. PLAZO DE EJECUCIÓN
+% ============================================================
+\section{Plazo de Ejecución}
+
+\begin{table}[H]
+\centering
+\caption{Cronograma de ejecución Nivel 2 Estándar (6 semanas)}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Actividad} & \textbf{Semanas} & \textbf{HH} \\
+\midrule
+Kick-off y revisión de datos & 1 & 16 \\
+Módulo 1: Análisis estacionario & 2--3 & 64 \\
+Módulo 2: Análisis transitorio & 3--4 & 32 \\
+Módulo 3: Sensibilidad paramétrica & 4--5 & 32 \\
+Redacción de informes & 5 & 40 \\
+Revisión interna y validación & 5--6 & 16 \\
+Presentación al cliente y cierre & 6 & 16 \\
+\midrule
+\textbf{Total} & \textbf{6 semanas} & \textbf{216 HH} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Nota:} El cronograma asume entrega oportuna de información por parte del cliente (fichas técnicas, diagramas de tuberías existentes, mediciones de campo si aplica).
+
+\newpage
+
+% ============================================================
+% 7. EQUIPO Y METODOLOGÍA
+% ============================================================
+\section{Equipo y Metodología}
+
+\subsection{Equipo de trabajo}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Rol} & \textbf{Nombre} & \textbf{Perfil} \\
+\midrule
+Director Técnico & Felipe F. González P. & Ing. Mecánico, MSc Candidate \\
+Especialista Térmico & Felipe F. González P. & Modelación matemática avanzada \\
+Analista Numérico & Felipe F. González P. & Métodos numéricos, FEM, CFD \\
+Gestor de Proyecto & Felipe F. González P. & Metodologías ágiles \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Stack tecnológico}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Capa} & \textbf{Herramienta} & \textbf{Uso} \\
+\midrule
+Lenguaje & Python 3.12 & Computación científica \\
+Arrays/Álgebra & NumPy 2.4 & Cálculos matriciales \\
+ODEs & SciPy 1.17 (RK45) & Transitorios \\
+Auto-diferenciación & JAX 0.10 & Sensibilidad (futuro) \\
+FEM 2D & FEniCS legacy & Validación \\
+Visualización & Matplotlib 3.10 & Figuras técnicas \\
+Datos & Pandas 3.0 & Tablas y series temporales \\
+Documentación & LaTeX & Informes formales \\
+Control de versiones & Git & Trazabilidad completa \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Metodología de trabajo}
+
+\begin{enumerate}
+  \item \textbf{Fase 1: Diagnóstico} — Revisión de datos, visita opcional a planta, definición de escenarios.
+  \item \textbf{Fase 2: Modelación} — Desarrollo del framework OOP, ejecución de simulaciones, validación cruzada.
+  \item \textbf{Fase 3: Análisis} — Post-procesamiento de resultados, análisis de sensibilidad, identificación de riesgos.
+  \item \textbf{Fase 4: Entrega} — Redacción de informes, presentación al cliente, capacitación opcional.
+  \item \textbf{Fase 5: Post-venta} — Soporte por 30 días para consultas sobre los entregables.
+\end{enumerate}
+
+\newpage
+
+% ============================================================
+% 8. ANEXOS
+% ============================================================
+\section{Anexos}
+
+\subsection{Anexo A: Resultados preliminares del análisis computacional}
+
+\subsubsection{Análisis estacionario — Escenarios completos}
+
+\begin{table}[H]
+\centering
+\caption{Resultados estacionarios para $\varepsilon = 0.85$}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+\textbf{Escenario} & \textbf{Q [kW]} & \textbf{A [m$^2$]} & \textbf{$\Delta P$ [m.c.a.]} & \textbf{$P_{\text{bomba}}$ [kW]} & \textbf{$T_{\text{h,out}}$ [$^\circ$C]} & \textbf{$T_{\text{c,out}}$ [$^\circ$C]} \\
+\midrule
+Mínimo & 226 & 9.7 & 1.18 & 0.20 & 33.6 & 42.5 \\
+Normal A & 222 & 9.5 & 1.16 & 0.19 & 33.7 & 42.3 \\
+Normal B & 622 & 26.7 & 2.67 & 0.41 & 48.0 & 53.7 \\
+Normal C & 558 & 23.9 & 2.39 & 0.36 & 46.5 & 52.4 \\
+Alto A & 870 & 37.3 & 3.30 & 0.63 & 52.5 & 56.9 \\
+Alto B & 935 & 40.1 & 3.45 & 0.71 & 53.2 & 57.4 \\
+Máximo & 948 & 40.5 & 3.48 & 0.72 & 53.3 & 57.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Análisis transitorio}
+
+\begin{table}[H]
+\centering
+\caption{Resultados transitorios}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Evento} & \textbf{$T_0$ [$^\circ$C]} & \textbf{$T_\infty$ [$^\circ$C]} & \textbf{$\tau_{95\%}$ [min]} \\
+\midrule
+Arranque frío & 11.0 & 53.7 & 2.4 \\
+Pérdida compresor & 53.7 & 47.2 & 1.8 \\
+Arranque backup & 47.2 & 57.5 & 1.2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Ranking de sensibilidad}
+
+\begin{table}[H]
+\centering
+\caption{Impacto de $\pm 10\%$ en parámetros sobre área del IC}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+\textbf{Parámetro} & \textbf{Swing [m$^2$]} & \textbf{Rango de A [m$^2$]} \\
+\midrule
+$U_{\text{global}}$ & $\pm 5.4$ & 21.3 -- 32.1 \\
+$T_{\text{hot,in}}$ & $\pm 1.85$ & 24.9 -- 28.5 \\
+$T_{\text{cold,in}}$ & $\pm 1.2$ & 25.5 -- 27.9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Anexo B: Lecciones aprendidas del proyecto 2023}
+\label{sec:lecciones}
+
+El proyecto de recuperación de calor ejecutado en CMPC en 2023 (contrato por CLP \$\,1.000.000, aprox. USD \$1.100) fue exitoso en implementación pero presentó las siguientes lecciones que potencian esta entrega:
+
+\begin{enumerate}
+  \item \textbf{Subvaloración del alcance:} El proyecto original no incluyó modelación numérica avanzada ni análisis de sensibilidad, lo cual limitó la trazabilidad del dimensionamiento.
+  \item \textbf{Falta de verificación in-situ:} La temperatura de aceite no fue verificada, generando incertidumbre que podría haberse mitigado con una visita de campo.
+  \item \textbf{No se entregó modelo computacional:} El cliente no recibió un modelo reutilizable, limitando la capacidad de análisis de escenarios futuros.
+  \item \textbf{Oportunidad de gemelo digital:} La infraestructura de sensores existente permite evolucionar hacia un gemelo digital predictivo.
+\end{enumerate}
+
+Esta propuesta 2026 incorpora todas estas mejoras: modelación avanzada, verificación in-situ opcional, entrega de código fuente documentado, y roadmap hacia gemelo digital.
+
+\subsection{Anexo C: Comparativo Nivel 1 vs Nivel 2 vs Nivel 3}
+
+\begin{table}[H]
+\centering
+\caption{Comparativo de niveles de servicio}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Aspecto} & \textbf{Nivel 1} & \textbf{Nivel 2 (esta propuesta)} & \textbf{Nivel 3} \\
+\midrule
+Inversión & <\$\,3M & \$\,3M--\$\,8M & >\$\,8M \\
+Método IC & Catálogo / factores & $\varepsilon$-NTU + prop. $T$-dep & CFD + optimización \\
+Hidráulica & Factores empíricos & Darcy-Weisbach iterativo & CFD 3D \\
+Transitorios & No incluido & RK45 lumped & BDF + distribuido \\
+Sensibilidad & No incluido & Tornado + curvas & Análisis Monte Carlo \\
+FEM/CFD & No & Validación 2D opcional & CFD 3D completo \\
+Gemelo digital & No & Roadmap incluido & Implementación \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+% ============================================================
+% 9. CONDICIONES GENERALES
+% ============================================================
+\section{Condiciones Generales del Contrato}
+
+\subsection{Propiedad intelectual}
+
+\begin{itemize}
+  \item El \textbf{código fuente} desarrollado (Python, LaTeX) es propiedad de WASAFF Consulting y se licencia al cliente bajo una licencia de uso exclusivo para el proyecto.
+  \item El \textbf{cliente} tiene derecho a usar, modificar y extender el código para uso interno en CMPC.
+  \item La \textbf{publicación} de resultados por parte del cliente requiere autorización previa de WASAFF Consulting.
+\end{itemize}
+
+\subsection{Confidencialidad}
+
+\begin{itemize}
+  \item Ambas partes se comprometen a mantener la confidencialidad de la información técnica y comercial intercambiada.
+  \item WASAFF Consulting no divulgará datos de CMPC a terceros sin autorización escrita.
+  \item El cliente no distribuirá los entregables a terceros sin autorización.
+\end{itemize}
+
+\subsection{Limitación de responsabilidad}
+
+\begin{itemize}
+  \item La responsabilidad de WASAFF Consulting se limita al alcance definido en \cref{sec:alcance}.
+  \item No se incluye responsabilidad por fallas de equipos fabricados por terceros.
+  \item La garantía de los entregables es de \textbf{30 días} a partir de la aceptación formal por parte del cliente.
+\end{itemize}
+
+\subsection{Aceptación y cierre}
+
+\begin{itemize}
+  \item El cliente dispone de \textbf{10 días hábiles} para revisar y aceptar cada entregable.
+  \item La falta de observaciones dentro del plazo se considera aceptación tácita.
+  \item El cierre del proyecto se formaliza con un acta de entrega-aceptación firmada por ambas partes.
+\end{itemize}
+
+\vspace{2cm}
+
+\begin{center}
+\rule{0.6\textwidth}{0.5pt}\\[0.5cm]
+\textbf{Agradecemos la oportunidad de presentar esta propuesta.}\\[0.3cm]
+\textit{Quedamos atentos a sus comentarios y a coordinar una reunión}\\
+\textit{para discutir los detalles técnicos y comerciales.}\\[1cm]
+\textbf{WASAFF Consulting}\\
+\texttt{www.wasaff.cl} — \texttt{felipe@wasaff.cl}\\
++56 9 \,XXXX \,XXXX
+\end{center}
+
+\end{document}
