@@ -78,7 +78,7 @@ export default function Quien() {
               style={{ background: 'rgba(34,81,255,0.04)', border: '1px solid rgba(34,81,255,0.12)', borderRadius: '2px' }}
             >
               {[
-                'Ex coordinador laboratorios Física · U. Chile',
+                'Coordinador de Laboratorios de Física · U. Chile',
                 'Ex ingeniero simulación térmica · Leycero SpA',
                 '622 kW recuperados en proyecto industrial',
               ].map((logro) => (
