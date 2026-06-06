@@ -145,7 +145,7 @@ export default function ArticuloPage({ params }: { params: { slug: string } }) {
           </p>
           <div className="flex flex-wrap gap-3">
             <Link href="/calculadora" className="btn-solid" style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem' }}>
-              Calcular mi ahorro →
+              Pre-calificar mi planta →
             </Link>
             <Link href="/#contacto" className="btn-ghost" style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem' }}>
               Contactar

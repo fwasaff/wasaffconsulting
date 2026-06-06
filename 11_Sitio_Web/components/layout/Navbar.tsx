@@ -80,7 +80,7 @@ export default function Navbar() {
               className="btn-solid"
               style={{ fontSize: '0.82rem', padding: '0.5rem 1.1rem' }}
             >
-              Calcular ahorro →
+              Pre-calificación →
             </Link>
           </li>
         </ul>
@@ -144,7 +144,7 @@ export default function Navbar() {
             }}
             onClick={() => setMobileOpen(false)}
           >
-            Calcular ahorro potencial →
+            Pre-calificación técnica →
           </Link>
         </div>
       )}

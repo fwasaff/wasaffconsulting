@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Calculadora de Ahorro Energético Industrial',
+  title: 'Pre-calificación Técnica — Recuperación de Calor Industrial',
   description:
-    'Estime en 60 segundos el potencial de reducción de OPEX energético en su planta. Calculadora gratuita basada en proyectos reales de recuperación de calor residual. Wasaff Consulting.',
+    '8 preguntas sobre su proceso industrial. En 24 horas Felipe Wasaff le contacta con una evaluación de factibilidad de recuperación de calor residual. Sin costo ni compromiso.',
   openGraph: {
-    title: 'Calculadora ROI Energético | Wasaff Consulting',
-    description: 'Calcule su ahorro potencial en costos energéticos industriales. Gratis, sin registro previo.',
+    title: 'Pre-calificación Técnica | Wasaff Consulting',
+    description: '¿Tiene su planta potencial de recuperación de calor? Responda 8 preguntas técnicas y reciba una evaluación de factibilidad en 24 horas.',
   },
 };
 

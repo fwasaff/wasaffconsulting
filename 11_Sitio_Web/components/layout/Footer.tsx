@@ -9,7 +9,7 @@ const columnas = {
     { label: 'Peritaje Energético',            href: '#servicios' },
   ],
   recursos: [
-    { label: 'Calculadora de ahorro ROI', href: '/calculadora' },
+    { label: 'Pre-calificación técnica',  href: '/calculadora' },
     { label: 'Casos de éxito',            href: '#casos' },
     { label: 'Insights técnicos',         href: '#blog' },
     { label: 'Diagnóstico gratuito',      href: '#contacto' },

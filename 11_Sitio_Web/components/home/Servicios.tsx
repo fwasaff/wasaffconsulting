@@ -179,19 +179,19 @@ export default function Servicios() {
           })}
         </div>
 
-        {/* CTA calculadora */}
+        {/* CTA pre-calificación */}
         <div
           className="fade-in-item mt-12 p-8 text-center"
           style={{ background: 'var(--panel)', border: '1px solid var(--border)', borderRadius: '2px' }}
         >
           <p style={{ fontSize: '1rem', color: 'var(--text)', fontWeight: 500, marginBottom: '0.5rem' }}>
-            ¿Cuánto calor residual está perdiendo su planta?
+            ¿Tiene su planta potencial de recuperación de calor?
           </p>
           <p style={{ fontSize: '0.9rem', color: 'var(--muted)', marginBottom: '1.25rem' }}>
-            La calculadora estima el potencial de recuperación y el ahorro anual en 60 segundos.
+            Responda 8 preguntas técnicas. En 24 horas le contactamos con una evaluación de factibilidad sin costo.
           </p>
           <Link href="/calculadora" className="btn-solid">
-            Calcular mi ahorro potencial →
+            Solicitar pre-calificación →
           </Link>
         </div>
       </div>
