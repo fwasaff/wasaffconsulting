@@ -25,27 +25,6 @@ const proyectos: {
     kpis: ['622 kW de potencia térmica de diseño', '5.448.720 kWh/año · 19,6 TJ/año', '9 tramos · DN65/DN100 Sch 40 · Bomba 0,55 kW', '306 MM CLP/año en ahorro estimado'],
     image: { src: '/compresores.png', alt: 'Compresores industriales de tornillo rotatorio' },
   },
-  {
-    badge: 'Análisis Estructural',
-    badgeColor: 'blue',
-    year: '2024',
-    client: 'Empresa de protección contra incendios · Sector industrial',
-    title: 'Análisis de fuerzas de impacto en tuberías industriales',
-    desc: 'Cálculo de fuerzas de impacto dinámico para tuberías SCH10/SCH40 a distintos diámetros y alturas de caída. Aplicación del método de Housner con análisis comparativo de schedules, reporte CSV automatizado y gráficas de resultados en Python. Desarrollado como análisis de metodología interna.',
-    kpis: ['Método Housner implementado', 'SCH10 vs SCH40 comparados', 'Reporte CSV automatizado', 'Código Python entregable'],
-    disclaimer: 'Análisis de metodología desarrollado como capacidad técnica interna. El cliente no ejecutó el proyecto.',
-    image: { src: '/tuberias.png', alt: 'Red de tuberías industriales con válvulas y manómetros' },
-  },
-  {
-    badge: 'I+D Científico',
-    badgeColor: 'blue',
-    year: '2012',
-    client: 'Universidad de Chile · InTech Open',
-    title: 'Inelastic Collisions and Hypervelocity Impacts at Nanoscopic Level',
-    desc: 'Investigación computacional ejecutada con dinámica molecular no-equilibrio (NEMD) para caracterizar colisiones inelásticas e impactos de hipervelocidad a escala nanométrica. Publicado como capítulo en el libro "Molecular Dynamics – Theoretical Developments and Applications in Nanotechnology and Energy" (InTech Open, 2012). Directamente aplicable al I+D de materiales para minería e industria de alta exigencia mecánica.',
-    kpis: ['Publicado en InTech Open (2012)', 'NEMD · Infraestructura HPC Linux', 'Aplicable a materiales de minería', 'Base para servicios de simulación de materiales'],
-    image: { src: '/nanoimpacto.png', alt: 'Simulación de dinámica molecular: nanopartícula impactando superficie cristalina' },
-  },
 ];
 
 const badgeStyles: Record<BadgeColor, { bg: string; color: string; border: string }> = {
@@ -69,8 +48,8 @@ export default function Proyectos() {
           <span className="label-mono fade-in-item">Casos de Éxito</span>
           <h2 className="sec-title fade-in-item">Resultados que operan<br />en plantas reales</h2>
           <p className="sec-sub fade-in-item mx-auto">
-            Cada proyecto representa un compromiso técnico cerrado con resultados medibles.
-            Aquí los números reales, no estimaciones de marketing.
+            El caso que define nuestra especialidad: recuperación de calor residual con
+            modelo matemático completo y números verificables.
           </p>
         </div>
 

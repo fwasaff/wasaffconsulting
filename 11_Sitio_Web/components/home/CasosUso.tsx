@@ -4,28 +4,28 @@ import { useFadeIn } from '@/lib/useFadeIn';
 
 const casos = [
   {
-    label: 'Eficiencia Energética',
-    question: '«Estamos perdiendo calor residual y el OPEX es insostenible.»',
+    label: 'Recuperación de Calor Residual',
+    question: '«Nuestros compresores disipan calor a la atmósfera y el OPEX es insostenible.»',
     answer:
-      'Wasaff Consulting desarrolla el modelo termodinámico completo y dimensiona la ingeniería conceptual: intercambiadores, hidráulica (Darcy-Weisbach) y redes de distribución, justificando matemáticamente la rentabilidad de la inversión.',
+      'Wasaff Consulting desarrolla el modelo termodinámico completo: balance ε-NTU del intercambiador, red hidráulica por Colebrook-White, modelo dinámico del acumulador con Runge-Kutta 4 y análisis de degradación por fouling. El resultado es un dimensionamiento con números propios, independiente del proveedor de equipos.',
   },
   {
-    label: 'Validación de Diseño',
-    question: '«Un proveedor entregó este diseño. Necesitamos saber si fallará.»',
+    label: 'Validación de Sistemas Térmicos',
+    question: '«El proveedor entregó el diseño del intercambiador. Necesitamos verificarlo antes de comprar.»',
     answer:
-      'Wasaff Consulting aplica ingeniería de contraparte independiente, reconstruyendo los cálculos mediante métodos numéricos propios para auditar factores de seguridad, cumplimiento normativo y tolerancias de operación.',
+      'Wasaff Consulting aplica ingeniería de contraparte independiente: reconstruye los cálculos térmicos e hidráulicos con métodos propios, audita los supuestos del proveedor y detecta sobredimensionamientos o condiciones de operación no declaradas.',
   },
   {
-    label: 'Comportamiento de Materiales',
-    question: '«El material no rinde como especifica el fabricante ante impactos.»',
+    label: 'Dimensionamiento de Equipos',
+    question: '«Hay tres intercambiadores en oferta. No sabemos cuál conviene técnica ni económicamente.»',
     answer:
-      'Wasaff Consulting ejecuta simulaciones de dinámica molecular a escala nanométrica para caracterizar propiedades mecánicas, transiciones de fase y mecanismos de falla que los ensayos macroscópicos no detectan.',
+      'Wasaff Consulting evalúa las alternativas con criterios verificables: área requerida por ε-NTU, análisis de fouling según calidad del agua, pérdidas de carga y costo total de propiedad. La recomendación queda respaldada por cálculo propio, no por el catálogo del fabricante.',
   },
   {
-    label: 'Inteligencia de Proceso',
-    question: '«Los sensores arrojan gigabytes de datos, pero no hay métricas accionables.»',
+    label: 'Factibilidad de Recuperación',
+    question: '«¿Vale la pena invertir en recuperar el calor de nuestra planta?»',
     answer:
-      'Wasaff Consulting diseña pipelines de ingesta, limpieza y análisis para datos industriales de alta frecuencia, transformando señales de sensor en indicadores predictivos de mantenimiento y control de proceso.',
+      'Wasaff Consulting elabora el estudio de factibilidad térmica: potencial de recuperación por punto operacional, energía anual recuperable (kWh/año) y ahorro estimado en sustitución de fuente primaria. Permite decidir la inversión con números propios antes de comprometerse con ningún proveedor de equipos.',
   },
 ];
 
@@ -58,12 +58,12 @@ export default function CasosUso() {
         <div className="text-center mb-14">
           <span className="label-mono fade-in-item">Áreas de Intervención</span>
           <h2 className="sec-title fade-in-item">
-            Los problemas que<br />sabemos resolver
+            Los problemas térmicos<br />que sabemos resolver
           </h2>
           <p className="sec-sub fade-in-item mx-auto">
-            Wasaff Consulting interviene cuando los métodos convencionales no alcanzan la
-            complejidad del proceso. Nuestro criterio de entrada es simple: si la solución
-            requiere física rigurosa, trabajamos en ella.
+            Wasaff Consulting interviene cuando el OPEX energético requiere un modelo
+            matemático riguroso — no solo una hoja de catálogo. Nuestro criterio es simple:
+            si el problema es térmico e hidráulico, lo modelamos con física real.
           </p>
         </div>
 

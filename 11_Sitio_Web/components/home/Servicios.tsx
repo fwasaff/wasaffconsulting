@@ -5,87 +5,45 @@ import { useFadeIn } from '@/lib/useFadeIn';
 const servicios = [
   {
     num: '01',
-    title: 'Eficiencia Energética',
-    badge: 'Mayor demanda',
+    title: 'Recuperación de Calor',
+    badge: 'Core',
     badgeColor: 'green',
     price: 'Desde CLP $1.500.000',
     entregable: 'Modelo termodinámico + roadmap de implementación',
     roi: '200–400% primer año',
-    desc: 'Reduzca el OPEX energético de su planta con un modelo matemático riguroso del sistema térmico e hidráulico. Cada decisión de inversión — intercambiadores, bombas, redes de distribución — queda respaldada por cálculo verificable e independiente.',
-    tags: ['Termodinámica', 'Hidráulica', 'Python / SciPy'],
+    desc: 'Reduzca el OPEX energético de su planta con un modelo matemático riguroso del sistema térmico e hidráulico. Dimensionamiento de intercambiadores, redes de distribución de agua caliente y acumuladores. Cada decisión de inversión queda respaldada por cálculo verificable e independiente del proveedor de equipos.',
+    tags: ['ε-NTU', 'Hidráulica', 'Runge-Kutta 4', 'Python / SciPy'],
     anchor: '#casos',
-    anchorLabel: 'Ver ejemplo 505 kW',
+    anchorLabel: 'Ver caso 622 kW',
     dev: false,
   },
   {
     num: '02',
-    title: 'Validación de Diseño',
+    title: 'Validación de Sistemas Térmicos',
     badge: '',
     badgeColor: '',
     price: 'Desde CLP $800.000',
     entregable: 'Informe de contraparte técnica independiente',
     roi: 'Evita sobrediseños de $5M+',
-    desc: 'Respaldo técnico independiente para licitaciones, controversias con proveedores y cumplimiento normativo. Informes redactados con rigor universitario, citación de normas ANSI/ISO y validez ante organismos reguladores.',
-    tags: ['LaTeX', 'Contraparte Independiente', 'Normas ANSI/ISO'],
+    desc: 'Respaldo técnico independiente para diseños de intercambiadores, redes de distribución y sistemas de recuperación de calor. Verificación de supuestos de diseño, detección de sobredimensionamiento y contraparte ante proveedores de equipos térmicos.',
+    tags: ['Verificación ε-NTU', 'Hidráulica', 'Normas ANSI/ISO'],
     anchor: '#contacto',
     anchorLabel: 'Solicitar cotización',
     dev: false,
   },
   {
     num: '03',
-    title: 'Monitoreo Predictivo',
-    badge: 'Nuevo — SaaS',
-    badgeColor: 'blue',
-    price: 'CLP $800.000/mes · mín. 6 meses',
-    entregable: 'Dashboard tiempo real + alertas automáticas',
-    roi: 'Detección temprana de fallas',
-    desc: 'Vigilancia continua de variables críticas de proceso con alertas automáticas ante desviaciones. Dashboard en tiempo real para operaciones e ingeniería. Reduce paradas no planificadas y tiempo de diagnóstico ante fallas.',
-    tags: ['Python', 'APIs industriales', 'Alertas automáticas'],
-    anchor: '#contacto',
-    anchorLabel: 'Agendar demo',
-    dev: false,
-  },
-  {
-    num: '04',
-    title: 'Peritaje y Litigios',
+    title: 'Peritaje Energético',
     badge: '',
     badgeColor: '',
     price: 'Desde CLP $2.000.000',
     entregable: 'Informe pericial con validez legal',
     roi: 'Protección ante controversias técnicas',
-    desc: 'Informes periciales técnicos para procesos legales, controversias con proveedores o seguros. Redacción con rigor universitario y citación normativa. Disponibilidad limitada — consulte disponibilidad.',
-    tags: ['Peritaje', 'Litigios técnicos', 'Normas internacionales'],
+    desc: 'Informes periciales técnicos sobre sistemas térmicos e hidráulicos para procesos legales, controversias con proveedores de equipos o seguros. Redacción con rigor universitario, citación de normas ANSI/ISO y validez ante organismos reguladores.',
+    tags: ['Peritaje Energético', 'Sistemas Térmicos', 'Normas internacionales'],
     anchor: '#contacto',
     anchorLabel: 'Consultar disponibilidad',
     dev: false,
-  },
-  {
-    num: '05',
-    title: 'Simulación de Materiales',
-    badge: '',
-    badgeColor: '',
-    price: 'Desde CLP $1.200.000',
-    entregable: 'Modelo de comportamiento material + recomendaciones',
-    roi: 'Reduce fallas prematuras en terreno',
-    desc: 'Anticipe fallas de material antes de que ocurran en planta. Modelado del comportamiento atómico bajo estrés mecánico y térmico para reducir costos de reemplazo no planificado en minería y manufactura avanzada.',
-    tags: ['LAMMPS / LPMD', 'Dinámica Molecular', 'Linux HPC'],
-    anchor: '#contacto',
-    anchorLabel: 'Ver alcance',
-    dev: false,
-  },
-  {
-    num: '06',
-    title: 'CFD Avanzado',
-    badge: 'En desarrollo · 2026',
-    badgeColor: 'gold',
-    price: 'Próximamente',
-    entregable: 'Modelamiento 3D de fluidos complejos',
-    roi: 'Para procesos de alta demanda computacional',
-    desc: 'Solvers basados en Navier-Stokes y paralelización en GPU para modelamiento tridimensional de fluidos complejos en procesos industriales de alta demanda computacional.',
-    tags: ['OpenFOAM', 'PETSc', 'JAX'],
-    anchor: '#contacto',
-    anchorLabel: 'Notificarme',
-    dev: true,
   },
 ];
 
@@ -227,10 +185,10 @@ export default function Servicios() {
           style={{ background: 'var(--panel)', border: '1px solid var(--border)', borderRadius: '2px' }}
         >
           <p style={{ fontSize: '1rem', color: 'var(--text)', fontWeight: 500, marginBottom: '0.5rem' }}>
-            ¿No sabe cuál servicio necesita?
+            ¿Cuánto calor residual está perdiendo su planta?
           </p>
           <p style={{ fontSize: '0.9rem', color: 'var(--muted)', marginBottom: '1.25rem' }}>
-            La calculadora de ahorro estima su potencial en 60 segundos y le indica el servicio más adecuado.
+            La calculadora estima el potencial de recuperación y el ahorro anual en 60 segundos.
           </p>
           <Link href="/calculadora" className="btn-solid">
             Calcular mi ahorro potencial →

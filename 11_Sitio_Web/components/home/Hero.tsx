@@ -52,8 +52,8 @@ export default function Hero() {
                 letterSpacing: '-0.01em',
               }}
             >
-              Simulación computacional para el problema industrial{' '}
-              <em style={{ color: '#6fa3e8' }}>que no cuadra en Excel.</em>
+              Ingeniería térmica computacional para la energía residual{' '}
+              <em style={{ color: '#6fa3e8' }}>que su planta está perdiendo.</em>
             </h1>
 
             <p
@@ -65,9 +65,9 @@ export default function Hero() {
                 maxWidth: '520px',
               }}
             >
-              Cálculo térmico, análisis hidráulico y validación de diseños con Python
-              y métodos numéricos. Entrego el código fuente junto con el informe —
-              no solo un PDF.
+              Modelado termodinámico e hidráulico de sistemas de recuperación de calor.
+              Dimensionamiento de intercambiadores, redes de distribución y acumuladores
+              térmicos — código fuente entregado junto al informe.
             </p>
 
             {/* CTA */}

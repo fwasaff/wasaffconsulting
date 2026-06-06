@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useFadeIn } from '@/lib/useFadeIn';
 
 const competencias = [
-  'Python / SciPy', 'LAMMPS / LPMD', 'Bash / Linux HPC',
-  'LaTeX', 'Pandas', 'OpenFOAM', 'React / Next.js', 'Apps Script',
+  'Python / SciPy', 'Termodinámica', 'Hidráulica computacional',
+  'LaTeX', 'Runge-Kutta 4', 'ε-NTU', 'Bash / Linux HPC', 'Pandas',
 ];
 
 const timeline = [
@@ -93,8 +93,8 @@ export default function Quien() {
               {[
                 'Publicación InTech Open 2012',
                 'Ex coordinador laboratorios Física · U. Chile',
-                'Ex ingeniero simulación · Leycero SpA',
-                '505 kW recuperados en proyecto industrial',
+                'Ex ingeniero simulación térmica · Leycero SpA',
+                '622 kW recuperados en proyecto industrial',
               ].map((logro) => (
                 <div key={logro} className="flex items-start gap-2">
                   <span style={{ color: 'var(--blue)', flexShrink: 0, fontSize: '0.75rem', marginTop: '0.1rem' }}>·</span>
@@ -157,10 +157,10 @@ export default function Quien() {
               className="fade-in-item"
               style={{ fontSize: '1.02rem', color: 'var(--muted)', lineHeight: 1.75, marginBottom: '1.5rem' }}
             >
-              Wasaff Consulting fue fundada para cerrar la brecha entre la investigación
-              física avanzada y la ingeniería industrial aplicada en Chile. La práctica combina
-              el rigor matemático de nivel universitario con experiencia directa en proyectos
-              para minería, manufactura y energía.
+              Wasaff Consulting fue fundada para cerrar la brecha entre la física computacional
+              avanzada y la ingeniería térmica industrial aplicada en Chile. La práctica se
+              especializa en recuperación de calor residual, dimensionamiento de intercambiadores
+              y validación de sistemas térmicos e hidráulicos para la industria nacional.
             </p>
 
             <p
