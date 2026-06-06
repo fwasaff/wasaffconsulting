@@ -12,8 +12,8 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Servicios />
       <Proyectos />
+      <Servicios />
       <CasosUso />
       <Diferenciadores />
       <Quien />

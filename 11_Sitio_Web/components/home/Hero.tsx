@@ -38,7 +38,7 @@ export default function Hero() {
               }}
             >
               <span className="status-dot" style={{ background: 'var(--green)' }} />
-              Especialista técnico · 1 proyecto B2B ejecutado · Santiago, Chile
+              Especialista técnico · Ingeniería de detalle · Santiago, Chile
             </div>
 
             <h1
@@ -70,13 +70,10 @@ export default function Hero() {
               no solo un PDF.
             </p>
 
-            {/* CTAs */}
+            {/* CTA */}
             <div className="fade-in-item flex flex-wrap gap-4 items-center">
               <Link href="#contacto" className="btn-solid" style={{ fontSize: '0.95rem', padding: '0.75rem 1.5rem' }}>
                 Solicitar factibilidad técnica →
-              </Link>
-              <Link href="#casos" className="btn-ghost-dark">
-                Ver proyectos
               </Link>
             </div>
           </div>
@@ -104,7 +101,7 @@ export default function Hero() {
               {[
                 { val: '505', unit: 'kW', label: 'Potencia térmica recuperada', sub: 'Sistema de compresores — industria pulp' },
                 { val: '11', unit: '', label: 'Tramos de tubería calculados', sub: 'Darcy-Weisbach + Colebrook-White' },
-                { val: '1', unit: '', label: 'Proyecto B2B ejecutado', sub: 'Ingeniería térmica e hidráulica' },
+                { val: '~$300', unit: 'MM', label: 'CLP en ahorro anual estimado', sub: 'Sistema de compresores · industria pulp' },
                 { val: '6+', unit: '', label: 'Años de rigor técnico', sub: 'Universidad de Chile + consultoría' },
               ].map((m) => (
                 <div key={m.label} className="p-5 flex flex-col gap-1">
