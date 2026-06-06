@@ -91,7 +91,7 @@ export default function Hero() {
               priority
               draggable={false}
               onContextMenu={(e) => e.preventDefault()}
-              style={{ width: '100%', height: '420px', objectFit: 'cover', objectPosition: 'center', userSelect: 'none', display: 'block' }}
+              style={{ width: '100%', height: 'clamp(200px, 35vw, 420px)', objectFit: 'cover', objectPosition: 'center', userSelect: 'none', display: 'block' }}
             />
             {/* KPI overlay */}
             <div

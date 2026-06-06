@@ -58,7 +58,7 @@ export default function Diferenciadores() {
               display: 'block',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.72rem',
-              color: 'rgba(34,81,255,0.8)',
+              color: '#6fa3e8',
               textTransform: 'uppercase',
               letterSpacing: '0.1em',
               marginBottom: '1rem',

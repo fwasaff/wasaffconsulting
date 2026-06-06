@@ -6,7 +6,7 @@ import { trackEvent } from '@/lib/gtag';
 const infoRows = [
   { key: 'Sede',               val: 'Santiago, Chile' },
   { key: 'Modalidad',          val: 'B2B · Proyectos cerrados y asesorías' },
-  { key: 'Sectores',           val: 'Minería · Energía · Manufactura' },
+  { key: 'Sectores',           val: 'Manufactura · Pulp & Paper · Energía' },
   { key: 'Cobertura',          val: 'Chile · Proyectos internacionales a solicitud' },
   { key: 'Confidencialidad',   val: 'NDA disponible desde el primer contacto' },
 ];
