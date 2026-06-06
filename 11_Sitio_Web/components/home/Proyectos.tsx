@@ -18,11 +18,11 @@ const proyectos: {
   {
     badge: 'Recuperación Energética',
     badgeColor: 'gold',
-    year: '2023',
+    year: '2026',
     client: 'Industria manufacturera · Región Metropolitana',
     title: 'Recuperación de calor residual en sistema de compresores industriales',
-    desc: 'Una planta manufacturera tenía un OPEX energético insostenible derivado de seis compresores de tornillo rotatorio que disipaban calor a la atmósfera. Wasaff Consulting desarrolló el modelo matemático completo: análisis ε-NTU de intercambiadores de placas, red hidráulica de 11 tramos (Darcy-Weisbach + Colebrook-White), verificación de acumuladores y dimensionamiento de bomba de circulación.',
-    kpis: ['505 kW de demanda térmica cubierta', 'Caudal: 21.396 kg/h', '11 tramos calculados · DN1"–DN3"', 'Informe LaTeX + código Python entregado'],
+    desc: 'Una planta manufacturera tenía un OPEX energético insostenible derivado de seis compresores de tornillo rotatorio que disipaban calor a la atmósfera. Wasaff Consulting desarrolló el modelo matemático completo: balance ε-NTU del intercambiador externo, red hidráulica de 9 tramos con Colebrook-White resuelto por Newton-Raphson, modelo dinámico del acumulador (15.000 L) integrado con Runge-Kutta 4, y análisis de degradación por fouling que determinó la selección del intercambiador tubular shell-and-tube.',
+    kpis: ['622 kW de potencia térmica de diseño', '5.448.720 kWh/año · 19,6 TJ/año', '9 tramos · DN65/DN100 Sch 40 · Bomba 0,55 kW', '306 MM CLP/año en ahorro estimado'],
     image: { src: '/compresores.png', alt: 'Compresores industriales de tornillo rotatorio' },
   },
   {

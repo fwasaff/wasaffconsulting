@@ -99,9 +99,9 @@ export default function Hero() {
               style={{ background: 'rgba(5,28,44,0.92)', backdropFilter: 'blur(8px)' }}
             >
               {[
-                { val: '505', unit: 'kW', label: 'Potencia térmica recuperada', sub: 'Sistema de compresores — industria pulp' },
-                { val: '11', unit: '', label: 'Tramos de tubería calculados', sub: 'Darcy-Weisbach + Colebrook-White' },
-                { val: '~$300', unit: 'MM', label: 'CLP en ahorro anual estimado', sub: 'Sistema de compresores · industria pulp' },
+                { val: '622', unit: 'kW', label: 'Potencia térmica de diseño', sub: 'Sistema de compresores — industria pulp' },
+                { val: '9', unit: '', label: 'Tramos hidráulicos calculados', sub: 'Colebrook-White · Newton-Raphson' },
+                { val: '306', unit: 'MM', label: 'CLP en ahorro anual estimado', sub: '5,45 GWh/año · industria pulp' },
                 { val: '6+', unit: '', label: 'Años de rigor técnico', sub: 'Universidad de Chile + consultoría' },
               ].map((m) => (
                 <div key={m.label} className="p-5 flex flex-col gap-1">
