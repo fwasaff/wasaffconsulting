@@ -89,7 +89,7 @@ const schemaOrg = {
   url: SITE_URL,
   telephone: '+56920150897',
   email: 'felipe@wasaffconsulting.cl',
-  priceRange: 'CLP $1.500.000 – $5.000.000',
+  priceRange: 'CLP $800.000 – $5.000.000',
   founder: {
     '@type': 'Person',
     name: 'Felipe Wasaff',
@@ -132,7 +132,7 @@ const schemaOrg = {
       {
         '@type': 'Offer',
         itemOffered: { '@type': 'Service', name: 'Peritaje Energético' },
-        price: '2000000',
+        price: '3000000',
         priceCurrency: 'CLP',
       },
     ],
