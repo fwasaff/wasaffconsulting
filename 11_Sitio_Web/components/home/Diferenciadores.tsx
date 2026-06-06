@@ -193,12 +193,9 @@ export default function Diferenciadores() {
         </div>
 
         {/* CTA bajo tabla */}
-        <div className="fade-in-item flex flex-col sm:flex-row gap-4 items-center justify-center mt-12">
-          <a href="/calculadora" className="btn-solid">
-            Calcular mi ahorro potencial →
-          </a>
+        <div className="fade-in-item flex justify-center mt-12">
           <button
-            className="btn-ghost-dark"
+            className="btn-solid"
             onClick={() => {
               trackEvent('calendly_click', { location: 'diferenciadores' });
               if (typeof window !== 'undefined' && (window as any).Calendly) {
@@ -206,7 +203,7 @@ export default function Diferenciadores() {
               }
             }}
           >
-            Diagnóstico gratuito 30 min
+            Agendar diagnóstico gratuito →
           </button>
         </div>
       </div>

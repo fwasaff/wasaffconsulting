@@ -111,9 +111,9 @@ export default function Colaboradores() {
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--gold)', flexShrink: 0, paddingTop: '0.1rem' }}>▸</span>
           <p style={{ fontSize: '0.875rem', color: 'var(--muted)', lineHeight: 1.65 }}>
             El proyecto de recuperación de calor residual en sistema de compresores industriales
-            (505 kW · 2023) fue ejecutado en colaboración entre ambas firmas: Ley Cero SpA
-            como contraparte técnica en terreno y Wasaff Consulting como responsable del
-            modelo matemático y el informe de ingeniería.
+            (622 kW · industria pulp) representa la base técnica de esta alianza: Nilton Martínez
+            como contraparte técnica en terreno, Felipe Wasaff como responsable del modelo
+            matemático e informe de ingeniería.
           </p>
         </div>
 

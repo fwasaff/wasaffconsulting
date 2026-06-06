@@ -4,11 +4,9 @@ import { trackEvent } from '@/lib/gtag';
 
 const columnas = {
   servicios: [
-    { label: 'Eficiencia Energética',   href: '#servicios' },
-    { label: 'Validación de Diseño',    href: '#servicios' },
-    { label: 'Monitoreo Predictivo',    href: '#servicios' },
-    { label: 'Peritaje y Litigios',     href: '#servicios' },
-    { label: 'Simulación de Materiales',href: '#servicios' },
+    { label: 'Recuperación de Calor',          href: '#servicios' },
+    { label: 'Validación de Sistemas Térmicos', href: '#servicios' },
+    { label: 'Peritaje Energético',            href: '#servicios' },
   ],
   recursos: [
     { label: 'Calculadora de ahorro ROI', href: '/calculadora' },
@@ -88,8 +86,8 @@ export default function Footer() {
                 lineHeight: 1.6,
               }}
             >
-              Ingeniería Física Computacional<br />
-              Minería · Energía · Manufactura<br />
+              Ingeniería Térmica Computacional<br />
+              Recuperación de Calor · Sistemas Térmicos<br />
               Santiago, Chile
             </p>
             <div className="flex flex-col gap-2">

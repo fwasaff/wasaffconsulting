@@ -14,7 +14,6 @@ export default function Home() {
       <Hero />
       <Proyectos />
       <Servicios />
-      <CasosUso />
       <Diferenciadores />
       <Quien />
       <Colaboradores />
